@@ -18,4 +18,4 @@ class MainWindow : public QMainWindow {
     Ui::MainWindow *ui;
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H
