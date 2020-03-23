@@ -25,36 +25,36 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-#        src/game/game.cpp \
+        src/game/game.cpp \
 #        src/game/gamewidget.cpp \
 #        src/game/minigame.cpp \
 #        src/game/minigames/testminigame.cpp \
 #        src/game/object.cpp \
 #        src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
-#        src/menu/mainwindow.cpp \
+        src/menu/mainwindow.cpp \
 #        src/menu/settingswidget.cpp \
-#        src/utility/infomanager.cpp \
+        src/utility/infomanager.cpp \
 #        src/utility/physics.cpp \
 #        src/utility/soundmanager.cpp \
 
 HEADERS += \
-#        src/game/game.h \
+        src/game/game.h \
 #        src/game/gamewidget.h \
 #        src/game/minigame.h \
 #        src/game/minigames/testminigame.h \
 #        src/game/object.h \
 #        src/menu/aboutwidget.h \
-#        src/menu/mainwindow.h \
+        src/menu/mainwindow.h \
 #        src/menu/settingswidget.h \
-#        src/utility/infomanager.h \
+        src/utility/infomanager.h \
 #        src/utility/physics.h \
 #        src/utility/soundmanager.h \
 
 FORMS += \
 #        src/game/gamewidget.ui \
 #        src/menu/aboutwidget.ui \
-#        src/menu/mainwindow.ui \
+        src/menu/mainwindow.ui \
 #        src/menu/settingswidget.ui
 
 # Default rules for deployment.
@@ -63,7 +63,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-#    resources.qrc
+    resources.qrc
 
 DISTFILES += \
-#    data/data.txt
+    data/data.txt
