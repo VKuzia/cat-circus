@@ -35,8 +35,8 @@ SOURCES += \
         src/menu/mainwindow.cpp \
 #        src/menu/settingswidget.cpp \
         src/utility/infomanager.cpp \
-#        src/utility/physics.cpp \
-#        src/utility/soundmanager.cpp \
+        src/utility/physics.cpp \
+        src/utility/soundmanager.cpp \
 
 HEADERS += \
         src/game/game.h \
@@ -48,8 +48,8 @@ HEADERS += \
         src/menu/mainwindow.h \
 #        src/menu/settingswidget.h \
         src/utility/infomanager.h \
-#        src/utility/physics.h \
-#        src/utility/soundmanager.h \
+        src/utility/physics.h \
+        src/utility/soundmanager.h \
 
 FORMS += \
 #        src/game/gamewidget.ui \
