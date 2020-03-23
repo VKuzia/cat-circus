@@ -27,9 +27,9 @@ CONFIG += c++11
 SOURCES += \
         src/game/game.cpp \
 #        src/game/gamewidget.cpp \
-#        src/game/minigame.cpp \
-#        src/game/minigames/testminigame.cpp \
-#        src/game/object.cpp \
+        src/game/minigame.cpp \
+        src/game/minigames/testminigame.cpp \
+        src/game/object.cpp \
 #        src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
@@ -41,9 +41,9 @@ SOURCES += \
 HEADERS += \
         src/game/game.h \
 #        src/game/gamewidget.h \
-#        src/game/minigame.h \
-#        src/game/minigames/testminigame.h \
-#        src/game/object.h \
+        src/game/minigame.h \
+        src/game/minigames/testminigame.h \
+        src/game/object.h \
 #        src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
 #        src/menu/settingswidget.h \
