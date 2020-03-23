@@ -257,8 +257,8 @@ BEST SCORE]</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="_game_widget"/>
-      <widget class="QWidget" name="_settings_widget">
+      <widget class="GameWidget" name="_game_widget"/>
+      <widget class="SettingsWidget" name="_settings_widget">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -266,13 +266,33 @@ BEST SCORE]</string>
         </sizepolicy>
        </property>
       </widget>
-      <widget class="QWidget" name="_about_widget"/>
+      <widget class="AboutWidget" name="_about_widget"/>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>SettingsWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">src\menu\settingswidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AboutWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">src\menu\aboutwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GameWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">src\game\gamewidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
