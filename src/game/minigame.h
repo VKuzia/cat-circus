@@ -4,7 +4,7 @@
 
 class MiniGame {
  public:
-  MiniGame(QGraphicsView* render_area, double difficulty_ = 0.1);
+  MiniGame(QGraphicsView* render_area, double difficulty_);
   virtual ~MiniGame() = 0;
 
   virtual void Start() = 0;   // starts the game loop
