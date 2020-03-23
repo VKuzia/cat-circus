@@ -48,7 +48,7 @@
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="_main_menu_widget">
        <property name="sizePolicy">
@@ -277,19 +277,19 @@ BEST SCORE]</string>
   <customwidget>
    <class>SettingsWidget</class>
    <extends>QWidget</extends>
-   <header>src\menu\settingswidget.h</header>
+   <header>src/menu/settingswidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>AboutWidget</class>
    <extends>QWidget</extends>
-   <header>src\menu\aboutwidget.h</header>
+   <header>src/menu/aboutwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>GameWidget</class>
    <extends>QWidget</extends>
-   <header>src\game\gamewidget.h</header>
+   <header>src/game/gamewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
