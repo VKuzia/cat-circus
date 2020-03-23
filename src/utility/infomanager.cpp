@@ -26,7 +26,7 @@ bool InfoManager::LoadInfo(const QString &path) {
   return true;
 }
 
-bool InfoManager::SaveInfo(const QString &) const {}
+bool InfoManager::SaveInfo(const QString &) const { return true; }
 
 int32_t InfoManager::GetWindowWidth() const { return window_width_; }
 
