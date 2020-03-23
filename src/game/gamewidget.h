@@ -24,7 +24,7 @@ class GameWidget : public QWidget {
 
  private:
   Ui::GameWidget *ui;
-  //  MiniGame *current_minigame_;  // minigame running now
+  //  MiniGame *current_minigame_;  // minigame running now,
 };
 
 #endif  // GAMEWIDGET_H
