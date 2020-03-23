@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-//#include "src/game/minigame.h"
+// #include "src/game/minigame.h"
 
 namespace Ui {
 class GameWidget;
