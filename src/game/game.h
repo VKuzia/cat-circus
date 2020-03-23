@@ -7,7 +7,7 @@
 
 class Game {
  public:
-  Game(InfoManager* info);
+  explicit Game(InfoManager* info);
   void Start();
 
  public slots:
