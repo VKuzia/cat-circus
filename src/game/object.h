@@ -2,21 +2,26 @@
 #define OBJECT_H
 
 #include <QGraphicsItem>
-#include <QPoint>
+#include <QPixmap>
+#include <QVector2D>
 
-class Object {
+class Object : QGraphicsItem {
  public:
-  Object();
-  virtual ~Object() = default;
+  Object() = default;
+  virtual ~Object() override = default;
 
- private:
-  int32_t x_;
-  int32_t y_;
-  bool is_static_;
-  QPoint velocity_;  // vector of current velocity
+  QRectF boundingRect() const override;
+  void paint(QPainter* painter, const QStyleOptionGraphicsItem*,
+             QWidget*) override;
+
+ protected:
+  bool is_movable_ = true;
+  qreal bounding_width_;
+  qreal bounding_height_;
+  QVector2D velocity_;
   double mass_;
 
-  QGraphicsItem* sprite_;  // sprite
+  QPixmap* sprite_ = nullptr;
 };
 
 #endif  // OBJECT_H

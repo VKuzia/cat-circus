@@ -14,9 +14,8 @@ class Game {
  public slots:
 
  private:
-  InfoManager* info_;  // contains information about current game
-  MainWindow
-      window_;  // the main window (has no parent, every widget is its child)
+  InfoManager* info_;  // Contains game data
+  MainWindow window_;  // Has no parent, every widget is its child
 };
 
 #endif  // GAME_H

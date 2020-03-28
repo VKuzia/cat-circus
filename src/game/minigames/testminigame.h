@@ -5,7 +5,7 @@
 
 class TestMinigame : public MiniGame {
  public:
-  TestMinigame(QGraphicsView* render_area, double difficulty_);
+  TestMinigame(QGraphicsView* render_area, double difficulty);
 };
 
 #endif  // TESTMINIGAME_H

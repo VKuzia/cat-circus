@@ -5,18 +5,18 @@
 
 class MiniGame {
  public:
-  MiniGame(QGraphicsView* render_area, double difficulty_);
-  virtual ~MiniGame();
+  MiniGame(QGraphicsView* render_area, double difficulty);
+  virtual ~MiniGame() = default;
 
-  virtual void Start() = 0;   // starts the game loop
-  virtual void Win() = 0;     // actions if player wins
-  virtual void Lose() = 0;    // actoins if player loses
-  virtual void Update() = 0;  // one frame update according to game logic
+  virtual void Start() = 0;
+  virtual void Win() = 0;
+  virtual void Lose() = 0;
+  virtual void Update() = 0;  // One frame changes according to game logic
 
  private:
-  QGraphicsView* render_area_;  // game graphics is drawn here
+  QGraphicsView* render_area_;  // All mini-game graphics is drawn here
 
-  double difficulty_;  // shows how difficult (how fast) should be the game
+  double difficulty_;
 };
 
 #endif  // MINIGAME_H
