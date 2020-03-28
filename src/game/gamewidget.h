@@ -13,7 +13,7 @@ class GameWidget : public QWidget {
   Q_OBJECT
 
  public:
-  explicit GameWidget(QWidget *parent = nullptr);
+  explicit GameWidget(QWidget* parent = nullptr);
   ~GameWidget();
 
  signals:
@@ -23,7 +23,7 @@ class GameWidget : public QWidget {
   void ReturnToMainMenu();
 
  private:
-  Ui::GameWidget *ui;
+  Ui::GameWidget* ui;
   //  MiniGame *current_minigame_;  // minigame running now,
 };
 

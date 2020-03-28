@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+
 #include <QString>
 
 #include "src/menu/mainwindow.h"

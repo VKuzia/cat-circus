@@ -6,7 +6,7 @@
 InfoManager::InfoManager()
     : window_width_(0), window_height_(0), best_score_(0) {}
 
-bool InfoManager::LoadInfo(const QString &path) {
+bool InfoManager::LoadInfo(const QString& path) {
   load_path_ = path;
   QFile file(path);
   if (!file.open(QIODevice::ReadOnly)) {
@@ -26,7 +26,7 @@ bool InfoManager::LoadInfo(const QString &path) {
   return true;
 }
 
-bool InfoManager::SaveInfo(const QString &) const { return true; }
+bool InfoManager::SaveInfo(const QString&) const { return true; }
 
 int32_t InfoManager::GetWindowWidth() const { return window_width_; }
 

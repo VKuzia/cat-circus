@@ -343,11 +343,28 @@ BEST SCORE]</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Exit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>748</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>796</x>
+     <y>73</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ChangeToMainMenu()</slot>
   <slot>ChangeToSettings()</slot>
   <slot>ChangeToAbout()</slot>
   <slot>ChangeToGame()</slot>
+  <slot>Exit()</slot>
  </slots>
 </ui>

@@ -30,4 +30,6 @@ void MainWindow::ChangeToAbout() {
   ui->_stacked_widget->setCurrentWidget(ui->_about_widget);
 }
 
+void MainWindow::Exit() { QApplication::exit(0); }
+
 MainWindow::~MainWindow() { delete ui; }

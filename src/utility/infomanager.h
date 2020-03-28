@@ -16,8 +16,8 @@ class InfoManager {
   QString load_path_;      // last loading path (to save something there)
   int32_t window_width_;   // width of main window in pixels
   int32_t window_height_;  // height of main window in pixels
-  QString players_name_;  // curent players name; may be used to save comptetive
-                          // results further
+  QString players_name_;   // current players name; may be used to save
+                          // comptetive results further
   int64_t
       best_score_;  // best score achieved by current player to track records
 };

@@ -11,7 +11,7 @@ class AboutWidget : public QWidget {
   Q_OBJECT
 
  public:
-  explicit AboutWidget(QWidget *parent = nullptr);
+  explicit AboutWidget(QWidget* parent = nullptr);
   ~AboutWidget();
 
  signals:
@@ -21,7 +21,7 @@ class AboutWidget : public QWidget {
   void ReturnToMainMenu();
 
  private:
-  Ui::AboutWidget *ui;
+  Ui::AboutWidget* ui;
 };
 
 #endif  // ABOUTWIDGET_H
