@@ -13,7 +13,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  explicit MainWindow(InfoManager *info, QWidget *parent = nullptr);
+  explicit MainWindow(InfoManager* info, QWidget* parent = nullptr);
   ~MainWindow();
 
  public slots:
@@ -23,7 +23,7 @@ class MainWindow : public QMainWindow {
   void ChangeToAbout();
 
  private:
-  Ui::MainWindow *ui;
+  Ui::MainWindow* ui;
 };
 
 #endif  // MAINWINDOW_H

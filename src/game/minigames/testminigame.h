@@ -1,5 +1,6 @@
 #ifndef TESTMINIGAME_H
 #define TESTMINIGAME_H
+
 #include "src/game/minigame.h"
 
 class TestMinigame : public MiniGame {

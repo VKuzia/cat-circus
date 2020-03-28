@@ -3,9 +3,6 @@
 #include <QFile>
 #include <QTextStream>
 
-InfoManager::InfoManager()
-    : window_width_(0), window_height_(0), best_score_(0) {}
-
 bool InfoManager::LoadInfo(const QString &path) {
   load_path_ = path;
   QFile file(path);
