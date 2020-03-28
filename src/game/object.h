@@ -8,7 +8,7 @@
 class Object : QGraphicsItem {
  public:
   Object() = default;
-  virtual ~Object() override = default;
+  ~Object() override = default;
 
   QRectF boundingRect() const override;
   void paint(QPainter* painter, const QStyleOptionGraphicsItem*,
