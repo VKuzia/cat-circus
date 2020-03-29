@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 
-#include "src/utility/infomanager.h"
-
 namespace Ui {
 class MainWindow;
 }
@@ -13,7 +11,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  explicit MainWindow(InfoManager* info, QWidget* parent = nullptr);
+  explicit MainWindow(int32_t width, int32_t height, QWidget* parent = nullptr);
   ~MainWindow();
 
  public slots:

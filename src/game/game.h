@@ -4,19 +4,18 @@
 #include <QString>
 
 #include "src/menu/mainwindow.h"
-#include "src/utility/infomanager.h"
 
 class Game {
  public:
-  explicit Game(InfoManager* info);
+  Game();
   void Start();
 
  public slots:
 
  private:
-  InfoManager* info_;  // contains information about current game
-  MainWindow
-      window_;  // the main window (has no parent, every widget is its child)
+  int32_t width_ = 1024;
+  int32_t height_ = 576;
+  MainWindow window_;
 };
 
 #endif  // GAME_H

@@ -3,8 +3,6 @@
 
 #include <QWidget>
 
-//  #include "src/game/minigame.h"
-
 namespace Ui {
 class GameWidget;
 }
@@ -24,7 +22,6 @@ class GameWidget : public QWidget {
 
  private:
   Ui::GameWidget* ui;
-  //  MiniGame *current_minigame_;  // minigame running now,
 };
 
 #endif  // GAMEWIDGET_H

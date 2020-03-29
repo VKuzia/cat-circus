@@ -2,10 +2,10 @@
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(InfoManager* info, QWidget* parent)
+MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-  this->resize(info->GetWindowWidth(), info->GetWindowHeight());
+  this->resize(width, height);
 
   connect(ui->_settings_widget, SIGNAL(MainMenu()), this,
           SLOT(ChangeToMainMenu()));

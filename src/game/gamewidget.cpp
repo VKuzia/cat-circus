@@ -4,7 +4,6 @@
 
 GameWidget::GameWidget(QWidget* parent)
     : QWidget(parent), ui(new Ui::GameWidget) {
-  //  ,  current_minigame_(nullptr)
   ui->setupUi(this);
 }
 
