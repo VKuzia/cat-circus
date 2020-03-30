@@ -3,29 +3,38 @@
 
 #include <QGraphicsView>
 #include <QObject>
+#include <QTimer>
 
 class MiniGame : public QObject {
   Q_OBJECT
  public:
-  explicit MiniGame(QGraphicsView* graphics_view, int32_t width, int32_t height,
-                    qreal difficulty);
-  virtual ~MiniGame() = default;
+  MiniGame(QGraphicsView* graphics_view, int32_t width, int32_t height,
+           qreal difficulty);
+  virtual ~MiniGame();
 
   virtual void Start() = 0;
   virtual void Pause() = 0;
+  virtual void Resume() = 0;
+  virtual void Stop() = 0;
 
  signals:
-  void Finish(int64_t score);
+  void Passed(int64_t score);
+  void Failed();
 
  public slots:
 
- private:
+ protected:
   QGraphicsView* graphics_view_;
+  QTimer* finish_timer_;
+
   int32_t width_;
   int32_t height_;
   qreal difficulty_;
 
-  virtual void Stop() = 0;
+  bool is_running_;
+
+  virtual void Win() = 0;
+  virtual void Lose() = 0;
 };
 
 #endif  // MINIGAME_H
