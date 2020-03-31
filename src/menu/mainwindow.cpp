@@ -19,6 +19,7 @@ void MainWindow::ChangeToMainMenu() {
 }
 
 void MainWindow::ChangeToGame() {
+  ui->_game_widget->SetUp();
   ui->_stacked_widget->setCurrentWidget(ui->_game_widget);
 }
 

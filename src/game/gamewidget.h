@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "minigame.h"
+#include "src/game/minigame.h"
 
 namespace Ui {
 class GameWidget;
@@ -16,6 +16,8 @@ class GameWidget : public QWidget {
   explicit GameWidget(QWidget* parent = nullptr);
   ~GameWidget();
 
+  void SetUp();
+
  signals:
   void MainMenu();
 
@@ -25,6 +27,9 @@ class GameWidget : public QWidget {
  private:
   Ui::GameWidget* ui;
   MiniGame* current_minigame_ = nullptr;
+
+  void InitMiniGame();
+  void StartMiniGame();
 };
 
 #endif  // GAMEWIDGET_H

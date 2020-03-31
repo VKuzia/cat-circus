@@ -8,8 +8,7 @@
 class MiniGame : public QObject {
   Q_OBJECT
  public:
-  MiniGame(QGraphicsView* graphics_view, int32_t width, int32_t height,
-           qreal difficulty);
+  MiniGame(QGraphicsView* graphics_view, qreal difficulty);
   virtual ~MiniGame();
 
   virtual void Start() = 0;

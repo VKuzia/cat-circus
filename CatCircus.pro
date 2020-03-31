@@ -28,6 +28,7 @@ SOURCES += \
         src/game/game.cpp \
         src/game/gamewidget.cpp \
     src/game/minigame.cpp \
+    src/game/minigames/testminigame.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
         src/game/game.h \
         src/game/gamewidget.h \
         src/game/minigame.h \
+        src/game/minigames/testminigame.h \
         src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
         src/menu/settingswidget.h
