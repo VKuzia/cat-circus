@@ -7,6 +7,7 @@
 
 class MiniGame : public QObject {
   Q_OBJECT
+
  public:
   MiniGame(QGraphicsView* graphics_view, qreal difficulty);
   virtual ~MiniGame();
