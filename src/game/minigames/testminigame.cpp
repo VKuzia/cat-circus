@@ -30,6 +30,7 @@ void TestMiniGame::Stop() {
   is_running_ = false;
   finish_timer_->stop();
   graphics_view_->scene()->setBackgroundBrush(Qt::NoBrush);
+  emit Passed(0);
 }
 
 void TestMiniGame::Win() {}

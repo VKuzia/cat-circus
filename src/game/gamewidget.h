@@ -30,6 +30,7 @@ class GameWidget : public QWidget {
 
   void InitMiniGame();
   void StartMiniGame();
+  void SetPointsPage();
 };
 
 #endif  // GAMEWIDGET_H
