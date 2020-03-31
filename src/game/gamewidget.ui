@@ -29,19 +29,8 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="_pregame_page">
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>[TAP TO START]</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
+     <widget class="PointsPage" name="_points_page">
+      <layout class="QVBoxLayout" name="verticalLayout_3"/>
      </widget>
     </widget>
    </item>
@@ -54,6 +43,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PointsPage</class>
+   <extends>QWidget</extends>
+   <header>src/game/pointspage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

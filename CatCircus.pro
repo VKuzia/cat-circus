@@ -29,6 +29,7 @@ SOURCES += \
         src/game/gamewidget.cpp \
     src/game/minigame.cpp \
     src/game/minigames/testminigame.cpp \
+    src/game/pointspage.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
@@ -39,12 +40,14 @@ HEADERS += \
         src/game/gamewidget.h \
         src/game/minigame.h \
         src/game/minigames/testminigame.h \
+        src/game/pointspage.h \
         src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
         src/menu/settingswidget.h
 
 FORMS += \
         src/game/gamewidget.ui \
+        src/game/pointspage.ui \
         src/menu/aboutwidget.ui \
         src/menu/mainwindow.ui \
         src/menu/settingswidget.ui

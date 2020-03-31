@@ -26,6 +26,6 @@ void GameWidget::StartMiniGame() {
 GameWidget::~GameWidget() { delete ui; }
 
 void GameWidget::SetUp() {
+  ui->_stacked_widget->setCurrentWidget(ui->_points_page);
   InitMiniGame();
-  StartMiniGame();
 }
