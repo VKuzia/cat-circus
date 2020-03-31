@@ -30,7 +30,7 @@ class MiniGame : public QObject {
   int32_t height_;
   qreal difficulty_;
 
-  bool is_running_;
+  bool is_running_ = false;
 
   virtual void Win() = 0;
   virtual void Lose() = 0;
