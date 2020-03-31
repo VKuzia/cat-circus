@@ -29,9 +29,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="PointsPage" name="_points_page">
-      <layout class="QVBoxLayout" name="verticalLayout_3"/>
-     </widget>
+     <widget class="PointsPage" name="_points_page"/>
     </widget>
    </item>
    <item>

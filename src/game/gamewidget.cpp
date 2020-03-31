@@ -15,7 +15,7 @@ void GameWidget::ReturnToMainMenu() { emit MainMenu(); }
 
 void GameWidget::InitMiniGame() {
   // Some game picking logic should be here
-  // This version is used to implement MiniGame switch
+  // This version is used only to implement MiniGame switch
   current_minigame_ = new TestMiniGame(ui->_graphics_view, 1);
 }
 
@@ -31,6 +31,12 @@ void GameWidget::StartMiniGame() {
 void GameWidget::SetPointsPage() {
   ui->_stacked_widget->setCurrentWidget(ui->_points_page);
   ui->_points_page->Animate();
+  // We will need to change to another game here soon
+  if (current_minigame_ != nullptr) {
+    delete current_minigame_;
+    current_minigame_ = nullptr;
+  }
+  InitMiniGame();
 }
 
 GameWidget::~GameWidget() { delete ui; }

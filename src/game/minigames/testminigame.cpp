@@ -6,7 +6,7 @@ TestMiniGame::TestMiniGame(QGraphicsView* graphics_view, qreal difficulty)
 TestMiniGame::~TestMiniGame() {}
 
 void TestMiniGame::Start() {
-  finish_timer_->setInterval(3000);
+  finish_timer_->setInterval(kBasicDuration);
   connect(finish_timer_, &QTimer::timeout, this, &TestMiniGame::Stop);
   is_running_ = true;
   graphics_view_->scene()->setBackgroundBrush(
@@ -16,6 +16,7 @@ void TestMiniGame::Start() {
 
 void TestMiniGame::Pause() {
   is_running_ = false;
+  // There are no pause/resume in QTimer
   int32_t remaining_time_ = finish_timer_->remainingTime();
   finish_timer_->stop();
   finish_timer_->setInterval(remaining_time_);

@@ -18,6 +18,8 @@ class TestMiniGame : public MiniGame {
  public slots:
 
  private:
+  int32_t kBasicDuration = 3000;
+
   void Stop() override;
   void Win() override;
   void Lose() override;
