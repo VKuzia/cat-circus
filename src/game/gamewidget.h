@@ -14,7 +14,7 @@ class GameWidget : public QWidget {
 
  public:
   explicit GameWidget(QWidget* parent = nullptr);
-  ~GameWidget();
+  ~GameWidget() override;
 
   void SetUp();
 
@@ -31,6 +31,12 @@ class GameWidget : public QWidget {
   void InitMiniGame();
   void StartMiniGame();
   void SetPointsPage();
+
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+  void keyPressEvent(QKeyEvent* event) override;
+  void keyReleaseEvent(QKeyEvent* event) override;
 };
 
 #endif  // GAMEWIDGET_H

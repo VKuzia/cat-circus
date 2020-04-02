@@ -27,6 +27,46 @@ void TestMiniGame::Resume() {
   finish_timer_->start();
 }
 
+void TestMiniGame::MousePressEvent(QMouseEvent*) {
+  if (!is_running_) {
+    return;
+  }
+  graphics_view_->scene()->setBackgroundBrush(
+      QBrush(QColor::fromRgb(200, 0, 0)));
+}
+
+void TestMiniGame::MouseReleaseEvent(QMouseEvent*) {
+  if (!is_running_) {
+    return;
+  }
+  graphics_view_->scene()->setBackgroundBrush(
+      QBrush(QColor::fromRgb(227, 124, 7)));
+}
+
+void TestMiniGame::MouseMoveEvent(QMouseEvent*) {
+  if (!is_running_) {
+    return;
+  }
+  graphics_view_->scene()->setBackgroundBrush(
+      QBrush(QColor::fromRgb(0, 200, 0)));
+}
+
+void TestMiniGame::KeyPressEvent(QKeyEvent*) {
+  if (!is_running_) {
+    return;
+  }
+  graphics_view_->scene()->setBackgroundBrush(
+      QBrush(QColor::fromRgb(0, 0, 200)));
+}
+
+void TestMiniGame::KeyReleaseEvent(QKeyEvent*) {
+  if (!is_running_) {
+    return;
+  }
+  graphics_view_->scene()->setBackgroundBrush(
+      QBrush(QColor::fromRgb(227, 124, 7)));
+}
+
 void TestMiniGame::Stop() {
   is_running_ = false;
   finish_timer_->stop();

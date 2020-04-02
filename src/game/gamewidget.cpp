@@ -9,6 +9,9 @@ GameWidget::GameWidget(QWidget* parent)
   ui->_graphics_view->setScene(new QGraphicsScene());
   connect(ui->_points_page, &PointsPage::Expired, this,
           &GameWidget::StartMiniGame);
+  // To prevent mouse focus when mousePressEvent is triggered.
+  // Now input focus is always on GameWidget.
+  ui->_graphics_view->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 }
 
 void GameWidget::ReturnToMainMenu() { emit MainMenu(); }
@@ -44,4 +47,33 @@ GameWidget::~GameWidget() { delete ui; }
 void GameWidget::SetUp() {
   InitMiniGame();
   SetPointsPage();
+}
+void GameWidget::mousePressEvent(QMouseEvent* event) {
+  if (current_minigame_ != nullptr) {
+    current_minigame_->MousePressEvent(event);
+  }
+}
+
+void GameWidget::mouseReleaseEvent(QMouseEvent* event) {
+  if (current_minigame_ != nullptr) {
+    current_minigame_->MouseReleaseEvent(event);
+  }
+}
+
+void GameWidget::mouseMoveEvent(QMouseEvent* event) {
+  if (current_minigame_ != nullptr) {
+    current_minigame_->MouseMoveEvent(event);
+  }
+}
+
+void GameWidget::keyPressEvent(QKeyEvent* event) {
+  if (current_minigame_ != nullptr) {
+    current_minigame_->KeyPressEvent(event);
+  }
+}
+
+void GameWidget::keyReleaseEvent(QKeyEvent* event) {
+  if (current_minigame_ != nullptr) {
+    current_minigame_->KeyReleaseEvent(event);
+  }
 }

@@ -4,7 +4,6 @@
 #include <QGraphicsView>
 #include <QObject>
 #include <QTimer>
-
 class MiniGame : public QObject {
   Q_OBJECT
 
@@ -16,6 +15,12 @@ class MiniGame : public QObject {
   virtual void Pause() = 0;
   virtual void Resume() = 0;
   virtual void Stop() = 0;
+
+  virtual void MousePressEvent(QMouseEvent* event) = 0;
+  virtual void MouseReleaseEvent(QMouseEvent* event) = 0;
+  virtual void MouseMoveEvent(QMouseEvent* event) = 0;
+  virtual void KeyPressEvent(QKeyEvent* event) = 0;
+  virtual void KeyReleaseEvent(QKeyEvent* event) = 0;
 
  signals:
   void Passed(int64_t score);
