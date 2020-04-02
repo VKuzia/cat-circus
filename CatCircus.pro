@@ -26,7 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         src/game/game.cpp \
-#    src/game/game_objects/timebar.cpp \
+    src/game/game_objects/timebar.cpp \
         src/game/gamewidget.cpp \
     src/game/graphicsobject.cpp \
     src/game/minigame.cpp \
@@ -39,7 +39,7 @@ SOURCES += \
 
 HEADERS += \
         src/game/game.h \
-#        src/game/game_objects/timebar.h \
+        src/game/game_objects/timebar.h \
         src/game/gamewidget.h \
         src/game/graphicsobject.h \
         src/game/minigame.h \

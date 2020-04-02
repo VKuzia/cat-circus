@@ -7,8 +7,12 @@ GameWidget::GameWidget(QWidget* parent)
     : QWidget(parent), ui(new Ui::GameWidget) {
   ui->setupUi(this);
   ui->_graphics_view->setScene(new QGraphicsScene());
+  ui->_graphics_view->scene()->setSceneRect(
+      -this->width() / 2, -this->height() / 2, this->width(), this->height());
+
   connect(ui->_points_page, &PointsPage::Expired, this,
           &GameWidget::StartMiniGame);
+
   // To prevent mouse focus when mousePressEvent is triggered.
   // Now input focus is always on GameWidget.
   ui->_graphics_view->setAttribute(Qt::WA_TransparentForMouseEvents, true);

@@ -4,6 +4,9 @@
 #include <QGraphicsView>
 #include <QObject>
 #include <QTimer>
+
+#include "src/game/game_objects/timebar.h"
+
 class MiniGame : public QObject {
   Q_OBJECT
 
@@ -29,11 +32,14 @@ class MiniGame : public QObject {
  public slots:
 
  protected:
+  const qreal kTimeBarHeightFactor = 0.05;
+
   QGraphicsView* graphics_view_;
   QTimer* finish_timer_;
 
   int32_t width_;
   int32_t height_;
+  TimeBar* time_bar_;
   qreal difficulty_;
 
   bool is_running_ = false;
