@@ -26,8 +26,15 @@ class TestMiniGame : public MiniGame {
 
  private:
   const int32_t kBasicDuration = 5000;
+  const int32_t kBasicBallRadius = 100;
+  const int32_t kBasicBallNumber = 3;
+
+  int32_t balls_count_;
+  int32_t duration_;
+  int32_t ball_raduis_;
 
   void Tick() override;
+  void AddBall();
 
   void Stop() override;
   void Win() override;

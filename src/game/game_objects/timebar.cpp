@@ -2,7 +2,10 @@
 
 TimeBar::TimeBar(QGraphicsView* graphics_view, qreal width, qreal height,
                  qreal x, qreal y)
-    : GraphicsObject(graphics_view, width, height, x, y) {}
+    : GraphicsObject(graphics_view, width, height, x, y) {
+  this->setCacheMode(ItemCoordinateCache);
+  this->setZValue(100);
+}
 
 TimeBar::~TimeBar() {}
 
@@ -14,8 +17,11 @@ void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
                     QWidget*) {
   painter->setBrush(kBasicColor);
   painter->setPen(Qt::NoPen);
-  painter->drawRect(
-      QRectF(-width_ / 2, -height_ / 2, width_ * progress_, height_));
+  //  painter->scale(progress_, 1);
+  painter->drawRect(QRectF(-width_ / 2, -height_ / 2, width_, height_));
 }
 
-void TimeBar::SetProgress(qreal progress) { progress_ = progress; }
+void TimeBar::SetProgress(qreal progress) {
+  progress_ = progress;
+  this->setTransform(QTransform::fromScale(progress_, 1));
+}

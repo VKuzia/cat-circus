@@ -9,28 +9,37 @@ GameWidget::GameWidget(QWidget* parent)
   ui->_graphics_view->setScene(new QGraphicsScene());
   ui->_graphics_view->scene()->setSceneRect(
       -this->width() / 2, -this->height() / 2, this->width(), this->height());
-
-  connect(ui->_points_page, &PointsPage::Expired, this,
-          &GameWidget::StartMiniGame);
-
+  ui->_graphics_view->setRenderHints(QPainter::Antialiasing |
+                                     QPainter::SmoothPixmapTransform);
   // To prevent mouse focus when mousePressEvent is triggered.
   // Now input focus is always on GameWidget.
   ui->_graphics_view->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+
+  connect(ui->_points_page, &PointsPage::Expired, this,
+          &GameWidget::StartMiniGame);
 }
 
-void GameWidget::ReturnToMainMenu() { emit MainMenu(); }
+void GameWidget::ReturnToMainMenu() {
+  if (current_minigame_ != nullptr) {
+    delete current_minigame_;
+  }
+  emit MainMenu();
+}
 
 void GameWidget::InitMiniGame() {
   // Some game picking logic should be here
   // This version is used only to implement MiniGame switch
-  current_minigame_ = new TestMiniGame(ui->_graphics_view, 1);
+  current_difficulty_ = qMin(0.85, current_difficulty_ + 0.1);
+  current_minigame_ = new TestMiniGame(ui->_graphics_view, current_difficulty_);
 }
 
 void GameWidget::StartMiniGame() {
   if (current_minigame_ != nullptr) {
     ui->_stacked_widget->setCurrentWidget(ui->_game_page);
     connect(current_minigame_, &MiniGame::Passed, this,
-            &GameWidget::SetPointsPage);
+            &GameWidget::MiniGamePassed);
+    connect(current_minigame_, &MiniGame::Failed, this,
+            &GameWidget::MiniGameFailed);
     current_minigame_->Start();
   }
 }
@@ -44,6 +53,16 @@ void GameWidget::SetPointsPage() {
     current_minigame_ = nullptr;
   }
   InitMiniGame();
+}
+
+void GameWidget::MiniGamePassed(int64_t score) {
+  ui->_points_page->MiniGamePassed(score);
+  SetPointsPage();
+}
+
+void GameWidget::MiniGameFailed() {
+  ui->_points_page->MiniGameFailed();
+  SetPointsPage();
 }
 
 GameWidget::~GameWidget() { delete ui; }

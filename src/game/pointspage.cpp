@@ -16,3 +16,10 @@ void PointsPage::Animate() {
   expire_timer_->setInterval(kExpireTime);
   expire_timer_->start();
 }
+
+void PointsPage::MiniGamePassed(int64_t score) {
+  ui->_score_label->setText("You won and scored\n" + QString::number(score) +
+                            " points");
+}
+
+void PointsPage::MiniGameFailed() { ui->_score_label->setText("You lost :("); }

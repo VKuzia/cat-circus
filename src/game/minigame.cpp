@@ -21,6 +21,5 @@ MiniGame::~MiniGame() {
     tick_timer_->stop();
     delete tick_timer_;
   }
-  graphics_view_->scene()->removeItem(time_bar_);
-  delete time_bar_;
+  graphics_view_->scene()->clear();
 }

@@ -28,9 +28,14 @@ class GameWidget : public QWidget {
   Ui::GameWidget* ui;
   MiniGame* current_minigame_ = nullptr;
 
+  qreal current_difficulty_ = 0;
+
   void InitMiniGame();
   void StartMiniGame();
   void SetPointsPage();
+
+  void MiniGamePassed(int64_t score);
+  void MiniGameFailed();
 
   void mousePressEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;

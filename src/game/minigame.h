@@ -33,7 +33,7 @@ class MiniGame : public QObject {
 
  protected:
   const qreal kTimeBarHeightFactor = 0.08;
-  const int32_t kFps = 50;
+  const int32_t kFps = 60;
 
   QGraphicsView* graphics_view_;
   QTimer* finish_timer_;

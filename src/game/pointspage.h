@@ -16,6 +16,9 @@ class PointsPage : public QWidget {
 
   void Animate();
 
+  void MiniGamePassed(int64_t score);
+  void MiniGameFailed();
+
  signals:
   void Expired();
 
