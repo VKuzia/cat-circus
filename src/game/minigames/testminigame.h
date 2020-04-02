@@ -30,7 +30,6 @@ class TestMiniGame : public MiniGame {
   const int32_t kBasicBallNumber = 3;
 
   int32_t balls_count_;
-  int32_t duration_;
   int32_t ball_raduis_;
 
   void Tick() override;
