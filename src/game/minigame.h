@@ -32,17 +32,22 @@ class MiniGame : public QObject {
  public slots:
 
  protected:
-  const qreal kTimeBarHeightFactor = 0.05;
+  const qreal kTimeBarHeightFactor = 0.08;
+  const int32_t kFps = 50;
 
   QGraphicsView* graphics_view_;
   QTimer* finish_timer_;
+  QTimer* tick_timer_;
 
+  int32_t time_ = 0;
   int32_t width_;
   int32_t height_;
   TimeBar* time_bar_;
   qreal difficulty_;
 
   bool is_running_ = false;
+
+  virtual void Tick() = 0;
 
   virtual void Win() = 0;
   virtual void Lose() = 0;

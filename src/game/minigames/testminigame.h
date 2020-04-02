@@ -25,7 +25,9 @@ class TestMiniGame : public MiniGame {
  public slots:
 
  private:
-  int32_t kBasicDuration = 3000;
+  const int32_t kBasicDuration = 5000;
+
+  void Tick() override;
 
   void Stop() override;
   void Win() override;

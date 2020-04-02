@@ -1,17 +1,25 @@
 #include "testminigame.h"
 
 TestMiniGame::TestMiniGame(QGraphicsView* graphics_view, qreal difficulty)
-    : MiniGame(graphics_view, difficulty) {}
+    : MiniGame(graphics_view, difficulty) {
+  time_ = kBasicDuration;
+}
 
 TestMiniGame::~TestMiniGame() {}
 
 void TestMiniGame::Start() {
   finish_timer_->setInterval(kBasicDuration);
   connect(finish_timer_, &QTimer::timeout, this, &TestMiniGame::Stop);
+
+  tick_timer_->setInterval(1000 / kFps);
+  connect(tick_timer_, &QTimer::timeout, this, &TestMiniGame::Tick);
+
   is_running_ = true;
   graphics_view_->scene()->setBackgroundBrush(
       QBrush(QColor::fromRgb(227, 124, 7)));
+
   finish_timer_->start();
+  tick_timer_->start();
 }
 
 void TestMiniGame::Pause() {
@@ -67,9 +75,19 @@ void TestMiniGame::KeyReleaseEvent(QKeyEvent*) {
       QBrush(QColor::fromRgb(227, 124, 7)));
 }
 
+void TestMiniGame::Tick() {
+  if (!is_running_) {
+    return;
+  }
+  time_bar_->SetProgress(1.0 * finish_timer_->remainingTime() / kBasicDuration);
+
+  time_bar_->update();
+}
+
 void TestMiniGame::Stop() {
   is_running_ = false;
   finish_timer_->stop();
+  tick_timer_->stop();
   graphics_view_->scene()->setBackgroundBrush(Qt::NoBrush);
   emit Passed(0);
 }

@@ -7,15 +7,15 @@ TimeBar::TimeBar(QGraphicsView* graphics_view, qreal width, qreal height,
 TimeBar::~TimeBar() {}
 
 QRectF TimeBar::boundingRect() const {
-  return QRectF(-width_ * progress_ / 2, -height_ / 2, width_ * progress_,
-                height_);
+  return QRectF(-width_ / 2, -height_ / 2, width_, height_);
 }
 
 void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
                     QWidget*) {
   painter->setBrush(kBasicColor);
   painter->setPen(Qt::NoPen);
-  painter->drawRect(boundingRect());
+  painter->drawRect(
+      QRectF(-width_ / 2, -height_ / 2, width_ * progress_, height_));
 }
 
 void TimeBar::SetProgress(qreal progress) { progress_ = progress; }
