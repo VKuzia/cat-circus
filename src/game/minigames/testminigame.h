@@ -5,6 +5,7 @@
 
 class TestMiniGame : public MiniGame {
   Q_OBJECT
+
  public:
   TestMiniGame(QGraphicsView* graphics_view, qreal difficulty);
   ~TestMiniGame() override;
