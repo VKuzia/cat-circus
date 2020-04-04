@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string> Cat Circus</string>
   </property>
   <widget class="QWidget" name="_central_widget">
    <property name="baseSize">

@@ -23,6 +23,9 @@ GameWidget::GameWidget(QWidget* parent)
   connect(ui->_points_page, &PointsPage::Expired, this,
           &GameWidget::StartMiniGame);
   connect(ui->_points_page, &PointsPage::Paused, this, &GameWidget::Pause);
+  connect(ui->_points_page, &PointsPage::Retryed, this, &GameWidget::Retry);
+  connect(ui->_points_page, &PointsPage::MainMenu, this,
+          &GameWidget::ReturnToMainMenu);
 
   connect(ui->_pause_page, &PausePage::MainMenu, this,
           &GameWidget::ReturnToMainMenu);
@@ -48,7 +51,13 @@ void GameWidget::Resume() {
   ui->_points_page->Resume();
 }
 
+void GameWidget::Retry() { SetUp(); }
+
 void GameWidget::InitMiniGame() {
+  if (current_minigame_ != nullptr) {
+    delete current_minigame_;
+    current_minigame_ = nullptr;
+  }
   // Some game picking logic should be here
   // This version is used only to implement MiniGame switch
   current_difficulty_ = qMin(0.85, current_difficulty_ + 0.1);
@@ -70,10 +79,7 @@ void GameWidget::ShowPoints() {
   ui->_stacked_widget->setCurrentWidget(ui->_points_page);
   ui->_points_page->Animate();
   // We will need to change to another game here soon
-  if (current_minigame_ != nullptr) {
-    delete current_minigame_;
-    current_minigame_ = nullptr;
-  }
+
   InitMiniGame();
 }
 
@@ -92,6 +98,8 @@ GameWidget::~GameWidget() { delete ui; }
 void GameWidget::SetUp() {
   current_difficulty_ = 0;
   InitMiniGame();
+  ui->_stacked_widget->setCurrentWidget(ui->_points_page);
+  ui->_points_page->SetUp();
   ShowPoints();
 }
 void GameWidget::mousePressEvent(QMouseEvent* event) {

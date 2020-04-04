@@ -25,6 +25,7 @@ class GameWidget : public QWidget {
   void ReturnToMainMenu();
   void Pause();
   void Resume();
+  void Retry();
 
  private:
   Ui::GameWidget* ui;

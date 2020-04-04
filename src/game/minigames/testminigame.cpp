@@ -108,10 +108,12 @@ void TestMiniGame::Tick() {
 void TestMiniGame::AddBall() {
   graphics_view_->scene()->addItem(new ClickableBall(
       graphics_view_, ball_raduis_ * 2, ball_raduis_ * 2,
-      QRandomGenerator::global()->bounded(graphics_view_->width()) -
-          graphics_view_->width() / 2,
-      QRandomGenerator::global()->bounded(graphics_view_->height()) -
-          graphics_view_->height() / 2));
+      (QRandomGenerator::global()->bounded(graphics_view_->width()) -
+       graphics_view_->width() / 2) *
+          0.8,
+      (QRandomGenerator::global()->bounded(graphics_view_->height()) -
+       graphics_view_->height() / 2) *
+          0.8));
 }
 
 void TestMiniGame::Stop() {
@@ -127,7 +129,8 @@ void TestMiniGame::Stop() {
 
 void TestMiniGame::Win() {
   graphics_view_->scene()->setBackgroundBrush(Qt::NoBrush);
-  emit Passed(0);
+  emit Passed(100 +
+              finish_timer_->remainingTime() * 10 / finish_timer_->interval());
 }
 
 void TestMiniGame::Lose() {

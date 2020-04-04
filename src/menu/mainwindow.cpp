@@ -5,8 +5,7 @@
 MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-  this->resize(width, height);
-
+  this->setFixedSize(width, height);
   connect(ui->_settings_widget, SIGNAL(MainMenu()), this,
           SLOT(ChangeToMainMenu()));
   connect(ui->_about_widget, SIGNAL(MainMenu()), this,
