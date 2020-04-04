@@ -21,11 +21,15 @@ class PointsPage : public QWidget {
 
  signals:
   void Expired();
+  void Paused();
 
  public slots:
+  void Pause();
+  void Resume();
 
  private:
-  int32_t kExpireTime = 2000;
+  int32_t kExpireTime = 2500;
+  int32_t kResumeTime = 1500;
 
   Ui::PointsPage* ui;
   QTimer* expire_timer_;

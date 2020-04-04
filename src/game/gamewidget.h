@@ -23,6 +23,8 @@ class GameWidget : public QWidget {
 
  public slots:
   void ReturnToMainMenu();
+  void Pause();
+  void Resume();
 
  private:
   Ui::GameWidget* ui;
@@ -32,7 +34,7 @@ class GameWidget : public QWidget {
 
   void InitMiniGame();
   void StartMiniGame();
-  void SetPointsPage();
+  void ShowPoints();
 
   void MiniGamePassed(int64_t score);
   void MiniGameFailed();

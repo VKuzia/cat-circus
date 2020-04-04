@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PointsPage</class>
- <widget class="QWidget" name="PointsPage">
+ <class>PausePage</class>
+ <widget class="QWidget" name="PausePage">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="2,3,4,9,2">
+  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,2,1,3,2">
    <item>
     <spacer name="verticalSpacer_2">
      <property name="orientation">
@@ -28,17 +28,17 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="_label">
+    <widget class="QLabel" name="_pause_label">
      <property name="font">
       <font>
        <family>Verdana</family>
-       <pointsize>16</pointsize>
+       <pointsize>20</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>[WELCOME PHRASE]</string>
+      <string>Pause</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -46,17 +46,18 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="_points_label">
+    <widget class="QLabel" name="_tap_label">
      <property name="font">
       <font>
        <family>Verdana</family>
-       <pointsize>16</pointsize>
+       <pointsize>10</pointsize>
        <weight>75</weight>
+       <italic>true</italic>
        <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>0</string>
+      <string>Tap anywhere to resume</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -77,9 +78,9 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1,2">
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -92,7 +93,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="_pause_button">
+      <widget class="QPushButton" name="_main_menu_button">
        <property name="font">
         <font>
          <family>Verdana</family>
@@ -102,12 +103,12 @@
         </font>
        </property>
        <property name="text">
-        <string>Pause</string>
+        <string>Main Menu</string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -126,14 +127,14 @@
  <resources/>
  <connections>
   <connection>
-   <sender>_pause_button</sender>
+   <sender>_main_menu_button</sender>
    <signal>clicked()</signal>
-   <receiver>PointsPage</receiver>
-   <slot>Pause()</slot>
+   <receiver>PausePage</receiver>
+   <slot>EmitMainMenu()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>199</x>
-     <y>277</y>
+     <x>200</x>
+     <y>264</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -143,6 +144,6 @@
   </connection>
  </connections>
  <slots>
-  <slot>Pause()</slot>
+  <slot>EmitMainMenu()</slot>
  </slots>
 </ui>

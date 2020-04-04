@@ -1,5 +1,7 @@
 #include "src/game/gamewidget.h"
 
+#include <QStackedLayout>
+
 #include "src/game/minigames/testminigame.h"
 #include "ui_gamewidget.h"
 
@@ -11,19 +13,39 @@ GameWidget::GameWidget(QWidget* parent)
       -this->width() / 2, -this->height() / 2, this->width(), this->height());
   ui->_graphics_view->setRenderHints(QPainter::Antialiasing |
                                      QPainter::SmoothPixmapTransform);
+
+  //  dynamic_cast<QStackedLayout*>(ui->_stacked_widget->layout())
+  //      ->setStackingMode(QStackedLayout::StackingMode::StackAll);
   // To prevent mouse focus when mousePressEvent is triggered.
   // Now input focus is always on GameWidget.
   ui->_graphics_view->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
   connect(ui->_points_page, &PointsPage::Expired, this,
           &GameWidget::StartMiniGame);
+  connect(ui->_points_page, &PointsPage::Paused, this, &GameWidget::Pause);
+
+  connect(ui->_pause_page, &PausePage::MainMenu, this,
+          &GameWidget::ReturnToMainMenu);
+
+  connect(ui->_pause_page, &PausePage::Resume, this, &GameWidget::Resume);
 }
 
 void GameWidget::ReturnToMainMenu() {
   if (current_minigame_ != nullptr) {
     delete current_minigame_;
+    current_minigame_ = nullptr;
   }
   emit MainMenu();
+}
+
+void GameWidget::Pause() {
+  //  ui->_points_page->setVisible(true);
+  ui->_stacked_widget->setCurrentWidget(ui->_pause_page);
+}
+
+void GameWidget::Resume() {
+  ui->_stacked_widget->setCurrentWidget(ui->_points_page);
+  ui->_points_page->Resume();
 }
 
 void GameWidget::InitMiniGame() {
@@ -44,7 +66,7 @@ void GameWidget::StartMiniGame() {
   }
 }
 
-void GameWidget::SetPointsPage() {
+void GameWidget::ShowPoints() {
   ui->_stacked_widget->setCurrentWidget(ui->_points_page);
   ui->_points_page->Animate();
   // We will need to change to another game here soon
@@ -57,19 +79,20 @@ void GameWidget::SetPointsPage() {
 
 void GameWidget::MiniGamePassed(int64_t score) {
   ui->_points_page->MiniGamePassed(score);
-  SetPointsPage();
+  ShowPoints();
 }
 
 void GameWidget::MiniGameFailed() {
   ui->_points_page->MiniGameFailed();
-  SetPointsPage();
+  ShowPoints();
 }
 
 GameWidget::~GameWidget() { delete ui; }
 
 void GameWidget::SetUp() {
+  current_difficulty_ = 0;
   InitMiniGame();
-  SetPointsPage();
+  ShowPoints();
 }
 void GameWidget::mousePressEvent(QMouseEvent* event) {
   if (current_minigame_ != nullptr) {

@@ -32,6 +32,7 @@ SOURCES += \
     src/game/graphicsobject.cpp \
     src/game/minigame.cpp \
     src/game/minigames/testminigame.cpp \
+    src/game/pausepage.cpp \
     src/game/pointspage.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
         src/game/graphicsobject.h \
         src/game/minigame.h \
         src/game/minigames/testminigame.h \
+        src/game/pausepage.h \
         src/game/pointspage.h \
         src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
@@ -53,6 +55,7 @@ HEADERS += \
 
 FORMS += \
         src/game/gamewidget.ui \
+        src/game/pausepage.ui \
         src/game/pointspage.ui \
         src/menu/aboutwidget.ui \
         src/menu/mainwindow.ui \

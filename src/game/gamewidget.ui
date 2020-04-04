@@ -37,6 +37,9 @@
    </property>
    <item>
     <widget class="QStackedWidget" name="_stacked_widget">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <widget class="QWidget" name="_game_page">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
@@ -73,13 +76,7 @@
       </layout>
      </widget>
      <widget class="PointsPage" name="_points_page"/>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="_return_button">
-     <property name="text">
-      <string>Return To Main Menu</string>
-     </property>
+     <widget class="PausePage" name="_pause_page"/>
     </widget>
    </item>
   </layout>
@@ -90,27 +87,19 @@
    <extends>QWidget</extends>
    <header>src/game/pointspage.h</header>
    <container>1</container>
+   <slots>
+    <signal>Paused()</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>PausePage</class>
+   <extends>QWidget</extends>
+   <header>src/game/pausepage.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>_return_button</sender>
-   <signal>clicked()</signal>
-   <receiver>GameWidget</receiver>
-   <slot>ReturnToMainMenu()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>199</x>
-     <y>280</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>ReturnToMainMenu()</slot>
  </slots>

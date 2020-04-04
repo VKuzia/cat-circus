@@ -18,8 +18,21 @@ void PointsPage::Animate() {
 }
 
 void PointsPage::MiniGamePassed(int64_t score) {
-  ui->_score_label->setText("You won and scored\n" + QString::number(score) +
-                            " points");
+  ui->_points_label->setText("You won and scored\n" + QString::number(score) +
+                             " points");
 }
 
-void PointsPage::MiniGameFailed() { ui->_score_label->setText("You lost :("); }
+void PointsPage::MiniGameFailed() { ui->_points_label->setText("You lost :("); }
+
+void PointsPage::Pause() {
+  // There are no pause/resume in QTimer
+  int32_t remaining_time_ = expire_timer_->remainingTime();
+  expire_timer_->stop();
+  expire_timer_->setInterval(remaining_time_);
+  emit Paused();
+}
+
+void PointsPage::Resume() {
+  expire_timer_->setInterval(qMax(expire_timer_->remainingTime(), kResumeTime));
+  expire_timer_->start();
+}
