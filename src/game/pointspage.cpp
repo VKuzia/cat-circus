@@ -77,7 +77,8 @@ void PointsPage::Retry() {
 void PointsPage::SetUpLives() {
   ui->_lives_view->scene()->clear();
   lives_count_ = kBasicLivesCount;
-  for (int8_t i = -lives_count_ / 2; i <= lives_count_ / 2; i++) {
+  for (int32_t i = -lives_count_ / 2; i <= lives_count_ / 2; i++) {
+    // Will be further replaced with animated sprites
     QGraphicsEllipseItem* new_live = new QGraphicsEllipseItem(
         i * (kLiveInterval + ui->_lives_view->height() * 0.9), 0,
         ui->_lives_view->height() * 0.9, ui->_lives_view->height() * 0.9);
@@ -86,7 +87,7 @@ void PointsPage::SetUpLives() {
   }
 }
 
-void PointsPage::UpdateLive(int8_t live_num) {
+void PointsPage::UpdateLive(int32_t live_num) {
   QGraphicsEllipseItem* live = dynamic_cast<QGraphicsEllipseItem*>(
       ui->_lives_view->scene()->items().at(live_num));
   if (live == nullptr) {

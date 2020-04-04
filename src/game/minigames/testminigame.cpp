@@ -31,19 +31,6 @@ void TestMiniGame::Start() {
   tick_timer_->start();
 }
 
-void TestMiniGame::Pause() {
-  is_running_ = false;
-  // There are no pause/resume in QTimer
-  int32_t remaining_time_ = finish_timer_->remainingTime();
-  finish_timer_->stop();
-  finish_timer_->setInterval(remaining_time_);
-}
-
-void TestMiniGame::Resume() {
-  is_running_ = true;
-  finish_timer_->start();
-}
-
 void TestMiniGame::MousePressEvent(QMouseEvent* event) {
   if (!is_running_) {
     return;

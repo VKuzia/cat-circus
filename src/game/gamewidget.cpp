@@ -9,8 +9,6 @@ GameWidget::GameWidget(QWidget* parent)
     : QWidget(parent), ui(new Ui::GameWidget) {
   ui->setupUi(this);
   ui->_game_view->SetUp(width_, height_);
-  // To prevent mouse focus when mousePressEvent is triggered.
-  // Now input focus is always on GameWidget.
 
   connect(ui->_points_page, &PointsPage::Expired, this,
           &GameWidget::StartMiniGame);
@@ -21,7 +19,6 @@ GameWidget::GameWidget(QWidget* parent)
 
   connect(ui->_pause_page, &PausePage::MainMenu, this,
           &GameWidget::ReturnToMainMenu);
-
   connect(ui->_pause_page, &PausePage::Resume, this, &GameWidget::Resume);
 }
 
@@ -34,7 +31,6 @@ void GameWidget::ReturnToMainMenu() {
 }
 
 void GameWidget::Pause() {
-  //  ui->_points_page->setVisible(true);
   ui->_stacked_widget->setCurrentWidget(ui->_pause_page);
 }
 
@@ -71,7 +67,6 @@ void GameWidget::ShowPoints() {
   ui->_stacked_widget->setCurrentWidget(ui->_points_page);
   ui->_points_page->Animate();
   // We will need to change to another game here soon
-
   InitMiniGame();
 }
 
@@ -90,6 +85,9 @@ GameWidget::~GameWidget() { delete ui; }
 void GameWidget::SetUp() {
   current_difficulty_ = 0;
   InitMiniGame();
+  /* QStackedWidget doesn't resize widgets,
+      that were not visible before, but
+      _points_page needs to know its width in SetUp() */
   ui->_stacked_widget->setCurrentWidget(ui->_points_page);
   ui->_points_page->SetUp();
   ShowPoints();

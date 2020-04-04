@@ -4,18 +4,9 @@
 
 #include "ui_pausepage.h"
 
-PausePage::PausePage(QWidget* parent) : QWidget(parent), ui(new Ui::PausePage) {
-  ui->setupUi(this);
-  QPalette pal = palette();
-  // set black background
-  pal.setColor(QPalette::Background, Qt::black);
-  this->setAutoFillBackground(true);
-  this->setPalette(pal);
-}
+PausePage::PausePage(QWidget* parent)
+    : QWidget(parent), ui(new Ui::PausePage) {}
 
 void PausePage::EmitMainMenu() { emit MainMenu(); }
 
-void PausePage::mousePressEvent(QMouseEvent*) {
-  //  event->ignore();
-  emit Resume();
-}
+void PausePage::mousePressEvent(QMouseEvent*) { emit Resume(); }

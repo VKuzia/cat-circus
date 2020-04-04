@@ -35,15 +35,15 @@ class PointsPage : public QWidget {
   int32_t kExpireTime = 2500;
   int32_t kResumeTime = 1500;
   int32_t kLiveInterval = 20;
-  int8_t kBasicLivesCount = 3;
+  int32_t kBasicLivesCount = 3;
 
-  int32_t points_;
-  int8_t lives_count_ = kBasicLivesCount;
+  int32_t points_ = 0;
+  int32_t lives_count_ = kBasicLivesCount;
   Ui::PointsPage* ui;
   QTimer* expire_timer_;
 
   void SetUpLives();
-  void UpdateLive(int8_t live_num);
+  void UpdateLive(int32_t live_num);
 };
 
 #endif  // POINTSPAGE_H

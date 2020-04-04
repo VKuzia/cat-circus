@@ -11,8 +11,6 @@ class TestMiniGame : public MiniGame {
   ~TestMiniGame() override;
 
   void Start() override;
-  void Pause() override;
-  void Resume() override;
 
   void MousePressEvent(QMouseEvent* event) override;
   void MouseReleaseEvent(QMouseEvent* event) override;
