@@ -8,17 +8,9 @@
 GameWidget::GameWidget(QWidget* parent)
     : QWidget(parent), ui(new Ui::GameWidget) {
   ui->setupUi(this);
-  ui->_graphics_view->setScene(new QGraphicsScene());
-  ui->_graphics_view->scene()->setSceneRect(
-      -this->width() / 2, -this->height() / 2, this->width(), this->height());
-  ui->_graphics_view->setRenderHints(QPainter::Antialiasing |
-                                     QPainter::SmoothPixmapTransform);
-
-  //  dynamic_cast<QStackedLayout*>(ui->_stacked_widget->layout())
-  //      ->setStackingMode(QStackedLayout::StackingMode::StackAll);
+  ui->_game_view->SetUp(width_, height_);
   // To prevent mouse focus when mousePressEvent is triggered.
   // Now input focus is always on GameWidget.
-  ui->_graphics_view->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
   connect(ui->_points_page, &PointsPage::Expired, this,
           &GameWidget::StartMiniGame);
@@ -35,7 +27,7 @@ GameWidget::GameWidget(QWidget* parent)
 
 void GameWidget::ReturnToMainMenu() {
   if (current_minigame_ != nullptr) {
-    delete current_minigame_;
+    ui->_game_view->SetMiniGame(nullptr);
     current_minigame_ = nullptr;
   }
   emit MainMenu();
@@ -55,13 +47,13 @@ void GameWidget::Retry() { SetUp(); }
 
 void GameWidget::InitMiniGame() {
   if (current_minigame_ != nullptr) {
-    delete current_minigame_;
-    current_minigame_ = nullptr;
+    ui->_game_view->SetMiniGame(nullptr);
   }
   // Some game picking logic should be here
   // This version is used only to implement MiniGame switch
   current_difficulty_ = qMin(0.85, current_difficulty_ + 0.1);
-  current_minigame_ = new TestMiniGame(ui->_graphics_view, current_difficulty_);
+  current_minigame_ = new TestMiniGame(ui->_game_view, current_difficulty_);
+  ui->_game_view->SetMiniGame(current_minigame_);
 }
 
 void GameWidget::StartMiniGame() {
@@ -101,33 +93,4 @@ void GameWidget::SetUp() {
   ui->_stacked_widget->setCurrentWidget(ui->_points_page);
   ui->_points_page->SetUp();
   ShowPoints();
-}
-void GameWidget::mousePressEvent(QMouseEvent* event) {
-  if (current_minigame_ != nullptr) {
-    current_minigame_->MousePressEvent(event);
-  }
-}
-
-void GameWidget::mouseReleaseEvent(QMouseEvent* event) {
-  if (current_minigame_ != nullptr) {
-    current_minigame_->MouseReleaseEvent(event);
-  }
-}
-
-void GameWidget::mouseMoveEvent(QMouseEvent* event) {
-  if (current_minigame_ != nullptr) {
-    current_minigame_->MouseMoveEvent(event);
-  }
-}
-
-void GameWidget::keyPressEvent(QKeyEvent* event) {
-  if (current_minigame_ != nullptr) {
-    current_minigame_->KeyPressEvent(event);
-  }
-}
-
-void GameWidget::keyReleaseEvent(QKeyEvent* event) {
-  if (current_minigame_ != nullptr) {
-    current_minigame_->KeyReleaseEvent(event);
-  }
 }

@@ -28,6 +28,8 @@ class GameWidget : public QWidget {
   void Retry();
 
  private:
+  int32_t width_ = 1024;
+  int32_t height_ = 576;
   Ui::GameWidget* ui;
   MiniGame* current_minigame_ = nullptr;
 
@@ -39,12 +41,6 @@ class GameWidget : public QWidget {
 
   void MiniGamePassed(int64_t score);
   void MiniGameFailed();
-
-  void mousePressEvent(QMouseEvent* event) override;
-  void mouseReleaseEvent(QMouseEvent* event) override;
-  void mouseMoveEvent(QMouseEvent* event) override;
-  void keyPressEvent(QKeyEvent* event) override;
-  void keyReleaseEvent(QKeyEvent* event) override;
 };
 
 #endif  // GAMEWIDGET_H

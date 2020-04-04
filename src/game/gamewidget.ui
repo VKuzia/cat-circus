@@ -64,7 +64,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QGraphicsView" name="_graphics_view">
+        <widget class="GameView" name="_game_view">
          <property name="lineWidth">
           <number>2</number>
          </property>
@@ -102,6 +102,11 @@
    <extends>QWidget</extends>
    <header>src/game/pausepage.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GameView</class>
+   <extends>QGraphicsView</extends>
+   <header>src/game/gameview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
