@@ -18,6 +18,7 @@ void PointsPage::SetUp() {
   points_ = 0;
   ui->_points_label->setText("0");
   ui->_label->setText("Get ready!");
+  ui->_pause_button->setText("Pause");
   ui->_retry_button->setVisible(false);
   SetUpLives();
 }

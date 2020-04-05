@@ -4,8 +4,9 @@
 
 #include "ui_pausepage.h"
 
-PausePage::PausePage(QWidget* parent)
-    : QWidget(parent), ui(new Ui::PausePage) {}
+PausePage::PausePage(QWidget* parent) : QWidget(parent), ui(new Ui::PausePage) {
+  ui->setupUi(this);
+}
 
 void PausePage::EmitMainMenu() { emit MainMenu(); }
 
