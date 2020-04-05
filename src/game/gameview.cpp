@@ -2,6 +2,7 @@
 
 GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
   this->setScene(new QGraphicsScene(this));
+  this->setMouseTracking(false);
 }
 
 void GameView::SetUp(int32_t width, int32_t height) {

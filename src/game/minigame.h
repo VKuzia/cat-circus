@@ -1,6 +1,7 @@
 #ifndef MINIGAME_H
 #define MINIGAME_H
 
+#include <QGraphicsTextItem>
 #include <QGraphicsView>
 #include <QObject>
 #include <QTimer>
@@ -32,18 +33,28 @@ class MiniGame : public QObject {
  protected:
   const qreal kTimeBarHeightFactor = 0.08;
   const int32_t kFps = 60;
+  const int32_t kTutorialDuration = 2500;
+  const int32_t kOutroDuration = 2000;
 
   QGraphicsView* graphics_view_;
-  QTimer* finish_timer_;
+  QTimer* timer_;
   QTimer* tick_timer_;
 
   int32_t time_ = 0;
+  int32_t points_ = 0;
   int32_t width_;
   int32_t height_;
+
   TimeBar* time_bar_;
+  QGraphicsTextItem* tutorial_label_;
+
   qreal difficulty_;
 
   bool is_running_ = false;
+
+  virtual void AnimateTutorial() = 0;
+  virtual void StartGame() = 0;
+  virtual void AnimateOutro() = 0;
 
   virtual void Tick() = 0;
 

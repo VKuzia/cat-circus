@@ -30,6 +30,10 @@ class TestMiniGame : public MiniGame {
   int32_t balls_count_;
   int32_t ball_raduis_;
 
+  void AnimateTutorial() override;
+  void StartGame() override;
+  void AnimateOutro() override;
+
   void Tick() override;
   void AddBall();
 
