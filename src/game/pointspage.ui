@@ -28,7 +28,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="_label">
+    <widget class="QLabel" name="ui_label">
      <property name="font">
       <font>
        <family>Verdana</family>
@@ -46,7 +46,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="_points_label">
+    <widget class="QLabel" name="ui_points_label">
      <property name="font">
       <font>
        <family>Verdana</family>
@@ -64,7 +64,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGraphicsView" name="_lives_view">
+    <widget class="QGraphicsView" name="ui_lives_view">
      <property name="styleSheet">
       <string notr="true">background-color: transparent;</string>
      </property>
@@ -111,7 +111,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="_retry_button">
+      <widget class="QPushButton" name="ui_retry_button">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -175,7 +175,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="_pause_button">
+      <widget class="QPushButton" name="ui_pause_button">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -215,7 +215,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>_pause_button</sender>
+   <sender>ui_pause_button</sender>
    <signal>clicked()</signal>
    <receiver>PointsPage</receiver>
    <slot>Pause()</slot>
@@ -231,7 +231,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>_retry_button</sender>
+   <sender>ui_retry_button</sender>
    <signal>clicked()</signal>
    <receiver>PointsPage</receiver>
    <slot>Retry()</slot>

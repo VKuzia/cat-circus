@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string> Cat Circus</string>
   </property>
-  <widget class="QWidget" name="_central_widget">
+  <widget class="QWidget" name="ui_central_widget">
    <property name="baseSize">
     <size>
      <width>1280</width>
@@ -55,7 +55,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QStackedWidget" name="_stacked_widget">
+     <widget class="QStackedWidget" name="ui_stacked_widget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -66,9 +66,9 @@
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
-      <widget class="QWidget" name="_main_menu_widget">
+      <widget class="QWidget" name="ui_main_menu_widget">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -168,7 +168,7 @@ BEST SCORE]</string>
               <item>
                <layout class="QVBoxLayout" name="buttonLayout" stretch="2,2,2,1">
                 <item>
-                 <widget class="QPushButton" name="_play_button">
+                 <widget class="QPushButton" name="ui_play_button">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -184,7 +184,7 @@ BEST SCORE]</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="_settings_button">
+                 <widget class="QPushButton" name="ui_settings_button">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -197,7 +197,7 @@ BEST SCORE]</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="_about_button">
+                 <widget class="QPushButton" name="ui_about_button">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -278,8 +278,8 @@ BEST SCORE]</string>
         </item>
        </layout>
       </widget>
-      <widget class="GameWidget" name="_game_widget"/>
-      <widget class="SettingsWidget" name="_settings_widget">
+      <widget class="GameWidget" name="ui_game_widget"/>
+      <widget class="SettingsWidget" name="ui_settings_widget">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -287,7 +287,7 @@ BEST SCORE]</string>
         </sizepolicy>
        </property>
       </widget>
-      <widget class="AboutWidget" name="_about_widget"/>
+      <widget class="AboutWidget" name="ui_about_widget"/>
      </widget>
     </item>
    </layout>
@@ -317,7 +317,7 @@ BEST SCORE]</string>
  <resources/>
  <connections>
   <connection>
-   <sender>_settings_button</sender>
+   <sender>ui_settings_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToSettings()</slot>
@@ -333,7 +333,7 @@ BEST SCORE]</string>
    </hints>
   </connection>
   <connection>
-   <sender>_about_button</sender>
+   <sender>ui_about_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToAbout()</slot>
@@ -349,7 +349,7 @@ BEST SCORE]</string>
    </hints>
   </connection>
   <connection>
-   <sender>_play_button</sender>
+   <sender>ui_play_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToGame()</slot>

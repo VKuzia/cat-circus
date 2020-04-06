@@ -11,15 +11,15 @@ PointsPage::PointsPage(QWidget* parent)
     expire_timer_->stop();
     emit Expired();
   });
-  ui->_lives_view->setScene(new QGraphicsScene());
+  ui->ui_lives_view->setScene(new QGraphicsScene());
 }
 
 void PointsPage::SetUp() {
   points_ = 0;
-  ui->_points_label->setText("0");
-  ui->_label->setText("Get ready!");
-  ui->_pause_button->setText("Pause");
-  ui->_retry_button->setVisible(false);
+  ui->ui_points_label->setText("0");
+  ui->ui_label->setText("Get ready!");
+  ui->ui_pause_button->setText("Pause");
+  ui->ui_retry_button->setVisible(false);
   SetUpLives();
 }
 
@@ -33,20 +33,20 @@ void PointsPage::Animate() {
 }
 
 void PointsPage::MiniGamePassed(int64_t score) {
-  ui->_label->setText("Passed!");
+  ui->ui_label->setText("Passed!");
   points_ += score;
-  ui->_points_label->setText(QString::number(points_));
+  ui->ui_points_label->setText(QString::number(points_));
 }
 
 void PointsPage::MiniGameFailed() {
   UpdateLive(--lives_count_);
   if (lives_count_ == 0) {
-    ui->_label->setText("You lost...");
+    ui->ui_label->setText("You lost...");
     expire_timer_->stop();
-    ui->_retry_button->setVisible(true);
-    ui->_pause_button->setText("Main Menu");
+    ui->ui_retry_button->setVisible(true);
+    ui->ui_pause_button->setText("Main Menu");
   } else {
-    ui->_label->setText("Failed :(");
+    ui->ui_label->setText("Failed :(");
   }
 }
 
@@ -76,21 +76,21 @@ void PointsPage::Retry() {
 }
 
 void PointsPage::SetUpLives() {
-  ui->_lives_view->scene()->clear();
+  ui->ui_lives_view->scene()->clear();
   lives_count_ = kBasicLivesCount;
   for (int32_t i = -lives_count_ / 2; i <= lives_count_ / 2; i++) {
     // Will be further replaced with animated sprites
     QGraphicsEllipseItem* new_live = new QGraphicsEllipseItem(
-        i * (kLiveInterval + ui->_lives_view->height() * 0.9), 0,
-        ui->_lives_view->height() * 0.9, ui->_lives_view->height() * 0.9);
+        i * (kLiveInterval + ui->ui_lives_view->height() * 0.9), 0,
+        ui->ui_lives_view->height() * 0.9, ui->ui_lives_view->height() * 0.9);
     new_live->setBrush(QColor::fromRgb(10, 230, 10, 200));
-    ui->_lives_view->scene()->addItem(new_live);
+    ui->ui_lives_view->scene()->addItem(new_live);
   }
 }
 
 void PointsPage::UpdateLive(int32_t live_num) {
   QGraphicsEllipseItem* live = dynamic_cast<QGraphicsEllipseItem*>(
-      ui->_lives_view->scene()->items().at(live_num));
+      ui->ui_lives_view->scene()->items().at(live_num));
   if (live == nullptr) {
     return;
   }

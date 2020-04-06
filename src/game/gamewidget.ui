@@ -46,7 +46,7 @@
      <property name="styleSheet">
       <string notr="true"/>
      </property>
-     <widget class="QWidget" name="_game_page">
+     <widget class="QWidget" name="ui_game_page">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
         <number>0</number>
@@ -64,7 +64,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="GameView" name="_game_view">
+        <widget class="GameView" name="ui_game_view">
          <property name="lineWidth">
           <number>2</number>
          </property>
@@ -81,8 +81,8 @@
        </item>
       </layout>
      </widget>
-     <widget class="PointsPage" name="_points_page"/>
-     <widget class="PausePage" name="_pause_page"/>
+     <widget class="PointsPage" name="ui_points_page"/>
+     <widget class="PausePage" name="ui_pause_page"/>
     </widget>
    </item>
   </layout>
