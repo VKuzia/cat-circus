@@ -37,8 +37,8 @@ class MiniGame : public QObject {
   const int32_t kOutroDuration = 2000;
 
   QGraphicsView* graphics_view_;
-  QTimer* timer_;
-  QTimer* tick_timer_;
+  QTimer* timer_;       // For lasting events
+  QTimer* tick_timer_;  // For 1 frame updates
 
   int32_t time_ = 0;
   int32_t points_ = 0;

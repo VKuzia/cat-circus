@@ -37,8 +37,10 @@ class GameWidget : public QWidget {
 
   void InitMiniGame();
   void StartMiniGame();
-  void SetMiniGame(MiniGame* minigame);
   void ShowPoints();
+  
+  // Also deletes non-nullptr mini-games
+  void SetMiniGame(MiniGame* minigame);  
 
   void MiniGamePassed(int64_t score);
   void MiniGameFailed();
