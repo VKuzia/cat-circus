@@ -23,7 +23,7 @@ GameWidget::GameWidget(QWidget* parent)
 }
 
 void GameWidget::ReturnToMainMenu() {
-  SetMiniGame(nulltpr);
+  SetMiniGame(nullptr);
   emit MainMenu();
 }
 
