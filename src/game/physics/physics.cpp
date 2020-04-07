@@ -7,7 +7,7 @@
 
 QPair<int, int> physics::newPosition(QPair<int, int>* current_c,
                                      const QVector2D& vilocity) {
-    QPair<int, int> answer = {0,0};
+    QPair<int, int> answer = {0, 0};
     int new_x = current_c->first + vilocity.x();
     int new_y = current_c->second+vilocity.y();
     answer = {new_x, new_y};
