@@ -14,7 +14,7 @@ class physics {
     static QVector2D ellasticCollisionWall(const QVector2D&,
                                                       double);
 
-    static QPair<int,int> Advance(QVector2D*, const QPair<int, int>);
+    static QPair<int, int> Advance(QVector2D*, const QPair<int, int>);
 
 
  private:
