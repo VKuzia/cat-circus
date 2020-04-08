@@ -113,10 +113,17 @@
            </spacer>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="mainVLayout" stretch="2,0,3">
+           <layout class="QVBoxLayout" name="mainVLayout" stretch="0,2,0,3">
             <property name="spacing">
              <number>20</number>
             </property>
+            <item>
+             <widget class="QProgressBar" name="progressBar">
+              <property name="value">
+               <number>24</number>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QLabel" name="label_2">
               <property name="sizePolicy">
