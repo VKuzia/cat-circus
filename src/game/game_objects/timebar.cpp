@@ -17,11 +17,10 @@ void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
                     QWidget*) {
   painter->setBrush(kBasicColor);
   painter->setPen(Qt::NoPen);
-  //  painter->scale(progress_, 1);
   painter->drawRect(QRectF(-width_ / 2, -height_ / 2, width_, height_));
 }
 
 void TimeBar::SetProgress(qreal progress) {
-  progress_ = progress;
+  progress_ = qMax(0.0, progress);
   this->setTransform(QTransform::fromScale(progress_, 1));
 }

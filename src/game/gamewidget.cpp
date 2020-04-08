@@ -39,11 +39,13 @@ void GameWidget::Resume() {
 void GameWidget::Retry() { SetUp(); }
 
 void GameWidget::InitMiniGame() {
+  if (current_minigame_ != nullptr) {
+    delete current_minigame_;
+  }
   // Some game picking logic should be here
   // This version is used only to implement MiniGame switch
   current_difficulty_ = qMin(0.85, current_difficulty_ + 0.1);
   MiniGame* minigame = new TestMiniGame(ui->ui_game_view, current_difficulty_);
-  ui->ui_game_view->SetMiniGame(current_minigame_);
   SetMiniGame(minigame);
 }
 
@@ -56,14 +58,6 @@ void GameWidget::StartMiniGame() {
             &GameWidget::MiniGameFailed);
     current_minigame_->Start();
   }
-}
-
-void GameWidget::SetMiniGame(MiniGame* minigame) {
-  if (current_minigame_ != nullptr) {
-    delete current_minigame_;
-  }
-  current_minigame_ = minigame;
-  ui->ui_game_view->SetMiniGame(minigame);
 }
 
 void GameWidget::ShowPoints() {
@@ -87,11 +81,15 @@ GameWidget::~GameWidget() { delete ui; }
 
 void GameWidget::SetUp() {
   current_difficulty_ = 0;
-  InitMiniGame();
   /* QStackedWidget doesn't resize widgets,
       that were not visible before, but
       _points_page needs to know its width in SetUp() */
   ui->_stacked_widget->setCurrentWidget(ui->ui_points_page);
   ui->ui_points_page->SetUp();
   ShowPoints();
+}
+
+void GameWidget::SetMiniGame(MiniGame* minigame) {
+  current_minigame_ = minigame;
+  ui->ui_game_view->SetMiniGame(minigame);
 }

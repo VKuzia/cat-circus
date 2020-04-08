@@ -11,6 +11,7 @@ MiniGame::MiniGame(QGraphicsView* graphics_view, qreal difficulty)
       tutorial_label_(new QGraphicsTextItem()),
       difficulty_(difficulty) {
   graphics_view_->scene()->addItem(time_bar_);
+  graphics_view_->scene()->addItem(tutorial_label_);
 }
 
 MiniGame::~MiniGame() {
@@ -22,6 +23,6 @@ MiniGame::~MiniGame() {
     tick_timer_->stop();
     delete tick_timer_;
   }
-  delete tutorial_label_;
+  // clear removes and deletes items
   graphics_view_->scene()->clear();
 }

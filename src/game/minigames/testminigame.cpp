@@ -29,7 +29,7 @@ void TestMiniGame::AnimateTutorial() {
   tutorial_label_->setHtml("[TUTORIAL]");
   tutorial_label_->setDefaultTextColor(Qt::white);
   tutorial_label_->setTextWidth(300);
-  graphics_view_->scene()->addItem(tutorial_label_);
+  tutorial_label_->setZValue(100);
 
   timer_->setInterval(kTutorialDuration);
   connect(timer_, &QTimer::timeout, this, [=] {
@@ -60,6 +60,7 @@ void TestMiniGame::Tick() {
   if (!is_running_) {
     return;
   }
+  timer_->remainingTime();
   time_bar_->SetProgress(1.0 * timer_->remainingTime() / kBasicDuration);
 
   time_bar_->update();
