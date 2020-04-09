@@ -1,10 +1,6 @@
 #include "pointspage.h"
-#include "ui_mainwindow.h"
-#include <QFile>
-#include <fstream>
 
 #include <QGraphicsEllipseItem>
-#include <QTextStream>
 
 #include "ui_pointspage.h"
 
@@ -56,16 +52,6 @@ void PointsPage::MiniGameFailed() {
 
 void PointsPage::Pause() {
   if (lives_count_ <= 0) {
-  QFile file("score.txt");
-  if(file.open(QIODevice::WriteOnly | QIODevice::Text))
-      {
-          // We're going to streaming text to the file
-          QTextStream stream(&file);
-
-          stream << points_<<'\n';
-
-          file.close();
-      }
     emit MainMenu();
   }
   // There are no pause/resume in QTimer
