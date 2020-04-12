@@ -3,21 +3,17 @@
 #include <QVector2D>
 
 
+const QVector2D Physics::g =  {0, 9.80655};
 
-
-QPair<int, int> physics::newPosition(QPair<int, int>* current_c,
-                                     const QVector2D& vilocity) {
-    QPair<int, int> answer = {0, 0};
-    int new_x = current_c->first + vilocity.x();
-    int new_y = current_c->second+vilocity.y();
-    answer = {new_x, new_y};
-    return answer;
+QPair<int, int> Physics::NewPosition(const QPair<int, int>& current_c,
+                                     const QVector2D& velocity) {
+    return {current_c.first + velocity.x(),
+            current_c.second + velocity.y()};
 }
 
 
-QVector2D physics::ellasticCollisionWall(const QVector2D& impulse,
+QVector2D Physics::EllasticCollisionWall(const QVector2D& impulse,
                                                   double wall_angle) {
-    QVector2D answer{0, 0};
     QVector2D wall_vector{static_cast<float>(cos(wall_angle)),
                           static_cast<float>(sin(wall_angle))};
     QPair<double, double> normal_wall{-wall_vector.y(), wall_vector.x()};
@@ -25,28 +21,27 @@ QVector2D physics::ellasticCollisionWall(const QVector2D& impulse,
                        (impulse.length()*wall_vector.length());
     double alpha_sin = sin(acos(alpha_cos) + wall_angle);
     alpha_cos = cos(asin(alpha_sin));
-    answer = {static_cast<float>(impulse.x()*alpha_cos),
-              static_cast<float>(impulse.y()*alpha_sin)};
+    return {static_cast<float>(impulse.x()*alpha_cos),
+            static_cast<float>(impulse.y()*alpha_sin)};
+}
+
+
+QPair<int, int> Physics::Advance(QVector2D* velocity,
+                                 const QPair<int, int>& coordinates) {
+    QPair<int, int> answer = {coordinates.first + velocity->x(),
+                              coordinates.second + velocity->y() + g.y()/2};
+    velocity->setY(velocity->y() - g.y());
     return answer;
 }
 
 
-QPair<int, int> physics::Advance(QVector2D* vilocity,
-                                 const QPair<int, int> coordinates) {
-    QPair<int, int> answer = {coordinates.first + vilocity->x(),
-                              coordinates.second + vilocity->y() + g.y()/2};
-    vilocity->setY(vilocity->y() - g.y());
-    return answer;
-}
 
 
-
-
-void ellasticColisionTwoObjects(const double& mass_f, QVector2D* vilocity_f,
-                                const double& mass_s, QVector2D* vilocity_s) {
-    QVector2D vilocity = *vilocity_f-*vilocity_s;
-    QVector2D u1 = vilocity*mass_s/(mass_f+mass_s);
-    QVector2D u2 = vilocity*mass_f/(mass_f+mass_s);
+void Physics::EllasticCollisionTwoObjects(const double& mass_f, QVector2D* velocity_f,
+                                const double& mass_s, QVector2D* velocity_s) {
+    QVector2D velocity = *velocity_f-*velocity_s;
+    QVector2D u1 = velocity*mass_s/(mass_f+mass_s);
+    QVector2D u2 = velocity*mass_f/(mass_f+mass_s);
     double peace = M_PI_2/(mass_f+mass_s);
     double angle_f = peace*mass_s;
     double angle_s = peace*mass_f;
@@ -54,8 +49,9 @@ void ellasticColisionTwoObjects(const double& mass_f, QVector2D* vilocity_f,
     u1.setY(u1.y()*cos(angle_f) - u1.x()*sin(angle_f));
     u2.setX(u2.x()*cos(angle_s) + u2.y()*sin(angle_s));
     u2.setY(u2.y()*cos(angle_s) - u2.x()*sin(angle_s));
-    vilocity_f->setX(u1.x());
-    vilocity_f->setY(u1.y());
-    vilocity_s->setX(u2.x());
-    vilocity_s->setY(u2.y());
+    velocity_f->setX(u1.x());
+    velocity_f->setY(u1.y());
+    velocity_s->setX(u2.x());
+    velocity_s->setY(u2.y());
 }
+
