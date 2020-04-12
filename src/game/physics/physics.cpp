@@ -37,8 +37,10 @@ QPair<int, int> Physics::Advance(QVector2D* velocity,
 
 
 
-void Physics::EllasticCollisionTwoObjects(const double& mass_f, QVector2D* velocity_f,
-                                const double& mass_s, QVector2D* velocity_s) {
+void Physics::EllasticCollisionTwoObjects(const double& mass_f,
+                                          QVector2D* velocity_f,
+                                          const double& mass_s,
+                                          QVector2D* velocity_s) {
     QVector2D velocity = *velocity_f-*velocity_s;
     QVector2D u1 = velocity*mass_s/(mass_f+mass_s);
     QVector2D u2 = velocity*mass_f/(mass_f+mass_s);
