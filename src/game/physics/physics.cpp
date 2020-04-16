@@ -3,8 +3,6 @@
 #include <QVector2D>
 
 
-const QVector2D Physics::g = {0, 9.80655};
-
 void Physics::CollideTwoObjects(const double& mass1,
                                          QVector2D* velocity1,
                                          const double& mass2,
@@ -37,10 +35,11 @@ QVector2D Physics::Reflect(const QVector2D& impulse,
     return {(impulse.x() * alpha_cos), (impulse.y()*alpha_sin)};
 }
 
-QPair<int, int> Physics::Advance(QVector2D* velocity,
-                                 const QPair<int, int>& coordinates) {
-    QPair<int, int> answer = {coordinates.first + velocity->x(),
-                              coordinates.second + velocity->y() + g.y() / 2};
+QPoint Physics::Advance(QVector2D* velocity,
+                                 const QPoint& coordinates) {
+    QPoint answer = {static_cast<int>(coordinates.x() + velocity->x()),
+                     static_cast<int>(coordinates.y() + velocity->y() +
+                                      g.y() / 2)};
     velocity->setY(velocity->y() - g.y());
     return answer;
 }

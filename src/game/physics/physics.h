@@ -7,8 +7,7 @@
 
 
 
-class Physics {
- public:
+namespace   Physics {
     static void CollideTwoObjects(const double&, QVector2D*,
                                             const double&, QVector2D*);
 
@@ -16,11 +15,10 @@ class Physics {
     static QVector2D Reflect(const QVector2D&,
                                            double);
 
-    static QPair<int, int> Advance(QVector2D*, const QPair<int, int>&);
+    static QPoint Advance(QVector2D*, const QPoint&);
 
 
- private:
-    static const QVector2D g;
+    static const QVector2D gg = {0, 9.80655};
 };
 
 #endif  // PHYSICS_H
