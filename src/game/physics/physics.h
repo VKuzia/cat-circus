@@ -19,6 +19,6 @@ namespace   Physics {
 
 
     static const QVector2D gg = {0, 9.80655};
-};
+};  // namespace Physics
 
 #endif  // PHYSICS_H
