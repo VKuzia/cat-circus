@@ -27,7 +27,7 @@ CONFIG += c++11
 SOURCES += \
         src/game/game.cpp \
         src/game/gamewidget.cpp \
-    src/game/physics/physics.cpp \
+        src/game/physics/physics.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
