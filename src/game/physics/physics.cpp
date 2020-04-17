@@ -3,24 +3,20 @@
 #include <QVector2D>
 
 
-void Physics::CollideTwoObjects(const double& mass1,
+void Physics::CollideTwoObjects(const float& mass1,
                                          QVector2D* velocity1,
-                                         const double& mass2,
+                                         const float& mass2,
                                          QVector2D* velocity2) {
     QVector2D velocity = *velocity1 - *velocity2;
     QVector2D u1 = velocity * mass2 / (mass1 + mass2);
     QVector2D u2 = velocity * mass1 / (mass1 + mass2);
-    double peace = M_PI_2 / (mass1 + mass2);
-    double angle_f = peace * mass2;
-    double angle_s = peace * mass1;
-    u1.setX(u1.x() * cos(angle_f) + u1.y() * sin(angle_f));
-    u1.setY(u1.y() * cos(angle_f) - u1.x() * sin(angle_f));
-    u2.setX(u2.x() * cos(angle_s) + u2.y() * sin(angle_s));
-    u2.setY(u2.y() * cos(angle_s) - u2.x() * sin(angle_s));
-    velocity1->setX(u1.x());
-    velocity1->setY(u1.y());
-    velocity2->setX(u2.x());
-    velocity2->setY(u2.y());
+    float peace = M_PI_2 / (mass1 + mass2);
+    float angle_f = peace * mass2;
+    float angle_s = peace * mass1;
+    *velocity1 = {static_cast<float>(u1.x() * cos(angle_f) + u1.y() * sin(angle_f)),
+                  static_cast<float>(u1.y() * cos(angle_f) - u1.x() * sin(angle_f))};
+    *velocity2 = {static_cast<float>(u2.x() * cos(angle_s) + u2.y() * sin(angle_s)),
+                  static_cast<float>(u2.y() * cos(angle_s) - u2.x() * sin(angle_s))};
 }
 
 QVector2D Physics::Reflect(const QVector2D& impulse,

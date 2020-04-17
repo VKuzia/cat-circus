@@ -8,8 +8,8 @@
 
 
 namespace   Physics {
-    static void CollideTwoObjects(const double&, QVector2D*,
-                                            const double&, QVector2D*);
+    static void CollideTwoObjects(const float&, QVector2D*,
+                                            const float&, QVector2D*);
 
 
     static QVector2D Reflect(const QVector2D&,
@@ -18,7 +18,7 @@ namespace   Physics {
     static QPoint Advance(QVector2D*, const QPoint&);
 
 
-    static const QVector2D gg = {0, 9.80655};
+    extern const QVector2D g = {0, 9.80655};
 };  // namespace Physics
 
 #endif  // PHYSICS_H
