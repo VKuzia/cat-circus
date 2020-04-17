@@ -2,11 +2,12 @@
 
 #include <QVector2D>
 
+const QVector2D Physics::kGravity = {0, 9.80655};
 
 void Physics::CollideTwoObjects(const float& mass1,
-                                         QVector2D* velocity1,
-                                         const float& mass2,
-                                         QVector2D* velocity2) {
+                                 QVector2D* velocity1,
+                                 const float& mass2,
+                                 QVector2D* velocity2) {
     QVector2D velocity = *velocity1 - *velocity2;
     QVector2D u1 = velocity * mass2 / (mass1 + mass2);
     QVector2D u2 = velocity * mass1 / (mass1 + mass2);
@@ -35,7 +36,7 @@ QPoint Physics::Advance(QVector2D* velocity,
                                  const QPoint& coordinates) {
     QPoint answer = {static_cast<int>(coordinates.x() + velocity->x()),
                      static_cast<int>(coordinates.y() + velocity->y() +
-                                      g.y() / 2)};
-    velocity->setY(velocity->y() - g.y());
+                                      kGravity.y() / 2)};
+    velocity->setY(velocity->y() - kGravity.y());
     return answer;
 }
