@@ -14,10 +14,14 @@ void Physics::CollideTwoObjects(const float& mass1,
     float peace = M_PI_2 / (mass1 + mass2);
     float angle_f = peace * mass2;
     float angle_s = peace * mass1;
-    *velocity1 = {static_cast<float>(u1.x() * cos(angle_f) + u1.y() * sin(angle_f)),
-                  static_cast<float>(u1.y() * cos(angle_f) - u1.x() * sin(angle_f))};
-    *velocity2 = {static_cast<float>(u2.x() * cos(angle_s) + u2.y() * sin(angle_s)),
-                  static_cast<float>(u2.y() * cos(angle_s) - u2.x() * sin(angle_s))};
+    *velocity1 = {static_cast<float>(u1.x() * cos(angle_f) +
+                                     u1.y() * sin(angle_f)),
+                  static_cast<float>(u1.y() * cos(angle_f) -
+                                     u1.x() * sin(angle_f))};
+    *velocity2 = {static_cast<float>(u2.x() * cos(angle_s) +
+                                     u2.y() * sin(angle_s)),
+                  static_cast<float>(u2.y() * cos(angle_s) -
+                                     u2.x() * sin(angle_s))};
 }
 
 QVector2D Physics::Reflect(const QVector2D& impulse,
