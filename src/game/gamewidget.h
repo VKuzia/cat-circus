@@ -30,20 +30,20 @@ class GameWidget : public QWidget {
  private:
   int32_t width_ = 1024;
   int32_t height_ = 576;
-  Ui::GameWidget* ui;
-  MiniGame* current_minigame_ = nullptr;
+  Ui::GameWidget* ui_;
+  Minigame* current_minigame_ = nullptr;
 
-  qreal current_difficulty_ = 0;
+  float current_difficulty_ = 0;
 
-  void InitMiniGame();
-  void StartMiniGame();
+  void InitMinigame();
+  void StartMinigame();
   void ShowPoints();
 
   // Also deletes non-nullptr mini-games
-  void SetMiniGame(MiniGame* minigame);
+  void SetMinigame(Minigame* minigame);
 
-  void MiniGamePassed(int64_t score);
-  void MiniGameFailed();
+  void MinigamePassed(int64_t score);
+  void MinigameFailed();
 };
 
 #endif  // GAMEWIDGET_H

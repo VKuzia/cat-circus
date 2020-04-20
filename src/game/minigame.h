@@ -8,12 +8,12 @@
 
 #include "src/game/game_objects/timebar.h"
 
-class MiniGame : public QObject {
+class Minigame : public QObject {
   Q_OBJECT
 
  public:
-  MiniGame(QGraphicsView* graphics_view, qreal difficulty);
-  virtual ~MiniGame();
+  Minigame(QGraphicsView* graphics_view, float difficulty);
+  virtual ~Minigame();
 
   virtual void Start() = 0;
   virtual void Stop() = 0;
@@ -28,10 +28,8 @@ class MiniGame : public QObject {
   void Passed(int64_t score);
   void Failed();
 
- public slots:
-
  protected:
-  const qreal kTimeBarHeightFactor = 0.08;
+  const float kTimeBarHeightFactor = 0.08f;
   const int32_t kFps = 60;
   const int32_t kTutorialDuration = 2500;
   const int32_t kOutroDuration = 2000;
@@ -48,7 +46,7 @@ class MiniGame : public QObject {
   TimeBar* time_bar_;
   QGraphicsTextItem* tutorial_label_;
 
-  qreal difficulty_;
+  float difficulty_;
 
   bool is_running_ = false;
 

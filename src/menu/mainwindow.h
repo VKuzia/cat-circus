@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow {
   void Exit();
 
  private:
-  Ui::MainWindow* ui;
+  Ui::MainWindow* ui_;
 };
 
 #endif  // MAINWINDOW_H

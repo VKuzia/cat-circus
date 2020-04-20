@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string> Cat Circus</string>
   </property>
-  <widget class="QWidget" name="ui_central_widget">
+  <widget class="QWidget" name="ui_central_widget_">
    <property name="baseSize">
     <size>
      <width>1280</width>
@@ -55,7 +55,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QStackedWidget" name="ui_stacked_widget">
+     <widget class="QStackedWidget" name="ui_stacked_widget_">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -68,7 +68,7 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="ui_main_menu_widget">
+      <widget class="QWidget" name="ui_main_menu_widget_">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -118,7 +118,7 @@
              <number>20</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="ui_game_name_label_">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -134,7 +134,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="ui_hello_label_">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -168,7 +168,7 @@ BEST SCORE]</string>
               <item>
                <layout class="QVBoxLayout" name="buttonLayout" stretch="2,2,2,1">
                 <item>
-                 <widget class="QPushButton" name="ui_play_button">
+                 <widget class="QPushButton" name="ui_play_button_">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -184,7 +184,7 @@ BEST SCORE]</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="ui_settings_button">
+                 <widget class="QPushButton" name="ui_settings_button_">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -197,7 +197,7 @@ BEST SCORE]</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="ui_about_button">
+                 <widget class="QPushButton" name="ui_about_button_">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -244,7 +244,7 @@ BEST SCORE]</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,10">
             <item>
-             <widget class="QPushButton" name="pushButton_5">
+             <widget class="QPushButton" name="ui_exit_button_">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -278,8 +278,8 @@ BEST SCORE]</string>
         </item>
        </layout>
       </widget>
-      <widget class="GameWidget" name="ui_game_widget"/>
-      <widget class="SettingsWidget" name="ui_settings_widget">
+      <widget class="GameWidget" name="ui_game_widget_"/>
+      <widget class="SettingsWidget" name="ui_settings_widget_">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -287,7 +287,7 @@ BEST SCORE]</string>
         </sizepolicy>
        </property>
       </widget>
-      <widget class="AboutWidget" name="ui_about_widget"/>
+      <widget class="AboutWidget" name="ui_about_widget_"/>
      </widget>
     </item>
    </layout>
@@ -317,7 +317,7 @@ BEST SCORE]</string>
  <resources/>
  <connections>
   <connection>
-   <sender>ui_settings_button</sender>
+   <sender>ui_settings_button_</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToSettings()</slot>
@@ -333,7 +333,7 @@ BEST SCORE]</string>
    </hints>
   </connection>
   <connection>
-   <sender>ui_about_button</sender>
+   <sender>ui_about_button_</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToAbout()</slot>
@@ -349,7 +349,7 @@ BEST SCORE]</string>
    </hints>
   </connection>
   <connection>
-   <sender>ui_play_button</sender>
+   <sender>ui_play_button_</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToGame()</slot>
@@ -365,7 +365,7 @@ BEST SCORE]</string>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_5</sender>
+   <sender>ui_exit_button_</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>Exit()</slot>

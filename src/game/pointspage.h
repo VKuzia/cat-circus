@@ -32,14 +32,14 @@ class PointsPage : public QWidget {
   void Retry();
 
  private:
-  int32_t kExpireTime = 2500;
-  int32_t kResumeTime = 1500;
-  int32_t kLiveInterval = 20;
-  int32_t kBasicLivesCount = 3;
+  const int32_t kExpireTime = 2500;
+  const int32_t kResumeTime = 1500;
+  const int32_t kLiveInterval = 20;
+  const int32_t kBasicLivesCount = 3;
 
   int32_t points_ = 0;
   int32_t lives_count_ = kBasicLivesCount;
-  Ui::PointsPage* ui;
+  Ui::PointsPage* ui_;
   QTimer* expire_timer_;
 
   void SetUpLives();

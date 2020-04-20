@@ -26,15 +26,15 @@ CONFIG += c++11
 
 SOURCES += \
         src/game/game.cpp \
-    src/game/game_objects/clickableball.cpp \
-    src/game/game_objects/timebar.cpp \
-    src/game/gameview.cpp \
+        src/game/game_objects/clickableball.cpp \
+        src/game/game_objects/timebar.cpp \
+        src/game/gameview.cpp \
         src/game/gamewidget.cpp \
-    src/game/graphicsobject.cpp \
-    src/game/minigame.cpp \
-    src/game/minigames/testminigame.cpp \
-    src/game/pausepage.cpp \
-    src/game/pointspage.cpp \
+        src/game/graphicsobject.cpp \
+        src/game/minigame.cpp \
+        src/game/minigames/testminigame.cpp \
+        src/game/pausepage.cpp \
+        src/game/pointspage.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \

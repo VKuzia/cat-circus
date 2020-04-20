@@ -2,7 +2,6 @@
 
 GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
   this->setScene(new QGraphicsScene(this));
-  this->setMouseTracking(false);
 }
 
 void GameView::SetUp(int32_t width, int32_t height) {
@@ -42,7 +41,7 @@ void GameView::keyReleaseEvent(QKeyEvent* event) {
   }
 }
 
-void GameView::SetMiniGame(MiniGame* current_minigame) {
+void GameView::SetMinigame(Minigame* current_minigame) {
   // GameWidget controls deleting, only assignment required
   current_minigame_ = current_minigame;
 }

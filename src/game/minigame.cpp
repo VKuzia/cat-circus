@@ -1,6 +1,6 @@
 #include "minigame.h"
 
-MiniGame::MiniGame(QGraphicsView* graphics_view, qreal difficulty)
+Minigame::Minigame(QGraphicsView* graphics_view, float difficulty)
     : graphics_view_(graphics_view),
       timer_(new QTimer(this)),
       tick_timer_(new QTimer(this)),
@@ -14,7 +14,7 @@ MiniGame::MiniGame(QGraphicsView* graphics_view, qreal difficulty)
   graphics_view_->scene()->addItem(tutorial_label_);
 }
 
-MiniGame::~MiniGame() {
+Minigame::~Minigame() {
   if (timer_ != nullptr) {
     timer_->stop();
     delete timer_;

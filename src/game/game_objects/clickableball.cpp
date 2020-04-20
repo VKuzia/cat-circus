@@ -1,7 +1,9 @@
 #include "clickableball.h"
 
-ClickableBall::ClickableBall(QGraphicsView* graphics_view, qreal width,
-                             qreal height, qreal x, qreal y)
+const QColor ClickableBall::kBasicColor = QColor::fromRgb(133, 50, 168);
+
+ClickableBall::ClickableBall(QGraphicsView* graphics_view, float width,
+                             float height, float x, float y)
     : GraphicsObject(graphics_view, width, height, x, y) {}
 
 ClickableBall::~ClickableBall() {}

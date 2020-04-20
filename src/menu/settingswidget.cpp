@@ -4,8 +4,8 @@
 #include "ui_settingswidget.h"
 
 SettingsWidget::SettingsWidget(QWidget* parent)
-    : QWidget(parent), ui(new Ui::SettingsWidget) {
-  ui->setupUi(this);
+    : QWidget(parent), ui_(new Ui::SettingsWidget) {
+  ui_->setupUi(this);
 }
 
 void SettingsWidget::ReturnToMainMenu() { emit MainMenu(); }

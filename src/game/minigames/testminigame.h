@@ -3,12 +3,12 @@
 
 #include "src/game/minigame.h"
 
-class TestMiniGame : public MiniGame {
+class TestMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  TestMiniGame(QGraphicsView* graphics_view, qreal difficulty);
-  ~TestMiniGame() override;
+  TestMinigame(QGraphicsView* graphics_view, float difficulty);
+  ~TestMinigame() override;
 
   void Start() override;
 
@@ -18,17 +18,13 @@ class TestMiniGame : public MiniGame {
   void KeyPressEvent(QKeyEvent* event) override;
   void KeyReleaseEvent(QKeyEvent* event) override;
 
- signals:
-
- public slots:
-
  private:
   const int32_t kBasicDuration = 5000;
   const int32_t kBasicBallRadius = 100;
   const int32_t kBasicBallNumber = 3;
 
   int32_t balls_count_;
-  int32_t ball_raduis_;
+  int32_t ball_radius_;
 
   void AnimateTutorial() override;
   void StartGame() override;
