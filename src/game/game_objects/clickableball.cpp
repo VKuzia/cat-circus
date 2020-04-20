@@ -13,3 +13,7 @@ void ClickableBall::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
   painter->setBrush(kBasicColor);
   painter->drawEllipse(boundingRect());
 }
+
+void ClickableBall::mousePressEvent(QGraphicsSceneMouseEvent*) {
+  emit Clicked();
+}

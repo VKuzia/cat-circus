@@ -14,6 +14,8 @@ void GameView::SetUp(int32_t width, int32_t height) {
 void GameView::mousePressEvent(QMouseEvent* event) {
   if (current_minigame_ != nullptr) {
     current_minigame_->MousePressEvent(event);
+    // To propogate down to items
+    QGraphicsView::mousePressEvent(event);
   }
 }
 

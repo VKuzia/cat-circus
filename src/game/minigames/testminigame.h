@@ -1,6 +1,7 @@
 #ifndef TESTMINIGAME_H
 #define TESTMINIGAME_H
 
+#include "src/game/game_objects/clickableball.h"
 #include "src/game/minigame.h"
 
 class TestMinigame : public Minigame {
@@ -29,6 +30,7 @@ class TestMinigame : public Minigame {
 
   int32_t balls_count_;
   int32_t ball_radius_;
+  ClickableBall* current_ball_ = nullptr;
 
   void AnimateTutorial() override;
   void StartGame() override;
@@ -36,6 +38,7 @@ class TestMinigame : public Minigame {
 
   void Tick() override;
   void AddBall();
+  void DeleteBall();
   QPointF GetRandomBallCenter() const;
 
   void Stop() override;

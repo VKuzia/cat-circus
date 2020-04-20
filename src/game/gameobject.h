@@ -4,7 +4,10 @@
 #include <QGraphicsItem>
 #include <QGraphicsView>
 
-class GameObject : public QGraphicsItem {
+class GameObject : public QObject, public QGraphicsItem {
+  Q_OBJECT
+  Q_INTERFACES(QGraphicsItem)
+
  public:
   GameObject(QGraphicsView* graphics_view, float width, float height,
              float x = 0, float y = 0);

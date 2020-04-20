@@ -6,7 +6,7 @@
 
 #include "src/game/gameobject.h"
 
-class TimeBar : public QObject, public GameObject {
+class TimeBar : public GameObject {
   Q_OBJECT
 
  public:

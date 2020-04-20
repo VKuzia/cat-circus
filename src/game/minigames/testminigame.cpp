@@ -3,8 +3,6 @@
 #include <QMouseEvent>
 #include <QRandomGenerator64>
 
-#include "src/game/game_objects/clickableball.h"
-
 TestMinigame::TestMinigame(QGraphicsView* graphics_view, float difficulty)
     : Minigame(graphics_view, difficulty) {
   // Random coefs just for testing the basic game loop
@@ -15,7 +13,11 @@ TestMinigame::TestMinigame(QGraphicsView* graphics_view, float difficulty)
   is_running_ = false;
 }
 
-TestMinigame::~TestMinigame() {}
+TestMinigame::~TestMinigame() {
+  if (current_ball_ == nullptr) {
+    return;
+  }
+}
 
 void TestMinigame::Start() {
   graphics_view_->scene()->setBackgroundBrush(
@@ -66,7 +68,27 @@ void TestMinigame::AddBall() {
   ClickableBall* ball = new ClickableBall(
       graphics_view_, ball_radius_ * 2, ball_radius_ * 2,
       static_cast<float>(center.x()), static_cast<float>(center.y()));
+  connect(ball, &ClickableBall::Clicked, this, &TestMinigame::DeleteBall);
+  current_ball_ = ball;
   graphics_view_->scene()->addItem(ball);
+}
+
+void TestMinigame::DeleteBall() {
+  if (current_ball_ == nullptr) {
+    return;
+  }
+  graphics_view_->scene()->removeItem(current_ball_);
+  delete current_ball_;
+  current_ball_ = nullptr;
+  balls_count_--;
+  if (balls_count_ == 0) {
+    // Need to calculate it here as timer_ interval bonus
+    // is calculated as 0 in Stop()
+    points_ = 100 + timer_.remainingTime() * 10 / timer_.interval();
+    Stop();
+  } else {
+    AddBall();
+  }
 }
 
 QPointF TestMinigame::GetRandomBallCenter() const {
@@ -112,27 +134,12 @@ void TestMinigame::Lose() {
   timer_.start();
 }
 
-void TestMinigame::MousePressEvent(QMouseEvent* event) {
+void TestMinigame::MousePressEvent(QMouseEvent*) {
   if (!is_running_) {
     return;
   }
   graphics_view_->scene()->setBackgroundBrush(
       QBrush(QColor::fromRgb(200, 0, 0)));
-  ClickableBall* clicked_ball =
-      dynamic_cast<ClickableBall*>(graphics_view_->itemAt(event->pos()));
-  if (clicked_ball != nullptr) {
-    graphics_view_->scene()->removeItem(clicked_ball);
-    delete clicked_ball;
-    balls_count_--;
-    if (balls_count_ == 0) {
-      // Need to calculate it here as timer_ interval bonus
-      // is calculated as 0 in Stop()
-      points_ = 100 + timer_.remainingTime() * 10 / timer_.interval();
-      Stop();
-    } else {
-      AddBall();
-    }
-  }
 }
 
 void TestMinigame::MouseReleaseEvent(QMouseEvent*) {
