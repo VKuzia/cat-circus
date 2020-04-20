@@ -62,14 +62,24 @@ void TestMinigame::Tick() {
 }
 
 void TestMinigame::AddBall() {
-  graphics_view_->scene()->addItem(new ClickableBall(
+  QPointF center = GetRandomBallCenter();
+  ClickableBall* ball = new ClickableBall(
       graphics_view_, ball_radius_ * 2, ball_radius_ * 2,
-      (QRandomGenerator::global()->bounded(graphics_view_->width()) -
-       graphics_view_->width() / 2) *
-          0.8f,
-      (QRandomGenerator::global()->bounded(graphics_view_->height()) -
-       graphics_view_->height() / 2) *
-          0.8f));
+      static_cast<float>(center.x()), static_cast<float>(center.y()));
+  graphics_view_->scene()->addItem(ball);
+}
+
+QPointF TestMinigame::GetRandomBallCenter() const {
+  // Scene's (0,0) point is in its centre.
+  // That's why we subtract a half of width(height)
+  // Then scale for center being inside but the edges
+  double x = (QRandomGenerator::global()->bounded(graphics_view_->width()) -
+              graphics_view_->width() / 2) *
+             kCenterRegionFactor;
+  double y = (QRandomGenerator::global()->bounded(graphics_view_->height()) -
+              graphics_view_->height() / 2) *
+             kCenterRegionFactor;
+  return QPointF(x, y);
 }
 
 void TestMinigame::Stop() {

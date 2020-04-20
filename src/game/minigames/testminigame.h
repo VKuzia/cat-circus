@@ -23,6 +23,10 @@ class TestMinigame : public Minigame {
   const int32_t kBasicBallRadius = 100;
   const int32_t kBasicBallNumber = 3;
 
+  // Determines width of centered rectangle relatively
+  // scene width in order not to generate circles at the edges
+  const double kCenterRegionFactor = 0.8;
+
   int32_t balls_count_;
   int32_t ball_radius_;
 
@@ -32,6 +36,7 @@ class TestMinigame : public Minigame {
 
   void Tick() override;
   void AddBall();
+  QPointF GetRandomBallCenter() const;
 
   void Stop() override;
   void Win() override;
