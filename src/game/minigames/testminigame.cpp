@@ -82,9 +82,7 @@ void TestMinigame::DeleteBall() {
   current_ball_ = nullptr;
   balls_count_--;
   if (balls_count_ == 0) {
-    // Need to calculate it here as timer_ interval bonus
-    // is calculated as 0 in Stop()
-    points_ = 100 + timer_.remainingTime() * 10 / timer_.interval();
+    time_left_ = timer_.remainingTime();
     Stop();
   } else {
     AddBall();
@@ -120,6 +118,7 @@ void TestMinigame::Win() {
   graphics_view_->scene()->setBackgroundBrush(QColor::fromRgb(1, 143, 8));
   QTimer::singleShot(kOutroDuration, this, [this] {
     graphics_view_->scene()->setBackgroundBrush(Qt::NoBrush);
+    points_ = 100 + time_left_ * 10 / timer_.interval();
     emit Passed(points_);
   });
   timer_.start();

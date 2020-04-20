@@ -30,6 +30,7 @@ class TestMinigame : public Minigame {
 
   int32_t balls_count_;
   int32_t ball_radius_;
+  int32_t time_left_ = 0;
   ClickableBall* current_ball_ = nullptr;
 
   void AnimateTutorial() override;
