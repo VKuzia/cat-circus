@@ -16,6 +16,8 @@ QPoint Advance(QVector2D *velocity, const QPoint &coordinates);
 QVector2D Throw(QPointF start, QPointF finish, float time);
 
 extern const QVector2D kGravity;
-}; // namespace Physics
+// clang-format off
+};  // namespace Physics
+// clang-format on
 
 #endif // PHYSICS_H
