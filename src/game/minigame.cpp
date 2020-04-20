@@ -2,8 +2,8 @@
 
 Minigame::Minigame(QGraphicsView* graphics_view, float difficulty)
     : graphics_view_(graphics_view),
-      timer_(new QTimer(this)),
-      tick_timer_(new QTimer(this)),
+      timer_(this),
+      tick_timer_(this),
       width_(graphics_view_->width()),
       height_(graphics_view_->height()),
       time_bar_(new TimeBar(graphics_view_, width_,
@@ -15,14 +15,6 @@ Minigame::Minigame(QGraphicsView* graphics_view, float difficulty)
 }
 
 Minigame::~Minigame() {
-  if (timer_ != nullptr) {
-    timer_->stop();
-    delete timer_;
-  }
-  if (tick_timer_ != nullptr) {
-    tick_timer_->stop();
-    delete tick_timer_;
-  }
   // clear removes and deletes items
   graphics_view_->scene()->clear();
 }

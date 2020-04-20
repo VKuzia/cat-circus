@@ -13,6 +13,7 @@ class PausePage : public QWidget {
 
  public:
   explicit PausePage(QWidget* parent = nullptr);
+  ~PausePage() override;
 
  signals:
   void MainMenu();

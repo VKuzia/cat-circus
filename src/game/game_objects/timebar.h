@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QPropertyAnimation>
 
-#include "src/game/graphicsobject.h"
+#include "src/game/gameobject.h"
 
-class TimeBar : public QObject, public GraphicsObject {
+class TimeBar : public QObject, public GameObject {
   Q_OBJECT
 
  public:
@@ -14,7 +14,6 @@ class TimeBar : public QObject, public GraphicsObject {
           float y = 0);
   ~TimeBar() override;
 
-  QRectF boundingRect() const override;
   void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
              QWidget* widget) override;
 

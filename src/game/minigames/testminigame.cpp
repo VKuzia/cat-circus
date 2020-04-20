@@ -31,27 +31,22 @@ void TestMinigame::AnimateTutorial() {
   tutorial_label_->setTextWidth(300);
   tutorial_label_->setZValue(100);
 
-  timer_->setInterval(kTutorialDuration);
-  connect(timer_, &QTimer::timeout, this, [this] {
-    timer_->stop();
-    tutorial_label_->setVisible(false);
-    time_bar_->setVisible(true);
-    StartGame();
-  });
-  timer_->start();
+  QTimer::singleShot(kTutorialDuration, this, [this] { StartGame(); });
 }
 
 void TestMinigame::StartGame() {
-  timer_->setInterval(time_);
-  connect(timer_, &QTimer::timeout, this, &TestMinigame::Stop);
+  tutorial_label_->setVisible(false);
+  time_bar_->setVisible(true);
+  timer_.setInterval(time_);
+  connect(&timer_, &QTimer::timeout, this, &TestMinigame::Stop);
 
-  tick_timer_->setInterval(1000 / kFps);
-  connect(tick_timer_, &QTimer::timeout, this, &TestMinigame::Tick);
+  tick_timer_.setInterval(1000 / kFps);
+  connect(&tick_timer_, &QTimer::timeout, this, &TestMinigame::Tick);
 
   is_running_ = true;
 
-  timer_->start();
-  tick_timer_->start();
+  timer_.start();
+  tick_timer_.start();
 }
 
 void TestMinigame::AnimateOutro() {}
@@ -60,8 +55,8 @@ void TestMinigame::Tick() {
   if (!is_running_) {
     return;
   }
-  timer_->remainingTime();
-  time_bar_->SetProgress(1.0f * timer_->remainingTime() / kBasicDuration);
+  timer_.remainingTime();
+  time_bar_->SetProgress(1.0f * timer_.remainingTime() / kBasicDuration);
 
   time_bar_->update();
 }
@@ -79,8 +74,9 @@ void TestMinigame::AddBall() {
 
 void TestMinigame::Stop() {
   is_running_ = false;
-  tick_timer_->stop();
-  timer_->stop();
+  tick_timer_.stop();
+  timer_.stop();
+  time_bar_->setVisible(false);
   if (balls_count_ == 0) {
     Win();
   } else {
@@ -89,27 +85,21 @@ void TestMinigame::Stop() {
 }
 
 void TestMinigame::Win() {
-  time_bar_->setVisible(false);
-  timer_->setInterval(kOutroDuration);
   graphics_view_->scene()->setBackgroundBrush(QColor::fromRgb(1, 143, 8));
-  connect(timer_, &QTimer::timeout, this, [this] {
-    timer_->stop();
+  QTimer::singleShot(kOutroDuration, this, [this] {
     graphics_view_->scene()->setBackgroundBrush(Qt::NoBrush);
     emit Passed(points_);
   });
-  timer_->start();
+  timer_.start();
 }
 
 void TestMinigame::Lose() {
-  time_bar_->setVisible(false);
-  timer_->setInterval(kOutroDuration);
   graphics_view_->scene()->setBackgroundBrush(QColor::fromRgb(191, 8, 8));
-  connect(timer_, &QTimer::timeout, this, [this] {
-    timer_->stop();
+  QTimer::singleShot(kOutroDuration, this, [this] {
     graphics_view_->scene()->setBackgroundBrush(Qt::NoBrush);
     emit Failed();
   });
-  timer_->start();
+  timer_.start();
 }
 
 void TestMinigame::MousePressEvent(QMouseEvent* event) {
@@ -127,7 +117,7 @@ void TestMinigame::MousePressEvent(QMouseEvent* event) {
     if (balls_count_ == 0) {
       // Need to calculate it here as timer_ interval bonus
       // is calculated as 0 in Stop()
-      points_ = 100 + timer_->remainingTime() * 10 / timer_->interval();
+      points_ = 100 + timer_.remainingTime() * 10 / timer_.interval();
       Stop();
     } else {
       AddBall();

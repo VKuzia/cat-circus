@@ -2,18 +2,12 @@
 
 TimeBar::TimeBar(QGraphicsView* graphics_view, float width, float height,
                  float x, float y)
-    : GraphicsObject(graphics_view, width, height, x, y) {
+    : GameObject(graphics_view, width, height, x, y) {
   this->setCacheMode(ItemCoordinateCache);
   this->setZValue(100);
 }
 
 TimeBar::~TimeBar() {}
-
-QRectF TimeBar::boundingRect() const {
-  return QRectF(static_cast<double>(-width_ / 2),
-                static_cast<double>(-height_ / 2), static_cast<double>(width_),
-                static_cast<double>(height_));
-}
 
 void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
                     QWidget*) {

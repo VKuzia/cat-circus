@@ -10,4 +10,4 @@ SettingsWidget::SettingsWidget(QWidget* parent)
 
 void SettingsWidget::ReturnToMainMenu() { emit MainMenu(); }
 
-SettingsWidget::~SettingsWidget() {}
+SettingsWidget::~SettingsWidget() { delete ui_; }

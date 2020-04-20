@@ -1,6 +1,7 @@
 #ifndef POINTSPAGE_H
 #define POINTSPAGE_H
 
+#include <QGraphicsScene>
 #include <QTimer>
 #include <QWidget>
 
@@ -13,6 +14,7 @@ class PointsPage : public QWidget {
 
  public:
   explicit PointsPage(QWidget* parent = nullptr);
+  ~PointsPage() override;
 
   void SetUp();
   void Animate();
@@ -24,7 +26,7 @@ class PointsPage : public QWidget {
   void Expired();
   void Paused();
   void MainMenu();
-  void Retryed();
+  void Retried();
 
  public slots:
   void Pause();
@@ -32,6 +34,9 @@ class PointsPage : public QWidget {
   void Retry();
 
  private:
+  const QColor kActiveLiveColor = QColor::fromRgb(10, 230, 10, 200);
+  const QColor kInactiveLiveColor = QColor::fromRgb(230, 10, 10, 200);
+
   const int32_t kExpireTime = 2500;
   const int32_t kResumeTime = 1500;
   const int32_t kLiveInterval = 20;
@@ -39,8 +44,10 @@ class PointsPage : public QWidget {
 
   int32_t points_ = 0;
   int32_t lives_count_ = kBasicLivesCount;
+
+  QGraphicsScene* lives_scene_;
   Ui::PointsPage* ui_;
-  QTimer* expire_timer_;
+  QTimer expire_timer_;
 
   void SetUpLives();
   void UpdateLive(int32_t live_num);

@@ -1,6 +1,7 @@
 #include "src/game/gamewidget.h"
 
 #include <QStackedLayout>
+#include <QtMath>
 
 #include "src/game/minigames/testminigame.h"
 #include "ui_gamewidget.h"
@@ -13,7 +14,7 @@ GameWidget::GameWidget(QWidget* parent)
   connect(ui_->ui_points_page_, &PointsPage::Expired, this,
           &GameWidget::StartMinigame);
   connect(ui_->ui_points_page_, &PointsPage::Paused, this, &GameWidget::Pause);
-  connect(ui_->ui_points_page_, &PointsPage::Retryed, this, &GameWidget::Retry);
+  connect(ui_->ui_points_page_, &PointsPage::Retried, this, &GameWidget::Retry);
   connect(ui_->ui_points_page_, &PointsPage::MainMenu, this,
           &GameWidget::ReturnToMainMenu);
 
@@ -47,7 +48,6 @@ void GameWidget::InitMinigame() {
   }
   // Some game picking logic should be here
   // This version is used only to implement MiniGame switch
-  current_difficulty_ = qMin(0.85f, current_difficulty_ + 0.1f);
   Minigame* minigame =
       new TestMinigame(ui_->ui_game_view_, current_difficulty_);
   SetMinigame(minigame);
@@ -75,6 +75,10 @@ void GameWidget::ShowPoints() {
 void GameWidget::MinigamePassed(int64_t score) {
   ui_->ui_points_page_->MiniGamePassed(score);
   ShowPoints();
+
+  // To increase difficulty staying in (0, 1)
+  current_difficulty_ = static_cast<float>(
+      qPow(static_cast<double>(current_difficulty_), kDifficultyPower));
 }
 
 void GameWidget::MinigameFailed() {
@@ -82,7 +86,13 @@ void GameWidget::MinigameFailed() {
   ShowPoints();
 }
 
-GameWidget::~GameWidget() { delete ui_; }
+GameWidget::~GameWidget() {
+  if (current_minigame_ != nullptr) {
+    delete current_minigame_;
+    current_minigame_ = nullptr;
+  }
+  delete ui_;
+}
 
 void GameWidget::SetUp() {
   current_difficulty_ = 0;

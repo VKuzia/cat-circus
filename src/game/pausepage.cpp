@@ -9,6 +9,8 @@ PausePage::PausePage(QWidget* parent)
   ui_->setupUi(this);
 }
 
+PausePage::~PausePage() { delete ui_; }
+
 void PausePage::ReturnToMainMenu() { emit MainMenu(); }
 
 void PausePage::mousePressEvent(QMouseEvent*) { emit Resume(); }

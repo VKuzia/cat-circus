@@ -28,12 +28,13 @@ class GameWidget : public QWidget {
   void Retry();
 
  private:
+  const double kDifficultyPower = 0.9;
+
+  float current_difficulty_ = 0.1f;
   int32_t width_ = 1024;
   int32_t height_ = 576;
   Ui::GameWidget* ui_;
   Minigame* current_minigame_ = nullptr;
-
-  float current_difficulty_ = 0;
 
   void InitMinigame();
   void StartMinigame();
