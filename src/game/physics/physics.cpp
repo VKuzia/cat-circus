@@ -20,7 +20,6 @@ void physics::CollideTwoObjects(float mass1, QVector2D* velocity1, float mass2,
 
 QVector2D physics::Reflect(QVector2D impulse, float wall_angle) {
   QVector2D wall_vector = {(std::cos(wall_angle)), (std::sin(wall_angle))};
-  QPair<float, float> normal_wall{-wall_vector.y(), wall_vector.x()};
   float alpha_cos = QVector2D::dotProduct(impulse, wall_vector) /
                     (impulse.length() * wall_vector.length());
   float alpha_sin = sin(acos(alpha_cos) + wall_angle);
