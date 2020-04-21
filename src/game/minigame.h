@@ -15,6 +15,8 @@ class Minigame : public QObject {
   Minigame(QGraphicsView* graphics_view, float difficulty);
   virtual ~Minigame();
 
+  virtual void SetUp() = 0;
+
   virtual void Start() = 0;
   virtual void Stop() = 0;
 
@@ -49,6 +51,8 @@ class Minigame : public QObject {
   float difficulty_;
 
   bool is_running_ = false;
+
+  void SetUpBasicItems();
 
   virtual void AnimateTutorial() = 0;
   virtual void StartGame() = 0;

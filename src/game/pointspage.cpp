@@ -35,9 +35,6 @@ void PointsPage::SetUp() {
 }
 
 void PointsPage::Animate() {
-  if (lives_count_ <= 0) {
-    return;
-  }
   expire_timer_.setInterval(kExpireTime);
   expire_timer_.start();
 }
@@ -59,6 +56,8 @@ void PointsPage::MiniGameFailed() {
     ui_->ui_label_->setText("Failed :(");
   }
 }
+
+int32_t PointsPage::GetLivesCount() const { return lives_count_; }
 
 void PointsPage::Pause() {
   if (lives_count_ <= 0) {

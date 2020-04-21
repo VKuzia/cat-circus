@@ -5,11 +5,6 @@
 
 TestMinigame::TestMinigame(QGraphicsView* graphics_view, float difficulty)
     : Minigame(graphics_view, difficulty) {
-  // Random coefs just for testing the basic game loop
-  time_ = qRound(kBasicDuration / (difficulty_ * 1.5f + 1.0f));
-  balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2f);
-  ball_radius_ = qRound(kBasicBallRadius * (1 - difficulty_));
-  time_bar_->setVisible(false);
   is_running_ = false;
 }
 
@@ -19,12 +14,20 @@ TestMinigame::~TestMinigame() {
   }
 }
 
-void TestMinigame::Start() {
+void TestMinigame::SetUp() {
+  SetUpBasicItems();
+  // Random coefs just for testing the basic game loop
+  time_ = qRound(kBasicDuration / (difficulty_ * 1.5f + 1.0f));
+  balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2f);
+  ball_radius_ = qRound(kBasicBallRadius * (1 - difficulty_));
+  time_bar_->setVisible(false);
+
   graphics_view_->scene()->setBackgroundBrush(
       QBrush(QColor::fromRgb(227, 124, 7)));
   AddBall();
-  AnimateTutorial();
 }
+
+void TestMinigame::Start() { AnimateTutorial(); }
 
 void TestMinigame::AnimateTutorial() {
   // Random coefs just for testing the basic game loop

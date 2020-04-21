@@ -11,6 +11,8 @@ class TestMinigame : public Minigame {
   TestMinigame(QGraphicsView* graphics_view, float difficulty);
   ~TestMinigame() override;
 
+  void SetUp() override;
+
   void Start() override;
 
   void MousePressEvent(QMouseEvent* event) override;

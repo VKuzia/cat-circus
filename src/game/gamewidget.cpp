@@ -24,9 +24,6 @@ GameWidget::GameWidget(QWidget* parent)
 }
 
 void GameWidget::ReturnToMainMenu() {
-  if (current_minigame_ != nullptr) {
-    delete current_minigame_;
-  }
   SetMinigame(nullptr);
   emit MainMenu();
 }
@@ -43,14 +40,12 @@ void GameWidget::Resume() {
 void GameWidget::Retry() { SetUp(); }
 
 void GameWidget::InitMinigame() {
-  if (current_minigame_ != nullptr) {
-    delete current_minigame_;
-  }
   // Some game picking logic should be here
   // This version is used only to implement MiniGame switch
   Minigame* minigame =
       new TestMinigame(ui_->ui_game_view_, current_difficulty_);
   SetMinigame(minigame);
+  current_minigame_->SetUp();
 }
 
 void GameWidget::StartMinigame() {
@@ -68,43 +63,52 @@ void GameWidget::StartMinigame() {
 void GameWidget::ShowPoints() {
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_points_page_);
   ui_->ui_points_page_->Animate();
-  // We will need to change to another game here soon
-  InitMinigame();
+}
+
+void GameWidget::Lose() {
+  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_points_page_);
+  SetMinigame(nullptr);
 }
 
 void GameWidget::MinigamePassed(int64_t score) {
   ui_->ui_points_page_->MiniGamePassed(score);
   ShowPoints();
-
   // To increase difficulty staying in (0, 1)
   current_difficulty_ = static_cast<float>(
       qPow(static_cast<double>(current_difficulty_), kDifficultyPower));
+  InitMinigame();
 }
 
 void GameWidget::MinigameFailed() {
   ui_->ui_points_page_->MiniGameFailed();
-  ShowPoints();
+  if (ui_->ui_points_page_->GetLivesCount() > 0) {
+    ShowPoints();
+    InitMinigame();
+  } else {
+    Lose();
+  }
 }
 
 GameWidget::~GameWidget() {
-  if (current_minigame_ != nullptr) {
-    delete current_minigame_;
-    current_minigame_ = nullptr;
-  }
+  SetMinigame(nullptr);
   delete ui_;
 }
 
 void GameWidget::SetUp() {
-  current_difficulty_ = 0;
+  current_difficulty_ = 0.1f;
   // QStackedWidget doesn't resize widgets,
   // that were not visible before, but
   // ui_points_page_ needs to know its width in SetUp()
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_points_page_);
   ui_->ui_points_page_->SetUp();
   ShowPoints();
+  InitMinigame();
 }
 
 void GameWidget::SetMinigame(Minigame* minigame) {
+  if (current_minigame_ != nullptr) {
+    delete current_minigame_;
+  }
   current_minigame_ = minigame;
   ui_->ui_game_view_->SetMinigame(minigame);
 }

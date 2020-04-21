@@ -22,6 +22,8 @@ class PointsPage : public QWidget {
   void MiniGamePassed(int64_t score);
   void MiniGameFailed();
 
+  int32_t GetLivesCount() const;
+
  signals:
   void Expired();
   void Paused();
