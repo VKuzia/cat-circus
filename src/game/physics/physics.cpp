@@ -12,17 +12,14 @@ void physics::CollideTwoObjects(const float &mass1, QVector2D *velocity1,
   float peace = M_PI_2 / (mass1 + mass2);
   float angle_f = peace * mass2;
   float angle_s = peace * mass1;
-  *velocity1 = {
-      static_cast<float>(u1.x() * cos(angle_f) + u1.y() * sin(angle_f)),
-      static_cast<float>(u1.y() * cos(angle_f) - u1.x() * sin(angle_f))};
-  *velocity2 = {
-      static_cast<float>(u2.x() * cos(angle_s) + u2.y() * sin(angle_s)),
-      static_cast<float>(u2.y() * cos(angle_s) - u2.x() * sin(angle_s))};
+  *velocity1 = {(u1.x() * std::cos(angle_f) + u1.y() * std::sin(angle_f)),
+                (u1.y() * std::cos(angle_f) - u1.x() * std::sin(angle_f))};
+  *velocity2 = {(u2.x() * std::cos(angle_s) + u2.y() * std::sin(angle_s)),
+                (u2.y() * std::cos(angle_s) - u2.x() * std::sin(angle_s))};
 }
 
-QVector2D physics::Reflect(const QVector2D &impulse, double wall_angle) {
-  QVector2D wall_vector{static_cast<float>(cos(wall_angle)),
-                        static_cast<float>(sin(wall_angle))};
+QVector2D physics::Reflect(const QVector2D &impulse, float wall_angle) {
+  QVector2D wall_vector = {(std::cos(wall_angle)), (std::sin(wall_angle))};
   QPair<float, float> normal_wall{-wall_vector.y(), wall_vector.x()};
   float alpha_cos = QVector2D::dotProduct(impulse, wall_vector) /
                     (impulse.length() * wall_vector.length());
@@ -31,10 +28,9 @@ QVector2D physics::Reflect(const QVector2D &impulse, double wall_angle) {
   return {(impulse.x() * alpha_cos), (impulse.y() * alpha_sin)};
 }
 
-QPoint physics::Advance(QVector2D *velocity, const QPoint &coordinates) {
-  QPoint answer = {
-      static_cast<int>(coordinates.x() + velocity->x()),
-      static_cast<int>(coordinates.y() + velocity->y() + kGravity.y() / 2)};
+QPointF physics::Advance(QVector2D *velocity, const QPointF &coordinates) {
+  QPointF answer = {(coordinates.x() + velocity->x()),
+                    (coordinates.y() + velocity->y() + kGravity.y() / 2)};
   velocity->setY(velocity->y() - kGravity.y());
   return answer;
 }
