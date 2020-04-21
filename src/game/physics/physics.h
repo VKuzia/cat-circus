@@ -18,6 +18,6 @@ QVector2D Throw(QPointF start, QPointF finish, float time);
 extern const QVector2D kGravity;
 // clang-format off
 };  // namespace physics
-// clang-format on
 
-#endif // PHYSICS_H
+
+#endif  // PHYSICS_H
