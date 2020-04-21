@@ -6,12 +6,12 @@
 #include <QtMath>
 
 namespace physics {
-void CollideTwoObjects(const float &mass1, QVector2D *velocity1,
-                       const float &mass2, QVector2D *velocity2);
+void CollideTwoObjects(float mass1, QVector2D* velocity1, float mass2,
+                       QVector2D* velocity2);
 
-QVector2D Reflect(const QVector2D &impulse, float wall_angle);
+QVector2D Reflect(QVector2D impulse, float wall_angle);
 
-QPointF Advance(QVector2D *velocity, const QPointF &coordinates);
+QPointF Advance(QVector2D* velocity, QPointF coordinates);
 
 QVector2D Throw(QPointF start, QPointF finish, float time);
 
