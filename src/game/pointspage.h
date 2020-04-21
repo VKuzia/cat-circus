@@ -42,15 +42,21 @@ class PointsPage : public QWidget {
   const int32_t kLiveInterval = 20;
   const int32_t kBasicLivesCount = 3;
 
+  // Ratio of live height to lives_scene_ height;
+  // Temporary parameter for lives appearance
+  const float kLiveHeightFactor = 0.9f;
+
   int32_t points_ = 0;
   int32_t lives_count_ = kBasicLivesCount;
 
   QGraphicsScene* lives_scene_;
   Ui::PointsPage* ui_;
+  QVector<QGraphicsEllipseItem*> lives_;
   QTimer expire_timer_;
 
   void SetUpLives();
-  void UpdateLive(int32_t live_num);
+  QGraphicsEllipseItem* GetNewLive(int32_t number) const;
+  void RemoveLive();
 };
 
 #endif  // POINTSPAGE_H

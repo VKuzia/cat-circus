@@ -18,6 +18,9 @@ PointsPage::PointsPage(QWidget* parent)
 }
 
 PointsPage::~PointsPage() {
+  // Remember, lives_scene_ clears lives_ elements
+  lives_.clear();
+  lives_scene_->clear();
   delete lives_scene_;
   delete ui_;
 }
@@ -46,7 +49,7 @@ void PointsPage::MiniGamePassed(int64_t score) {
 }
 
 void PointsPage::MiniGameFailed() {
-  UpdateLive(--lives_count_);
+  RemoveLive();
   if (lives_count_ == 0) {
     ui_->ui_label_->setText("You lost...");
     expire_timer_.stop();
@@ -81,23 +84,29 @@ void PointsPage::Retry() {
 
 void PointsPage::SetUpLives() {
   ui_->ui_lives_view_->scene()->clear();
+  lives_.clear();
   lives_count_ = kBasicLivesCount;
   for (int32_t i = -lives_count_ / 2; i <= (lives_count_ - 1) / 2; i++) {
-    // Will be further replaced with animated sprites
-    QGraphicsEllipseItem* new_live = new QGraphicsEllipseItem(
-        i * (kLiveInterval + ui_->ui_lives_view_->height() * 0.9), 0,
-        ui_->ui_lives_view_->height() * 0.9,
-        ui_->ui_lives_view_->height() * 0.9);
-    new_live->setBrush(kActiveLiveColor);
+    QGraphicsEllipseItem* new_live = GetNewLive(i);
     ui_->ui_lives_view_->scene()->addItem(new_live);
+    lives_.push_back(new_live);
   }
 }
 
-void PointsPage::UpdateLive(int32_t live_num) {
-  QGraphicsEllipseItem* live = dynamic_cast<QGraphicsEllipseItem*>(
-      ui_->ui_lives_view_->scene()->items().at(live_num));
-  if (live == nullptr) {
-    return;
-  }
+QGraphicsEllipseItem* PointsPage::GetNewLive(int32_t number) const {
+  // Will be further replaced with animated sprites
+  QGraphicsEllipseItem* new_live = new QGraphicsEllipseItem();
+  double diameter =
+      ui_->ui_lives_view_->height() * static_cast<double>(kLiveHeightFactor);
+  double x = number * (kLiveInterval + diameter);
+  double y = 0;
+  new_live->setRect(x, y, diameter, diameter);
+  new_live->setBrush(kActiveLiveColor);
+  return new_live;
+}
+
+void PointsPage::RemoveLive() {
+  lives_count_--;
+  QGraphicsEllipseItem* live = lives_.at(kBasicLivesCount - lives_count_ - 1);
   live->setBrush(kInactiveLiveColor);
 }
