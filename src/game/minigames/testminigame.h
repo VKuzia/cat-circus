@@ -30,8 +30,8 @@ class TestMinigame : public Minigame {
   // scene width in order not to generate circles at the edges
   const double kCenterRegionFactor = 0.8;
 
-  int32_t balls_count_;
-  int32_t ball_radius_;
+  int32_t balls_count_ = 0;
+  int32_t ball_radius_ = 0;
   int32_t time_left_ = 0;
   ClickableBall* current_ball_ = nullptr;
 

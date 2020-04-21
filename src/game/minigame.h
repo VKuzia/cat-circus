@@ -52,6 +52,8 @@ class Minigame : public QObject {
 
   bool is_running_ = false;
 
+  // Sets time_bar_ and tutorial_label_
+  // Should be called in every SetUp implementation
   void SetUpBasicItems();
 
   virtual void AnimateTutorial() = 0;
