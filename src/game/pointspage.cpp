@@ -29,7 +29,7 @@ void PointsPage::SetUp() {
   points_ = 0;
   ui_->ui_points_label_->setText(QString::number(points_));
   ui_->ui_label_->setText("Get ready!");
-  ui_->ui_pause_button_->setText("Pause");
+  ui_->ui_stacked_button_widget_->setCurrentWidget(ui_->ui_pause_button_page_);
   ui_->ui_retry_button_->setVisible(false);
   SetUpLives();
 }
@@ -51,7 +51,8 @@ void PointsPage::MiniGameFailed() {
     ui_->ui_label_->setText("You lost...");
     expire_timer_.stop();
     ui_->ui_retry_button_->setVisible(true);
-    ui_->ui_pause_button_->setText("Main Menu");
+    ui_->ui_stacked_button_widget_->setCurrentWidget(
+        ui_->ui_main_menu_button_page_);
   } else {
     ui_->ui_label_->setText("Failed :(");
   }
@@ -60,9 +61,6 @@ void PointsPage::MiniGameFailed() {
 int32_t PointsPage::GetLivesCount() const { return lives_count_; }
 
 void PointsPage::Pause() {
-  if (lives_count_ <= 0) {
-    emit MainMenu();
-  }
   // There are no pause/resume in QTimer
   int32_t remaining_time_ = expire_timer_.remainingTime();
   expire_timer_.stop();
@@ -80,6 +78,8 @@ void PointsPage::Retry() {
   SetUp();
   Animate();
 }
+
+void PointsPage::ReturnToMainMenu() { emit MainMenu(); }
 
 void PointsPage::SetUpLives() {
   ui_->ui_lives_view_->scene()->clear();

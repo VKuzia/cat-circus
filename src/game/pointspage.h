@@ -34,6 +34,7 @@ class PointsPage : public QWidget {
   void Pause();
   void Resume();
   void Retry();
+  void ReturnToMainMenu();
 
  private:
   const QColor kActiveLiveColor = QColor::fromRgb(10, 230, 10, 200);
