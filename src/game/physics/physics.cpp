@@ -38,7 +38,7 @@ QPointF physics::Advance(QVector2D *velocity, const QPointF &coordinates) {
 QVector2D physics::Throw(QPointF start, QPointF finish, float time) {
   QVector2D answer;
   answer.setX((finish.x() - start.x()) / time);
-  answer.setY((finish.y() - start.y()) / time +
+  answer.setY((finish.y() - start.y()) / time -
               (physics::kGravity.y() * time) / 2);
   return answer;
 }
