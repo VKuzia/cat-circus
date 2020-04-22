@@ -35,6 +35,7 @@ SOURCES += \
         src/game/minigames/testminigame.cpp \
         src/game/pausepage.cpp \
         src/game/scorepage.cpp \
+        src/game/physics/physics.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
         src/game/minigames/testminigame.h \
         src/game/pausepage.h \
         src/game/scorepage.h \
+        src/game/physics/physics.h \
         src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
         src/menu/settingswidget.h
