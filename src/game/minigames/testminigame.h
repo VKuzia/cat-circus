@@ -11,8 +11,6 @@ class TestMinigame : public Minigame {
   TestMinigame(QGraphicsView* graphics_view, float difficulty);
   ~TestMinigame() override;
 
-  void SetUp() override;
-
   void Start() override;
 
   void MousePressEvent(QMouseEvent* event) override;
@@ -42,6 +40,8 @@ class TestMinigame : public Minigame {
   int32_t ball_radius_ = 0;
   int32_t time_left_ = 0;
   ClickableBall* current_ball_ = nullptr;
+
+  void Prepare() override;
 
   void AnimateTutorial() override;
   void StartGame() override;

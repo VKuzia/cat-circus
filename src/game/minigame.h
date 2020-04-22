@@ -15,7 +15,7 @@ class Minigame : public QObject {
   Minigame(QGraphicsView* graphics_view, float difficulty);
   virtual ~Minigame();
 
-  virtual void SetUp() = 0;
+  void SetUp();
 
   virtual void Start() = 0;
   virtual void Stop() = 0;
@@ -52,9 +52,9 @@ class Minigame : public QObject {
 
   bool is_running_ = false;
 
-  // Sets time_bar_ and tutorial_label_
-  // Should be called in every SetUp implementation
-  void SetUpBasicItems();
+  // Sets up a certain Minigame child
+  // Adds start GameObjects to scene
+  virtual void Prepare() = 0;
 
   virtual void AnimateTutorial() = 0;
   virtual void StartGame() = 0;

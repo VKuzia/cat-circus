@@ -8,8 +8,7 @@ TestMinigame::TestMinigame(QGraphicsView* graphics_view, float difficulty)
 
 TestMinigame::~TestMinigame() {}
 
-void TestMinigame::SetUp() {
-  SetUpBasicItems();
+void TestMinigame::Prepare() {
   // Random coefs just for testing the basic game loop
   time_ = qRound(kBasicDuration / (difficulty_ * 1.5f + 1.0f));
   balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2f);
