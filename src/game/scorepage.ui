@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PointsPage</class>
- <widget class="QWidget" name="PointsPage">
+ <class>ScorePage</class>
+ <widget class="QWidget" name="ScorePage">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -46,7 +46,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="ui_points_label_">
+    <widget class="QLabel" name="ui_score_label_">
      <property name="font">
       <font>
        <family>Verdana</family>
@@ -283,7 +283,7 @@
   <connection>
    <sender>ui_pause_button_</sender>
    <signal>clicked()</signal>
-   <receiver>PointsPage</receiver>
+   <receiver>ScorePage</receiver>
    <slot>Pause()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -299,7 +299,7 @@
   <connection>
    <sender>ui_retry_button_</sender>
    <signal>clicked()</signal>
-   <receiver>PointsPage</receiver>
+   <receiver>ScorePage</receiver>
    <slot>Retry()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -315,7 +315,7 @@
   <connection>
    <sender>ui_main_menu_button_</sender>
    <signal>clicked()</signal>
-   <receiver>PointsPage</receiver>
+   <receiver>ScorePage</receiver>
    <slot>ReturnToMainMenu()</slot>
    <hints>
     <hint type="sourcelabel">

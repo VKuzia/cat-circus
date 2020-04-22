@@ -34,7 +34,7 @@ SOURCES += \
         src/game/minigame.cpp \
         src/game/minigames/testminigame.cpp \
         src/game/pausepage.cpp \
-        src/game/pointspage.cpp \
+        src/game/scorepage.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
@@ -50,7 +50,7 @@ HEADERS += \
         src/game/minigame.h \
         src/game/minigames/testminigame.h \
         src/game/pausepage.h \
-        src/game/pointspage.h \
+        src/game/scorepage.h \
         src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
         src/menu/settingswidget.h
@@ -58,7 +58,7 @@ HEADERS += \
 FORMS += \
         src/game/gamewidget.ui \
         src/game/pausepage.ui \
-        src/game/pointspage.ui \
+        src/game/scorepage.ui \
         src/menu/aboutwidget.ui \
         src/menu/mainwindow.ui \
         src/menu/settingswidget.ui

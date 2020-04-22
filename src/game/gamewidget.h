@@ -39,7 +39,7 @@ class GameWidget : public QWidget {
 
   void InitMinigame();
   void StartMinigame();
-  void ShowPoints();
+  void ShowScore();
   void Lose();
 
   // Also deletes non-nullptr mini-games

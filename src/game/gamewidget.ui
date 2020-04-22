@@ -81,7 +81,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="PointsPage" name="ui_points_page_"/>
+     <widget class="ScorePage" name="ui_score_page_"/>
      <widget class="PausePage" name="ui_pause_page_"/>
     </widget>
    </item>
@@ -89,9 +89,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PointsPage</class>
+   <class>ScorePage</class>
    <extends>QWidget</extends>
-   <header>src/game/pointspage.h</header>
+   <header>src/game/scorepage.h</header>
    <container>1</container>
    <slots>
     <signal>Paused()</signal>

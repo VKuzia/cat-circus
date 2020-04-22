@@ -1,13 +1,13 @@
-#include "pointspage.h"
+#include "scorepage.h"
 
 #include <QGraphicsEllipseItem>
 
-#include "ui_pointspage.h"
+#include "ui_scorepage.h"
 
-PointsPage::PointsPage(QWidget* parent)
+ScorePage::ScorePage(QWidget* parent)
     : QWidget(parent),
       lives_scene_(new QGraphicsScene(this)),
-      ui_(new Ui::PointsPage),
+      ui_(new Ui::ScorePage),
       expire_timer_(this) {
   ui_->setupUi(this);
   connect(&expire_timer_, &QTimer::timeout, this, [=] {
@@ -17,7 +17,7 @@ PointsPage::PointsPage(QWidget* parent)
   ui_->ui_lives_view_->setScene(lives_scene_);
 }
 
-PointsPage::~PointsPage() {
+ScorePage::~ScorePage() {
   // Remember, lives_scene_ clears lives_ elements
   lives_.clear();
   lives_scene_->clear();
@@ -25,27 +25,27 @@ PointsPage::~PointsPage() {
   delete ui_;
 }
 
-void PointsPage::SetUp() {
-  points_ = 0;
-  ui_->ui_points_label_->setText(QString::number(points_));
+void ScorePage::SetUp() {
+  score_ = 0;
+  ui_->ui_score_label_->setText(QString::number(score_));
   ui_->ui_label_->setText("Get ready!");
   ui_->ui_stacked_button_widget_->setCurrentWidget(ui_->ui_pause_button_page_);
   ui_->ui_retry_button_->setVisible(false);
   SetUpLives();
 }
 
-void PointsPage::Animate() {
+void ScorePage::Animate() {
   expire_timer_.setInterval(kExpireTime);
   expire_timer_.start();
 }
 
-void PointsPage::MiniGamePassed(int32_t score) {
+void ScorePage::MiniGamePassed(int32_t score) {
   ui_->ui_label_->setText("Passed!");
-  points_ += score;
-  ui_->ui_points_label_->setText(QString::number(points_));
+  score_ += score;
+  ui_->ui_score_label_->setText(QString::number(score_));
 }
 
-void PointsPage::MiniGameFailed() {
+void ScorePage::MiniGameFailed() {
   RemoveLife();
   if (lives_count_ == 0) {
     ui_->ui_label_->setText("You lost...");
@@ -58,9 +58,9 @@ void PointsPage::MiniGameFailed() {
   }
 }
 
-int32_t PointsPage::GetLivesCount() const { return lives_count_; }
+int32_t ScorePage::GetLivesCount() const { return lives_count_; }
 
-void PointsPage::Pause() {
+void ScorePage::Pause() {
   // There are no pause/resume in QTimer
   int32_t remaining_time_ = expire_timer_.remainingTime();
   expire_timer_.stop();
@@ -68,20 +68,20 @@ void PointsPage::Pause() {
   emit Paused();
 }
 
-void PointsPage::Resume() {
+void ScorePage::Resume() {
   expire_timer_.setInterval(qMax(expire_timer_.remainingTime(), kResumeTime));
   expire_timer_.start();
 }
 
-void PointsPage::Retry() {
+void ScorePage::Retry() {
   emit Retried();
   SetUp();
   Animate();
 }
 
-void PointsPage::ReturnToMainMenu() { emit MainMenu(); }
+void ScorePage::ReturnToMainMenu() { emit MainMenu(); }
 
-void PointsPage::SetUpLives() {
+void ScorePage::SetUpLives() {
   ui_->ui_lives_view_->scene()->clear();
   lives_.clear();
   lives_count_ = kBasicLivesCount;
@@ -92,7 +92,7 @@ void PointsPage::SetUpLives() {
   }
 }
 
-QGraphicsEllipseItem* PointsPage::GetNewLife(int32_t index) const {
+QGraphicsEllipseItem* ScorePage::GetNewLife(int32_t index) const {
   // Will be further replaced with animated sprites
   QGraphicsEllipseItem* new_life = new QGraphicsEllipseItem();
   qreal diameter =
@@ -104,7 +104,7 @@ QGraphicsEllipseItem* PointsPage::GetNewLife(int32_t index) const {
   return new_life;
 }
 
-void PointsPage::RemoveLife() {
+void ScorePage::RemoveLife() {
   lives_count_--;
   QGraphicsEllipseItem* life = lives_.at(kBasicLivesCount - lives_count_ - 1);
   life->setBrush(kInactiveLifeColor);

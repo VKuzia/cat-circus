@@ -41,7 +41,7 @@ class Minigame : public QObject {
   QTimer tick_timer_;  // For 1 frame updates
 
   int32_t time_ = 0;
-  int32_t points_ = 0;
+  int32_t score_ = 0;
   int32_t width_;
   int32_t height_;
 

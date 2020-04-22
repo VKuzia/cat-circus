@@ -6,15 +6,15 @@
 #include <QWidget>
 
 namespace Ui {
-class PointsPage;
+class ScorePage;
 }
 
-class PointsPage : public QWidget {
+class ScorePage : public QWidget {
   Q_OBJECT
 
  public:
-  explicit PointsPage(QWidget* parent = nullptr);
-  ~PointsPage() override;
+  explicit ScorePage(QWidget* parent = nullptr);
+  ~ScorePage() override;
 
   void SetUp();
   void Animate();
@@ -49,11 +49,11 @@ class PointsPage : public QWidget {
   // Temporary parameter for lives appearance
   const float kLiveHeightFactor = 0.9f;
 
-  int32_t points_ = 0;
+  int32_t score_ = 0;
   int32_t lives_count_ = kBasicLivesCount;
 
   QGraphicsScene* lives_scene_;
-  Ui::PointsPage* ui_;
+  Ui::ScorePage* ui_;
   QVector<QGraphicsEllipseItem*> lives_;
   QTimer expire_timer_;
 

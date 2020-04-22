@@ -11,11 +11,11 @@ GameWidget::GameWidget(QWidget* parent)
   ui_->setupUi(this);
   ui_->ui_game_view_->SetUp(width_, height_);
 
-  connect(ui_->ui_points_page_, &PointsPage::Expired, this,
+  connect(ui_->ui_score_page_, &ScorePage::Expired, this,
           &GameWidget::StartMinigame);
-  connect(ui_->ui_points_page_, &PointsPage::Paused, this, &GameWidget::Pause);
-  connect(ui_->ui_points_page_, &PointsPage::Retried, this, &GameWidget::Retry);
-  connect(ui_->ui_points_page_, &PointsPage::MainMenu, this,
+  connect(ui_->ui_score_page_, &ScorePage::Paused, this, &GameWidget::Pause);
+  connect(ui_->ui_score_page_, &ScorePage::Retried, this, &GameWidget::Retry);
+  connect(ui_->ui_score_page_, &ScorePage::MainMenu, this,
           &GameWidget::ReturnToMainMenu);
 
   connect(ui_->ui_pause_page_, &PausePage::MainMenu, this,
@@ -33,8 +33,8 @@ void GameWidget::Pause() {
 }
 
 void GameWidget::Resume() {
-  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_points_page_);
-  ui_->ui_points_page_->Resume();
+  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
+  ui_->ui_score_page_->Resume();
 }
 
 void GameWidget::Retry() { SetUp(); }
@@ -60,28 +60,28 @@ void GameWidget::StartMinigame() {
   current_minigame_->Start();
 }
 
-void GameWidget::ShowPoints() {
-  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_points_page_);
-  ui_->ui_points_page_->Animate();
+void GameWidget::ShowScore() {
+  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
+  ui_->ui_score_page_->Animate();
 }
 
 void GameWidget::Lose() {
-  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_points_page_);
+  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
   SetMinigame(nullptr);
 }
 
 void GameWidget::MinigamePassed(int32_t score) {
-  ui_->ui_points_page_->MiniGamePassed(score);
-  ShowPoints();
+  ui_->ui_score_page_->MiniGamePassed(score);
+  ShowScore();
   // To increase difficulty staying in (0, 1)
   current_difficulty_ = std::pow(current_difficulty_, kDifficultyPower);
   InitMinigame();
 }
 
 void GameWidget::MinigameFailed() {
-  ui_->ui_points_page_->MiniGameFailed();
-  if (ui_->ui_points_page_->GetLivesCount() > 0) {
-    ShowPoints();
+  ui_->ui_score_page_->MiniGameFailed();
+  if (ui_->ui_score_page_->GetLivesCount() > 0) {
+    ShowScore();
     InitMinigame();
   } else {
     Lose();
@@ -97,10 +97,10 @@ void GameWidget::SetUp() {
   current_difficulty_ = kStartDifficulty_;
   // QStackedWidget doesn't resize widgets,
   // that were not visible before, but
-  // ui_points_page_ needs to know its width in SetUp()
-  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_points_page_);
-  ui_->ui_points_page_->SetUp();
-  ShowPoints();
+  // ui_score_page_ needs to know its width in SetUp()
+  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
+  ui_->ui_score_page_->SetUp();
+  ShowScore();
   InitMinigame();
 }
 

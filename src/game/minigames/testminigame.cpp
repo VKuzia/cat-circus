@@ -66,7 +66,7 @@ void TestMinigame::AddBall() {
 }
 
 void TestMinigame::DeleteBall() {
-  if (current_ball_ == nullptr) {
+  if (current_ball_ == nullptr || !is_running_) {
     return;
   }
   graphics_view_->scene()->removeItem(current_ball_);
@@ -110,8 +110,8 @@ void TestMinigame::Win() {
   graphics_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
   QTimer::singleShot(kOutroDuration, this, [this] {
     graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-    points_ = 100 + time_left_ * 10 / timer_.interval();
-    emit Passed(points_);
+    score_ = 100 + time_left_ * 10 / timer_.interval();
+    emit Passed(score_);
   });
   timer_.start();
 }
