@@ -26,6 +26,14 @@ class TestMinigame : public Minigame {
   const int32_t kBasicBallRadius = 100;
   const int32_t kBasicBallNumber = 3;
 
+  const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
+  const QBrush kSimpleBackgroundBrush = QBrush(QColor::fromRgb(224, 107, 22));
+  const QBrush kMousePressedBackgroundBrush =
+      QBrush(QColor::fromRgb(200, 0, 0));
+  const QBrush kKeyPressedBackgroundBrush = QBrush(QColor::fromRgb(0, 0, 200));
+  const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
+  const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
+
   // Determines width of centered rectangle relatively
   // scene width in order not to generate circles at the edges
   const float kCenterRegionFactor = 0.8f;

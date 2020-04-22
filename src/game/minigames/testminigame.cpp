@@ -16,8 +16,7 @@ void TestMinigame::SetUp() {
   ball_radius_ = qRound(kBasicBallRadius * (1 - difficulty_));
   time_bar_->setVisible(false);
 
-  graphics_view_->scene()->setBackgroundBrush(
-      QBrush(QColor::fromRgb(227, 124, 7)));
+  graphics_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
   AddBall();
 }
 
@@ -110,9 +109,9 @@ void TestMinigame::Stop() {
 }
 
 void TestMinigame::Win() {
-  graphics_view_->scene()->setBackgroundBrush(QColor::fromRgb(1, 143, 8));
+  graphics_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
   QTimer::singleShot(kOutroDuration, this, [this] {
-    graphics_view_->scene()->setBackgroundBrush(Qt::NoBrush);
+    graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
     points_ = 100 + time_left_ * 10 / timer_.interval();
     emit Passed(points_);
   });
@@ -120,9 +119,9 @@ void TestMinigame::Win() {
 }
 
 void TestMinigame::Lose() {
-  graphics_view_->scene()->setBackgroundBrush(QColor::fromRgb(191, 8, 8));
+  graphics_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
   QTimer::singleShot(kOutroDuration, this, [this] {
-    graphics_view_->scene()->setBackgroundBrush(Qt::NoBrush);
+    graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
     emit Failed();
   });
   timer_.start();
@@ -132,16 +131,14 @@ void TestMinigame::MousePressEvent(QMouseEvent*) {
   if (!is_running_) {
     return;
   }
-  graphics_view_->scene()->setBackgroundBrush(
-      QBrush(QColor::fromRgb(200, 0, 0)));
+  graphics_view_->scene()->setBackgroundBrush(kMousePressedBackgroundBrush);
 }
 
 void TestMinigame::MouseReleaseEvent(QMouseEvent*) {
   if (!is_running_) {
     return;
   }
-  graphics_view_->scene()->setBackgroundBrush(
-      QBrush(QColor::fromRgb(227, 124, 7)));
+  graphics_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
 }
 
 void TestMinigame::MouseMoveEvent(QMouseEvent*) {}
@@ -150,14 +147,12 @@ void TestMinigame::KeyPressEvent(QKeyEvent*) {
   if (!is_running_) {
     return;
   }
-  graphics_view_->scene()->setBackgroundBrush(
-      QBrush(QColor::fromRgb(0, 0, 200)));
+  graphics_view_->scene()->setBackgroundBrush(kKeyPressedBackgroundBrush);
 }
 
 void TestMinigame::KeyReleaseEvent(QKeyEvent*) {
   if (!is_running_) {
     return;
   }
-  graphics_view_->scene()->setBackgroundBrush(
-      QBrush(QColor::fromRgb(227, 124, 7)));
+  graphics_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
 }
