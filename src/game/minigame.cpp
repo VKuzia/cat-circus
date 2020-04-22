@@ -16,8 +16,8 @@ Minigame::~Minigame() {
   graphics_view_->scene()->clear();
 }
 
-void Minigame::SetUp() {
+void Minigame::Init() {
   graphics_view_->scene()->addItem(time_bar_);
   graphics_view_->scene()->addItem(tutorial_label_);
-  Prepare();
+  SetUp();
 }

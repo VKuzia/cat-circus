@@ -45,7 +45,7 @@ void GameWidget::InitMinigame() {
   Minigame* minigame =
       new TestMinigame(ui_->ui_game_view_, current_difficulty_);
   SetMinigame(minigame);
-  current_minigame_->SetUp();
+  current_minigame_->Init();
 }
 
 void GameWidget::StartMinigame() {
