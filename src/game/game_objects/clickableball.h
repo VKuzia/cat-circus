@@ -11,6 +11,8 @@ class ClickableBall : public GameObject {
  public:
   ClickableBall(QGraphicsView* graphics_view, float width, float height,
                 float x = 0, float y = 0);
+  ClickableBall(QGraphicsView* graphics_view, float width, float height,
+                QPointF pos);
   ~ClickableBall() override;
 
   void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,

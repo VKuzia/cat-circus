@@ -9,6 +9,11 @@ TimeBar::TimeBar(QGraphicsView* graphics_view, float width, float height,
   this->setZValue(std::numeric_limits<qreal>::max());
 }
 
+TimeBar::TimeBar(QGraphicsView* graphics_view, float width, float height,
+                 QPointF pos)
+    : TimeBar(graphics_view, width, height, static_cast<float>(pos.x()),
+              static_cast<float>(pos.y())) {}
+
 TimeBar::~TimeBar() {}
 
 void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,

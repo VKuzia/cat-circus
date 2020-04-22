@@ -6,6 +6,11 @@ GameObject::GameObject(QGraphicsView* graphics_view, float width, float height,
   setPos(static_cast<qreal>(x), static_cast<qreal>(y));
 }
 
+GameObject::GameObject(QGraphicsView* graphics_view, float width, float height,
+                       QPointF pos)
+    : GameObject(graphics_view, width, height, static_cast<float>(pos.x()),
+                 static_cast<float>(pos.y())) {}
+
 QRectF GameObject::boundingRect() const {
   return QRectF(static_cast<qreal>(-width_ / 2),
                 static_cast<qreal>(-height_ / 2), static_cast<qreal>(width_),

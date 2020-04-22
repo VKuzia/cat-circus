@@ -11,6 +11,8 @@ class GameObject : public QObject, public QGraphicsItem {
  public:
   GameObject(QGraphicsView* graphics_view, float width, float height,
              float x = 0, float y = 0);
+  GameObject(QGraphicsView* graphics_view, float width, float height,
+             QPointF pos);
   ~GameObject() override;
 
   QRectF boundingRect() const override;

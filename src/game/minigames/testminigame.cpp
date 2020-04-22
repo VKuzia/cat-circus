@@ -59,9 +59,8 @@ void TestMinigame::Tick() {
 
 void TestMinigame::AddBall() {
   QPointF center = GetRandomBallCenter();
-  ClickableBall* ball = new ClickableBall(
-      graphics_view_, ball_radius_ * 2, ball_radius_ * 2,
-      static_cast<float>(center.x()), static_cast<float>(center.y()));
+  ClickableBall* ball = new ClickableBall(graphics_view_, ball_radius_ * 2,
+                                          ball_radius_ * 2, center);
   connect(ball, &ClickableBall::Clicked, this, &TestMinigame::DeleteBall);
   current_ball_ = ball;
   graphics_view_->scene()->addItem(ball);
