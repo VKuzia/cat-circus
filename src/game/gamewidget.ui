@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1024</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,59 +20,97 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
-    <widget class="QStackedWidget" name="_stacked_widget">
-     <widget class="QWidget" name="_game_page">
+    <widget class="QStackedWidget" name="ui_stacked_widget_">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>102</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <widget class="QWidget" name="ui_game_page_">
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QGraphicsView" name="_graphics_view"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="_pregame_page">
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>[TAP TO START]</string>
+        <widget class="GameView" name="ui_game_view_">
+         <property name="lineWidth">
+          <number>2</number>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="_return_button">
-     <property name="text">
-      <string>Return To Main Menu</string>
-     </property>
+     <widget class="ScorePage" name="ui_score_page_"/>
+     <widget class="PausePage" name="ui_pause_page_"/>
     </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScorePage</class>
+   <extends>QWidget</extends>
+   <header>src/game/scorepage.h</header>
+   <container>1</container>
+   <slots>
+    <signal>Paused()</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>PausePage</class>
+   <extends>QWidget</extends>
+   <header>src/game/pausepage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GameView</class>
+   <extends>QGraphicsView</extends>
+   <header>src/game/gameview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>_return_button</sender>
-   <signal>clicked()</signal>
-   <receiver>GameWidget</receiver>
-   <slot>ReturnToMainMenu()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>199</x>
-     <y>280</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>ReturnToMainMenu()</slot>
  </slots>

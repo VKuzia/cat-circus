@@ -26,7 +26,15 @@ CONFIG += c++11
 
 SOURCES += \
         src/game/game.cpp \
+        src/game/game_objects/clickableball.cpp \
+        src/game/game_objects/timebar.cpp \
+        src/game/gameobject.cpp \
+        src/game/gameview.cpp \
         src/game/gamewidget.cpp \
+        src/game/minigame.cpp \
+        src/game/minigames/testminigame.cpp \
+        src/game/pausepage.cpp \
+        src/game/scorepage.cpp \
         src/game/physics/physics.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
@@ -35,7 +43,15 @@ SOURCES += \
 
 HEADERS += \
         src/game/game.h \
+        src/game/game_objects/clickableball.h \
+        src/game/game_objects/timebar.h \
+        src/game/gameobject.h \
+        src/game/gameview.h \
         src/game/gamewidget.h \
+        src/game/minigame.h \
+        src/game/minigames/testminigame.h \
+        src/game/pausepage.h \
+        src/game/scorepage.h \
         src/game/physics/physics.h \
         src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
@@ -43,6 +59,8 @@ HEADERS += \
 
 FORMS += \
         src/game/gamewidget.ui \
+        src/game/pausepage.ui \
+        src/game/scorepage.ui \
         src/menu/aboutwidget.ui \
         src/menu/mainwindow.ui \
         src/menu/settingswidget.ui

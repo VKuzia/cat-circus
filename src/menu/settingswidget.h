@@ -21,7 +21,7 @@ class SettingsWidget : public QWidget {
   void ReturnToMainMenu();
 
  private:
-  Ui::SettingsWidget* ui;
+  Ui::SettingsWidget* ui_;
 };
 
 #endif  // SETTINGSWIDGET_H
