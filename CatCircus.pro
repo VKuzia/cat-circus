@@ -28,7 +28,7 @@ SOURCES += \
         src/game/game.cpp \
         src/game/game_objects/clickableball.cpp \
         src/game/game_objects/timebar.cpp \
-    src/game/gameobject.cpp \
+        src/game/gameobject.cpp \
         src/game/gameview.cpp \
         src/game/gamewidget.cpp \
         src/game/minigame.cpp \

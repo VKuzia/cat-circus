@@ -27,7 +27,7 @@ class Minigame : public QObject {
   virtual void KeyReleaseEvent(QKeyEvent* event) = 0;
 
  signals:
-  void Passed(int64_t score);
+  void Passed(int32_t score);
   void Failed();
 
  protected:

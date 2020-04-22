@@ -20,7 +20,7 @@ class ClickableBall : public GameObject {
   void Clicked();
 
  private:
-  static const QColor kBasicColor;
+  const QColor kBasicColor = QColor::fromRgb(133, 50, 168);
 
   void mousePressEvent(QGraphicsSceneMouseEvent*) override;
 };

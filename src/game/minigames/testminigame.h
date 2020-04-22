@@ -28,7 +28,7 @@ class TestMinigame : public Minigame {
 
   // Determines width of centered rectangle relatively
   // scene width in order not to generate circles at the edges
-  const double kCenterRegionFactor = 0.8;
+  const float kCenterRegionFactor = 0.8f;
 
   int32_t balls_count_ = 0;
   int32_t ball_radius_ = 0;

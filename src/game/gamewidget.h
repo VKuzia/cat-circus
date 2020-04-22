@@ -28,9 +28,10 @@ class GameWidget : public QWidget {
   void Retry();
 
  private:
-  const double kDifficultyPower = 0.9;
+  const float kDifficultyPower = 0.9f;
+  const float kStartDifficulty_ = 0.1f;
 
-  float current_difficulty_ = 0.1f;
+  float current_difficulty_ = kStartDifficulty_;
   int32_t width_ = 1024;
   int32_t height_ = 576;
   Ui::GameWidget* ui_;
@@ -44,7 +45,7 @@ class GameWidget : public QWidget {
   // Also deletes non-nullptr mini-games
   void SetMinigame(Minigame* minigame);
 
-  void MinigamePassed(int64_t score);
+  void MinigamePassed(int32_t score);
   void MinigameFailed();
 };
 

@@ -4,15 +4,9 @@
 #include <QRandomGenerator64>
 
 TestMinigame::TestMinigame(QGraphicsView* graphics_view, float difficulty)
-    : Minigame(graphics_view, difficulty) {
-  is_running_ = false;
-}
+    : Minigame(graphics_view, difficulty) {}
 
-TestMinigame::~TestMinigame() {
-  if (current_ball_ == nullptr) {
-    return;
-  }
-}
+TestMinigame::~TestMinigame() {}
 
 void TestMinigame::SetUp() {
   SetUpBasicItems();
@@ -60,9 +54,7 @@ void TestMinigame::Tick() {
   if (!is_running_) {
     return;
   }
-  timer_.remainingTime();
-  time_bar_->SetProgress(1.0f * timer_.remainingTime() / kBasicDuration);
-
+  time_bar_->SetProgress(1.0f * timer_.remainingTime() / time_);
   time_bar_->update();
 }
 
@@ -96,13 +88,13 @@ QPointF TestMinigame::GetRandomBallCenter() const {
   // Scene's (0,0) point is in its centre.
   // That's why we subtract a half of width(height)
   // Then scale for center being inside but the edges
-  double x = (QRandomGenerator::global()->bounded(graphics_view_->width()) -
-              graphics_view_->width() / 2) *
-             kCenterRegionFactor;
-  double y = (QRandomGenerator::global()->bounded(graphics_view_->height()) -
-              graphics_view_->height() / 2) *
-             kCenterRegionFactor;
-  return QPointF(x, y);
+  float x = (QRandomGenerator::global()->bounded(graphics_view_->width()) -
+             graphics_view_->width() / 2) *
+            kCenterRegionFactor;
+  float y = (QRandomGenerator::global()->bounded(graphics_view_->height()) -
+             graphics_view_->height() / 2) *
+            kCenterRegionFactor;
+  return QPointF(static_cast<qreal>(x), static_cast<qreal>(y));
 }
 
 void TestMinigame::Stop() {

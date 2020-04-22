@@ -6,12 +6,12 @@ MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
     : QMainWindow(parent), ui_(new Ui::MainWindow) {
   ui_->setupUi(this);
   this->setFixedSize(width, height);
-  connect(ui_->ui_settings_widget_, SIGNAL(MainMenu()), this,
-          SLOT(ChangeToMainMenu()));
-  connect(ui_->ui_about_widget_, SIGNAL(MainMenu()), this,
-          SLOT(ChangeToMainMenu()));
-  connect(ui_->ui_game_widget_, SIGNAL(MainMenu()), this,
-          SLOT(ChangeToMainMenu()));
+  connect(ui_->ui_settings_widget_, &SettingsWidget::MainMenu, this,
+          &MainWindow::ChangeToMainMenu);
+  connect(ui_->ui_about_widget_, &AboutWidget::MainMenu, this,
+          &MainWindow::ChangeToMainMenu);
+  connect(ui_->ui_game_widget_, &GameWidget::MainMenu, this,
+          &MainWindow::ChangeToMainMenu);
 }
 
 void MainWindow::ChangeToMainMenu() {

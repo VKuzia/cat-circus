@@ -39,14 +39,14 @@ void PointsPage::Animate() {
   expire_timer_.start();
 }
 
-void PointsPage::MiniGamePassed(int64_t score) {
+void PointsPage::MiniGamePassed(int32_t score) {
   ui_->ui_label_->setText("Passed!");
   points_ += score;
   ui_->ui_points_label_->setText(QString::number(points_));
 }
 
 void PointsPage::MiniGameFailed() {
-  RemoveLive();
+  RemoveLife();
   if (lives_count_ == 0) {
     ui_->ui_label_->setText("You lost...");
     expire_timer_.stop();
@@ -86,26 +86,26 @@ void PointsPage::SetUpLives() {
   lives_.clear();
   lives_count_ = kBasicLivesCount;
   for (int32_t i = -lives_count_ / 2; i <= (lives_count_ - 1) / 2; i++) {
-    QGraphicsEllipseItem* new_live = GetNewLive(i);
-    ui_->ui_lives_view_->scene()->addItem(new_live);
-    lives_.push_back(new_live);
+    QGraphicsEllipseItem* new_life = GetNewLife(i);
+    ui_->ui_lives_view_->scene()->addItem(new_life);
+    lives_.push_back(new_life);
   }
 }
 
-QGraphicsEllipseItem* PointsPage::GetNewLive(int32_t number) const {
+QGraphicsEllipseItem* PointsPage::GetNewLife(int32_t index) const {
   // Will be further replaced with animated sprites
-  QGraphicsEllipseItem* new_live = new QGraphicsEllipseItem();
-  double diameter =
-      ui_->ui_lives_view_->height() * static_cast<double>(kLiveHeightFactor);
-  double x = number * (kLiveInterval + diameter);
-  double y = 0;
-  new_live->setRect(x, y, diameter, diameter);
-  new_live->setBrush(kActiveLiveColor);
-  return new_live;
+  QGraphicsEllipseItem* new_life = new QGraphicsEllipseItem();
+  qreal diameter =
+      ui_->ui_lives_view_->height() * static_cast<qreal>(kLiveHeightFactor);
+  qreal x = index * (kLifeInterval + diameter);
+  qreal y = 0;
+  new_life->setRect(x, y, diameter, diameter);
+  new_life->setBrush(kActiveLifeColor);
+  return new_life;
 }
 
-void PointsPage::RemoveLive() {
+void PointsPage::RemoveLife() {
   lives_count_--;
-  QGraphicsEllipseItem* live = lives_.at(kBasicLivesCount - lives_count_ - 1);
-  live->setBrush(kInactiveLiveColor);
+  QGraphicsEllipseItem* life = lives_.at(kBasicLivesCount - lives_count_ - 1);
+  life->setBrush(kInactiveLifeColor);
 }

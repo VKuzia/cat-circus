@@ -19,7 +19,7 @@ class PointsPage : public QWidget {
   void SetUp();
   void Animate();
 
-  void MiniGamePassed(int64_t score);
+  void MiniGamePassed(int32_t score);
   void MiniGameFailed();
 
   int32_t GetLivesCount() const;
@@ -37,12 +37,12 @@ class PointsPage : public QWidget {
   void ReturnToMainMenu();
 
  private:
-  const QColor kActiveLiveColor = QColor::fromRgb(10, 230, 10, 200);
-  const QColor kInactiveLiveColor = QColor::fromRgb(230, 10, 10, 200);
+  const QColor kActiveLifeColor = QColor::fromRgb(10, 230, 10, 200);
+  const QColor kInactiveLifeColor = QColor::fromRgb(230, 10, 10, 200);
 
   const int32_t kExpireTime = 2500;
   const int32_t kResumeTime = 1500;
-  const int32_t kLiveInterval = 20;
+  const int32_t kLifeInterval = 20;
   const int32_t kBasicLivesCount = 3;
 
   // Ratio of live height to lives_scene_ height;
@@ -58,8 +58,8 @@ class PointsPage : public QWidget {
   QTimer expire_timer_;
 
   void SetUpLives();
-  QGraphicsEllipseItem* GetNewLive(int32_t number) const;
-  void RemoveLive();
+  QGraphicsEllipseItem* GetNewLife(int32_t index) const;
+  void RemoveLife();
 };
 
 #endif  // POINTSPAGE_H
