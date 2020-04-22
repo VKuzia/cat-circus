@@ -1,5 +1,7 @@
 #include "timebar.h"
 
+#include <limits>
+
 TimeBar::TimeBar(QGraphicsView* graphics_view, float width, float height,
                  float x, float y)
     : GameObject(graphics_view, width, height, x, y) {
