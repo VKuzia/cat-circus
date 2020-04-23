@@ -22,7 +22,7 @@ void CollideTwoObjects(qreal mass1, Vector2D* velocity1, qreal mass2,
 Vector2D Reflect(Vector2D impulse, qreal wall_angle) {
   Vector2D wall_vector = {(std::cos(wall_angle)), (std::sin(wall_angle))};
   qreal alpha_cos = Vector2D::dotProduct(impulse, wall_vector) /
-                    (impulse.length() * wall_vector.length());
+                    (impulse.Length() * wall_vector.Length());
   qreal alpha_sin = sin(acos(alpha_cos) + wall_angle);
   alpha_cos = cos(asin(alpha_sin));
   return {impulse.x() * alpha_cos, impulse.y() * alpha_sin};

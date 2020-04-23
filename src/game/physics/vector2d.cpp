@@ -28,4 +28,4 @@ Vector2D Vector2D::operator/(qreal num) {
   return {this->x() / num, this->y() / num};
 }
 
-qreal Vector2D::length() const { return sqrt(x() * x() + y() * y()); }
+qreal Vector2D::Length() const { return qSqrt(x() * x() + y() * y()); }

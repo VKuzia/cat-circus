@@ -6,7 +6,7 @@
 
 class Vector2D : public QPointF {
  public:
-  Vector2D() : QPointF() {}
+  Vector2D() = default;
   Vector2D(std::initializer_list<qreal> rhs);
   Vector2D(Vector2D const& rhs) : QPointF(rhs) {}
   Vector2D(qreal x, qreal y) : QPointF(x, y) {}
@@ -23,6 +23,6 @@ class Vector2D : public QPointF {
 
   Vector2D operator/(qreal);
 
-  qreal length() const;
+  qreal Length() const;
 };
 #endif  // VECTOR2D_H
