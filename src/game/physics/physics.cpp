@@ -2,6 +2,30 @@
 
 #include <QVector2D>
 
+Vector2D Vector2D::operator=(std::initializer_list<qreal> param) {
+  return Vector2D(param);
+}
+
+Vector2D Vector2D::operator+(Vector2D second) {
+  return {this->x() + second.x(), this->y() + second.y()};
+}
+
+Vector2D Vector2D::operator-(Vector2D second) {
+  return {this->x() + second.x(), this->y() + second.y()};
+}
+
+qreal Vector2D::operator*(Vector2D second) {
+  return (this->x() * second.x() + this->y() * second.y());
+}
+
+Vector2D Vector2D::operator*(qreal num) {
+  return {this->x() * num, this->y() * num};
+}
+
+Vector2D Vector2D::operator/(qreal num) {
+  return {this->x() / num, this->y() / num};
+}
+
 namespace physics {
 const QVector2D kGravity = {0, 9.80655};
 
