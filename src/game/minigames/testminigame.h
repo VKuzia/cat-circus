@@ -8,7 +8,7 @@ class TestMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  TestMinigame(QGraphicsView* graphics_view, float difficulty);
+  TestMinigame(QGraphicsView* graphics_view, qreal difficulty);
   ~TestMinigame() override;
 
   void Start() override;
@@ -34,7 +34,7 @@ class TestMinigame : public Minigame {
 
   // Determines width of centered rectangle relatively
   // scene width in order not to generate circles at the edges
-  const float kCenterRegionFactor = 0.8f;
+  const qreal kCenterRegionFactor = 0.8;
 
   int32_t balls_count_ = 0;
   int32_t ball_radius_ = 0;

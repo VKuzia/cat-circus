@@ -9,9 +9,9 @@ class GameObject : public QObject, public QGraphicsItem {
   Q_INTERFACES(QGraphicsItem)
 
  public:
-  GameObject(QGraphicsView* graphics_view, float width, float height,
-             float x = 0, float y = 0);
-  GameObject(QGraphicsView* graphics_view, float width, float height,
+  GameObject(QGraphicsView* graphics_view, qreal width, qreal height,
+             qreal x = 0, qreal y = 0);
+  GameObject(QGraphicsView* graphics_view, qreal width, qreal height,
              QPointF pos);
   ~GameObject() override;
 
@@ -21,8 +21,8 @@ class GameObject : public QObject, public QGraphicsItem {
 
  protected:
   QGraphicsView* graphics_view_;
-  float width_;
-  float height_;
+  qreal width_;
+  qreal height_;
 };
 
 #endif  // GAMEOBJECT_H

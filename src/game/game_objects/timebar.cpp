@@ -2,17 +2,16 @@
 
 #include <limits>
 
-TimeBar::TimeBar(QGraphicsView* graphics_view, float width, float height,
-                 float x, float y)
+TimeBar::TimeBar(QGraphicsView* graphics_view, qreal width, qreal height,
+                 qreal x, qreal y)
     : GameObject(graphics_view, width, height, x, y) {
   this->setCacheMode(ItemCoordinateCache);
   this->setZValue(std::numeric_limits<qreal>::max());
 }
 
-TimeBar::TimeBar(QGraphicsView* graphics_view, float width, float height,
+TimeBar::TimeBar(QGraphicsView* graphics_view, qreal width, qreal height,
                  QPointF pos)
-    : TimeBar(graphics_view, width, height, static_cast<float>(pos.x()),
-              static_cast<float>(pos.y())) {}
+    : TimeBar(graphics_view, width, height, pos.x(), pos.y()) {}
 
 TimeBar::~TimeBar() {}
 
@@ -23,7 +22,7 @@ void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
   painter->drawRect(boundingRect());
 }
 
-void TimeBar::SetProgress(float progress) {
-  progress_ = qMax(0.f, progress);
-  this->setTransform(QTransform::fromScale(static_cast<qreal>(progress_), 1));
+void TimeBar::SetProgress(qreal progress) {
+  progress_ = qMax(0.0, progress);
+  this->setTransform(QTransform::fromScale(progress_, 1.0));
 }

@@ -95,8 +95,7 @@ void ScorePage::SetUpLives() {
 QGraphicsEllipseItem* ScorePage::GetNewLife(int32_t index) const {
   // Will be further replaced with animated sprites
   QGraphicsEllipseItem* new_life = new QGraphicsEllipseItem();
-  qreal diameter =
-      ui_->ui_lives_view_->height() * static_cast<qreal>(kLiveHeightFactor);
+  qreal diameter = ui_->ui_lives_view_->height() * kLiveHeightFactor;
   qreal x = index * (kLifeInterval + diameter);
   qreal y = 0;
   new_life->setRect(x, y, diameter, diameter);

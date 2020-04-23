@@ -12,7 +12,7 @@ class Minigame : public QObject {
   Q_OBJECT
 
  public:
-  Minigame(QGraphicsView* graphics_view, float difficulty);
+  Minigame(QGraphicsView* graphics_view, qreal difficulty);
   virtual ~Minigame();
 
   void Init();
@@ -31,7 +31,7 @@ class Minigame : public QObject {
   void Failed();
 
  protected:
-  const float kTimeBarHeightFactor = 0.08f;
+  const qreal kTimeBarHeightFactor = 0.08;
   const int32_t kFps = 60;
   const int32_t kTutorialDuration = 2500;
   const int32_t kOutroDuration = 2000;
@@ -48,7 +48,7 @@ class Minigame : public QObject {
   TimeBar* time_bar_;
   QGraphicsTextItem* tutorial_label_;
 
-  float difficulty_;
+  qreal difficulty_;
 
   bool is_running_ = false;
 

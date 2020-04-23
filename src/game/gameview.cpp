@@ -4,8 +4,8 @@ GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
   this->setScene(new QGraphicsScene(this));
 }
 
-void GameView::SetUp(int32_t width, int32_t height) {
-  this->setFixedSize(width, height);
+void GameView::SetUp(qreal width, qreal height) {
+  this->setFixedSize(qRound(width), qRound(height));
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
   this->scene()->setSceneRect(-width / 2, -height / 2, width, height);

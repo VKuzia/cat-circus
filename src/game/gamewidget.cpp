@@ -74,7 +74,7 @@ void GameWidget::MinigamePassed(int32_t score) {
   ui_->ui_score_page_->MiniGamePassed(score);
   ShowScore();
   // To increase difficulty staying in (0, 1)
-  current_difficulty_ = std::pow(current_difficulty_, kDifficultyPower);
+  current_difficulty_ = qPow(current_difficulty_, kDifficultyPower);
   InitMinigame();
 }
 

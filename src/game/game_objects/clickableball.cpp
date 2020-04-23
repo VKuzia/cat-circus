@@ -1,13 +1,12 @@
 #include "clickableball.h"
 
-ClickableBall::ClickableBall(QGraphicsView* graphics_view, float width,
-                             float height, float x, float y)
+ClickableBall::ClickableBall(QGraphicsView* graphics_view, qreal width,
+                             qreal height, qreal x, qreal y)
     : GameObject(graphics_view, width, height, x, y) {}
 
-ClickableBall::ClickableBall(QGraphicsView* graphics_view, float width,
-                             float height, QPointF pos)
-    : GameObject(graphics_view, width, height, static_cast<float>(pos.x()),
-                 static_cast<float>(pos.y())) {}
+ClickableBall::ClickableBall(QGraphicsView* graphics_view, qreal width,
+                             qreal height, QPointF pos)
+    : GameObject(graphics_view, width, height, pos.x(), pos.y()) {}
 
 ClickableBall::~ClickableBall() {}
 

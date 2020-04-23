@@ -11,7 +11,7 @@ class GameView : public QGraphicsView {
  public:
   explicit GameView(QWidget* parent = nullptr);
 
-  void SetUp(int32_t width, int32_t height);
+  void SetUp(qreal width, qreal height);
 
   void SetMinigame(Minigame* current_minigame);
 
