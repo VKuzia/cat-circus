@@ -4,37 +4,19 @@
 #include <QVector2D>
 #include <QtMath>
 
-class Vector2D : public QPointF {
- public:
-  Vector2D() {}
-  Vector2D(std::initializer_list<qreal>) {}
-  Vector2D(Vector2D const& rhs) : QPointF(rhs) {}
-  Vector2D(qreal, qreal) {}
-
-  const Vector2D& operator=(const Vector2D& rhs) { return rhs; }
-  Vector2D operator=(std::initializer_list<qreal> param);
-
-  Vector2D operator+(Vector2D);
-
-  Vector2D operator-(Vector2D);
-
-  qreal operator*(Vector2D);
-  Vector2D operator*(qreal);
-
-  Vector2D operator/(qreal);
-};
+#include "vector2d.h"
 
 namespace physics {
-void CollideTwoObjects(float mass1, QVector2D* velocity1, float mass2,
-                       QVector2D* velocity2);
+void CollideTwoObjects(qreal mass1, Vector2D* velocity1, qreal mass2,
+                       Vector2D* velocity2);
 
-QVector2D Reflect(QVector2D impulse, float wall_angle);
+Vector2D Reflect(Vector2D impulse, qreal wall_angle);
 
-QPointF Advance(QVector2D* velocity, QPointF coordinates);
+QPointF Advance(Vector2D* velocity, QPointF coordinates);
 
-QVector2D Throw(QPointF start, QPointF finish, float time);
+Vector2D Throw(QPointF start, QPointF finish, qreal time);
 
-extern const QVector2D kGravity;
+extern const Vector2D kGravity;
 };  // namespace physics
 
 #endif  // PHYSICS_H
