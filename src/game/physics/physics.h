@@ -8,13 +8,11 @@ class Vector2D : public QPointF {
  public:
   Vector2D() {}
   Vector2D(std::initializer_list<qreal>) {}
-  Vector2D(Vector2D const&) {}
+  Vector2D(Vector2D const& rhs) : QPointF(rhs) {}
   Vector2D(qreal, qreal) {}
 
   const Vector2D& operator=(const Vector2D& rhs) { return rhs; }
-  Vector2D operator=(std::initializer_list<qreal> param) {
-    return Vector2D(param);
-  }
+  Vector2D operator=(std::initializer_list<qreal> param);
 
   Vector2D operator+(Vector2D);
 
@@ -27,8 +25,8 @@ class Vector2D : public QPointF {
 };
 
 namespace physics {
-void CollideTwoObjects(float mass1, Vector2D* velocity1, float mass2,
-                       Vector2D* velocity2);
+void CollideTwoObjects(float mass1, QVector2D* velocity1, float mass2,
+                       QVector2D* velocity2);
 
 QVector2D Reflect(QVector2D impulse, float wall_angle);
 

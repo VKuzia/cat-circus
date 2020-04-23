@@ -3,7 +3,7 @@
 #include <QVector2D>
 
 Vector2D Vector2D::operator=(std::initializer_list<qreal> param) {
-  return Vector2D(param);
+  return param;
 }
 
 Vector2D Vector2D::operator+(Vector2D second) {
