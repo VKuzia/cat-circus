@@ -6,9 +6,7 @@ ClickableBall::ClickableBall(QGraphicsView* graphics_view, qreal width,
 
 ClickableBall::ClickableBall(QGraphicsView* graphics_view, qreal width,
                              qreal height, QPointF pos)
-    : GameObject(graphics_view, width, height, pos.x(), pos.y()) {}
-
-ClickableBall::~ClickableBall() {}
+    : GameObject(graphics_view, width, height, pos) {}
 
 void ClickableBall::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
                           QWidget*) {

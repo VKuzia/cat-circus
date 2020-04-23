@@ -13,7 +13,7 @@ class TimeBar : public GameObject {
   TimeBar(QGraphicsView* graphics_view, qreal width, qreal height, qreal x = 0,
           qreal y = 0);
   TimeBar(QGraphicsView* graphics_view, qreal width, qreal height, QPointF pos);
-  ~TimeBar() override;
+  ~TimeBar() override = default;
 
   void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
              QWidget* widget) override;

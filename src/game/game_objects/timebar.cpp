@@ -13,8 +13,6 @@ TimeBar::TimeBar(QGraphicsView* graphics_view, qreal width, qreal height,
                  QPointF pos)
     : TimeBar(graphics_view, width, height, pos.x(), pos.y()) {}
 
-TimeBar::~TimeBar() {}
-
 void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
                     QWidget*) {
   painter->setBrush(kBasicColor);

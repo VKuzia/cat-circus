@@ -9,7 +9,7 @@ class TestMinigame : public Minigame {
 
  public:
   TestMinigame(QGraphicsView* graphics_view, qreal difficulty);
-  ~TestMinigame() override;
+  ~TestMinigame() override = default;
 
   void Start() override;
 

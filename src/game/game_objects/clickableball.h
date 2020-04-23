@@ -13,7 +13,7 @@ class ClickableBall : public GameObject {
                 qreal x = 0, qreal y = 0);
   ClickableBall(QGraphicsView* graphics_view, qreal width, qreal height,
                 QPointF pos);
-  ~ClickableBall() override;
+  ~ClickableBall() override = default;
 
   void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
              QWidget* widget) override;
