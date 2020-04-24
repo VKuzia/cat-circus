@@ -6,9 +6,9 @@
 SettingsWidget::SettingsWidget(QWidget* parent)
     : QWidget(parent), ui_(new Ui::SettingsWidget) {
   ui_->setupUi(this);
-  ui_->ui_select_combo_box_->addItem("english");
-  ui_->ui_select_combo_box_->addItem("русский");
-  ui_->ui_select_combo_box_->addItem("беларуская");
+  ui_->ui_language_combo_box_->addItem("english");
+  ui_->ui_language_combo_box_->addItem("русский");
+  ui_->ui_language_combo_box_->addItem("беларуская");
 }
 
 void SettingsWidget::ReturnToMainMenu() { emit MainMenu(); }
