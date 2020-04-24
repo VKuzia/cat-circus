@@ -11,20 +11,24 @@ Vector2D& Vector2D::operator=(Vector2D rhs) {
 }
 
 Vector2D operator+(Vector2D first, Vector2D second) {
-  return {first.x() + second.x(), first.y() + second.y()};
+  first += second;
+  return first;
 }
 
 Vector2D& Vector2D::operator+=(Vector2D second) {
-  *this = *this + second;
+  setX(x() + second.x());
+  setY(y() + second.y());
   return *this;
 }
 
 Vector2D operator-(Vector2D first, Vector2D second) {
-  return {first.x() - second.x(), first.y() - second.y()};
+  first -= second;
+  return first;
 }
 
 Vector2D& Vector2D::operator-=(Vector2D second) {
-  *this = *this - second;
+  setX(x() - second.x());
+  setY(y() - second.y());
   return *this;
 }
 
@@ -33,20 +37,24 @@ qreal ScalarProduct(Vector2D first, Vector2D second) {
 }
 
 Vector2D operator*(Vector2D vector, qreal num) {
-  return {vector.x() * num, vector.y() * num};
+  vector *= num;
+  return vector;
 }
 
 Vector2D& Vector2D::operator*=(qreal num) {
-  *this = *this * num;
+  setX(x() * num);
+  setY(y() * num);
   return *this;
 }
 
 Vector2D operator/(Vector2D vector, qreal num) {
-  return {vector.x() / num, vector.y() / num};
+  vector /= num;
+  return vector;
 }
 
 Vector2D& Vector2D::operator/=(qreal num) {
-  *this = *this / num;
+  setX(x() / num);
+  setY(y() / num);
   return *this;
 }
 
