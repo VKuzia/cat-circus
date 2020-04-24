@@ -9,9 +9,9 @@ class ClickableBall : public GameObject {
   Q_OBJECT
 
  public:
-  ClickableBall(QGraphicsView* graphics_view, qreal width, qreal height,
-                qreal x = 0, qreal y = 0);
-  ClickableBall(QGraphicsView* graphics_view, qreal width, qreal height,
+  ClickableBall(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+                qreal y = 0);
+  ClickableBall(GameView* graphics_view, qreal width, qreal height,
                 QPointF pos);
   ~ClickableBall() override = default;
 

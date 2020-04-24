@@ -2,41 +2,43 @@
 #define MINIGAME_H
 
 #include <QGraphicsTextItem>
-#include <QGraphicsView>
 #include <QObject>
 #include <QTimer>
 
 #include "src/game/game_objects/timebar.h"
 
+class GameView;
+
 class Minigame : public QObject {
   Q_OBJECT
 
  public:
-  Minigame(QGraphicsView* graphics_view, qreal difficulty);
+  Minigame(GameView* graphics_view, qreal difficulty);
   virtual ~Minigame();
 
   void Init();
 
   virtual void Start() = 0;
-  virtual void Stop() = 0;
 
-  virtual void MousePressEvent(QMouseEvent* event) = 0;
-  virtual void MouseReleaseEvent(QMouseEvent* event) = 0;
-  virtual void MouseMoveEvent(QMouseEvent* event) = 0;
-  virtual void KeyPressEvent(QKeyEvent* event) = 0;
-  virtual void KeyReleaseEvent(QKeyEvent* event) = 0;
+  virtual void MousePressEvent(QMouseEvent* event);
+  virtual void MouseReleaseEvent(QMouseEvent* event);
+  virtual void MouseMoveEvent(QMouseEvent* event);
+  virtual void KeyPressEvent(QKeyEvent* event);
+  virtual void KeyReleaseEvent(QKeyEvent* event);
 
  signals:
   void Passed(int32_t score);
   void Failed();
 
  protected:
+  enum class Status { kFail, kPass };
+
   const qreal kTimeBarHeightFactor = 0.08;
   const int32_t kFps = 60;
   const int32_t kTutorialDuration = 2500;
   const int32_t kOutroDuration = 2000;
 
-  QGraphicsView* graphics_view_;
+  GameView* graphics_view_;
   QTimer timer_;       // For minigame progress
   QTimer tick_timer_;  // For 1 frame updates
 
@@ -55,6 +57,8 @@ class Minigame : public QObject {
   // Sets up a certain Minigame child
   // Adds start GameObjects to scene
   virtual void SetUp() = 0;
+  virtual void SetLabel() = 0;
+  virtual void SetParameters() = 0;
 
   virtual void AnimateTutorial() = 0;
   virtual void StartGame() = 0;
@@ -62,6 +66,7 @@ class Minigame : public QObject {
 
   virtual void Tick() = 0;
 
+  virtual void Stop(Status) = 0;
   virtual void Win() = 0;
   virtual void Lose() = 0;
 };

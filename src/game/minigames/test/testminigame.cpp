@@ -3,37 +3,44 @@
 #include <QMouseEvent>
 #include <QRandomGenerator64>
 
-TestMinigame::TestMinigame(QGraphicsView* graphics_view, qreal difficulty)
+TestMinigame::TestMinigame(GameView* graphics_view, qreal difficulty)
     : Minigame(graphics_view, difficulty) {}
 
 void TestMinigame::SetUp() {
-  // Random coefs just for testing the basic game loop
-  time_ = qRound(kBasicDuration / (difficulty_ * 1.5 + 1.0));
-  balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2);
-  ball_radius_ = qRound(kBasicBallRadius * (1 - difficulty_));
+  SetParameters();
   time_bar_->setVisible(false);
 
   graphics_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
   AddBall();
 }
 
-void TestMinigame::Start() { AnimateTutorial(); }
-
-void TestMinigame::AnimateTutorial() {
+void TestMinigame::SetLabel() {
   // Random coefs just for testing the basic game loop
   tutorial_label_->setHtml("[TUTORIAL]");
   tutorial_label_->setDefaultTextColor(Qt::white);
   tutorial_label_->setTextWidth(300);
   tutorial_label_->setZValue(100);
+}
 
+void TestMinigame::SetParameters() {
+  // Random coefs just for testing the basic game loop
+  time_ = qRound(kBasicDuration / (difficulty_ * 1.5 + 1.0));
+  balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2);
+  ball_radius_ = qRound(kBasicBallRadius * (1 - difficulty_));
+}
+void TestMinigame::Start() { AnimateTutorial(); }
+
+void TestMinigame::AnimateTutorial() {
+  SetLabel();
   QTimer::singleShot(kTutorialDuration, this, [this] { StartGame(); });
 }
 
 void TestMinigame::StartGame() {
   tutorial_label_->setVisible(false);
+  time_bar_->Launch(time_ / 1000.0);
   time_bar_->setVisible(true);
   timer_.setInterval(time_);
-  connect(&timer_, &QTimer::timeout, this, &TestMinigame::Stop);
+  connect(&timer_, &QTimer::timeout, this, [this] { Stop(Status::kFail); });
 
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &TestMinigame::Tick);
@@ -46,13 +53,7 @@ void TestMinigame::StartGame() {
 
 void TestMinigame::AnimateOutro() {}
 
-void TestMinigame::Tick() {
-  if (!is_running_) {
-    return;
-  }
-  time_bar_->SetProgress(1.0 * timer_.remainingTime() / time_);
-  time_bar_->update();
-}
+void TestMinigame::Tick() {}
 
 void TestMinigame::AddBall() {
   QPointF center = GetRandomBallCenter();
@@ -73,7 +74,7 @@ void TestMinigame::DeleteBall() {
   balls_count_--;
   if (balls_count_ == 0) {
     time_left_ = timer_.remainingTime();
-    Stop();
+    Stop(Status::kPass);
   } else {
     AddBall();
   }
@@ -92,12 +93,12 @@ QPointF TestMinigame::GetRandomBallCenter() const {
   return QPointF(x, y);
 }
 
-void TestMinigame::Stop() {
+void TestMinigame::Stop(Status status) {
   is_running_ = false;
   tick_timer_.stop();
   timer_.stop();
   time_bar_->setVisible(false);
-  if (balls_count_ == 0) {
+  if (status == Status::kPass) {
     Win();
   } else {
     Lose();
@@ -136,8 +137,6 @@ void TestMinigame::MouseReleaseEvent(QMouseEvent*) {
   }
   graphics_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
 }
-
-void TestMinigame::MouseMoveEvent(QMouseEvent*) {}
 
 void TestMinigame::KeyPressEvent(QKeyEvent*) {
   if (!is_running_) {

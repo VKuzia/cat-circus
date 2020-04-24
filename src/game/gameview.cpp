@@ -1,5 +1,7 @@
 #include "gameview.h"
 
+#include "src/game/minigame.h"
+
 GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
   this->setScene(new QGraphicsScene(this));
 }

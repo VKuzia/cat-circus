@@ -3,7 +3,7 @@
 #include <QStackedLayout>
 #include <QtMath>
 
-#include "src/game/minigames/testminigame.h"
+#include "src/game/minigames/test/testminigame.h"
 #include "ui_gamewidget.h"
 
 GameWidget::GameWidget(QWidget* parent)

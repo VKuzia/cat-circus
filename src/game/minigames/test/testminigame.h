@@ -2,20 +2,20 @@
 #define TESTMINIGAME_H
 
 #include "src/game/game_objects/clickableball.h"
+#include "src/game/gameview.h"
 #include "src/game/minigame.h"
 
 class TestMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  TestMinigame(QGraphicsView* graphics_view, qreal difficulty);
+  TestMinigame(GameView* graphics_view, qreal difficulty);
   ~TestMinigame() override = default;
 
   void Start() override;
 
   void MousePressEvent(QMouseEvent* event) override;
   void MouseReleaseEvent(QMouseEvent* event) override;
-  void MouseMoveEvent(QMouseEvent* event) override;
   void KeyPressEvent(QKeyEvent* event) override;
   void KeyReleaseEvent(QKeyEvent* event) override;
 
@@ -42,6 +42,8 @@ class TestMinigame : public Minigame {
   ClickableBall* current_ball_ = nullptr;
 
   void SetUp() override;
+  void SetLabel() override;
+  void SetParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;
@@ -52,7 +54,7 @@ class TestMinigame : public Minigame {
   void DeleteBall();
   QPointF GetRandomBallCenter() const;
 
-  void Stop() override;
+  void Stop(Status) override;
   void Win() override;
   void Lose() override;
 };

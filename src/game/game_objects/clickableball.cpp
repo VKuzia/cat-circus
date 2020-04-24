@@ -1,11 +1,11 @@
 #include "clickableball.h"
 
-ClickableBall::ClickableBall(QGraphicsView* graphics_view, qreal width,
-                             qreal height, qreal x, qreal y)
+ClickableBall::ClickableBall(GameView* graphics_view, qreal width, qreal height,
+                             qreal x, qreal y)
     : GameObject(graphics_view, width, height, x, y) {}
 
-ClickableBall::ClickableBall(QGraphicsView* graphics_view, qreal width,
-                             qreal height, QPointF pos)
+ClickableBall::ClickableBall(GameView* graphics_view, qreal width, qreal height,
+                             QPointF pos)
     : GameObject(graphics_view, width, height, pos) {}
 
 void ClickableBall::paint(QPainter* painter, const QStyleOptionGraphicsItem*,

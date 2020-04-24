@@ -1,6 +1,8 @@
 #include "minigame.h"
 
-Minigame::Minigame(QGraphicsView* graphics_view, qreal difficulty)
+#include "src/game/gameview.h"
+
+Minigame::Minigame(GameView* graphics_view, qreal difficulty)
     : graphics_view_(graphics_view),
       timer_(this),
       tick_timer_(this),
@@ -17,7 +19,18 @@ Minigame::~Minigame() {
 }
 
 void Minigame::Init() {
+  time_bar_->SetUp();
   graphics_view_->scene()->addItem(time_bar_);
   graphics_view_->scene()->addItem(tutorial_label_);
   SetUp();
 }
+
+void Minigame::MousePressEvent(QMouseEvent*) {}
+
+void Minigame::MouseReleaseEvent(QMouseEvent*) {}
+
+void Minigame::MouseMoveEvent(QMouseEvent*) {}
+
+void Minigame::KeyPressEvent(QKeyEvent*) {}
+
+void Minigame::KeyReleaseEvent(QKeyEvent*) {}

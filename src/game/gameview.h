@@ -3,7 +3,7 @@
 
 #include <QGraphicsView>
 
-#include "src/game/minigame.h"
+class Minigame;
 
 class GameView : public QGraphicsView {
   Q_OBJECT

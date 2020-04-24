@@ -32,7 +32,7 @@ SOURCES += \
         src/game/gameview.cpp \
         src/game/gamewidget.cpp \
         src/game/minigame.cpp \
-        src/game/minigames/testminigame.cpp \
+        src/game/minigames/test/testminigame.cpp \
         src/game/pausepage.cpp \
         src/game/physics/vector2d.cpp \
         src/game/scorepage.cpp \
@@ -50,7 +50,7 @@ HEADERS += \
         src/game/gameview.h \
         src/game/gamewidget.h \
         src/game/minigame.h \
-        src/game/minigames/testminigame.h \
+        src/game/minigames/test/testminigame.h \
         src/game/pausepage.h \
         src/game/physics/vector2d.h \
         src/game/scorepage.h \
