@@ -31,10 +31,10 @@ void TimeBar::SetProgress(qreal progress) {
   this->setTransform(QTransform::fromScale(progress_, 1.0));
 }
 
-void TimeBar::Launch(qreal seconds) {
+void TimeBar::Launch(int32_t millis) {
   animation_.clear();
   timeline_.stop();
-  timeline_.setDuration(qRound(1000 * seconds));
+  timeline_.setDuration(millis);
   animation_.setScaleAt(0.0, 1.0, 1.0);
   animation_.setScaleAt(1.0, 0.0, 1.0);
   timeline_.start();

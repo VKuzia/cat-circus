@@ -16,8 +16,12 @@ class GameView : public QGraphicsView {
 
   void SetMinigame(Minigame* current_minigame);
 
+  void SetPixelsInMeter(qreal pixels_in_meter);
+  qreal GetPixelsInMeter() const;
+
  private:
   Minigame* current_minigame_ = nullptr;
+  qreal pixels_in_meter_ = 0;
 
   void mousePressEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;

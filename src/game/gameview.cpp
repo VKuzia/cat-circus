@@ -49,3 +49,9 @@ void GameView::SetMinigame(Minigame* current_minigame) {
   // GameWidget controls deleting, only assignment required
   current_minigame_ = current_minigame;
 }
+
+void GameView::SetPixelsInMeter(qreal pixels_in_meter) {
+  pixels_in_meter_ = pixels_in_meter;
+}
+
+qreal GameView::GetPixelsInMeter() const { return pixels_in_meter_; }

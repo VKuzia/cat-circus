@@ -21,7 +21,7 @@ class TimeBar : public GameObject {
   void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
              QWidget* widget) override;
 
-  void Launch(qreal seconds);
+  void Launch(int32_t millis);
   void SetProgress(qreal progress);
 
  private:

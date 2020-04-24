@@ -27,9 +27,11 @@ class JugglingHand : public GameObject {
   const bool is_left_;
 
   QSet<JugglingBall*> balls_;
+  QPixmap* pixmap_free_ = nullptr;
+  QPixmap* pixmap_closed_ = nullptr;
   QPointF aim_point_;
 
-  QVector2D GetThrowVelocity() const;
+  Vector2D GetThrowVelocity() const;
 };
 
 #endif  // JUGGLINGHAND_H

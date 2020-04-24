@@ -11,7 +11,7 @@ class JugglingCat : public GameObject {
   JugglingCat(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
               qreal y = 0);
   ~JugglingCat() override;
-  void SetUp();
+  void SetUp() override;
 
   void Update() override;
 
@@ -19,6 +19,9 @@ class JugglingCat : public GameObject {
   JugglingHand* GetRightHand();
 
  private:
+  static const qreal kZValue;
+  static const qreal kHandsZValue;
+
   const qreal kHandRadius = 0.25;
 
   JugglingHand* left_hand_;

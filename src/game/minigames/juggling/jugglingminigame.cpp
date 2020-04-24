@@ -38,6 +38,7 @@ void JugglingMinigame::AnimateTutorial() {
 }
 
 void JugglingMinigame::StartGame() {
+  time_bar_->Launch(time_);
   timer_.setInterval(time_);
   connect(&timer_, &QTimer::timeout, [this] { Stop(Status::kPass); });
 
@@ -53,13 +54,7 @@ void JugglingMinigame::StartGame() {
 
 void JugglingMinigame::AnimateOutro() {}
 
-void JugglingMinigame::Tick() {
-  if (!is_running_) {
-    return;
-  }
-  time_bar_->SetProgress(1.0 * timer_.remainingTime() / time_);
-  time_bar_->update();
-}
+void JugglingMinigame::Tick() {}
 
 void JugglingMinigame::SetParameters() { time_ = kDuration; }
 

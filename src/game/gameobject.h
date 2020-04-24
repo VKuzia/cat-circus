@@ -1,11 +1,14 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <QGraphicsItem>
+#include <QBitmap>
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
 
 #include "src/game/gameview.h"
+#include "src/game/physics/physics.h"
 
-class GameObject : public QObject, public QGraphicsItem {
+class GameObject : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT
   Q_INTERFACES(QGraphicsItem)
 
@@ -23,6 +26,9 @@ class GameObject : public QObject, public QGraphicsItem {
              QWidget* widget) override;
 
  protected:
+  static const QString kPathToMinigameImages;
+  static QString GetPathToMinigameImages();
+
   GameView* graphics_view_;
   qreal width_;
   qreal height_;

@@ -8,7 +8,7 @@ class JugglingBall : public GameObject {
   JugglingBall(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
                qreal y = 0, qreal floor_y_ = 0);
   ~JugglingBall() override;
-  void SetUp();
+  void SetUp() override;
 
   void Update() override;
 
@@ -16,7 +16,7 @@ class JugglingBall : public GameObject {
   qreal GetRadius() const;
 
  private:
-  const qreal kAccelaration = 9.801;
+  static const qreal kZValue;
 
   qreal radius_;
   qreal floor_y_;

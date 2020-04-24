@@ -37,7 +37,7 @@ void TestMinigame::AnimateTutorial() {
 
 void TestMinigame::StartGame() {
   tutorial_label_->setVisible(false);
-  time_bar_->Launch(time_ / 1000.0);
+  time_bar_->Launch(time_);
   time_bar_->setVisible(true);
   timer_.setInterval(time_);
   connect(&timer_, &QTimer::timeout, this, [this] { Stop(Status::kFail); });
