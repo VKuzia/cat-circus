@@ -12,19 +12,19 @@ class Vector2D : public QPointF {
 
   Vector2D& operator=(Vector2D rhs);
 
-  Vector2D operator+(Vector2D);
+  friend Vector2D operator+(Vector2D, Vector2D);
   Vector2D& operator+=(Vector2D);
 
-  Vector2D operator-(Vector2D);
+  friend Vector2D operator-(Vector2D, Vector2D);
   Vector2D& operator-=(Vector2D);
 
-  Vector2D operator*(qreal);
+  friend Vector2D operator*(Vector2D, qreal);
   Vector2D& operator*=(qreal);
 
-  Vector2D operator/(qreal);
+  friend Vector2D operator/(Vector2D, qreal);
   Vector2D& operator/=(qreal);
 
-  qreal ScalarProduct(Vector2D);
+  friend qreal ScalarProduct(Vector2D, Vector2D);
   qreal Length() const;
 };
 #endif  // VECTOR2D_H
