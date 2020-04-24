@@ -13,5 +13,3 @@ GameObject::GameObject(QGraphicsView* graphics_view, qreal width, qreal height,
 QRectF GameObject::boundingRect() const {
   return QRectF(-width_ / 2, -height_ / 2, width_, height_);
 }
-
-GameObject::~GameObject() {}

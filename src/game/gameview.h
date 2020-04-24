@@ -10,6 +10,7 @@ class GameView : public QGraphicsView {
 
  public:
   explicit GameView(QWidget* parent = nullptr);
+  ~GameView() override = default;
 
   void SetUp(int32_t width, int32_t height);
 

@@ -6,8 +6,6 @@
 TestMinigame::TestMinigame(QGraphicsView* graphics_view, qreal difficulty)
     : Minigame(graphics_view, difficulty) {}
 
-TestMinigame::~TestMinigame() {}
-
 void TestMinigame::SetUp() {
   // Random coefs just for testing the basic game loop
   time_ = qRound(kBasicDuration / (difficulty_ * 1.5 + 1.0));

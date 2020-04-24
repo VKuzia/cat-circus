@@ -13,7 +13,7 @@ class GameObject : public QObject, public QGraphicsItem {
              qreal x = 0, qreal y = 0);
   GameObject(QGraphicsView* graphics_view, qreal width, qreal height,
              QPointF pos);
-  ~GameObject() override;
+  ~GameObject() override = default;
 
   QRectF boundingRect() const override;
   void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
