@@ -3,6 +3,7 @@
 #include <QStackedLayout>
 #include <QtMath>
 
+#include "src/game/minigames/juggling/jugglingminigame.h"
 #include "src/game/minigames/test/testminigame.h"
 #include "ui_gamewidget.h"
 
@@ -43,7 +44,7 @@ void GameWidget::InitMinigame() {
   // Some game picking logic should be here
   // This version is used only to implement MiniGame switch
   Minigame* minigame =
-      new TestMinigame(ui_->ui_game_view_, current_difficulty_);
+      new JugglingMinigame(ui_->ui_game_view_, current_difficulty_);
   SetMinigame(minigame);
   current_minigame_->Init();
 }
