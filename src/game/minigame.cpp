@@ -1,6 +1,6 @@
 #include "minigame.h"
 
-Minigame::Minigame(QGraphicsView* graphics_view, float difficulty)
+Minigame::Minigame(QGraphicsView* graphics_view, qreal difficulty)
     : graphics_view_(graphics_view),
       timer_(this),
       tick_timer_(this),

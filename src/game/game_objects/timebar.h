@@ -10,19 +10,19 @@ class TimeBar : public GameObject {
   Q_OBJECT
 
  public:
-  TimeBar(QGraphicsView* graphics_view, float width, float height, float x = 0,
-          float y = 0);
-  TimeBar(QGraphicsView* graphics_view, float width, float height, QPointF pos);
-  ~TimeBar() override;
+  TimeBar(QGraphicsView* graphics_view, qreal width, qreal height, qreal x = 0,
+          qreal y = 0);
+  TimeBar(QGraphicsView* graphics_view, qreal width, qreal height, QPointF pos);
+  ~TimeBar() override = default;
 
   void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
              QWidget* widget) override;
 
-  void SetProgress(float progress);
+  void SetProgress(qreal progress);
 
  private:
   const QColor kBasicColor = QColor::fromRgb(81, 204, 24);
-  float progress_ = 1;
+  qreal progress_ = 1;
 };
 
 #endif  // TIMEBAR_H

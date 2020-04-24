@@ -1,20 +1,17 @@
 #include "gameobject.h"
 
-GameObject::GameObject(QGraphicsView* graphics_view, float width, float height,
-                       float x, float y)
+GameObject::GameObject(QGraphicsView* graphics_view, qreal width, qreal height,
+                       qreal x, qreal y)
     : graphics_view_(graphics_view), width_(width), height_(height) {
-  setPos(static_cast<qreal>(x), static_cast<qreal>(y));
+  setPos(x, y);
 }
 
-GameObject::GameObject(QGraphicsView* graphics_view, float width, float height,
+GameObject::GameObject(QGraphicsView* graphics_view, qreal width, qreal height,
                        QPointF pos)
-    : GameObject(graphics_view, width, height, static_cast<float>(pos.x()),
-                 static_cast<float>(pos.y())) {}
+    : graphics_view_(graphics_view), width_(width), height_(height) {
+  setPos(pos);
+}
 
 QRectF GameObject::boundingRect() const {
-  return QRectF(static_cast<qreal>(-width_ / 2),
-                static_cast<qreal>(-height_ / 2), static_cast<qreal>(width_),
-                static_cast<qreal>(height_));
+  return QRectF(-width_ / 2, -height_ / 2, width_, height_);
 }
-
-GameObject::~GameObject() {}

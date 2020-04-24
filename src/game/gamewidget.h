@@ -28,10 +28,10 @@ class GameWidget : public QWidget {
   void Retry();
 
  private:
-  const float kDifficultyPower = 0.9f;
-  const float kStartDifficulty_ = 0.1f;
+  const qreal kDifficultyPower = 0.9;
+  const qreal kStartDifficulty_ = 0.1;
 
-  float current_difficulty_ = kStartDifficulty_;
+  qreal current_difficulty_ = kStartDifficulty_;
   int32_t width_ = 1024;
   int32_t height_ = 576;
   Ui::GameWidget* ui_;

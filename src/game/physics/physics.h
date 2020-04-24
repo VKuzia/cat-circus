@@ -1,20 +1,21 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
-#include <QVector2D>
 #include <QtMath>
 
+#include "vector2d.h"
+
 namespace physics {
-void CollideTwoObjects(float mass1, QVector2D* velocity1, float mass2,
-                       QVector2D* velocity2);
+void CollideTwoObjects(qreal mass1, Vector2D* velocity1, qreal mass2,
+                       Vector2D* velocity2);
 
-QVector2D Reflect(QVector2D impulse, float wall_angle);
+Vector2D Reflect(Vector2D impulse, qreal wall_angle);
 
-QPointF Advance(QVector2D* velocity, QPointF coordinates);
+QPointF Advance(Vector2D* velocity, QPointF coordinates);
 
-QVector2D Throw(QPointF start, QPointF finish, float time);
+Vector2D Throw(QPointF start, QPointF finish, qreal time);
 
-extern const QVector2D kGravity;
+extern const Vector2D kGravity;
 };  // namespace physics
 
 #endif  // PHYSICS_H

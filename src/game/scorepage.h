@@ -47,7 +47,7 @@ class ScorePage : public QWidget {
 
   // Ratio of live height to lives_scene_ height;
   // Temporary parameter for lives appearance
-  const float kLiveHeightFactor = 0.9f;
+  const qreal kLiveHeightFactor = 0.9;
 
   int32_t score_ = 0;
   int32_t lives_count_ = kBasicLivesCount;

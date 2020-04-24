@@ -3,15 +3,13 @@
 #include <QMouseEvent>
 #include <QRandomGenerator64>
 
-TestMinigame::TestMinigame(QGraphicsView* graphics_view, float difficulty)
+TestMinigame::TestMinigame(QGraphicsView* graphics_view, qreal difficulty)
     : Minigame(graphics_view, difficulty) {}
-
-TestMinigame::~TestMinigame() {}
 
 void TestMinigame::SetUp() {
   // Random coefs just for testing the basic game loop
-  time_ = qRound(kBasicDuration / (difficulty_ * 1.5f + 1.0f));
-  balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2f);
+  time_ = qRound(kBasicDuration / (difficulty_ * 1.5 + 1.0));
+  balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2);
   ball_radius_ = qRound(kBasicBallRadius * (1 - difficulty_));
   time_bar_->setVisible(false);
 
@@ -52,7 +50,7 @@ void TestMinigame::Tick() {
   if (!is_running_) {
     return;
   }
-  time_bar_->SetProgress(1.0f * timer_.remainingTime() / time_);
+  time_bar_->SetProgress(1.0 * timer_.remainingTime() / time_);
   time_bar_->update();
 }
 
@@ -85,13 +83,13 @@ QPointF TestMinigame::GetRandomBallCenter() const {
   // Scene's (0,0) point is in its centre.
   // That's why we subtract a half of width(height)
   // Then scale for center being inside but the edges
-  float x = (QRandomGenerator::global()->bounded(graphics_view_->width()) -
+  qreal x = (QRandomGenerator::global()->bounded(graphics_view_->width()) -
              graphics_view_->width() / 2) *
             kCenterRegionFactor;
-  float y = (QRandomGenerator::global()->bounded(graphics_view_->height()) -
+  qreal y = (QRandomGenerator::global()->bounded(graphics_view_->height()) -
              graphics_view_->height() / 2) *
             kCenterRegionFactor;
-  return QPointF(static_cast<qreal>(x), static_cast<qreal>(y));
+  return QPointF(x, y);
 }
 
 void TestMinigame::Stop() {
