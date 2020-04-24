@@ -1,7 +1,5 @@
 #include "physics.h"
 
-#include <QVector2D>
-
 namespace physics {
 const Vector2D kGravity = {0, 9.80655};
 
@@ -36,10 +34,8 @@ QPointF Advance(Vector2D* velocity, QPointF coordinates) {
 }
 
 Vector2D Throw(QPointF start, QPointF finish, qreal time) {
-  Vector2D answer;
-  answer.setX((finish.x() - start.x()) / time);
-  answer.setY((finish.y() - start.y()) / time - (kGravity.y() * time) / 2);
-  return answer;
+  return {(finish.x() - start.x()) / time,
+          (finish.y() - start.y()) / time - (kGravity.y() * time) / 2};
 }
 
 }  // namespace physics

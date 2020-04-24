@@ -1,7 +1,6 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
-#include <QVector2D>
 #include <QtMath>
 
 #include "vector2d.h"
