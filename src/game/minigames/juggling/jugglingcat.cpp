@@ -18,7 +18,7 @@ void JugglingCat::SetUp() {
   SetUpHands();
   this->setZValue(kZValue);
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  QPixmap pixmap = QPixmap(GetPathToMinigameImages() + "juggling/cat.png");
+  QPixmap pixmap = QPixmap(kPathToMinigameImages + "juggling/cat.png");
   pixmap.setMask(pixmap.createHeuristicMask());
   this->setPixmap(pixmap.scaled(qRound(boundingRect().width()),
                                 qRound(boundingRect().height())));

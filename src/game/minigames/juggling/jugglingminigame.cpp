@@ -3,7 +3,9 @@
 #include <QKeyEvent>
 
 JugglingMinigame::JugglingMinigame(GameView* graphics_view, qreal difficulty)
-    : Minigame(graphics_view, difficulty) {}
+    : Minigame(graphics_view, difficulty) {
+  graphics_view_->SetPixelsInMeter(kBasicPixelsInMeter);
+}
 
 JugglingMinigame::~JugglingMinigame() { delete cat_; }
 
@@ -11,7 +13,8 @@ void JugglingMinigame::Start() { AnimateTutorial(); }
 
 void JugglingMinigame::SetUp() {
   SetParameters();
-  cat_ = new JugglingCat(graphics_view_, 0, 0, 0, 0);
+  time_bar_->setVisible(false);
+  cat_ = new JugglingCat(graphics_view_, kCatWidth, kCatHeight, 0, kCatY);
   cat_->SetUp();
   graphics_view_->scene()->addItem(cat_);
 

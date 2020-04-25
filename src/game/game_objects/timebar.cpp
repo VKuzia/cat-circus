@@ -2,11 +2,15 @@
 
 #include <limits>
 
+const qreal TimeBar::kDefaultHeightFactor = 0.08;
+
 TimeBar::TimeBar(GameView* graphics_view, qreal width, qreal height, qreal x,
                  qreal y)
-    : GameObject(graphics_view, width, height, x, y) {
-  this->setCacheMode(ItemCoordinateCache);
-  this->setZValue(std::numeric_limits<qreal>::max());
+    : GameObject(graphics_view) {
+  setZValue(std::numeric_limits<qreal>::max());
+  this->width_ = width;
+  this->height_ = height;
+  setPos(x, y);
 }
 
 TimeBar::TimeBar(GameView* graphics_view, qreal width, qreal height,
@@ -17,6 +21,10 @@ void TimeBar::SetUp() {
   timeline_.setEasingCurve(QEasingCurve::Linear);
   animation_.setTimeLine(&timeline_);
   animation_.setItem(this);
+}
+
+QRectF TimeBar::boundingRect() const {
+  return QRectF(-width_ / 2, -height_ / 2, width_, height_);
 }
 
 void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,

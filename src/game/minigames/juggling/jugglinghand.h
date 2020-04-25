@@ -2,7 +2,6 @@
 #define JUGGLINGHAND_H
 
 #include <QSet>
-#include <QVector2D>
 
 #include "src/game/gameobject.h"
 #include "src/game/minigames/juggling/jugglingball.h"

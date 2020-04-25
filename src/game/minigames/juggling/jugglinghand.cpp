@@ -13,14 +13,13 @@ JugglingHand::~JugglingHand() {
 
 void JugglingHand::SetUp() {
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  pixmap_free_ =
-      new QPixmap(GetPathToMinigameImages() + "juggling/hand_free.png");
+  pixmap_free_ = new QPixmap(kPathToMinigameImages + "juggling/hand_free.png");
   pixmap_free_->setMask(pixmap_free_->createHeuristicMask());
   *pixmap_free_ = pixmap_free_->scaled(qRound(boundingRect().width()),
                                        qRound(boundingRect().height()));
 
   pixmap_closed_ =
-      new QPixmap(GetPathToMinigameImages() + "juggling/hand_closed.png");
+      new QPixmap(kPathToMinigameImages + "juggling/hand_closed.png");
   pixmap_closed_->setMask(pixmap_closed_->createHeuristicMask());
   *pixmap_closed_ = pixmap_closed_->scaled(qRound(boundingRect().width()),
                                            qRound(boundingRect().height()));

@@ -20,6 +20,13 @@ class JugglingMinigame : public Minigame {
   void KeyReleaseEvent(QKeyEvent* event) override;
 
  private:
+  const qreal kBasicPixelsInMeter = 576 / 5.0;  // To show 5m height
+
+  const qreal kCatWidth = 1.5;
+  const qreal kCatHeight = 2.1;
+  const qreal kCatY = 1;
+
+  const qreal KTutorialHeight = -1.5;
   const int32_t kDuration = 3000;
 
   const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
