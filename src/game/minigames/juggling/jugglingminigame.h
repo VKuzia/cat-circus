@@ -43,9 +43,12 @@ class JugglingMinigame : public Minigame {
   int32_t ball_launch_period_ = 0;
   JugglingCat* cat_ = nullptr;
   QSet<JugglingBall*> balls_;
+
   QTimer ball_timer_;
 
   void LaunchBall();
+
+  void SetArena();
 
   void SetUp() override;
   void SetLabel() override;

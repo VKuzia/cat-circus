@@ -26,16 +26,17 @@ CONFIG += c++11
 
 SOURCES += \
         src/game/game.cpp \
+        src/game/game_objects/backgroundobject.cpp \
         src/game/game_objects/clickableball.cpp \
         src/game/game_objects/timebar.cpp \
         src/game/gameobject.cpp \
         src/game/gameview.cpp \
         src/game/gamewidget.cpp \
         src/game/minigame.cpp \
-    src/game/minigames/juggling/jugglingball.cpp \
-    src/game/minigames/juggling/jugglingcat.cpp \
-    src/game/minigames/juggling/jugglinghand.cpp \
-    src/game/minigames/juggling/jugglingminigame.cpp \
+        src/game/minigames/juggling/jugglingball.cpp \
+        src/game/minigames/juggling/jugglingcat.cpp \
+        src/game/minigames/juggling/jugglinghand.cpp \
+        src/game/minigames/juggling/jugglingminigame.cpp \
         src/game/minigames/test/testminigame.cpp \
         src/game/pausepage.cpp \
         src/game/physics/vector2d.cpp \
@@ -48,6 +49,7 @@ SOURCES += \
 
 HEADERS += \
         src/game/game.h \
+        src/game/game_objects/backgroundobject.h \
         src/game/game_objects/clickableball.h \
         src/game/game_objects/timebar.h \
         src/game/gameobject.h \

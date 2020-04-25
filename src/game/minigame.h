@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QTimer>
 
+#include "src/game/game_objects/backgroundobject.h"
 #include "src/game/game_objects/timebar.h"
 
 class GameView;
@@ -49,6 +50,7 @@ class Minigame : public QObject {
 
   TimeBar* time_bar_;
   QGraphicsTextItem* tutorial_label_;
+  BackgroundObject* background_;
 
   qreal difficulty_;
 

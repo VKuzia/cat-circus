@@ -14,6 +14,7 @@ void JugglingMinigame::Start() { AnimateTutorial(); }
 void JugglingMinigame::SetUp() {
   SetParameters();
   time_bar_->setVisible(false);
+  background_->SetUp(graphics_view_, "juggling/arena.png");
   cat_ = new JugglingCat(graphics_view_, kCatWidth, kCatHeight, 0, kCatY);
   cat_->SetUp();
   cat_->GetLeftHand()->SetBallAirTime(ball_air_time_ / 1000.0);

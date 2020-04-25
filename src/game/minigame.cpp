@@ -11,6 +11,7 @@ Minigame::Minigame(GameView* graphics_view, qreal difficulty)
       time_bar_(new TimeBar(graphics_view_, width_,
                             height_ * kTimeBarHeightFactor, 0, -height_ / 2)),
       tutorial_label_(new QGraphicsTextItem()),
+      background_(new BackgroundObject()),
       difficulty_(difficulty) {}
 
 Minigame::~Minigame() {
