@@ -19,7 +19,7 @@ class TrampolineMinigame : public Minigame {
   void MouseMoveEvent(QMouseEvent*) override;
 
  private:
-  const qreal kPixelsInMeter = 576 / 7.0;  // To show 7m height
+  const qreal kPixelsInMeter = 576 / 9.0;  // To show 7m height
 
   const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
@@ -27,13 +27,12 @@ class TrampolineMinigame : public Minigame {
 
   const qreal kCatWidth = 1.2;
   const qreal kCatHeight = 1.5;
-  const QPointF kCatStartPos = QPointF(-3, -2);
+  const QPointF kCatStartPos = QPointF(-3, -3.2);
+  const qreal kCatFlipHeight = -2;
 
   const qreal kTrampolineWidth = 2.5;
-  const qreal kTrampolineHeight = 1.5;
-  const QPointF kTrampolineStartPos = QPointF(-3, 2);
-
-  const qreal kFloorHeight = 3;
+  const qreal kTrampolineHeight = 1;
+  const QPointF kTrampolineStartPos = QPointF(-3, 3.5);
 
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;

@@ -41,7 +41,7 @@ void TrampolineMinigame::SetLabel() {
 
 void TrampolineMinigame::SetParameters() {
   flip_count_ = 3;
-  flip_time_ = 1000;
+  flip_time_ = 2000;
   drags_count_ = 2;
 }
 
@@ -58,18 +58,33 @@ void TrampolineMinigame::StartGame() {
 void TrampolineMinigame::AnimateOutro() {}
 
 void TrampolineMinigame::Tick() {
+  if (!cat_->IsMoving()) {
+    return;
+  }
   cat_->Update();
-  if (cat_->collidesWithItem(trampoline_)) {
-    if (cat_->GetFlying()) {
+  if (cat_->GetY() < kCatFlipHeight && !cat_->IsJustFlipped()) {
+    MakeFlip();
+  } else if (cat_->collidesWithItem(trampoline_)) {
+    if (cat_->IsFlying()) {
       cat_->SetFlying(false);
+      cat_->SetJustFlipped(false);
       cat_->SetVelocity(0, -cat_->GetVelocity().y());
     }
-  } else if (!cat_->GetFlying()) {
+  } else if (!cat_->IsFlying()) {
     cat_->SetFlying(true);
   }
 }
 
-void TrampolineMinigame::MakeFlip() {}
+void TrampolineMinigame::MakeFlip() {
+  cat_->SetJustFlipped(true);
+  cat_->SetMoving(false);
+  time_bar_->setVisible(true);
+  time_bar_->Launch(flip_time_);
+  QTimer::singleShot(flip_time_, this, [this] {
+    cat_->SetMoving(true);
+    time_bar_->setVisible(false);
+  });
+}
 
 void TrampolineMinigame::Stop(Status status) {
   is_running_ = false;

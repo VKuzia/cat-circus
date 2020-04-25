@@ -15,13 +15,18 @@ class TrampolineCat : public GameObject {
   void Update() override;
 
   void SetMoving(bool moving);
+  bool IsMoving() const;
 
   void SetFlying(bool flying);
-  bool GetFlying() const;
+  bool IsFlying() const;
+
+  void SetJustFlipped(bool flipped);
+  bool IsJustFlipped() const;
 
  private:
   bool is_moving_ = true;
   bool is_flying_ = true;
+  bool is_just_flipped_ = true;
 };
 
 #endif  // TRAMPOLINECAT_H

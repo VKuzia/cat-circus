@@ -31,6 +31,12 @@ void TrampolineCat::Update() {
 
 void TrampolineCat::SetMoving(bool moving) { is_moving_ = moving; }
 
+bool TrampolineCat::IsMoving() const { return is_moving_; }
+
 void TrampolineCat::SetFlying(bool flying) { is_flying_ = flying; }
 
-bool TrampolineCat::GetFlying() const { return is_flying_; }
+bool TrampolineCat::IsFlying() const { return is_flying_; }
+
+void TrampolineCat::SetJustFlipped(bool flipped) { is_just_flipped_ = flipped; }
+
+bool TrampolineCat::IsJustFlipped() const { return is_just_flipped_; }
