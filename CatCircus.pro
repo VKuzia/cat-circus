@@ -38,6 +38,9 @@ SOURCES += \
         src/game/minigames/juggling/jugglinghand.cpp \
         src/game/minigames/juggling/jugglingminigame.cpp \
         src/game/minigames/test/testminigame.cpp \
+        src/game/minigames/trampoline/trampoline.cpp \
+        src/game/minigames/trampoline/trampolinecat.cpp \
+        src/game/minigames/trampoline/trampolineminigame.cpp \
         src/game/pausepage.cpp \
         src/game/physics/vector2d.cpp \
         src/game/scorepage.cpp \
@@ -61,6 +64,9 @@ HEADERS += \
         src/game/minigames/juggling/jugglinghand.h \
         src/game/minigames/juggling/jugglingminigame.h \
         src/game/minigames/test/testminigame.h \
+        src/game/minigames/trampoline/trampoline.h \
+        src/game/minigames/trampoline/trampolinecat.h \
+        src/game/minigames/trampoline/trampolineminigame.h \
         src/game/pausepage.h \
         src/game/physics/vector2d.h \
         src/game/scorepage.h \

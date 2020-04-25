@@ -53,9 +53,13 @@ void GameObject::SetPos(QPointF pos) {
 
 void GameObject::AddVelocity(qreal x, qreal y) { velocity_ += Vector2D(x, y); }
 
+void GameObject::AddVelocity(Vector2D velocity) { velocity_ += velocity; }
+
 void GameObject::SetVelocity(qreal x, qreal y) { velocity_ = Vector2D(x, y); }
 
 void GameObject::SetVelocity(Vector2D velocity) { velocity_ = velocity; }
+
+Vector2D GameObject::GetVelocity() const { return velocity_; }
 
 void GameObject::MoveByMeters(qreal x, qreal y) {
   SetX(x + GetX());

@@ -50,7 +50,6 @@ void JugglingMinigame::AnimateTutorial() {
 
 void JugglingMinigame::StartGame() {
   time_bar_->Launch(time_);
-  connect(&timer_, &QTimer::timeout, [this] { Stop(Status::kPass); });
 
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &JugglingMinigame::Tick);

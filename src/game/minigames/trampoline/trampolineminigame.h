@@ -1,0 +1,64 @@
+#ifndef TRAMPOLINEMINIGAME_H
+#define TRAMPOLINEMINIGAME_H
+
+#include "src/game/minigame.h"
+#include "src/game/minigames/trampoline/trampoline.h"
+#include "src/game/minigames/trampoline/trampolinecat.h"
+
+class TrampolineMinigame : public Minigame {
+  Q_OBJECT
+
+ public:
+  TrampolineMinigame(GameView* graphics_view, qreal difficulty);
+  ~TrampolineMinigame() override = default;
+
+  void Start() override;
+
+  void MousePressEvent(QMouseEvent*) override;
+  void MouseReleaseEvent(QMouseEvent*) override;
+  void MouseMoveEvent(QMouseEvent*) override;
+
+ private:
+  const qreal kPixelsInMeter = 576 / 7.0;  // To show 7m height
+
+  const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
+  const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
+  const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
+
+  const qreal kCatWidth = 1.2;
+  const qreal kCatHeight = 1.5;
+  const QPointF kCatStartPos = QPointF(-3, -2);
+
+  const qreal kTrampolineWidth = 2.5;
+  const qreal kTrampolineHeight = 1.5;
+  const QPointF kTrampolineStartPos = QPointF(-3, 2);
+
+  const qreal kFloorHeight = 3;
+
+  TrampolineCat* cat_ = nullptr;
+  Trampoline* trampoline_ = nullptr;
+  QPointF last_mouse_pressed_;
+  QPointF first_mouse_pressed_;
+  int32_t flip_count_ = 0;
+  int32_t flip_time_ = 0;
+  int32_t drags_count_ = 0;
+  bool is_mouse_pressed_ = false;
+
+  void MakeFlip();
+
+  void SetUp() override;
+  void SetLabel() override;
+  void SetParameters() override;
+
+  void AnimateTutorial() override;
+  void StartGame() override;
+  void AnimateOutro() override;
+
+  void Tick() override;
+
+  void Stop(Status) override;
+  void Win() override;
+  void Lose() override;
+};
+
+#endif  // TRAMPOLINEMINIGAME_H

@@ -23,6 +23,7 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   virtual void Update();
 
   void AddVelocity(qreal x, qreal y);
+  void AddVelocity(Vector2D velocity);
   void SetVelocity(qreal x, qreal y);
   void SetVelocity(Vector2D velocity);
   Vector2D GetVelocity() const;
