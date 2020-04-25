@@ -77,6 +77,8 @@ void JugglingHand::AddBall(JugglingBall* ball) { balls_.insert(ball); }
 
 QPointF JugglingHand::GetBasePos() const { return base_pos_; }
 
+void JugglingHand::SetBallAirTime(qreal sec) { ball_air_time_ = sec; }
+
 Vector2D JugglingHand::GetThrowVelocity() const {
-  return physics::Throw(GetPos(), aim_point_, 1.0);
+  return physics::Throw(GetPos(), aim_point_, ball_air_time_);
 }

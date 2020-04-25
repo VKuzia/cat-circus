@@ -21,6 +21,8 @@ class JugglingHand : public GameObject {
   void AddBall(JugglingBall*);
   QPointF GetBasePos() const;
 
+  void SetBallAirTime(qreal sec);
+
  private:
   const qreal kThrowTime = 0.15;
   const qreal kComeBackTime = 0.05;
@@ -36,6 +38,7 @@ class JugglingHand : public GameObject {
   bool is_throwing_ = false;
   bool is_just_thrown_ = false;
   QPointF aim_point_;
+  qreal ball_air_time_ = 0;
 
   Vector2D GetThrowVelocity() const;
 };

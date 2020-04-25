@@ -8,7 +8,10 @@ GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
 
 void GameView::SetUp(int32_t width, int32_t height) {
   this->setFixedSize(width, height);
-  this->setRenderHints(QPainter::Antialiasing);
+  this->setRenderHints(QPainter::Antialiasing |
+                       QPainter::SmoothPixmapTransform);
+  this->setOptimizationFlags(DontSavePainterState);
+  this->setCacheMode(CacheBackground);
   this->scene()->setSceneRect(-width / 2, -height / 2, width, height);
 }
 

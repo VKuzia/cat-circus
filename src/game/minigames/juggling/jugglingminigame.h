@@ -28,7 +28,6 @@ class JugglingMinigame : public Minigame {
   const qreal KTutorialHeight = -1.5;
 
   const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
-  const QBrush kKeyPressedBackgroundBrush = QBrush(QColor::fromRgb(0, 0, 200));
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 

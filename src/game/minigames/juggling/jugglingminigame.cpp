@@ -16,6 +16,8 @@ void JugglingMinigame::SetUp() {
   time_bar_->setVisible(false);
   cat_ = new JugglingCat(graphics_view_, kCatWidth, kCatHeight, 0, kCatY);
   cat_->SetUp();
+  cat_->GetLeftHand()->SetBallAirTime(ball_air_time_ / 1000.0);
+  cat_->GetRightHand()->SetBallAirTime(ball_air_time_ / 1000.0);
   graphics_view_->scene()->addItem(cat_);
 
   SetLabel();
@@ -45,7 +47,6 @@ void JugglingMinigame::AnimateTutorial() {
 
 void JugglingMinigame::StartGame() {
   time_bar_->Launch(time_);
-  timer_.setInterval(time_);
   connect(&timer_, &QTimer::timeout, [this] { Stop(Status::kPass); });
 
   tick_timer_.setInterval(1000 / kFps);
@@ -53,9 +54,9 @@ void JugglingMinigame::StartGame() {
 
   is_running_ = true;
 
-  timer_.start();
   tick_timer_.start();
   ball_timer_.start();
+  QTimer::singleShot(time_, this, [this] { Stop(Status::kPass); });
 }
 
 void JugglingMinigame::AnimateOutro() {}
@@ -67,6 +68,7 @@ void JugglingMinigame::Tick() {
   for (auto ball : balls_) {
     ball->Update();
     if (ball->GetY() >= kFloorHeight - kBallRadius) {
+      ball->SetFallen(true);
       Stop(Status::kFail);
     }
   }
@@ -142,7 +144,6 @@ void JugglingMinigame::SetParameters() {
 void JugglingMinigame::Stop(Status status) {
   is_running_ = false;
   tick_timer_.stop();
-  timer_.stop();
   ball_timer_.stop();
   time_bar_->setVisible(false);
   if (status == Status::kPass) {

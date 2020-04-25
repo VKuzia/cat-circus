@@ -14,6 +14,7 @@ class JugglingBall : public GameObject {
 
   void SetCaught(bool is_caught);
   qreal GetRadius() const;
+  void SetFallen(bool is_fallen);
 
  private:
   static const qreal kZValue;
@@ -21,6 +22,7 @@ class JugglingBall : public GameObject {
   qreal radius_;
   qreal floor_y_;
   bool is_caught_ = false;
+  bool is_fallen_ = false;
 };
 
 #endif  // JUGGLINGBALL_H

@@ -20,17 +20,13 @@ void JugglingBall::SetUp() {
 }
 
 void JugglingBall::Update() {
-  if (is_caught_) {
+  if (is_caught_ || is_fallen_) {
     return;
   }
-  if (GetY() < floor_y_ - radius_) {
-    AddVelocity(0, physics::kGravity.y() * kUpdateTime);
-  } else {
-    SetVelocity(0.0, 0.0);
-  }
-  qreal x_difference = static_cast<double>(velocity_.x()) * kUpdateTime;
-  qreal y_difference = static_cast<double>(velocity_.y()) * kUpdateTime;
-  if (GetY() + y_difference > floor_y_ - radius_) {
+  AddVelocity(0, physics::kGravity.y() * kUpdateTime);
+  qreal x_difference = velocity_.x() * kUpdateTime;
+  qreal y_difference = velocity_.y() * kUpdateTime;
+  if (GetY() + y_difference + radius_ > floor_y_) {
     y_difference = floor_y_ - radius_ - GetY();
   }
   this->MoveByMeters(x_difference, y_difference);
@@ -39,3 +35,5 @@ void JugglingBall::Update() {
 void JugglingBall::SetCaught(bool is_caught) { is_caught_ = is_caught; }
 
 qreal JugglingBall::GetRadius() const { return radius_; }
+
+void JugglingBall::SetFallen(bool is_fallen) { is_fallen_ = is_fallen; }
