@@ -101,6 +101,9 @@ void TrampolineMinigame::FinishFlip() {
   if (!is_successful_flip_) {
     is_lost_ = true;
     QTimer::singleShot(kFlyAwayTime, this, [this] { Stop(Status::kFail); });
+    cat_->RotateFor(kIncorrectFlipTime);
+  } else {
+    cat_->RotateFor(kCorrectFlipTime);
   }
 }
 

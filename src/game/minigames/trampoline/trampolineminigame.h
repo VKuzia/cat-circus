@@ -29,6 +29,8 @@ class TrampolineMinigame : public Minigame {
   const qreal kCatHeight = 1.5;
   const QPointF kCatStartPos = QPointF(-4, -3.2);
   const qreal kCatFlipHeight = -2;
+  const int32_t kCorrectFlipTime = 1000;
+  const int32_t kIncorrectFlipTime = 3000;
 
   const qreal kTrampolineWidth = 2.5;
   const qreal kTrampolineHeight = 1;
