@@ -20,6 +20,9 @@ void JugglingMinigame::SetUp() {
 
   SetLabel();
   time_bar_->setVisible(false);
+  ball_timer_.setInterval(ball_launch_period_);
+  connect(&ball_timer_, &QTimer::timeout, this, &JugglingMinigame::LaunchBall);
+  LaunchBall();
 }
 
 void JugglingMinigame::SetLabel() {
@@ -57,9 +60,82 @@ void JugglingMinigame::StartGame() {
 
 void JugglingMinigame::AnimateOutro() {}
 
-void JugglingMinigame::Tick() {}
+void JugglingMinigame::Tick() {
+  if (!is_running_) {
+    return;
+  }
+  for (auto ball : balls_) {
+    ball->Update();
+    if (ball->GetY() >= kFloorHeight - kBallRadius) {
+      Stop(Status::kFail);
+    }
+  }
+}
 
-void JugglingMinigame::SetParameters() { time_ = kDuration; }
+void JugglingMinigame::SetParameters() {
+  ball_launch_period_ = 500;
+  int32_t difficulty_level = qFloor(difficulty_ / 0.1);
+  difficulty_level = 7;
+  switch (difficulty_level) {
+    case 1:
+      balls_count_ = 2;
+      time_ = 4000;
+      ball_air_time_ = 1300;
+      break;
+    case 2:
+      balls_count_ = 3;
+      time_ = 4000;
+      ball_air_time_ = 1300;
+      break;
+    case 3:
+      balls_count_ = 3;
+      time_ = 6000;
+      ball_air_time_ = 1300;
+      break;
+    case 4:
+      balls_count_ = 4;
+      time_ = 5000;
+      ball_air_time_ = 1500;
+      ball_launch_period_ = 400;
+      break;
+    case 5:
+      balls_count_ = 4;
+      time_ = 7000;
+      ball_air_time_ = 1500;
+      ball_launch_period_ = 400;
+      break;
+    case 6:
+      balls_count_ = 4;
+      time_ = 8000;
+      ball_air_time_ = 1400;
+      ball_launch_period_ = 350;
+      break;
+    case 7:
+      balls_count_ = 5;
+      time_ = 7000;
+      ball_air_time_ = 1550;
+      ball_launch_period_ = 340;
+      break;
+    case 8:
+      balls_count_ = 5;
+      time_ = 8000;
+      ball_air_time_ = 1400;
+      ball_launch_period_ = 300;
+      break;
+    case 9:
+      balls_count_ = 5;
+      time_ = 9000;
+      ball_air_time_ = 1400;
+      ball_launch_period_ = 300;
+      break;
+    default:
+      balls_count_ = 5;
+      time_ = 10000;
+      ball_air_time_ = 1350;
+      ball_launch_period_ = 300;
+      break;
+  }
+}
 
 void JugglingMinigame::Stop(Status status) {
   is_running_ = false;
@@ -68,6 +144,7 @@ void JugglingMinigame::Stop(Status status) {
   ball_timer_.stop();
   time_bar_->setVisible(false);
   if (status == Status::kPass) {
+    score_ = 100;
     Win();
   }
   if (status == Status::kFail) {
@@ -97,4 +174,22 @@ void JugglingMinigame::KeyPressEvent(QKeyEvent*) {
 
 void JugglingMinigame::KeyReleaseEvent(QKeyEvent*) {
   graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
+}
+
+void JugglingMinigame::LaunchBall() {
+  if (balls_.size() >= balls_count_) {
+    return;
+  }
+  JugglingBall* ball =
+      new JugglingBall(graphics_view_, kBallRadius * 2, kBallRadius * 2,
+                       (balls_.size() % 2 ? kBallStartX : -kBallStartX),
+                       kBallStartY, kFloorHeight);
+  ball->SetVelocity(
+      physics::Throw(ball->GetPos(),
+                     (balls_.size() % 2 ? cat_->GetRightHand()->GetBasePos()
+                                        : cat_->GetLeftHand()->GetBasePos()),
+                     kBallLaunchFlightTime));
+  balls_.insert(ball);
+  ball->SetUp();
+  graphics_view_->scene()->addItem(ball);
 }

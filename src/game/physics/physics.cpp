@@ -33,9 +33,10 @@ QPointF Advance(Vector2D* velocity, QPointF coordinates) {
   return answer;
 }
 
-Vector2D Throw(QPointF start, QPointF finish, qreal time) {
+Vector2D Throw(QPointF start, QPointF finish, qreal time,
+               Vector2D acceleration) {
   return {(finish.x() - start.x()) / time,
-          (finish.y() - start.y()) / time - (kGravity.y() * time) / 2};
+          (finish.y() - start.y()) / time - (acceleration.y() * time) / 2};
 }
 
 }  // namespace physics

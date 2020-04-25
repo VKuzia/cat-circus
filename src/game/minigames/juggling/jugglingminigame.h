@@ -27,16 +27,27 @@ class JugglingMinigame : public Minigame {
   const qreal kCatY = 1;
 
   const qreal KTutorialHeight = -1.5;
-  const int32_t kDuration = 3000;
 
   const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
   const QBrush kKeyPressedBackgroundBrush = QBrush(QColor::fromRgb(0, 0, 200));
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
+  const qreal kBallStartX = 4.6;
+  const qreal kBallStartY = 0;
+  const qreal kBallRadius = 0.11;
+  const qreal kBallLaunchFlightTime = 1.3;
+
+  const qreal kFloorHeight = 2.3;
+
+  int32_t balls_count_ = 0;
+  int32_t ball_air_time_ = 0;
+  int32_t ball_launch_period_ = 0;
   JugglingCat* cat_ = nullptr;
   QSet<JugglingBall*> balls_;
   QTimer ball_timer_;
+
+  void LaunchBall();
 
   void SetUp() override;
   void SetLabel() override;

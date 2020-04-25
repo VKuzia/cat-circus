@@ -19,7 +19,22 @@ void JugglingBall::SetUp() {
                                 qRound(boundingRect().height())));
 }
 
-void JugglingBall::Update() {}
+void JugglingBall::Update() {
+  if (is_caught_) {
+    return;
+  }
+  if (GetY() < floor_y_ - radius_) {
+    AddVelocity(0, physics::kGravity.y() * kUpdateTime);
+  } else {
+    SetVelocity(0.0, 0.0);
+  }
+  qreal x_difference = static_cast<double>(velocity_.x()) * kUpdateTime;
+  qreal y_difference = static_cast<double>(velocity_.y()) * kUpdateTime;
+  if (GetY() + y_difference > floor_y_ - radius_) {
+    y_difference = floor_y_ - radius_ - GetY();
+  }
+  this->MoveByMeters(x_difference, y_difference);
+}
 
 void JugglingBall::SetCaught(bool is_caught) { is_caught_ = is_caught; }
 

@@ -22,6 +22,11 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   virtual void SetUp();
   virtual void Update();
 
+  void AddVelocity(qreal x, qreal y);
+  void SetVelocity(qreal x, qreal y);
+  void SetVelocity(Vector2D velocity);
+  Vector2D GetVelocity() const;
+
   QRectF boundingRect() const override;
 
   qreal GetX() const;
@@ -29,6 +34,9 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
 
   qreal GetY() const;
   void SetY(qreal y);
+
+  QPointF GetPos() const;
+  void SetPos(QPointF pos);
 
   void MoveByMeters(qreal x, qreal y);
 
@@ -44,6 +52,7 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   qreal height_ = 0;
   qreal x_ = 0;
   qreal y_ = 0;
+  Vector2D velocity_ = {0, 0};
 };
 
 #endif  // GAMEOBJECT_H
