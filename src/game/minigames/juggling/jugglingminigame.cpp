@@ -70,12 +70,13 @@ void JugglingMinigame::Tick() {
       Stop(Status::kFail);
     }
   }
+  cat_->GetLeftHand()->Update();
+  cat_->GetRightHand()->Update();
 }
 
 void JugglingMinigame::SetParameters() {
   ball_launch_period_ = 500;
   int32_t difficulty_level = qFloor(difficulty_ / 0.1);
-  difficulty_level = 7;
   switch (difficulty_level) {
     case 1:
       balls_count_ = 2;
@@ -168,12 +169,31 @@ void JugglingMinigame::Lose() {
   });
 }
 
-void JugglingMinigame::KeyPressEvent(QKeyEvent*) {
-  graphics_view_->scene()->setBackgroundBrush(kKeyPressedBackgroundBrush);
-}
-
-void JugglingMinigame::KeyReleaseEvent(QKeyEvent*) {
-  graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
+void JugglingMinigame::KeyPressEvent(QKeyEvent* event) {
+  if (!is_running_) {
+    return;
+  }
+  if (event->key() == Qt::Key_A) {
+    JugglingBall* ball;
+    for (auto item : cat_->GetLeftHand()->collidingItems()) {
+      ball = dynamic_cast<JugglingBall*>(item);
+      if (ball != nullptr) {
+        ball->SetCaught(true);
+        cat_->GetLeftHand()->AddBall(ball);
+      }
+    }
+    cat_->GetLeftHand()->Throw();
+  } else if (event->key() == Qt::Key_D) {
+    JugglingBall* ball;
+    for (auto item : cat_->GetRightHand()->collidingItems()) {
+      ball = dynamic_cast<JugglingBall*>(item);
+      if (ball != nullptr) {
+        ball->SetCaught(true);
+        cat_->GetRightHand()->AddBall(ball);
+      }
+    }
+    cat_->GetRightHand()->Throw();
+  }
 }
 
 void JugglingMinigame::LaunchBall() {

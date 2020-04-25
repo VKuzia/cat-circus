@@ -17,7 +17,6 @@ class JugglingMinigame : public Minigame {
   void Start() override;
 
   void KeyPressEvent(QKeyEvent* event) override;
-  void KeyReleaseEvent(QKeyEvent* event) override;
 
  private:
   const qreal kBasicPixelsInMeter = 576 / 5.0;  // To show 5m height

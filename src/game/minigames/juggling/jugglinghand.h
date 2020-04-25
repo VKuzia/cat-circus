@@ -22,12 +22,19 @@ class JugglingHand : public GameObject {
   QPointF GetBasePos() const;
 
  private:
-  const QPointF base_pos_;
+  const qreal kThrowTime = 0.15;
+  const qreal kComeBackTime = 0.05;
+  const qreal kThrowXRange = 0.4;
+  const Vector2D kAcceleration = {0, -18};
   const bool is_left_;
+  const QPointF base_pos_;
+  const QPointF throw_pos_;
 
   QSet<JugglingBall*> balls_;
   QPixmap* pixmap_free_ = nullptr;
   QPixmap* pixmap_closed_ = nullptr;
+  bool is_throwing_ = false;
+  bool is_just_thrown_ = false;
   QPointF aim_point_;
 
   Vector2D GetThrowVelocity() const;
