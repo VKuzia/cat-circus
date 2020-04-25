@@ -80,7 +80,6 @@ void JugglingMinigame::Tick() {
 void JugglingMinigame::SetParameters() {
   ball_launch_period_ = 500;
   int32_t difficulty_level = qFloor(difficulty_ / 0.1);
-  difficulty_level = 7;
   switch (difficulty_level) {
     case 1:
       balls_count_ = 2;
