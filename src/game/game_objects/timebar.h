@@ -20,11 +20,6 @@ class TimeBar : public GameObject {
 
   QRectF boundingRect() const override;
 
-  void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
-             QWidget* widget) override;
-
-  void SetRectInPixels(qreal x, qreal y, qreal width, qreal height);
-
   void Launch(int32_t millis);
   void SetProgress(qreal progress);
 

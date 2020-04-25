@@ -18,6 +18,14 @@ TimeBar::TimeBar(GameView* graphics_view, qreal width, qreal height,
     : TimeBar(graphics_view, width, height, pos.x(), pos.y()) {}
 
 void TimeBar::SetUp() {
+  QPixmap pixmap(qRound(width_), qRound(height_));
+  QPainter painter(&pixmap);
+  painter.setBrush(kBasicColor);
+  painter.setPen(Qt::NoPen);
+  painter.drawRect(0, 0, qRound(width_), qRound(height_));
+  setOffset(-width_ / 2, -height_ / 2);
+  setPixmap(pixmap);
+
   timeline_.setEasingCurve(QEasingCurve::Linear);
   animation_.setTimeLine(&timeline_);
   animation_.setItem(this);
@@ -25,13 +33,6 @@ void TimeBar::SetUp() {
 
 QRectF TimeBar::boundingRect() const {
   return QRectF(-width_ / 2, -height_ / 2, width_, height_);
-}
-
-void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
-                    QWidget*) {
-  painter->setBrush(kBasicColor);
-  painter->setPen(Qt::NoPen);
-  painter->drawRect(boundingRect());
 }
 
 void TimeBar::SetProgress(qreal progress) {
