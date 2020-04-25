@@ -20,8 +20,9 @@ class TestMinigame : public Minigame {
   void KeyReleaseEvent(QKeyEvent* event) override;
 
  private:
+  const qreal kPixelsInMeter = 576 / 5;
   const int32_t kBasicDuration = 5000;
-  const int32_t kBasicBallRadius = 100;
+  const int32_t kBasicBallRadius = 1;
   const int32_t kBasicBallNumber = 3;
 
   const QBrush kEmptyBackgroundBrush = Qt::NoBrush;

@@ -4,7 +4,9 @@
 #include <QRandomGenerator64>
 
 TestMinigame::TestMinigame(GameView* graphics_view, qreal difficulty)
-    : Minigame(graphics_view, difficulty) {}
+    : Minigame(graphics_view, difficulty) {
+  graphics_view_->SetPixelsInMeter(kPixelsInMeter);
+}
 
 void TestMinigame::SetUp() {
   SetParameters();
@@ -59,6 +61,7 @@ void TestMinigame::AddBall() {
   QPointF center = GetRandomBallCenter();
   ClickableBall* ball = new ClickableBall(graphics_view_, ball_radius_ * 2,
                                           ball_radius_ * 2, center);
+  ball->SetUp();
   connect(ball, &ClickableBall::Clicked, this, &TestMinigame::DeleteBall);
   current_ball_ = ball;
   graphics_view_->scene()->addItem(ball);
@@ -90,6 +93,8 @@ QPointF TestMinigame::GetRandomBallCenter() const {
   qreal y = (QRandomGenerator::global()->bounded(graphics_view_->height()) -
              graphics_view_->height() / 2) *
             kCenterRegionFactor;
+  x /= graphics_view_->GetPixelsInMeter();
+  y /= graphics_view_->GetPixelsInMeter();
   return QPointF(x, y);
 }
 

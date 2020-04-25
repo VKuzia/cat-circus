@@ -15,8 +15,7 @@ class ClickableBall : public GameObject {
                 QPointF pos);
   ~ClickableBall() override = default;
 
-  void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
-             QWidget* widget) override;
+  void SetUp() override;
 
  signals:
   void Clicked();
