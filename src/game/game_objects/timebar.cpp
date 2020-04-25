@@ -2,8 +2,6 @@
 
 #include <limits>
 
-const qreal TimeBar::kDefaultHeightFactor = 0.08;
-
 TimeBar::TimeBar(GameView* graphics_view, qreal width, qreal height, qreal x,
                  qreal y)
     : GameObject(graphics_view) {
@@ -26,9 +24,10 @@ void TimeBar::SetUp() {
   setOffset(-width_ / 2, -height_ / 2);
   setPixmap(pixmap);
 
-  timeline_.setEasingCurve(QEasingCurve::Linear);
-  animation_.setTimeLine(&timeline_);
-  animation_.setItem(this);
+  progress_animation_.setTargetObject(this);
+  progress_animation_.setPropertyName("progress");
+  progress_animation_.setKeyValueAt(0.0, 1.0);
+  progress_animation_.setKeyValueAt(1.0, 0.0);
 }
 
 QRectF TimeBar::boundingRect() const {
@@ -40,11 +39,10 @@ void TimeBar::SetProgress(qreal progress) {
   this->setTransform(QTransform::fromScale(progress_, 1.0));
 }
 
+qreal TimeBar::GetProgress() const { return progress_; }
+
 void TimeBar::Launch(int32_t millis) {
-  animation_.clear();
-  timeline_.stop();
-  timeline_.setDuration(millis);
-  animation_.setScaleAt(0.0, 1.0, 1.0);
-  animation_.setScaleAt(1.0, 0.0, 1.0);
-  timeline_.start();
+  progress_animation_.stop();
+  progress_animation_.setDuration(millis);
+  progress_animation_.start();
 }

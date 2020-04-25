@@ -47,7 +47,7 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   const qreal kUpdateTime = 1.0 / 60;
   const QRectF kDefaultBoundingRect;
 
-  GameView* graphics_view_;
+  GameView* graphics_view_ = nullptr;
   qreal width_ = 0;
   qreal height_ = 0;
   qreal x_ = 0;
