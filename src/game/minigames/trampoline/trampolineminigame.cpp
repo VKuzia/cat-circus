@@ -62,13 +62,17 @@ void TrampolineMinigame::Tick() {
     return;
   }
   cat_->Update();
-  if (cat_->GetY() < kCatFlipHeight && !cat_->IsJustFlipped()) {
+  if (!is_lost_ && cat_->GetY() < kCatFlipHeight && !cat_->IsJustFlipped()) {
     MakeFlip();
   } else if (cat_->collidesWithItem(trampoline_)) {
     if (cat_->IsFlying()) {
       cat_->SetFlying(false);
       cat_->SetJustFlipped(false);
-      cat_->SetVelocity(0, -cat_->GetVelocity().y());
+      if (is_lost_) {
+        cat_->SetVelocity(8, -10);
+      } else {
+        cat_->SetVelocity(0, -cat_->GetVelocity().y());
+      }
     }
   } else if (!cat_->IsFlying()) {
     cat_->SetFlying(true);
@@ -76,14 +80,28 @@ void TrampolineMinigame::Tick() {
 }
 
 void TrampolineMinigame::MakeFlip() {
+  if (flip_count_ == 0) {
+    Stop(Status::kPass);
+    return;
+  }
+  is_making_flip_ = true;
+  flip_count_--;
   cat_->SetJustFlipped(true);
   cat_->SetMoving(false);
   time_bar_->setVisible(true);
   time_bar_->Launch(flip_time_);
-  QTimer::singleShot(flip_time_, this, [this] {
-    cat_->SetMoving(true);
-    time_bar_->setVisible(false);
-  });
+  is_successful_flip_ = false;
+  QTimer::singleShot(flip_time_, this, &TrampolineMinigame::FinishFlip);
+}
+
+void TrampolineMinigame::FinishFlip() {
+  time_bar_->setVisible(false);
+  is_making_flip_ = false;
+  cat_->SetMoving(true);
+  if (!is_successful_flip_) {
+    is_lost_ = true;
+    QTimer::singleShot(kFlyAwayTime, this, [this] { Stop(Status::kFail); });
+  }
 }
 
 void TrampolineMinigame::Stop(Status status) {
@@ -114,17 +132,28 @@ void TrampolineMinigame::Lose() {
   });
 }
 void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
+  if (!is_making_flip_) {
+    return;
+  }
   is_mouse_pressed_ = true;
   first_mouse_pressed_ = event->pos();
   last_mouse_pressed_ = first_mouse_pressed_;
 }
 
 void TrampolineMinigame::MouseReleaseEvent(QMouseEvent*) {
+  if (!is_making_flip_) {
+    return;
+  }
   is_mouse_pressed_ = false;
+  Vector2D mouse_move(last_mouse_pressed_.x() - first_mouse_pressed_.x(),
+                      last_mouse_pressed_.y() - first_mouse_pressed_.y());
+  if (qAbs(mouse_move.x()) > qAbs(mouse_move.y())) {
+    is_successful_flip_ = true;
+  }
 }
 
 void TrampolineMinigame::MouseMoveEvent(QMouseEvent* event) {
-  if (!is_mouse_pressed_) {
+  if (!is_mouse_pressed_ || !is_making_flip_) {
     return;
   }
   last_mouse_pressed_ = event->pos();

@@ -27,12 +27,14 @@ class TrampolineMinigame : public Minigame {
 
   const qreal kCatWidth = 1.2;
   const qreal kCatHeight = 1.5;
-  const QPointF kCatStartPos = QPointF(-3, -3.2);
+  const QPointF kCatStartPos = QPointF(-4, -3.2);
   const qreal kCatFlipHeight = -2;
 
   const qreal kTrampolineWidth = 2.5;
   const qreal kTrampolineHeight = 1;
-  const QPointF kTrampolineStartPos = QPointF(-3, 3.5);
+  const QPointF kTrampolineStartPos = QPointF(-4, 3.5);
+
+  const int32_t kFlyAwayTime = 3000;
 
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;
@@ -42,8 +44,12 @@ class TrampolineMinigame : public Minigame {
   int32_t flip_time_ = 0;
   int32_t drags_count_ = 0;
   bool is_mouse_pressed_ = false;
+  bool is_successful_flip_ = false;
+  bool is_making_flip_ = false;
+  bool is_lost_ = false;
 
   void MakeFlip();
+  void FinishFlip();
 
   void SetUp() override;
   void SetLabel() override;
