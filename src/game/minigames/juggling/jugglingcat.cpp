@@ -33,6 +33,8 @@ void JugglingCat::SetUpHands() {
   right_hand_->setZValue(kHandsZValue);
   graphics_view_->scene()->addItem(left_hand_);
   graphics_view_->scene()->addItem(right_hand_);
+  left_hand_->SetAimPoint(right_hand_->GetBasePos());
+  right_hand_->SetAimPoint(left_hand_->GetBasePos());
 }
 JugglingHand* JugglingCat::GetLeftHand() { return left_hand_; }
 

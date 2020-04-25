@@ -7,7 +7,7 @@ const QString GameObject::kPathToMinigameImages =
 
 GameObject::GameObject(GameView* graphics_view)
     : graphics_view_(graphics_view) {
-  this->setCacheMode(ItemCoordinateCache);
+  this->setCacheMode(NoCache);
 }
 
 GameObject::GameObject(GameView* graphics_view, qreal width, qreal height,
@@ -26,7 +26,7 @@ GameObject::GameObject(GameView* graphics_view, qreal width, qreal height,
       height_(height),
       x_(pos.x()),
       y_(pos.y()) {
-  this->setCacheMode(ItemCoordinateCache);
+  this->setCacheMode(NoCache);
   setPos(x_ * graphics_view_->GetPixelsInMeter(),
          y_ * graphics_view_->GetPixelsInMeter());
 }

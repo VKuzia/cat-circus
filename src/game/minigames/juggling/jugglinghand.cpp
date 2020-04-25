@@ -77,4 +77,6 @@ void JugglingHand::AddBall(JugglingBall* ball) { balls_.insert(ball); }
 
 QPointF JugglingHand::GetBasePos() const { return base_pos_; }
 
-Vector2D JugglingHand::GetThrowVelocity() const { return Vector2D(0.0, 0.0); }
+Vector2D JugglingHand::GetThrowVelocity() const {
+  return physics::Throw(GetPos(), aim_point_, 1.0);
+}
