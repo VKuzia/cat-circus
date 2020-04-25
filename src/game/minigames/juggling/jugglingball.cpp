@@ -26,8 +26,10 @@ void JugglingBall::Update() {
   AddVelocity(0, physics::kGravity.y() * kUpdateTime);
   qreal x_difference = velocity_.x() * kUpdateTime;
   qreal y_difference = velocity_.y() * kUpdateTime;
+  // Checking if the floor was reached
   if (GetY() + y_difference + radius_ > floor_y_) {
     y_difference = floor_y_ - radius_ - GetY();
+    is_fallen_ = true;
   }
   this->MoveByMeters(x_difference, y_difference);
 }

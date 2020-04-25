@@ -24,17 +24,20 @@ void JugglingCat::SetUp() {
                                 qRound(boundingRect().height())));
 }
 
-void JugglingCat::Update() {}
+void JugglingCat::Update() {
+  left_hand_->Update();
+  right_hand_->Update();
+}
 
 void JugglingCat::SetUpHands() {
   left_hand_->SetUp();
   right_hand_->SetUp();
   left_hand_->setZValue(kHandsZValue);
   right_hand_->setZValue(kHandsZValue);
-  graphics_view_->scene()->addItem(left_hand_);
-  graphics_view_->scene()->addItem(right_hand_);
   left_hand_->SetAimPoint(right_hand_->GetBasePos());
   right_hand_->SetAimPoint(left_hand_->GetBasePos());
+  graphics_view_->scene()->addItem(left_hand_);
+  graphics_view_->scene()->addItem(right_hand_);
 }
 JugglingHand* JugglingCat::GetLeftHand() { return left_hand_; }
 

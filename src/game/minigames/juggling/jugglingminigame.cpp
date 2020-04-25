@@ -15,8 +15,10 @@ void JugglingMinigame::SetUp() {
   SetParameters();
   time_bar_->setVisible(false);
   background_->SetUp(graphics_view_, "juggling/arena.png");
+
   cat_ = new JugglingCat(graphics_view_, kCatWidth, kCatHeight, 0, kCatY);
   cat_->SetUp();
+  // Need to set this here because ball_air_time_ is defined by SetParamateres
   cat_->GetLeftHand()->SetBallAirTime(ball_air_time_ / 1000.0);
   cat_->GetRightHand()->SetBallAirTime(ball_air_time_ / 1000.0);
   graphics_view_->scene()->addItem(cat_);
@@ -73,8 +75,7 @@ void JugglingMinigame::Tick() {
       Stop(Status::kFail);
     }
   }
-  cat_->GetLeftHand()->Update();
-  cat_->GetRightHand()->Update();
+  cat_->Update();
 }
 
 void JugglingMinigame::SetParameters() {

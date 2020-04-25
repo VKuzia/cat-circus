@@ -48,8 +48,6 @@ class JugglingMinigame : public Minigame {
 
   void LaunchBall();
 
-  void SetArena();
-
   void SetUp() override;
   void SetLabel() override;
   void SetParameters() override;

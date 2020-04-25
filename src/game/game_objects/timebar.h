@@ -20,6 +20,7 @@ class TimeBar : public GameObject {
 
   QRectF boundingRect() const override;
 
+  // Animates progress from 1 to 0 in a given amout of time
   void Launch(int32_t millis);
 
  private:

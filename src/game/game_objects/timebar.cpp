@@ -6,6 +6,9 @@ TimeBar::TimeBar(GameView* graphics_view, qreal width, qreal height, qreal x,
                  qreal y)
     : GameObject(graphics_view) {
   setZValue(std::numeric_limits<qreal>::max());
+  // TimeBar is set up before minigame, that's why it can't
+  // get immediate use GetPixelsInMeter() correctly, so its
+  // parameteres are left in pixels
   this->width_ = width;
   this->height_ = height;
   setPos(x, y);
