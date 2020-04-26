@@ -1,5 +1,7 @@
 #include "trampolineminigame.h"
 
+#include <QDebug>
+#include <QGraphicsPathItem>
 #include <QMouseEvent>
 
 TrampolineMinigame::TrampolineMinigame(GameView* graphics_view,
@@ -140,14 +142,24 @@ void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
   }
   is_mouse_pressed_ = true;
   first_mouse_pressed_ = event->pos();
-  last_mouse_pressed_ = first_mouse_pressed_;
+  //  first_mouse_pressed_ -=
+  //      QPointF(graphics_view_->width() / 2, graphics_view_->height() / 2);
+  //  last_mouse_pressed_ = first_mouse_pressed_;
+
+  mouse_path_ = QPainterPath(first_mouse_pressed_);
+  mouse_path_item_ = new QGraphicsPathItem(nullptr);
+  mouse_path_item_->setPos(-graphics_view_->width() / 2,
+                           -graphics_view_->height() / 2);
+  mouse_path_item_->setPen(QPen(QColor::fromRgb(200, 0, 0)));
+  mouse_path_item_->setPath(mouse_path_);
+  graphics_view_->scene()->addItem(mouse_path_item_);
 }
 
 void TrampolineMinigame::MouseReleaseEvent(QMouseEvent*) {
+  is_mouse_pressed_ = false;
   if (!is_making_flip_) {
     return;
   }
-  is_mouse_pressed_ = false;
   Vector2D mouse_move(last_mouse_pressed_.x() - first_mouse_pressed_.x(),
                       last_mouse_pressed_.y() - first_mouse_pressed_.y());
   if (qAbs(mouse_move.x()) > qAbs(mouse_move.y())) {
@@ -160,4 +172,9 @@ void TrampolineMinigame::MouseMoveEvent(QMouseEvent* event) {
     return;
   }
   last_mouse_pressed_ = event->pos();
+  qDebug() << last_mouse_pressed_.x() << "  " << last_mouse_pressed_.y();
+  //  last_mouse_pressed_ -=
+  //      QPointF(graphics_view_->width() / 2, -graphics_view_->height() / 2);
+  mouse_path_.lineTo(last_mouse_pressed_);
+  mouse_path_item_->setPath(mouse_path_);
 }

@@ -40,6 +40,8 @@ class TrampolineMinigame : public Minigame {
 
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;
+  QGraphicsPathItem* mouse_path_item_ = nullptr;
+  QPainterPath mouse_path_;
   QPointF last_mouse_pressed_;
   QPointF first_mouse_pressed_;
   int32_t flip_count_ = 0;
