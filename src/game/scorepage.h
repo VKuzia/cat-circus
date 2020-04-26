@@ -2,6 +2,7 @@
 #define POINTSPAGE_H
 
 #include <QGraphicsScene>
+#include <QPropertyAnimation>
 #include <QTimer>
 #include <QWidget>
 
@@ -11,6 +12,7 @@ class ScorePage;
 
 class ScorePage : public QWidget {
   Q_OBJECT
+  Q_PROPERTY(int score READ GetScore WRITE SetScore)
 
  public:
   explicit ScorePage(QWidget* parent = nullptr);
@@ -41,6 +43,7 @@ class ScorePage : public QWidget {
   const QColor kInactiveLifeColor = QColor::fromRgb(230, 10, 10, 200);
 
   const int32_t kExpireTime = 2500;
+  const int32_t kScoreAnimationTime = 800;
   const int32_t kResumeTime = 1500;
   const int32_t kLifeInterval = 20;
   const int32_t kBasicLivesCount = 3;
@@ -55,11 +58,15 @@ class ScorePage : public QWidget {
   QGraphicsScene* lives_scene_;
   Ui::ScorePage* ui_;
   QVector<QGraphicsEllipseItem*> lives_;
+  QPropertyAnimation score_animation_;
   QTimer expire_timer_;
 
   void SetUpLives();
   QGraphicsEllipseItem* GetNewLife(int32_t index) const;
   void RemoveLife();
+
+  void SetScore(int32_t score);
+  int32_t GetScore() const;
 };
 
 #endif  // POINTSPAGE_H

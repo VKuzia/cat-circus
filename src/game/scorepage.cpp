@@ -32,17 +32,25 @@ void ScorePage::SetUp() {
   ui_->ui_stacked_button_widget_->setCurrentWidget(ui_->ui_pause_button_page_);
   ui_->ui_retry_button_->setVisible(false);
   SetUpLives();
+
+  score_animation_.setPropertyName("score");
+  score_animation_.setTargetObject(this);
+  score_animation_.setDuration(kScoreAnimationTime);
+  // To prevent "starting with no end value" while first Animate() called
+  score_animation_.setStartValue(0);
+  score_animation_.setEndValue(0);
 }
 
 void ScorePage::Animate() {
   expire_timer_.setInterval(kExpireTime);
   expire_timer_.start();
+  score_animation_.start();
 }
 
 void ScorePage::MiniGamePassed(int32_t score) {
   ui_->ui_label_->setText("Passed!");
-  score_ += score;
-  ui_->ui_score_label_->setText(QString::number(score_));
+  score_animation_.setStartValue(score_);
+  score_animation_.setEndValue(score_ + score);
 }
 
 void ScorePage::MiniGameFailed() {
@@ -108,3 +116,10 @@ void ScorePage::RemoveLife() {
   QGraphicsEllipseItem* life = lives_.at(kBasicLivesCount - lives_count_ - 1);
   life->setBrush(kInactiveLifeColor);
 }
+
+void ScorePage::SetScore(int32_t score) {
+  score_ = score;
+  ui_->ui_score_label_->setText(QString::number(score_));
+}
+
+int32_t ScorePage::GetScore() const { return score_; }
