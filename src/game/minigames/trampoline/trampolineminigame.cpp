@@ -45,7 +45,7 @@ void TrampolineMinigame::SetLabel() {
 void TrampolineMinigame::SetParameters() {
   flip_count_ = 3;
   flip_time_ = 2000;
-  swipe_count_ = 1;
+  swipe_count_ = 4;
 }
 
 void TrampolineMinigame::AnimateTutorial() {
@@ -106,53 +106,60 @@ void TrampolineMinigame::MakeFlip() {
 }
 
 void TrampolineMinigame::PrepareTiles() {
-  int32_t direction_num = QRandomGenerator::global()->bounded(3);
-  switch (direction_num) {
-    case 0:
-      current_tile_->SetDirection(TrampolineTile::SwipeDirection::kUp);
-      current_tile_->SetPixmap(
-          kUp.scaled(qRound(current_tile_->boundingRect().width()),
-                     qRound(current_tile_->boundingRect().height())));
-      break;
-    case 1:
-      current_tile_->SetDirection(TrampolineTile::SwipeDirection::kDown);
-      current_tile_->SetPixmap(
-          kDown.scaled(qRound(current_tile_->boundingRect().width()),
-                       qRound(current_tile_->boundingRect().height())));
-      break;
-    case 2:
-      current_tile_->SetDirection(TrampolineTile::SwipeDirection::kLeft);
-      current_tile_->SetPixmap(
-          kLeft.scaled(qRound(current_tile_->boundingRect().width()),
-                       qRound(current_tile_->boundingRect().height())));
-      break;
-    case 3:
-      current_tile_->SetDirection(TrampolineTile::SwipeDirection::kRight);
-      current_tile_->SetPixmap(
-          kRight.scaled(qRound(current_tile_->boundingRect().width()),
-                        qRound(current_tile_->boundingRect().height())));
-      break;
+  for (auto current_tile : tiles_) {
+    int32_t direction_num = QRandomGenerator::global()->bounded(3);
+    switch (direction_num) {
+      case 0:
+        current_tile->SetDirection(TrampolineTile::SwipeDirection::kUp);
+        current_tile->SetPixmap(
+            kUp.scaled(qRound(current_tile->boundingRect().width()),
+                       qRound(current_tile->boundingRect().height())));
+        break;
+      case 1:
+        current_tile->SetDirection(TrampolineTile::SwipeDirection::kDown);
+        current_tile->SetPixmap(
+            kDown.scaled(qRound(current_tile->boundingRect().width()),
+                         qRound(current_tile->boundingRect().height())));
+        break;
+      case 2:
+        current_tile->SetDirection(TrampolineTile::SwipeDirection::kLeft);
+        current_tile->SetPixmap(
+            kLeft.scaled(qRound(current_tile->boundingRect().width()),
+                         qRound(current_tile->boundingRect().height())));
+        break;
+      case 3:
+        current_tile->SetDirection(TrampolineTile::SwipeDirection::kRight);
+        current_tile->SetPixmap(
+            kRight.scaled(qRound(current_tile->boundingRect().width()),
+                          qRound(current_tile->boundingRect().height())));
+        break;
+    }
+    current_tile->SetUp();
   }
-  current_tile_->SetUp();
 }
 
 void TrampolineMinigame::SetTiles() {
-  current_tile_ =
-      new TrampolineTile(graphics_view_, kTileWidth, kTileHeight, kTileX, 0);
-  current_tile_->setVisible(false);
-  graphics_view_->scene()->addItem(current_tile_);
+  for (int32_t i = -swipe_count_ / 2; i <= (swipe_count_ - 1) / 2; i++) {
+    TrampolineTile* tile =
+        new TrampolineTile(graphics_view_, kTileWidth, kTileHeight,
+                           kTileX + i * (kTileWidth + kTileXInterval), kTileY);
+    tile->setVisible(false);
+    tiles_.push_back(tile);
+    graphics_view_->scene()->addItem(tile);
+  }
 }
 
 void TrampolineMinigame::SetTilesVisible(bool visible) {
-  if (current_tile_ != nullptr) {
-    current_tile_->setVisible(visible);
+  for (auto current_tile : tiles_) {
+    current_tile->setVisible(visible);
   }
 }
 
 void TrampolineMinigame::FinishTile() {
   current_swipe_count_--;
-  if (!current_tile_->CheckPath(*current_mouse_path_, first_mouse_pressed_,
-                                last_mouse_pressed_)) {
+  if (!tiles_.at(swipe_count_ - current_swipe_count_ - 1)
+           ->CheckPath(*current_mouse_path_, first_mouse_pressed_,
+                       last_mouse_pressed_)) {
     FinishFlip();
   } else if (current_swipe_count_ == 0) {
     is_successful_flip_ = true;

@@ -53,6 +53,8 @@ class TrampolineMinigame : public Minigame {
   const qreal kTileWidth = 1.5;
   const qreal kTileHeight = 1.5;
   const qreal kTileX = 3;
+  const qreal kTileXInterval = 0.3;
+  const qreal kTileY = -3;
 
   const qreal kTrampolineWidth = 2.5;
   const qreal kTrampolineHeight = 1;
@@ -63,7 +65,7 @@ class TrampolineMinigame : public Minigame {
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;
   PathObject* current_mouse_path_ = nullptr;
-  TrampolineTile* current_tile_ = nullptr;
+  QVector<TrampolineTile*> tiles_;
   QPointF last_mouse_pressed_;
   QPointF first_mouse_pressed_;
   int32_t flip_count_ = 0;
