@@ -1,6 +1,7 @@
 #ifndef TRAMPOLINEMINIGAME_H
 #define TRAMPOLINEMINIGAME_H
 
+#include "src/game/game_objects/pathobject.h"
 #include "src/game/minigame.h"
 #include "src/game/minigames/trampoline/trampoline.h"
 #include "src/game/minigames/trampoline/trampolinecat.h"
@@ -25,6 +26,9 @@ class TrampolineMinigame : public Minigame {
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
+  const QPen kMousePathPen = QPen(QColor::fromRgb(200, 0, 0, 150));
+  const int32_t kMousePathFadeAwayTime = 1000;
+
   const qreal kCatWidth = 1.2;
   const qreal kCatHeight = 1.5;
   const QPointF kCatStartPos = QPointF(-4, -3.2);
@@ -40,8 +44,7 @@ class TrampolineMinigame : public Minigame {
 
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;
-  QGraphicsPathItem* mouse_path_item_ = nullptr;
-  QPainterPath mouse_path_;
+  PathObject* current_mouse_path_ = nullptr;
   QPointF last_mouse_pressed_;
   QPointF first_mouse_pressed_;
   int32_t flip_count_ = 0;

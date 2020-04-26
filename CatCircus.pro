@@ -28,6 +28,7 @@ SOURCES += \
         src/game/game.cpp \
         src/game/game_objects/backgroundobject.cpp \
         src/game/game_objects/clickableball.cpp \
+    src/game/game_objects/pathobject.cpp \
         src/game/game_objects/timebar.cpp \
         src/game/gameobject.cpp \
         src/game/gameview.cpp \
@@ -54,6 +55,7 @@ HEADERS += \
         src/game/game.h \
         src/game/game_objects/backgroundobject.h \
         src/game/game_objects/clickableball.h \
+        src/game/game_objects/pathobject.h \
         src/game/game_objects/timebar.h \
         src/game/gameobject.h \
         src/game/gameview.h \
