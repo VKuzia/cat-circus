@@ -42,6 +42,7 @@ SOURCES += \
         src/game/minigames/trampoline/trampoline.cpp \
         src/game/minigames/trampoline/trampolinecat.cpp \
         src/game/minigames/trampoline/trampolineminigame.cpp \
+    src/game/minigames/trampoline/trampolinetile.cpp \
         src/game/pausepage.cpp \
         src/game/physics/vector2d.cpp \
         src/game/scorepage.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
         src/game/minigames/trampoline/trampoline.h \
         src/game/minigames/trampoline/trampolinecat.h \
         src/game/minigames/trampoline/trampolineminigame.h \
+        src/game/minigames/trampoline/trampolinetile.h \
         src/game/pausepage.h \
         src/game/physics/vector2d.h \
         src/game/scorepage.h \

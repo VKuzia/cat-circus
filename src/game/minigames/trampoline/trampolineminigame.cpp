@@ -1,6 +1,7 @@
 #include "trampolineminigame.h"
 
 #include <QMouseEvent>
+#include <QRandomGenerator>
 
 TrampolineMinigame::TrampolineMinigame(GameView* graphics_view,
                                        qreal difficulty)
@@ -26,6 +27,8 @@ void TrampolineMinigame::SetUp() {
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &TrampolineMinigame::Tick);
 
+  SetTiles();
+
   is_running_ = true;
   SetLabel();
 }
@@ -42,7 +45,7 @@ void TrampolineMinigame::SetLabel() {
 void TrampolineMinigame::SetParameters() {
   flip_count_ = 3;
   flip_time_ = 2000;
-  drags_count_ = 2;
+  swipe_count_ = 1;
 }
 
 void TrampolineMinigame::AnimateTutorial() {
@@ -68,8 +71,10 @@ void TrampolineMinigame::Tick() {
     if (cat_->IsFlying()) {
       cat_->SetFlying(false);
       cat_->SetJustFlipped(false);
+      SetTilesVisible(false);
+      PrepareTiles();
       if (is_lost_) {
-        cat_->SetVelocity(8, -10);
+        cat_->SetVelocity(kWrongVelocity);
       } else {
         cat_->SetVelocity(0, -cat_->GetVelocity().y());
       }
@@ -84,6 +89,8 @@ void TrampolineMinigame::MakeFlip() {
     Stop(Status::kPass);
     return;
   }
+  SetTilesVisible(true);
+  current_swipe_count_ = swipe_count_;
   is_making_flip_ = true;
   flip_count_--;
   cat_->SetJustFlipped(true);
@@ -91,7 +98,66 @@ void TrampolineMinigame::MakeFlip() {
   time_bar_->setVisible(true);
   time_bar_->Launch(flip_time_);
   is_successful_flip_ = false;
-  QTimer::singleShot(flip_time_, this, &TrampolineMinigame::FinishFlip);
+  QTimer::singleShot(flip_time_, this, [this] {
+    if (is_making_flip_) {
+      FinishFlip();
+    }
+  });
+}
+
+void TrampolineMinigame::PrepareTiles() {
+  int32_t direction_num = QRandomGenerator::global()->bounded(3);
+  switch (direction_num) {
+    case 0:
+      current_tile_->SetDirection(TrampolineTile::SwipeDirection::kUp);
+      current_tile_->SetPixmap(
+          kUp.scaled(qRound(current_tile_->boundingRect().width()),
+                     qRound(current_tile_->boundingRect().height())));
+      break;
+    case 1:
+      current_tile_->SetDirection(TrampolineTile::SwipeDirection::kDown);
+      current_tile_->SetPixmap(
+          kDown.scaled(qRound(current_tile_->boundingRect().width()),
+                       qRound(current_tile_->boundingRect().height())));
+      break;
+    case 2:
+      current_tile_->SetDirection(TrampolineTile::SwipeDirection::kLeft);
+      current_tile_->SetPixmap(
+          kLeft.scaled(qRound(current_tile_->boundingRect().width()),
+                       qRound(current_tile_->boundingRect().height())));
+      break;
+    case 3:
+      current_tile_->SetDirection(TrampolineTile::SwipeDirection::kRight);
+      current_tile_->SetPixmap(
+          kRight.scaled(qRound(current_tile_->boundingRect().width()),
+                        qRound(current_tile_->boundingRect().height())));
+      break;
+  }
+  current_tile_->SetUp();
+}
+
+void TrampolineMinigame::SetTiles() {
+  current_tile_ =
+      new TrampolineTile(graphics_view_, kTileWidth, kTileHeight, kTileX, 0);
+  current_tile_->setVisible(false);
+  graphics_view_->scene()->addItem(current_tile_);
+}
+
+void TrampolineMinigame::SetTilesVisible(bool visible) {
+  if (current_tile_ != nullptr) {
+    current_tile_->setVisible(visible);
+  }
+}
+
+void TrampolineMinigame::FinishTile() {
+  current_swipe_count_--;
+  if (!current_tile_->CheckPath(*current_mouse_path_, first_mouse_pressed_,
+                                last_mouse_pressed_)) {
+    FinishFlip();
+  } else if (current_swipe_count_ == 0) {
+    is_successful_flip_ = true;
+    FinishFlip();
+  }
 }
 
 void TrampolineMinigame::FinishFlip() {
@@ -105,6 +171,7 @@ void TrampolineMinigame::FinishFlip() {
   } else {
     cat_->RotateFor(kCorrectFlipTime);
   }
+  //  current_tile_->setVisible(false);
 }
 
 void TrampolineMinigame::Stop(Status status) {
@@ -152,12 +219,8 @@ void TrampolineMinigame::MouseReleaseEvent(QMouseEvent*) {
   if (!is_making_flip_) {
     return;
   }
-  Vector2D mouse_move(last_mouse_pressed_.x() - first_mouse_pressed_.x(),
-                      last_mouse_pressed_.y() - first_mouse_pressed_.y());
-  if (qAbs(mouse_move.x()) > qAbs(mouse_move.y())) {
-    is_successful_flip_ = true;
-  }
   current_mouse_path_->FadeAway(kMousePathFadeAwayTime);
+  FinishTile();
 }
 
 void TrampolineMinigame::MouseMoveEvent(QMouseEvent* event) {
