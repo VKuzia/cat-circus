@@ -14,11 +14,9 @@ TrampolineCat::TrampolineCat(GameView* graphics_view, qreal width, qreal height,
 void TrampolineCat::SetUp() {
   int32_t width = qRound(width_ * graphics_view_->GetPixelsInMeter());
   int32_t height = qRound(height_ * graphics_view_->GetPixelsInMeter());
-
-  QPixmap pixmap(width, height);
-  QPainter painter(&pixmap);
-  painter.setBrush(QColor::fromRgb(100, 100, 100));
-  painter.drawRect(0, 0, width, height);
+  QPixmap pixmap = QPixmap(kPathToMinigameImages + "trampoline/cat.png");
+  pixmap.setMask(pixmap.createHeuristicMask());
+  this->setPixmap(pixmap.scaled(width, height));
   setOffset(-width / 2, -height / 2);
   setPixmap(pixmap.scaled(width, height));
 
