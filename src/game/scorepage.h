@@ -42,25 +42,23 @@ class ScorePage : public QWidget {
   void ReturnToMainMenu();
 
  private:
-  const QColor kActiveLifeColor = QColor::fromRgb(10, 230, 10, 200);
-  const QColor kInactiveLifeColor = QColor::fromRgb(230, 10, 10, 200);
-
   const int32_t kExpireTime = 2500;
   const int32_t kScoreAnimationTime = 800;
   const int32_t kResumeTime = 1500;
-  const int32_t kLifeInterval = 20;
-  const int32_t kBasicLivesCount = 3;
+  const int32_t kLivesCount = 3;
 
-  // Ratio of live height to lives_scene_ height;
-  // Temporary parameter for lives appearance
+  // Ratio of life height relatively ui_lives_view_ height
   const qreal kLiveScaleYFactor = 0.9;
   const qreal kLiveScaleXFactor = 0.2;
+  // Ratio of horizontal space between lives relatively life_width_
   const qreal kLifeIntervalXFactor = 0.3;
+  // Disappear animation speed in percents
   const int32_t kLifeDisappearSpeed = 150;
 
   int32_t score_ = 0;
-  int32_t lives_count_ = kBasicLivesCount;
+  QPropertyAnimation score_animation_;
 
+  int32_t lives_count_ = kLivesCount;
   int32_t life_width_ = 0;
   int32_t life_height_ = 0;
 
@@ -72,13 +70,14 @@ class ScorePage : public QWidget {
   QMovie* life_disappear_movie_ =
       new QMovie(QDir::currentPath() + "/data/images/score/life_disappear.gif");
 
-  QPropertyAnimation score_animation_;
   QTimer expire_timer_;
   bool is_minigame_passed_ = false;
 
   void SetUpLives();
   QGraphicsPixmapItem* GetNewLife(int32_t index) const;
   void RemoveLife();
+
+  void SetUpAnimations();
 
   void SetScore(int32_t score);
   int32_t GetScore() const;

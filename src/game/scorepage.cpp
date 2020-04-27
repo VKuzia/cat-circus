@@ -17,24 +17,7 @@ ScorePage::ScorePage(QWidget* parent)
   });
   ui_->ui_lives_view_->setRenderHint(QPainter::Antialiasing);
   ui_->ui_lives_view_->setScene(lives_scene_);
-
-  connect(life_movie_, &QMovie::frameChanged, this, [this] {
-    if (life_movie_->state() != QMovie::Running) {
-      return;
-    }
-    for (int32_t i = kBasicLivesCount - 1; i >= kBasicLivesCount - lives_count_;
-         i--) {
-      lives_.at(i)->setPixmap(life_movie_->currentPixmap());
-    }
-  });
-
-  connect(life_disappear_movie_, &QMovie::frameChanged, this, [this] {
-    if (life_disappear_movie_->state() != QMovie::Running) {
-      return;
-    }
-    lives_.at(kBasicLivesCount - lives_count_ - 1)
-        ->setPixmap(life_disappear_movie_->currentPixmap());
-  });
+  SetUpAnimations();
 }
 
 ScorePage::~ScorePage() {
@@ -51,16 +34,12 @@ ScorePage::~ScorePage() {
 
 void ScorePage::SetUp() {
   score_ = 0;
+  is_minigame_passed_ = false;
+
   ui_->ui_score_label_->setText(QString::number(score_));
   ui_->ui_label_->setText("Get ready!");
   ui_->ui_stacked_button_widget_->setCurrentWidget(ui_->ui_pause_button_page_);
   ui_->ui_retry_button_->setVisible(false);
-
-  score_animation_.setPropertyName("score");
-  score_animation_.setTargetObject(this);
-  score_animation_.setDuration(kScoreAnimationTime);
-
-  is_minigame_passed_ = false;
 
   life_height_ = qRound(ui_->ui_lives_view_->height() * kLiveScaleYFactor);
   life_width_ = qRound(ui_->ui_lives_view_->width() * kLiveScaleXFactor);
@@ -107,6 +86,7 @@ void ScorePage::Pause() {
   int32_t remaining_time_ = expire_timer_.remainingTime();
   expire_timer_.stop();
   expire_timer_.setInterval(remaining_time_);
+
   life_movie_->setPaused(true);
   life_disappear_movie_->setPaused(true);
   emit Paused();
@@ -116,6 +96,7 @@ void ScorePage::Resume() {
   expire_timer_.setInterval(qMax(expire_timer_.remainingTime(), kResumeTime));
   expire_timer_.start();
   life_movie_->setPaused(false);
+  // To prevent double disappearing animation
   if (life_disappear_movie_->state() == QMovie::Running) {
     life_disappear_movie_->setPaused(false);
   }
@@ -132,7 +113,8 @@ void ScorePage::Retry() {
 void ScorePage::ReturnToMainMenu() { emit MainMenu(); }
 
 void ScorePage::SetUpLives() {
-  lives_count_ = kBasicLivesCount;
+  lives_count_ = kLivesCount;
+  // If just started -- create lives, update them with start frame otherwise
   if (lives_.empty()) {
     for (int32_t i = -lives_count_ / 2; i <= (lives_count_ - 1) / 2; i++) {
       QGraphicsPixmapItem* new_life = GetNewLife(i);
@@ -161,6 +143,29 @@ QGraphicsPixmapItem* ScorePage::GetNewLife(int32_t index) const {
 void ScorePage::RemoveLife() {
   lives_count_--;
   life_disappear_movie_->start();
+}
+
+void ScorePage::SetUpAnimations() {
+  connect(life_movie_, &QMovie::frameChanged, this, [this] {
+    if (life_movie_->state() != QMovie::Running) {
+      return;
+    }
+    for (int32_t i = kLivesCount - 1; i >= kLivesCount - lives_count_; i--) {
+      lives_.at(i)->setPixmap(life_movie_->currentPixmap());
+    }
+  });
+
+  connect(life_disappear_movie_, &QMovie::frameChanged, this, [this] {
+    if (life_disappear_movie_->state() != QMovie::Running) {
+      return;
+    }
+    lives_.at(kLivesCount - lives_count_ - 1)
+        ->setPixmap(life_disappear_movie_->currentPixmap());
+  });
+
+  score_animation_.setPropertyName("score");
+  score_animation_.setTargetObject(this);
+  score_animation_.setDuration(kScoreAnimationTime);
 }
 
 void ScorePage::SetScore(int32_t score) {
