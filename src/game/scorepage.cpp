@@ -14,6 +14,7 @@ ScorePage::ScorePage(QWidget* parent)
     expire_timer_.stop();
     emit Expired();
   });
+  ui_->ui_lives_view_->setRenderHint(QPainter::Antialiasing);
   ui_->ui_lives_view_->setScene(lives_scene_);
 }
 
@@ -23,6 +24,7 @@ ScorePage::~ScorePage() {
   lives_scene_->clear();
   delete lives_scene_;
   delete ui_;
+  delete life_movie_;
 }
 
 void ScorePage::SetUp() {
@@ -31,7 +33,6 @@ void ScorePage::SetUp() {
   ui_->ui_label_->setText("Get ready!");
   ui_->ui_stacked_button_widget_->setCurrentWidget(ui_->ui_pause_button_page_);
   ui_->ui_retry_button_->setVisible(false);
-  SetUpLives();
 
   score_animation_.setPropertyName("score");
   score_animation_.setTargetObject(this);
@@ -39,6 +40,9 @@ void ScorePage::SetUp() {
   // To prevent "starting with no end value" while first Animate() called
   score_animation_.setStartValue(0);
   score_animation_.setEndValue(0);
+
+  life_movie_->setScaledSize(QSize(100, 100));
+  SetUpLives();
 }
 
 void ScorePage::Animate() {
@@ -94,27 +98,32 @@ void ScorePage::SetUpLives() {
   lives_.clear();
   lives_count_ = kBasicLivesCount;
   for (int32_t i = -lives_count_ / 2; i <= (lives_count_ - 1) / 2; i++) {
-    QGraphicsEllipseItem* new_life = GetNewLife(i);
+    QGraphicsPixmapItem* new_life = GetNewLife(i);
     ui_->ui_lives_view_->scene()->addItem(new_life);
     lives_.push_back(new_life);
   }
 }
 
-QGraphicsEllipseItem* ScorePage::GetNewLife(int32_t index) const {
+QGraphicsPixmapItem* ScorePage::GetNewLife(int32_t index) const {
   // Will be further replaced with animated sprites
-  QGraphicsEllipseItem* new_life = new QGraphicsEllipseItem();
+  QGraphicsPixmapItem* new_life = new QGraphicsPixmapItem();
   qreal diameter = ui_->ui_lives_view_->height() * kLiveHeightFactor;
   qreal x = index * (kLifeInterval + diameter);
   qreal y = 0;
-  new_life->setRect(x, y, diameter, diameter);
-  new_life->setBrush(kActiveLifeColor);
+  new_life->setOffset(-diameter / 2, -diameter / 2);
+  new_life->setPos(x, y);
+  life_movie_->jumpToFrame(0);
+  new_life->setPixmap(life_movie_->currentPixmap());
   return new_life;
 }
 
 void ScorePage::RemoveLife() {
   lives_count_--;
-  QGraphicsEllipseItem* life = lives_.at(kBasicLivesCount - lives_count_ - 1);
-  life->setBrush(kInactiveLifeColor);
+  life_movie_->jumpToFrame(0);
+  QGraphicsPixmapItem* life = lives_.at(kBasicLivesCount - lives_count_ - 1);
+  connect(life_movie_, &QMovie::frameChanged, this,
+          [this, life] { life->setPixmap(life_movie_->currentPixmap()); });
+  life_movie_->start();
 }
 
 void ScorePage::SetScore(int32_t score) {

@@ -1,7 +1,10 @@
 #ifndef POINTSPAGE_H
 #define POINTSPAGE_H
 
+#include <QDir>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <QMovie>
 #include <QPropertyAnimation>
 #include <QTimer>
 #include <QWidget>
@@ -48,6 +51,11 @@ class ScorePage : public QWidget {
   const int32_t kLifeInterval = 20;
   const int32_t kBasicLivesCount = 3;
 
+  const QPixmap kLifePixmap =
+      QPixmap(QDir::currentPath() + "/data/images/score/life.png");
+  const QPixmap kNoLifePixmap =
+      QPixmap(QDir::currentPath() + "/data/images/score/no_life.png");
+
   // Ratio of live height to lives_scene_ height;
   // Temporary parameter for lives appearance
   const qreal kLiveHeightFactor = 0.9;
@@ -57,12 +65,14 @@ class ScorePage : public QWidget {
 
   QGraphicsScene* lives_scene_;
   Ui::ScorePage* ui_;
-  QVector<QGraphicsEllipseItem*> lives_;
+  QVector<QGraphicsPixmapItem*> lives_;
+  QMovie* life_movie_ =
+      new QMovie(QDir::currentPath() + "/data/images/score/life.gif");
   QPropertyAnimation score_animation_;
   QTimer expire_timer_;
 
   void SetUpLives();
-  QGraphicsEllipseItem* GetNewLife(int32_t index) const;
+  QGraphicsPixmapItem* GetNewLife(int32_t index) const;
   void RemoveLife();
 
   void SetScore(int32_t score);
