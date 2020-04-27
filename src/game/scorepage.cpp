@@ -1,6 +1,6 @@
 #include "scorepage.h"
 
-#include <QGraphicsEllipseItem>
+#include <QDebug>
 
 #include "ui_scorepage.h"
 
@@ -12,10 +12,29 @@ ScorePage::ScorePage(QWidget* parent)
   ui_->setupUi(this);
   connect(&expire_timer_, &QTimer::timeout, this, [=] {
     expire_timer_.stop();
+    life_movie_->stop();
     emit Expired();
   });
   ui_->ui_lives_view_->setRenderHint(QPainter::Antialiasing);
   ui_->ui_lives_view_->setScene(lives_scene_);
+
+  connect(life_movie_, &QMovie::frameChanged, this, [this] {
+    if (life_movie_->state() != QMovie::Running) {
+      return;
+    }
+    for (int32_t i = kBasicLivesCount - 1; i >= kBasicLivesCount - lives_count_;
+         i--) {
+      lives_.at(i)->setPixmap(life_movie_->currentPixmap());
+    }
+  });
+
+  connect(life_disappear_movie_, &QMovie::frameChanged, this, [this] {
+    if (life_disappear_movie_->state() != QMovie::Running) {
+      return;
+    }
+    lives_.at(kBasicLivesCount - lives_count_ - 1)
+        ->setPixmap(life_disappear_movie_->currentPixmap());
+  });
 }
 
 ScorePage::~ScorePage() {
@@ -24,7 +43,10 @@ ScorePage::~ScorePage() {
   lives_scene_->clear();
   delete lives_scene_;
   delete ui_;
+  life_movie_->stop();
+  life_disappear_movie_->stop();
   delete life_movie_;
+  delete life_disappear_movie_;
 }
 
 void ScorePage::SetUp() {
@@ -37,27 +59,35 @@ void ScorePage::SetUp() {
   score_animation_.setPropertyName("score");
   score_animation_.setTargetObject(this);
   score_animation_.setDuration(kScoreAnimationTime);
-  // To prevent "starting with no end value" while first Animate() called
-  score_animation_.setStartValue(0);
-  score_animation_.setEndValue(0);
 
-  life_movie_->setScaledSize(QSize(100, 100));
+  is_minigame_passed_ = false;
+
+  life_height_ = qRound(ui_->ui_lives_view_->height() * kLiveScaleYFactor);
+  life_width_ = qRound(ui_->ui_lives_view_->width() * kLiveScaleXFactor);
+  life_movie_->setScaledSize(QSize(life_width_, life_height_));
+  life_disappear_movie_->setScaledSize(QSize(life_width_, life_height_));
+  life_disappear_movie_->setSpeed(kLifeDisappearSpeed);
   SetUpLives();
 }
 
 void ScorePage::Animate() {
   expire_timer_.setInterval(kExpireTime);
   expire_timer_.start();
-  score_animation_.start();
+  if (is_minigame_passed_) {
+    score_animation_.start();
+  }
+  life_movie_->start();
 }
 
 void ScorePage::MiniGamePassed(int32_t score) {
+  is_minigame_passed_ = true;
   ui_->ui_label_->setText("Passed!");
   score_animation_.setStartValue(score_);
   score_animation_.setEndValue(score_ + score);
 }
 
 void ScorePage::MiniGameFailed() {
+  is_minigame_passed_ = false;
   RemoveLife();
   if (lives_count_ == 0) {
     ui_->ui_label_->setText("You lost...");
@@ -77,15 +107,23 @@ void ScorePage::Pause() {
   int32_t remaining_time_ = expire_timer_.remainingTime();
   expire_timer_.stop();
   expire_timer_.setInterval(remaining_time_);
+  life_movie_->setPaused(true);
+  life_disappear_movie_->setPaused(true);
   emit Paused();
 }
 
 void ScorePage::Resume() {
   expire_timer_.setInterval(qMax(expire_timer_.remainingTime(), kResumeTime));
   expire_timer_.start();
+  life_movie_->setPaused(false);
+  if (life_disappear_movie_->state() == QMovie::Running) {
+    life_disappear_movie_->setPaused(false);
+  }
 }
 
 void ScorePage::Retry() {
+  life_movie_->stop();
+  life_disappear_movie_->stop();
   emit Retried();
   SetUp();
   Animate();
@@ -94,23 +132,26 @@ void ScorePage::Retry() {
 void ScorePage::ReturnToMainMenu() { emit MainMenu(); }
 
 void ScorePage::SetUpLives() {
-  ui_->ui_lives_view_->scene()->clear();
-  lives_.clear();
   lives_count_ = kBasicLivesCount;
-  for (int32_t i = -lives_count_ / 2; i <= (lives_count_ - 1) / 2; i++) {
-    QGraphicsPixmapItem* new_life = GetNewLife(i);
-    ui_->ui_lives_view_->scene()->addItem(new_life);
-    lives_.push_back(new_life);
+  if (lives_.empty()) {
+    for (int32_t i = -lives_count_ / 2; i <= (lives_count_ - 1) / 2; i++) {
+      QGraphicsPixmapItem* new_life = GetNewLife(i);
+      ui_->ui_lives_view_->scene()->addItem(new_life);
+      lives_.push_back(new_life);
+    }
+  } else {
+    life_movie_->jumpToFrame(0);
+    for (auto life : lives_) {
+      life->setPixmap(life_movie_->currentPixmap());
+    }
   }
 }
 
 QGraphicsPixmapItem* ScorePage::GetNewLife(int32_t index) const {
-  // Will be further replaced with animated sprites
   QGraphicsPixmapItem* new_life = new QGraphicsPixmapItem();
-  qreal diameter = ui_->ui_lives_view_->height() * kLiveHeightFactor;
-  qreal x = index * (kLifeInterval + diameter);
+  qreal x = index * (life_width_ * (kLifeIntervalXFactor + 1));
   qreal y = 0;
-  new_life->setOffset(-diameter / 2, -diameter / 2);
+  new_life->setOffset(-life_width_ / 2, -life_height_ / 2);
   new_life->setPos(x, y);
   life_movie_->jumpToFrame(0);
   new_life->setPixmap(life_movie_->currentPixmap());
@@ -119,11 +160,7 @@ QGraphicsPixmapItem* ScorePage::GetNewLife(int32_t index) const {
 
 void ScorePage::RemoveLife() {
   lives_count_--;
-  life_movie_->jumpToFrame(0);
-  QGraphicsPixmapItem* life = lives_.at(kBasicLivesCount - lives_count_ - 1);
-  connect(life_movie_, &QMovie::frameChanged, this,
-          [this, life] { life->setPixmap(life_movie_->currentPixmap()); });
-  life_movie_->start();
+  life_disappear_movie_->start();
 }
 
 void ScorePage::SetScore(int32_t score) {

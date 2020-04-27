@@ -51,25 +51,30 @@ class ScorePage : public QWidget {
   const int32_t kLifeInterval = 20;
   const int32_t kBasicLivesCount = 3;
 
-  const QPixmap kLifePixmap =
-      QPixmap(QDir::currentPath() + "/data/images/score/life.png");
-  const QPixmap kNoLifePixmap =
-      QPixmap(QDir::currentPath() + "/data/images/score/no_life.png");
-
   // Ratio of live height to lives_scene_ height;
   // Temporary parameter for lives appearance
-  const qreal kLiveHeightFactor = 0.9;
+  const qreal kLiveScaleYFactor = 0.9;
+  const qreal kLiveScaleXFactor = 0.2;
+  const qreal kLifeIntervalXFactor = 0.3;
+  const int32_t kLifeDisappearSpeed = 150;
 
   int32_t score_ = 0;
   int32_t lives_count_ = kBasicLivesCount;
+
+  int32_t life_width_ = 0;
+  int32_t life_height_ = 0;
 
   QGraphicsScene* lives_scene_;
   Ui::ScorePage* ui_;
   QVector<QGraphicsPixmapItem*> lives_;
   QMovie* life_movie_ =
       new QMovie(QDir::currentPath() + "/data/images/score/life.gif");
+  QMovie* life_disappear_movie_ =
+      new QMovie(QDir::currentPath() + "/data/images/score/life_disappear.gif");
+
   QPropertyAnimation score_animation_;
   QTimer expire_timer_;
+  bool is_minigame_passed_ = false;
 
   void SetUpLives();
   QGraphicsPixmapItem* GetNewLife(int32_t index) const;
