@@ -24,7 +24,6 @@ MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
 }
 
 void MainWindow::ChangeToMainMenu() {
-  //  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_main_menu_widget_);
   widget_to_change_to_ = ui_->ui_main_menu_widget_;
   AnimateLoading();
 }
@@ -33,19 +32,16 @@ void MainWindow::ChangeToGame() {
   widget_to_change_to_ = ui_->ui_game_widget_;
   ui_->ui_game_widget_->SetUp();
   AnimateLoading();
-  //  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_game_widget_);
 }
 
 void MainWindow::ChangeToSettings() {
   widget_to_change_to_ = ui_->ui_settings_widget_;
   AnimateLoading();
-  //  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_settings_widget_);
 }
 
 void MainWindow::ChangeToAbout() {
   widget_to_change_to_ = ui_->ui_about_widget_;
   AnimateLoading();
-  //  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_about_widget_);
 }
 
 void MainWindow::Exit() { QApplication::exit(0); }

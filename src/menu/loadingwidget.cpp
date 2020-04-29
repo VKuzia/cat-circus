@@ -1,5 +1,7 @@
 #include "loadingwidget.h"
 
+#include <QDebug>
+
 #include "ui_loadingwidget.h"
 
 LoadingWidget::LoadingWidget(QWidget *parent)
@@ -7,7 +9,10 @@ LoadingWidget::LoadingWidget(QWidget *parent)
   ui_->setupUi(this);
 }
 
-LoadingWidget::~LoadingWidget() { delete ui_; }
+LoadingWidget::~LoadingWidget() {
+  delete ui_;
+  delete loading_movie_;
+}
 
 void LoadingWidget::SetUp() {
   this->setDisabled(true);
@@ -33,13 +38,17 @@ void LoadingWidget::SetUp() {
     this->setDisabled(true);
     this->setVisible(false);
     is_opaque_ = false;
+    loading_movie_->stop();
     emit AnimationFinished();
   });
+  ui_->ui_loading_label_->setMovie(loading_movie_);
 }
 
 void LoadingWidget::Animate() {
   this->setVisible(true);
   this->setDisabled(false);
+  loading_movie_->setScaledSize(ui_->ui_loading_label_->size());
+  loading_movie_->start();
   animation_.start();
 }
 
