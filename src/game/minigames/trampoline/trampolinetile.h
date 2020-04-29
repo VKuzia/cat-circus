@@ -31,7 +31,7 @@ class TrampolineTile : public GameObject {
   const QColor kFailColor = QColor::fromRgb(200, 0, 0);
   const QColor kPassColor = QColor::fromRgb(0, 200, 0);
 
-  SwipeDirection direction_;
+  SwipeDirection direction_ = SwipeDirection::kUp;
 
   void Deactivate(bool is_path_correct);
 };

@@ -13,7 +13,7 @@ class PathObject : public QObject, public QGraphicsPathItem {
   Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
 
  public:
-  PathObject(GameView* graphics_view);
+  explicit PathObject(GameView* graphics_view);
   ~PathObject() override = default;
 
   void MoveTo(const QPointF point);
