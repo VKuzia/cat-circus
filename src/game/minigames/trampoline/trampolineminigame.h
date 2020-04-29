@@ -41,7 +41,7 @@ class TrampolineMinigame : public Minigame {
   const QPen kMousePathPen = QPen(QBrush(QColor::fromRgb(200, 0, 0, 150)), 5);
   const int32_t kMousePathFadeAwayTime = 2000;
 
-  const qreal kCatWidth = 1.2;
+  const qreal kCatWidth = 1.5;
   const qreal kCatHeight = 1.5;
   const QPointF kCatStartPos = QPointF(-4, -3.2);
   const qreal kCatFlipHeight = -2;

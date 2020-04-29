@@ -11,6 +11,11 @@ class Trampoline : public GameObject {
   ~Trampoline() override = default;
 
   void SetUp() override;
+  void SetPushed(bool pushed);
+
+ private:
+  QPixmap pixmap_free_;
+  QPixmap pixmap_pushed_;
 };
 
 #endif  // TRAMPOLINE_H

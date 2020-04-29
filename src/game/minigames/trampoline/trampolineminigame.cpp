@@ -70,6 +70,7 @@ void TrampolineMinigame::Tick() {
   } else if (cat_->collidesWithItem(trampoline_)) {
     if (cat_->IsFlying()) {
       cat_->SetFlying(false);
+      trampoline_->SetPushed(true);
       cat_->SetJustFlipped(false);
       SetTilesVisible(false);
       PrepareTiles();
@@ -81,6 +82,7 @@ void TrampolineMinigame::Tick() {
     }
   } else if (!cat_->IsFlying()) {
     cat_->SetFlying(true);
+    trampoline_->SetPushed(false);
   }
 }
 
