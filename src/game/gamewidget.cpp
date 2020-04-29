@@ -100,9 +100,11 @@ void GameWidget::SetUp() {
   // ui_score_page_ needs to know its width in SetUp()
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
   ui_->ui_score_page_->SetUp();
-  ShowScore();
+  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
   InitMinigame();
 }
+
+void GameWidget::Start() { ui_->ui_score_page_->Animate(); }
 
 void GameWidget::SetMinigame(Minigame* minigame) {
   delete current_minigame_;

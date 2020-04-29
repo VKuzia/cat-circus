@@ -53,6 +53,9 @@ void MainWindow::AnimateLoading() {
 
 void MainWindow::SetGamePage() {
   ui_->ui_base_stacked_widget_->setCurrentWidget(ui_->ui_game_page_);
+  if (widget_to_change_to_ == ui_->ui_game_widget_) {
+    ui_->ui_game_widget_->Start();
+  }
 }
 
 void MainWindow::ChangeWidget() {
