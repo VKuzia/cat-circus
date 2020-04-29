@@ -25,7 +25,12 @@ void SettingsWidget::TurnVolume()
 
 SettingsWidget::~SettingsWidget() { delete ui_; }
 
-void SettingsWidget::on_ui_sound_check_box__stateChanged(int arg1)
+void SettingsWidget::OnUiSoundCheckBoxStateChanged()
 {
     TurnVolume();
+}
+
+void SettingsWidget::OnUiStatisticsButtonClicked()
+{
+  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_statistics_page_);
 }

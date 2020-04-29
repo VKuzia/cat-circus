@@ -39,7 +39,8 @@ SOURCES += \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
-        src/menu/settingswidget.cpp \
+        src/menu/settingswidget.cpp \ \
+    src/menu/statisticspage.cpp
 
 HEADERS += \
         src/game/game.h \
@@ -55,7 +56,8 @@ HEADERS += \
         src/game/physics/physics.h \
         src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
-        src/menu/settingswidget.h
+        src/menu/settingswidget.h \
+        src/menu/statisticspage.h
 
 FORMS += \
         src/game/gamewidget.ui \
@@ -63,7 +65,8 @@ FORMS += \
         src/game/scorepage.ui \
         src/menu/aboutwidget.ui \
         src/menu/mainwindow.ui \
-        src/menu/settingswidget.ui
+        src/menu/settingswidget.ui \
+        src/menu/statisticspage.ui
 
 # Default rules for deployment
 qnx: target.path = /tmp/$${TARGET}/bin

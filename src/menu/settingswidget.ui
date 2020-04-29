@@ -6,14 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1024</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="4,3,3,3,3,3,3">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,4,3,3,3,3,3,3,3">
+   <item>
+    <widget class="QStackedWidget" name="ui_stacked_widget_">
+     <widget class="StatisticsPage" name="ui_statistics_page_"/>
+     <widget class="QWidget" name="page_4"/>
+    </widget>
+   </item>
    <item>
     <widget class="QLabel" name="ui_settings_label_">
      <property name="sizePolicy">
@@ -119,9 +125,23 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="ui_resolution_layout_" stretch="5,26">
+     <item>
+      <widget class="QLabel" name="ui_resolution_label_">
+       <property name="text">
+        <string>Resolution</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="ui_resolution_combo_box_"/>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QPushButton" name="ui_statistics_button_">
      <property name="text">
-      <string>View Statics</string>
+      <string>View Statistics</string>
      </property>
     </widget>
    </item>
@@ -140,6 +160,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>StatisticsPage</class>
+   <extends>QWidget</extends>
+   <header>src/menu/statisticspage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

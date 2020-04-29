@@ -21,7 +21,9 @@ class SettingsWidget : public QWidget {
   void ReturnToMainMenu();
 
 private slots:
-  void on_ui_sound_check_box__stateChanged(int arg1);
+  void OnUiSoundCheckBoxStateChanged();
+
+  void OnUiStatisticsButtonClicked();
 
 private:
 
