@@ -23,7 +23,7 @@ class TrampolineMinigame : public Minigame {
   void MouseMoveEvent(QMouseEvent*) override;
 
  private:
-  const qreal kPixelsInMeter = 576 / 9.0;  // To show 7m height
+  const qreal kPixelsInMeter = 576 / 8.0;  // To show 7m height
 
   const QPixmap kUp =
       QPixmap(QDir::currentPath() + "/data/images/minigames/trampoline/up.png");
@@ -43,24 +43,24 @@ class TrampolineMinigame : public Minigame {
 
   const qreal kCatWidth = 1.5;
   const qreal kCatHeight = 1.5;
-  const QPointF kCatStartPos = QPointF(-4, -3.2);
+  const QPointF kCatStartPos = QPointF(-3.5, -2.5);
   const qreal kCatFlipHeight = -2;
-  const Vector2D kWrongVelocity = {8, -10};
+  const Vector2D kWrongVelocity = {8, -9.5};
 
   const int32_t kCorrectFlipTime = 1000;
-  const int32_t kIncorrectFlipTime = 3000;
+  const int32_t kIncorrectFlipTime = 2500;
 
-  const qreal kTileWidth = 1.5;
-  const qreal kTileHeight = 1.5;
-  const qreal kTileX = 3;
-  const qreal kTileXInterval = 0.3;
-  const qreal kTileY = -3;
+  const qreal kTileWidth = 1.2;
+  const qreal kTileHeight = 1.2;
+  const qreal kTileX = 3.5;
+  const qreal kTileXInterval = 0.4;
+  const qreal kTileY = -2.5;
 
-  const qreal kTrampolineWidth = 2.5;
-  const qreal kTrampolineHeight = 1;
-  const QPointF kTrampolineStartPos = QPointF(-4, 3.5);
+  const qreal kTrampolineWidth = 3;
+  const qreal kTrampolineHeight = 1.5;
+  const QPointF kTrampolineStartPos = QPointF(-3.5, 3);
 
-  const int32_t kFlyAwayTime = 3000;
+  const int32_t kFlyAwayTime = 2800;
 
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;

@@ -43,9 +43,39 @@ void TrampolineMinigame::SetLabel() {
 }
 
 void TrampolineMinigame::SetParameters() {
-  flip_count_ = 3;
-  flip_time_ = 2000;
-  swipe_count_ = 4;
+  int32_t difficulty_level_ = qRound(difficulty_ / (0.1));
+  switch (difficulty_level_) {
+    case 1:
+      flip_time_ = 2000;
+      flip_count_ = 2;
+      swipe_count_ = 2;
+      break;
+    case 2:
+      flip_time_ = 2000;
+      flip_count_ = 2;
+      swipe_count_ = 3;
+      break;
+    case 3:
+      flip_time_ = 2000;
+      flip_count_ = 3;
+      swipe_count_ = 3;
+      break;
+    case 4:
+      flip_time_ = 1500;
+      flip_count_ = 3;
+      swipe_count_ = 3;
+      break;
+    case 5:
+      flip_time_ = 2000;
+      flip_count_ = 3;
+      swipe_count_ = 4;
+      break;
+    default:
+      flip_time_ = 2200;
+      flip_count_ = 3;
+      swipe_count_ = 5;
+      break;
+  }
 }
 
 void TrampolineMinigame::AnimateTutorial() {
@@ -180,7 +210,6 @@ void TrampolineMinigame::FinishFlip() {
   } else {
     cat_->RotateFor(kCorrectFlipTime);
   }
-  //  current_tile_->setVisible(false);
 }
 
 void TrampolineMinigame::Stop(Status status) {
