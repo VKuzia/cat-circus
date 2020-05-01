@@ -121,12 +121,15 @@ void TestMinigame::Win() {
 }
 
 void TestMinigame::Lose() {
-  graphics_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
-  QTimer::singleShot(kOutroDuration, this, [this] {
-    graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-    emit Failed();
-  });
-  timer_.start();
+  connect(graphics_view_, &GameView::OutroFinished, this,
+          [this] { emit Failed(); });
+  graphics_view_->AnimateFailed();
+  //  graphics_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
+  //  QTimer::singleShot(kOutroDuration, this, [this] {
+  //    graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
+  //    emit Failed();
+  //  });
+  //  timer_.start();
 }
 
 void TestMinigame::MousePressEvent(QMouseEvent*) {

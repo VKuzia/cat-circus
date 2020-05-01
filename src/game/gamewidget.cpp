@@ -43,7 +43,8 @@ void GameWidget::Retry() { SetUp(); }
 void GameWidget::InitMinigame() {
   // Some game picking logic should be here
   Minigame* minigame =
-      new JugglingMinigame(ui_->ui_game_view_, current_difficulty_);
+      new TestMinigame(ui_->ui_game_view_, current_difficulty_);
+  //      new JugglingMinigame(ui_->ui_game_view_, current_difficulty_);
   SetMinigame(minigame);
   current_minigame_->Init();
 }
@@ -106,6 +107,7 @@ void GameWidget::SetUp() {
 
 void GameWidget::SetMinigame(Minigame* minigame) {
   delete current_minigame_;
+  ui_->ui_game_view_->disconnect();
   current_minigame_ = minigame;
   ui_->ui_game_view_->SetMinigame(minigame);
 }

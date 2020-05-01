@@ -1,5 +1,7 @@
 #include "gameview.h"
 
+#include <limits>
+
 #include "src/game/minigame.h"
 
 GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
@@ -13,6 +15,44 @@ void GameView::SetUp(int32_t width, int32_t height) {
   this->setOptimizationFlags(DontSavePainterState);
   this->setCacheMode(CacheBackground);
   this->scene()->setSceneRect(-width / 2, -height / 2, width, height);
+
+  failed_animation_.setPropertyName("failedAnimationProgress");
+  failed_animation_.setTargetObject(this);
+  failed_animation_.setDuration(kFailedAnimationDuration);
+  failed_animation_.setStartValue(0);
+  failed_animation_.setKeyValueAt(
+      (1.0 * kFailedFadeInDuration) / kFailedAnimationDuration, 1);
+  failed_animation_.setEndValue(1);
+  connect(&failed_animation_, &QPropertyAnimation::finished, this, [this] {
+    failed_rect_->setVisible(false);
+    failed_rect_->setOpacity(0);
+    emit OutroFinished();
+  });
+
+  failed_rect_ =
+      new QGraphicsRectItem(-this->width() / 2 + 1, -this->height() / 2 + 1,
+                            this->width() + 2, this->height() + 2);
+  failed_rect_->setVisible(false);
+  failed_rect_->setPen(Qt::NoPen);
+  failed_rect_->setBrush(kFailedShadowColor);
+  failed_rect_->setOpacity(0);
+  failed_rect_->setZValue(std::numeric_limits<qreal>::max());
+  scene()->addItem(failed_rect_);
+}
+
+void GameView::AnimateFailed() {
+  failed_rect_->setVisible(true);
+  failed_rect_->setOpacity(0);
+  failed_animation_.start();
+}
+
+void GameView::SetFailedAnimationProgress(qreal progress) {
+  failed_animation_progress_ = progress;
+  failed_rect_->setOpacity(kFailedMaxOpacity * failed_animation_progress_);
+}
+
+qreal GameView::GetFaildedAnimationProgress() const {
+  return failed_animation_progress_;
 }
 
 void GameView::mousePressEvent(QMouseEvent* event) {
