@@ -6,24 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1024</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="4,3,3,3,3,3,3,3">
    <item>
-    <widget class="QLabel" name="ui_settings_label">
+    <widget class="QLabel" name="ui_settings_label_">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="text">
-      <string>[SETTINGS]</string>
+      <string>SETTINGS</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -31,9 +31,118 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="ui_return_button">
+    <layout class="QHBoxLayout" name="ui_user_layout_" stretch="5,26">
+     <item>
+      <widget class="QLabel" name="ui_user_label_">
+       <property name="text">
+        <string>Change Your Name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="ui_user_line_edit_">
+       <property name="text">
+        <string>Player</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="ui_language_layout_" stretch="5,26">
+     <item>
+      <widget class="QLabel" name="ui_language_label_">
+       <property name="text">
+        <string>Choose language</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="ui_language_combo_box_"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="ui_sound_layout_" stretch="5,23,3">
+     <item>
+      <widget class="QLabel" name="ui_sound_label_">
+       <property name="text">
+        <string>Sound</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="ui_volume_">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="ui_sound_check_box_">
+       <property name="text">
+        <string>On</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="ui_brightness_layout_" stretch="5,23,3">
+     <item>
+      <widget class="QLabel" name="ui_bright_label_">
+       <property name="text">
+        <string>Brightness</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="ui_brightness_">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="ui_horizontal_spacer_">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="ui_resolution_layout_" stretch="5,26">
+     <item>
+      <widget class="QLabel" name="ui_resoluton_label_">
+       <property name="text">
+        <string>Resolution</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="ui_resolution_combo_box_"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="ui_statistics_button_">
+     <property name="text">
+      <string>View Statistics</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="ui_return_button_">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -48,7 +157,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>ui_return_button</sender>
+   <sender>ui_return_button_</sender>
    <signal>clicked()</signal>
    <receiver>SettingsWidget</receiver>
    <slot>ReturnToMainMenu()</slot>
@@ -63,8 +172,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ui_sound_check_box_</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>SettingsWidget</receiver>
+   <slot>ChangeSound()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>964</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ui_resolution_combo_box_</sender>
+   <signal>activated(QString)</signal>
+   <receiver>SettingsWidget</receiver>
+   <slot>ChangeResolution()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>450</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ReturnToMainMenu()</slot>
+  <slot>ChangeSound()</slot>
+  <slot>ChangeResolution()</slot>
  </slots>
 </ui>

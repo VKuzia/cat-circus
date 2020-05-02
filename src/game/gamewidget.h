@@ -18,37 +18,35 @@ class GameWidget : public QWidget {
 
   void SetUp();
 
-
  signals:
-//  void MainMenu();
-  void MainMenu(int score);
+  void MainMenu();
 
  public slots:
-//  void ReturnToMainMenuScore();
   void ReturnToMainMenu();
   void Pause();
   void Resume();
   void Retry();
 
  private:
+  const float kDifficultyPower = 0.9f;
+  const float kStartDifficulty_ = 0.1f;
+
+  float current_difficulty_ = kStartDifficulty_;
   int32_t width_ = 1024;
   int32_t height_ = 576;
-  int64_t score_ = 0;
+  Ui::GameWidget* ui_;
+  Minigame* current_minigame_ = nullptr;
 
-  Ui::GameWidget* ui;
-  MiniGame* current_minigame_ = nullptr;
-
-  qreal current_difficulty_ = 0;
-
-  void InitMiniGame();
-  void StartMiniGame();
-  void ShowPoints();
+  void InitMinigame();
+  void StartMinigame();
+  void ShowScore();
+  void Lose();
 
   // Also deletes non-nullptr mini-games
-  void SetMiniGame(MiniGame* minigame);
+  void SetMinigame(Minigame* minigame);
 
-  void MiniGamePassed(int64_t score);
-  void MiniGameFailed();
+  void MinigamePassed(int32_t score);
+  void MinigameFailed();
 };
 
 #endif  // GAMEWIDGET_H

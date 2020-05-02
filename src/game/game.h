@@ -8,9 +8,8 @@
 class Game {
  public:
   Game();
-  void Start();
 
- public slots:
+  void Start();
 
  private:
   int32_t width_ = 1024;

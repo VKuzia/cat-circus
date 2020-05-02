@@ -36,7 +36,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QStackedWidget" name="_stacked_widget">
+    <widget class="QStackedWidget" name="ui_stacked_widget_">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>102</horstretch>
@@ -46,7 +46,7 @@
      <property name="styleSheet">
       <string notr="true"/>
      </property>
-     <widget class="QWidget" name="ui_game_page">
+     <widget class="QWidget" name="ui_game_page_">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
         <number>0</number>
@@ -64,7 +64,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="GameView" name="ui_game_view">
+        <widget class="GameView" name="ui_game_view_">
          <property name="lineWidth">
           <number>2</number>
          </property>
@@ -81,17 +81,17 @@
        </item>
       </layout>
      </widget>
-     <widget class="PointsPage" name="ui_points_page"/>
-     <widget class="PausePage" name="ui_pause_page"/>
+     <widget class="ScorePage" name="ui_score_page_"/>
+     <widget class="PausePage" name="ui_pause_page_"/>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PointsPage</class>
+   <class>ScorePage</class>
    <extends>QWidget</extends>
-   <header>src/game/pointspage.h</header>
+   <header>src/game/scorepage.h</header>
    <container>1</container>
    <slots>
     <signal>Paused()</signal>
