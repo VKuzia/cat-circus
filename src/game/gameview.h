@@ -1,6 +1,7 @@
 #ifndef GAMEVIEW_H
 #define GAMEVIEW_H
 
+#include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsView>
 #include <QPropertyAnimation>
@@ -34,10 +35,14 @@ class GameView : public QGraphicsView {
   const int32_t kFailedFadeInDuration = 500;
   const qreal kFailedMaxBlurRadius = 15;
   const qreal kFailedMaxOpacity = 0.8;
+  const qreal kFailedImageWidthFactor = 0.33;
+  const qreal kFailedImageStartYFactor = 1.5;
 
   Minigame* current_minigame_ = nullptr;
   QPropertyAnimation failed_animation_;
   QGraphicsRectItem* failed_rect_ = nullptr;
+  QGraphicsPixmapItem* failed_image_ = nullptr;
+  qreal failed_image_start_y_ = 0;
   qreal failed_animation_progress_ = 0;
   qreal pixels_in_meter_ = 0;
 

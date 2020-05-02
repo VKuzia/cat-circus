@@ -1,6 +1,7 @@
 #include "gameview.h"
 
-#include <QDebug>
+#include <QDir>
+#include <QPixmap>
 #include <limits>
 
 #include "src/game/minigame.h"
@@ -28,6 +29,7 @@ void GameView::SetUp(int32_t width, int32_t height) {
     failed_rect_->setVisible(false);
     failed_rect_->setOpacity(0);
     scene()->removeItem(failed_rect_);
+    scene()->removeItem(failed_image_);
     emit OutroFinished();
   });
 
@@ -36,21 +38,36 @@ void GameView::SetUp(int32_t width, int32_t height) {
                             this->width() + 2, this->height() + 2);
   failed_rect_->setVisible(false);
   failed_rect_->setOpacity(0);
-  failed_rect_->setZValue(std::numeric_limits<qreal>::max());
+  failed_rect_->setZValue(std::numeric_limits<qreal>::max() - 1);
   failed_rect_->setPen(Qt::NoPen);
   failed_rect_->setBrush(kFailedShadowColor);
+
+  QPixmap failed_pixmap(QDir::currentPath() +
+                        "/data/images/gameview/failed.png");
+  failed_pixmap = failed_pixmap.scaledToWidth(
+      qRound(this->width() * kFailedImageWidthFactor));
+
+  failed_image_ = new QGraphicsPixmapItem(failed_pixmap);
+  failed_image_->setVisible(false);
+  failed_image_->setOffset(-failed_pixmap.width() / 2,
+                           -failed_pixmap.height() / 2);
+  failed_image_->setZValue(std::numeric_limits<qreal>::max());
+  failed_image_start_y_ = this->height() * kFailedImageStartYFactor;
 }
 
 void GameView::AnimateFailed() {
   failed_rect_->setVisible(true);
   failed_rect_->setOpacity(0);
   scene()->addItem(failed_rect_);
+  failed_image_->setVisible(true);
+  scene()->addItem(failed_image_);
   failed_animation_.start();
 }
 
 void GameView::SetFailedAnimationProgress(qreal progress) {
   failed_animation_progress_ = progress;
   failed_rect_->setOpacity(kFailedMaxOpacity * failed_animation_progress_);
+  failed_image_->setY(failed_image_start_y_ * (1 - progress));
 }
 
 qreal GameView::GetFaildedAnimationProgress() const {
