@@ -3,10 +3,10 @@
 #include "ui_aboutwidget.h"
 
 AboutWidget::AboutWidget(QWidget* parent)
-    : QWidget(parent), ui_(new Ui::AboutWidget) {
-  ui_->setupUi(this);
+    : QWidget(parent), ui(new Ui::AboutWidget) {
+  ui->setupUi(this);
 }
 
 void AboutWidget::ReturnToMainMenu() { emit MainMenu(); }
 
-AboutWidget::~AboutWidget() { delete ui_; }
+AboutWidget::~AboutWidget() { delete ui; }

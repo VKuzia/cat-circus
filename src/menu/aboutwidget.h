@@ -21,7 +21,7 @@ class AboutWidget : public QWidget {
   void ReturnToMainMenu();
 
  private:
-  Ui::AboutWidget* ui_;
+  Ui::AboutWidget* ui;
 };
 
 #endif  // ABOUTWIDGET_H

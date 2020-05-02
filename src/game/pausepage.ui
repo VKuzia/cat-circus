@@ -28,7 +28,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="ui_pause_label_">
+    <widget class="QLabel" name="ui_pause_label">
      <property name="font">
       <font>
        <family>Verdana</family>
@@ -46,7 +46,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="ui_tap_label_">
+    <widget class="QLabel" name="ui_tap_label">
      <property name="font">
       <font>
        <family>Verdana</family>
@@ -93,7 +93,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="ui_main_menu_button_">
+      <widget class="QPushButton" name="ui_main_menu_button">
        <property name="font">
         <font>
          <family>Verdana</family>
@@ -127,10 +127,10 @@
  <resources/>
  <connections>
   <connection>
-   <sender>ui_main_menu_button_</sender>
+   <sender>ui_main_menu_button</sender>
    <signal>clicked()</signal>
    <receiver>PausePage</receiver>
-   <slot>ReturnToMainMenu()</slot>
+   <slot>EmitMainMenu()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>200</x>
@@ -144,6 +144,6 @@
   </connection>
  </connections>
  <slots>
-  <slot>ReturnToMainMenu()</slot>
+  <slot>EmitMainMenu()</slot>
  </slots>
 </ui>

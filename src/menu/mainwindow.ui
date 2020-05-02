@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string> Cat Circus</string>
   </property>
-  <widget class="QWidget" name="ui_central_widget_">
+  <widget class="QWidget" name="ui_central_widget">
    <property name="baseSize">
     <size>
      <width>1280</width>
@@ -55,7 +55,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QStackedWidget" name="ui_stacked_widget_">
+     <widget class="QStackedWidget" name="ui_stacked_widget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -68,12 +68,15 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="ui_main_menu_widget_">
+      <widget class="QWidget" name="ui_main_menu_widget">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <property name="spacing">
@@ -92,7 +95,7 @@
          <number>0</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="mainHLayout" stretch="1,4,1">
+         <layout class="QHBoxLayout" name="mainHLayout" stretch="0,4,1">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -113,12 +116,26 @@
            </spacer>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="mainVLayout" stretch="2,0,3">
+           <layout class="QVBoxLayout" name="mainVLayout" stretch="0,0,0,0,3">
             <property name="spacing">
              <number>20</number>
             </property>
             <item>
-             <widget class="QLabel" name="ui_game_name_label_">
+             <widget class="QProgressBar" name="progressBar">
+              <property name="value">
+               <number>0</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="level">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;level: 0&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -134,7 +151,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="ui_hello_label_">
+             <widget class="QLabel" name="label">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -168,7 +185,7 @@ BEST SCORE]</string>
               <item>
                <layout class="QVBoxLayout" name="buttonLayout" stretch="2,2,2,1">
                 <item>
-                 <widget class="QPushButton" name="ui_play_button_">
+                 <widget class="QPushButton" name="ui_play_button">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -184,7 +201,7 @@ BEST SCORE]</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="ui_settings_button_">
+                 <widget class="QPushButton" name="ui_settings_button">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -197,7 +214,7 @@ BEST SCORE]</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="ui_about_button_">
+                 <widget class="QPushButton" name="ui_about_button">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -244,7 +261,7 @@ BEST SCORE]</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,10">
             <item>
-             <widget class="QPushButton" name="ui_exit_button_">
+             <widget class="QPushButton" name="pushButton_5">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -278,8 +295,8 @@ BEST SCORE]</string>
         </item>
        </layout>
       </widget>
-      <widget class="GameWidget" name="ui_game_widget_"/>
-      <widget class="SettingsWidget" name="ui_settings_widget_">
+      <widget class="GameWidget" name="ui_game_widget"/>
+      <widget class="SettingsWidget" name="ui_settings_widget">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -287,7 +304,7 @@ BEST SCORE]</string>
         </sizepolicy>
        </property>
       </widget>
-      <widget class="AboutWidget" name="ui_about_widget_"/>
+      <widget class="AboutWidget" name="ui_about_widget"/>
      </widget>
     </item>
    </layout>
@@ -317,7 +334,7 @@ BEST SCORE]</string>
  <resources/>
  <connections>
   <connection>
-   <sender>ui_settings_button_</sender>
+   <sender>ui_settings_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToSettings()</slot>
@@ -333,7 +350,7 @@ BEST SCORE]</string>
    </hints>
   </connection>
   <connection>
-   <sender>ui_about_button_</sender>
+   <sender>ui_about_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToAbout()</slot>
@@ -349,7 +366,7 @@ BEST SCORE]</string>
    </hints>
   </connection>
   <connection>
-   <sender>ui_play_button_</sender>
+   <sender>ui_play_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>ChangeToGame()</slot>
@@ -365,7 +382,7 @@ BEST SCORE]</string>
    </hints>
   </connection>
   <connection>
-   <sender>ui_exit_button_</sender>
+   <sender>pushButton_5</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>Exit()</slot>
@@ -387,5 +404,6 @@ BEST SCORE]</string>
   <slot>ChangeToAbout()</slot>
   <slot>ChangeToGame()</slot>
   <slot>Exit()</slot>
+  <slot>ProgressActions()</slot>
  </slots>
 </ui>

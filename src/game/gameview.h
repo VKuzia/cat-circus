@@ -13,10 +13,14 @@ class GameView : public QGraphicsView {
 
   void SetUp(int32_t width, int32_t height);
 
-  void SetMinigame(Minigame* current_minigame);
+  void SetMiniGame(MiniGame* current_minigame);
+
+ signals:
+
+ public slots:
 
  private:
-  Minigame* current_minigame_ = nullptr;
+  MiniGame* current_minigame_ = nullptr;
 
   void mousePressEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;

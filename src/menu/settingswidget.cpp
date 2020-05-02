@@ -4,33 +4,10 @@
 #include "ui_settingswidget.h"
 
 SettingsWidget::SettingsWidget(QWidget* parent)
-    : QWidget(parent), ui_(new Ui::SettingsWidget) {
-  ui_->setupUi(this);
-  ui_->ui_language_combo_box_->addItem("english");
-  ui_->ui_language_combo_box_->addItem("русский");
-  ui_->ui_language_combo_box_->addItem("беларуская");
+    : QWidget(parent), ui(new Ui::SettingsWidget) {
+  ui->setupUi(this);
 }
 
 void SettingsWidget::ReturnToMainMenu() { emit MainMenu(); }
 
-void SettingsWidget::TurnVolume()
-{
-    if (ui_->ui_sound_check_box_->isChecked()) {
-        ui_->ui_sound_check_box_->setText("Off");
-    }
-    else {
-        ui_->ui_sound_check_box_->setText("On");
-    }
-}
-
-SettingsWidget::~SettingsWidget() { delete ui_; }
-
-void SettingsWidget::OnUiSoundCheckBoxStateChanged()
-{
-    TurnVolume();
-}
-
-void SettingsWidget::OnUiStatisticsButtonClicked()
-{
-  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_statistics_page_);
-}
+SettingsWidget::~SettingsWidget() {}

@@ -13,17 +13,16 @@ class PausePage : public QWidget {
 
  public:
   explicit PausePage(QWidget* parent = nullptr);
-  ~PausePage() override;
 
  signals:
   void MainMenu();
   void Resume();
 
  public slots:
-  void ReturnToMainMenu();
+  void EmitMainMenu();
 
  private:
-  Ui::PausePage* ui_;
+  Ui::PausePage* ui;
 
   void mousePressEvent(QMouseEvent* event) override;
 };

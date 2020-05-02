@@ -4,13 +4,10 @@
 
 #include "ui_pausepage.h"
 
-PausePage::PausePage(QWidget* parent)
-    : QWidget(parent), ui_(new Ui::PausePage) {
-  ui_->setupUi(this);
+PausePage::PausePage(QWidget* parent) : QWidget(parent), ui(new Ui::PausePage) {
+  ui->setupUi(this);
 }
 
-PausePage::~PausePage() { delete ui_; }
-
-void PausePage::ReturnToMainMenu() { emit MainMenu(); }
+void PausePage::EmitMainMenu() { emit MainMenu(); }
 
 void PausePage::mousePressEvent(QMouseEvent*) { emit Resume(); }

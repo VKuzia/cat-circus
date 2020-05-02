@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QScrollArea" name="ui_scroll_area_">
+    <widget class="QScrollArea" name="ui_scroll_area">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -36,7 +36,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="ui_about_label_">
+        <widget class="QLabel" name="ui_about_label">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -56,7 +56,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="ui_return_button_">
+    <widget class="QPushButton" name="ui_return_button">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -73,7 +73,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>ui_return_button_</sender>
+   <sender>ui_return_button</sender>
    <signal>clicked()</signal>
    <receiver>AboutWidget</receiver>
    <slot>ReturnToMainMenu()</slot>

@@ -1,29 +1,26 @@
 #include "timebar.h"
 
-#include <limits>
-
-TimeBar::TimeBar(QGraphicsView* graphics_view, float width, float height,
-                 float x, float y)
-    : GameObject(graphics_view, width, height, x, y) {
+TimeBar::TimeBar(QGraphicsView* graphics_view, qreal width, qreal height,
+                 qreal x, qreal y)
+    : GraphicsObject(graphics_view, width, height, x, y) {
   this->setCacheMode(ItemCoordinateCache);
-  this->setZValue(std::numeric_limits<qreal>::max());
+  this->setZValue(100);
 }
 
-TimeBar::TimeBar(QGraphicsView* graphics_view, float width, float height,
-                 QPointF pos)
-    : TimeBar(graphics_view, width, height, static_cast<float>(pos.x()),
-              static_cast<float>(pos.y())) {}
-
 TimeBar::~TimeBar() {}
+
+QRectF TimeBar::boundingRect() const {
+  return QRectF(-width_ / 2, -height_ / 2, width_, height_);
+}
 
 void TimeBar::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
                     QWidget*) {
   painter->setBrush(kBasicColor);
   painter->setPen(Qt::NoPen);
-  painter->drawRect(boundingRect());
+  painter->drawRect(QRectF(-width_ / 2, -height_ / 2, width_, height_));
 }
 
-void TimeBar::SetProgress(float progress) {
-  progress_ = qMax(0.f, progress);
-  this->setTransform(QTransform::fromScale(static_cast<qreal>(progress_), 1));
+void TimeBar::SetProgress(qreal progress) {
+  progress_ = qMax(0.0, progress);
+  this->setTransform(QTransform::fromScale(progress_, 1));
 }

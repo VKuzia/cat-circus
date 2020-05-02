@@ -20,16 +20,8 @@ class SettingsWidget : public QWidget {
  public slots:
   void ReturnToMainMenu();
 
-private slots:
-  void OnUiSoundCheckBoxStateChanged();
-
-  void OnUiStatisticsButtonClicked();
-
-private:
-
-  void TurnVolume();
-
-  Ui::SettingsWidget* ui_;
+ private:
+  Ui::SettingsWidget* ui;
 };
 
 #endif  // SETTINGSWIDGET_H
