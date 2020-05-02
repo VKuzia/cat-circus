@@ -24,6 +24,8 @@ class JugglingHand : public GameObject {
 
   void SetBallAirTime(qreal sec);
 
+  bool IsThrowing() const;
+
  private:
   // Hand motion durations
   const qreal kThrowTime = 0.15;

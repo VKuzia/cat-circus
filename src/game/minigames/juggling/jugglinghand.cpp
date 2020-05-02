@@ -34,10 +34,10 @@ void JugglingHand::Update() {
       SetVelocity(kThrowXRange * (is_left_ ? -1.0 : 1.0) / (kComeBackTime), 0);
       // If there are several balls caught, we need to throw all of them
       for (auto ball : balls_) {
-        balls_.remove(ball);
         ball->SetVelocity(GetThrowVelocity());
         ball->SetCaught(false);
       }
+      balls_.clear();
     } else {
       AddVelocity(0, kAcceleration.y() * kUpdateTime);
     }
@@ -77,6 +77,8 @@ void JugglingHand::AddBall(JugglingBall* ball) { balls_.insert(ball); }
 QPointF JugglingHand::GetBasePos() const { return base_pos_; }
 
 void JugglingHand::SetBallAirTime(qreal sec) { ball_air_time_ = sec; }
+
+bool JugglingHand::IsThrowing() const { return is_throwing_; }
 
 Vector2D JugglingHand::GetThrowVelocity() const {
   return physics::Throw(GetPos(), aim_point_, ball_air_time_);
