@@ -1,5 +1,6 @@
 #include "gameview.h"
 
+#include <QDebug>
 #include <limits>
 
 #include "src/game/minigame.h"
@@ -26,6 +27,7 @@ void GameView::SetUp(int32_t width, int32_t height) {
   connect(&failed_animation_, &QPropertyAnimation::finished, this, [this] {
     failed_rect_->setVisible(false);
     failed_rect_->setOpacity(0);
+    scene()->removeItem(failed_rect_);
     emit OutroFinished();
   });
 
@@ -33,16 +35,16 @@ void GameView::SetUp(int32_t width, int32_t height) {
       new QGraphicsRectItem(-this->width() / 2 + 1, -this->height() / 2 + 1,
                             this->width() + 2, this->height() + 2);
   failed_rect_->setVisible(false);
-  failed_rect_->setPen(Qt::NoPen);
-  failed_rect_->setBrush(kFailedShadowColor);
   failed_rect_->setOpacity(0);
   failed_rect_->setZValue(std::numeric_limits<qreal>::max());
-  scene()->addItem(failed_rect_);
+  failed_rect_->setPen(Qt::NoPen);
+  failed_rect_->setBrush(kFailedShadowColor);
 }
 
 void GameView::AnimateFailed() {
   failed_rect_->setVisible(true);
   failed_rect_->setOpacity(0);
+  scene()->addItem(failed_rect_);
   failed_animation_.start();
 }
 

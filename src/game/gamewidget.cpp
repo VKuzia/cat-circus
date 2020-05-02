@@ -107,7 +107,6 @@ void GameWidget::SetUp() {
 
 void GameWidget::SetMinigame(Minigame* minigame) {
   delete current_minigame_;
-  ui_->ui_game_view_->disconnect();
   current_minigame_ = minigame;
   ui_->ui_game_view_->SetMinigame(minigame);
 }
