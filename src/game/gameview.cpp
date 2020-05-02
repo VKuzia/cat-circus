@@ -46,6 +46,7 @@ void GameView::AnimateFailed() {
 void GameView::SetFailedAnimationProgress(qreal progress) {
   failed_animation_progress_ = progress;
   outro_rect_->setOpacity(kFailedMaxOpacity * failed_animation_progress_);
+  // Moving up to (0, 0)
   failed_image_->setY(failed_image_start_y_ * (1 - progress));
 }
 
@@ -71,6 +72,7 @@ void GameView::SetUpPassedAnimation() {
   passed_animation_.setTargetObject(this);
   passed_animation_.setDuration(kPassedAnimationDuration);
   passed_animation_.setStartValue(0);
+  // Stay an kPassedMaxOpacity when fading in ends
   passed_animation_.setKeyValueAt(
       (1.0 * kPassedFadeInDuration) / kPassedAnimationDuration, 1);
   passed_animation_.setEndValue(1);
@@ -78,6 +80,7 @@ void GameView::SetUpPassedAnimation() {
     outro_rect_->setVisible(false);
     passed_image_->setVisible(false);
     outro_rect_->setOpacity(0);
+    // To keep undeleted when scene clears up in Minigame's destructor
     scene()->removeItem(outro_rect_);
     scene()->removeItem(passed_image_);
     emit OutroFinished();
@@ -101,6 +104,7 @@ void GameView::SetUpFailedAnimation() {
   failed_animation_.setTargetObject(this);
   failed_animation_.setDuration(kFailedAnimationDuration);
   failed_animation_.setStartValue(0);
+  // Stay an kFailedMaxOpacity when fading in ends
   failed_animation_.setKeyValueAt(
       (1.0 * kFailedFadeInDuration) / kFailedAnimationDuration, 1);
   failed_animation_.setEndValue(1);
@@ -122,6 +126,7 @@ void GameView::SetUpFailedAnimation() {
   failed_image_->setOffset(-failed_pixmap.width() / 2,
                            -failed_pixmap.height() / 2);
   failed_image_->setZValue(std::numeric_limits<qreal>::max());
+  // Set position below the screen to animate moving up
   failed_image_start_y_ = this->height() * kFailedImageStartYFactor;
 }
 
@@ -131,6 +136,7 @@ void GameView::SetUpOutroRect() {
                             this->width() + 2, this->height() + 2);
   outro_rect_->setVisible(false);
   outro_rect_->setOpacity(0);
+  // Set "almost maximum" to set maximum for images (to be opaque)
   outro_rect_->setZValue(std::numeric_limits<qreal>::max() - 1);
   outro_rect_->setPen(Qt::NoPen);
   outro_rect_->setBrush(kShadowColor);

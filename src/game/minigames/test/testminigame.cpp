@@ -115,25 +115,12 @@ void TestMinigame::Win() {
   connect(graphics_view_, &GameView::OutroFinished, this,
           [this] { emit Passed(score_); });
   graphics_view_->AnimatePassed();
-  //  graphics_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
-  //  QTimer::singleShot(kOutroDuration, this, [this] {
-  //    graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-  //    score_ = 100 + time_left_ * 10 / timer_.interval();
-  //    emit Passed(score_);
-  //  });
-  //  timer_.start();
 }
 
 void TestMinigame::Lose() {
   connect(graphics_view_, &GameView::OutroFinished, this,
           [this] { emit Failed(); });
   graphics_view_->AnimateFailed();
-  //  graphics_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
-  //  QTimer::singleShot(kOutroDuration, this, [this] {
-  //    graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-  //    emit Failed();
-  //  });
-  //  timer_.start();
 }
 
 void TestMinigame::MousePressEvent(QMouseEvent*) {

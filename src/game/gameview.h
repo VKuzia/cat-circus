@@ -21,6 +21,8 @@ class GameView : public QGraphicsView {
 
   void SetUp(int32_t width, int32_t height);
 
+  // Should be called inside a current_minigame on win|lose;
+  // apply effects to the whole scene, trigger OutroFinished
   void AnimatePassed();
   void AnimateFailed();
 
@@ -36,13 +38,17 @@ class GameView : public QGraphicsView {
   const QColor kShadowColor = QColor::fromRgb(20, 20, 20);
   const int32_t kPassedAnimationDuration = 2200;
   const int32_t kPassedFadeInDuration = 300;
-  const int32_t kPassedImageShowTime = 800;
+  const int32_t kPassedImageShowTime = 700;
   const qreal kPassedMaxOpacity = 0.6;
+  // Shows image's width respectively to the width of GameView
   const qreal kPassedImageWidthFactor = 0.33;
+
   const int32_t kFailedAnimationDuration = 2200;
   const int32_t kFailedFadeInDuration = 700;
   const qreal kFailedMaxOpacity = 0.8;
   const qreal kFailedImageWidthFactor = 0.33;
+  // Shows image animation start point respectively to
+  // the height of active GameView
   const qreal kFailedImageStartYFactor = 1.5;
 
   QPropertyAnimation failed_animation_;
@@ -56,10 +62,9 @@ class GameView : public QGraphicsView {
   qreal passed_animation_progress_ = 0;
   qreal pixels_in_meter_ = 0;
 
+  void SetUpOutroRect();
   void SetUpPassedAnimation();
   void SetUpFailedAnimation();
-
-  void SetUpOutroRect();
 
   void SetPassedAnimationProgress(qreal progress);
   qreal GetPassedAnimationProgress() const;
