@@ -8,8 +8,6 @@ JugglingBall::JugglingBall(GameView* graphics_view, qreal width, qreal height,
       radius_(width / 2),
       floor_y_(floor_y) {}
 
-JugglingBall::~JugglingBall() {}
-
 void JugglingBall::SetUp() {
   this->setZValue(kZValue);
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));

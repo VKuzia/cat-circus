@@ -36,9 +36,9 @@ class JugglingHand : public GameObject {
 
   // Set's parabolic motion of a hand while throwing
   const Vector2D kAcceleration = {0, -18};
-  const bool is_left_;
-  const QPointF base_pos_;
-  const QPointF throw_pos_;
+  const bool kIsLeft_;
+  const QPointF kBasePos_;
+  const QPointF kThrowPos_;
 
   QSet<JugglingBall*> balls_;
   QPixmap pixmap_free_;

@@ -1,9 +1,9 @@
 #ifndef TESTMINIGAME_H
 #define TESTMINIGAME_H
 
-#include "src/game/game_objects/clickableball.h"
 #include "src/game/gameview.h"
 #include "src/game/minigame.h"
+#include "src/game/minigames/test/clickableball.h"
 
 class TestMinigame : public Minigame {
   Q_OBJECT
@@ -44,7 +44,7 @@ class TestMinigame : public Minigame {
 
   void SetUp() override;
   void SetUpLabel() override;
-  void SeUptParameters() override;
+  void SeUpParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;

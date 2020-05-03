@@ -50,7 +50,7 @@ class JugglingMinigame : public Minigame {
 
   void SetUp() override;
   void SetUpLabel() override;
-  void SeUptParameters() override;
+  void SeUpParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;

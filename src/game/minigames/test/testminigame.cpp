@@ -9,9 +9,6 @@ TestMinigame::TestMinigame(GameView* graphics_view, qreal difficulty)
 }
 
 void TestMinigame::SetUp() {
-  SeUptParameters();
-  time_bar_->setVisible(false);
-
   game_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
   AddBall();
 }
@@ -24,7 +21,7 @@ void TestMinigame::SetUpLabel() {
   tutorial_label_->setZValue(std::numeric_limits<qreal>::max());
 }
 
-void TestMinigame::SeUptParameters() {
+void TestMinigame::SeUpParameters() {
   // Random coefs just for testing the basic game loop
   time_ = qRound(kBasicDuration / (difficulty_ * 1.5 + 1.0));
   balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2);

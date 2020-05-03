@@ -5,8 +5,8 @@
 #include <QObject>
 #include <QTimer>
 
-#include "src/game/game_objects/backgroundobject.h"
-#include "src/game/game_objects/timebar.h"
+#include "src/game/backgroundobject.h"
+#include "src/game/timebar.h"
 
 class GameView;
 
@@ -60,7 +60,7 @@ class Minigame : public QObject {
   // Adds start GameObjects to scene
   virtual void SetUp() = 0;
   virtual void SetUpLabel() = 0;
-  virtual void SeUptParameters() = 0;
+  virtual void SeUpParameters() = 0;
 
   virtual void AnimateTutorial() = 0;
   virtual void StartGame() = 0;
