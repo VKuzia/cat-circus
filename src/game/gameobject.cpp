@@ -1,10 +1,5 @@
 #include "gameobject.h"
 
-#include <QDir>
-
-const QString GameObject::kPathToMinigameImages =
-    QDir::currentPath() + "/data/images/minigames/";
-
 GameObject::GameObject(GameView* graphics_view)
     : graphics_view_(graphics_view) {
   this->setCacheMode(DeviceCoordinateCache);

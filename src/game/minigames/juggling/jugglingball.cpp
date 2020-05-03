@@ -13,7 +13,8 @@ JugglingBall::~JugglingBall() {}
 void JugglingBall::SetUp() {
   this->setZValue(kZValue);
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  QPixmap pixmap = QPixmap(kPathToMinigameImages + "juggling/ball.png");
+  QPixmap pixmap =
+      QPixmap(graphics_view_->GetPathToMinigameImages() + "juggling/ball.png");
   pixmap.setMask(pixmap.createHeuristicMask());
   this->setPixmap(pixmap.scaled(qRound(boundingRect().width()),
                                 qRound(boundingRect().height())));

@@ -41,8 +41,6 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   void MoveByMeters(qreal x, qreal y);
 
  protected:
-  static const QString kPathToMinigameImages;
-
   // 60 frames period
   const qreal kUpdateTime = 1.0 / 60;
   const QRectF kDefaultBoundingRect;
