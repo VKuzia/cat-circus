@@ -43,8 +43,8 @@ class TestMinigame : public Minigame {
   ClickableBall* current_ball_ = nullptr;
 
   void SetUp() override;
-  void SetLabel() override;
-  void SetParameters() override;
+  void SetUpLabel() override;
+  void SeUptParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;

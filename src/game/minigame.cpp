@@ -3,26 +3,29 @@
 #include "src/game/gameview.h"
 
 Minigame::Minigame(GameView* graphics_view, qreal difficulty)
-    : graphics_view_(graphics_view),
+    : game_view_(graphics_view),
       timer_(this),
       tick_timer_(this),
-      width_(graphics_view_->width()),
-      height_(graphics_view_->height()),
-      time_bar_(new TimeBar(graphics_view_, width_,
-                            height_ * kTimeBarHeightFactor, 0, -height_ / 2)),
+      width_(game_view_->width()),
+      height_(game_view_->height()),
+      time_bar_(new TimeBar(game_view_, width_, height_ * kTimeBarHeightFactor,
+                            0, -height_ / 2)),
       tutorial_label_(new QGraphicsTextItem()),
       background_(new BackgroundObject()),
       difficulty_(difficulty) {}
 
 Minigame::~Minigame() {
   // clear removes and deletes items
-  graphics_view_->scene()->clear();
+  game_view_->scene()->clear();
 }
 
 void Minigame::Init() {
   time_bar_->SetUp();
-  graphics_view_->scene()->addItem(time_bar_);
-  graphics_view_->scene()->addItem(tutorial_label_);
+  time_bar_->setVisible(false);
+  game_view_->scene()->addItem(time_bar_);
+  game_view_->scene()->addItem(tutorial_label_);
+  SeUptParameters();
+  SetUpLabel();
   SetUp();
 }
 

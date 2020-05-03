@@ -14,7 +14,7 @@ void JugglingBall::SetUp() {
   this->setZValue(kZValue);
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
   QPixmap pixmap =
-      QPixmap(graphics_view_->GetPathToMinigameImages() + "juggling/ball.png");
+      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/ball.png");
   pixmap.setMask(pixmap.createHeuristicMask());
   this->setPixmap(pixmap.scaled(qRound(boundingRect().width()),
                                 qRound(boundingRect().height())));
@@ -40,3 +40,5 @@ void JugglingBall::SetCaught(bool is_caught) { is_caught_ = is_caught; }
 qreal JugglingBall::GetRadius() const { return radius_; }
 
 void JugglingBall::SetFallen(bool is_fallen) { is_fallen_ = is_fallen; }
+
+bool JugglingBall::IsFallen() const { return is_fallen_; }

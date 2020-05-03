@@ -1,7 +1,6 @@
 #include "gameobject.h"
 
-GameObject::GameObject(GameView* graphics_view)
-    : graphics_view_(graphics_view) {
+GameObject::GameObject(GameView* graphics_view) : game_view_(graphics_view) {
   this->setCacheMode(DeviceCoordinateCache);
 }
 
@@ -16,14 +15,14 @@ GameObject::GameObject(GameView* graphics_view, qreal width, qreal height,
                  -height * graphics_view->GetPixelsInMeter() / 2,
                  width * graphics_view->GetPixelsInMeter(),
                  height * graphics_view->GetPixelsInMeter())),
-      graphics_view_(graphics_view),
+      game_view_(graphics_view),
       width_(width),
       height_(height),
       x_(pos.x()),
       y_(pos.y()) {
   this->setCacheMode(DeviceCoordinateCache);
-  setPos(x_ * graphics_view_->GetPixelsInMeter(),
-         y_ * graphics_view_->GetPixelsInMeter());
+  setPos(x_ * game_view_->GetPixelsInMeter(),
+         y_ * game_view_->GetPixelsInMeter());
 }
 
 void GameObject::SetUp() {}
@@ -55,6 +54,6 @@ void GameObject::SetVelocity(Vector2D velocity) { velocity_ = velocity; }
 void GameObject::MoveByMeters(qreal x, qreal y) {
   SetX(x + GetX());
   SetY(y + GetY());
-  moveBy(x * graphics_view_->GetPixelsInMeter(),
-         y * graphics_view_->GetPixelsInMeter());
+  moveBy(x * game_view_->GetPixelsInMeter(),
+         y * game_view_->GetPixelsInMeter());
 }

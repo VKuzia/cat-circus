@@ -39,7 +39,7 @@ class Minigame : public QObject {
   const int32_t kTutorialDuration = 2500;
   const int32_t kOutroDuration = 2000;
 
-  GameView* graphics_view_;
+  GameView* game_view_;
   QTimer timer_;       // For minigame progress
   QTimer tick_timer_;  // For 1 frame updates
 
@@ -59,8 +59,8 @@ class Minigame : public QObject {
   // Sets up a certain Minigame child
   // Adds start GameObjects to scene
   virtual void SetUp() = 0;
-  virtual void SetLabel() = 0;
-  virtual void SetParameters() = 0;
+  virtual void SetUpLabel() = 0;
+  virtual void SeUptParameters() = 0;
 
   virtual void AnimateTutorial() = 0;
   virtual void StartGame() = 0;

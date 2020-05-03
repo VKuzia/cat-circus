@@ -12,7 +12,7 @@ class JugglingMinigame : public Minigame {
 
  public:
   JugglingMinigame(GameView* graphics_view, qreal difficulty);
-  ~JugglingMinigame() override;
+  ~JugglingMinigame() override = default;
 
   void Start() override;
 
@@ -49,8 +49,8 @@ class JugglingMinigame : public Minigame {
   void LaunchBall();
 
   void SetUp() override;
-  void SetLabel() override;
-  void SetParameters() override;
+  void SetUpLabel() override;
+  void SeUptParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;

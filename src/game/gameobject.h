@@ -41,11 +41,12 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   void MoveByMeters(qreal x, qreal y);
 
  protected:
-  // 60 frames period
+  // Represents 60 frames a second refresh time
+  // Is used for motion calculus
   const qreal kUpdateTime = 1.0 / 60;
   const QRectF kDefaultBoundingRect;
 
-  GameView* graphics_view_ = nullptr;
+  GameView* game_view_;
   qreal width_ = 0;
   qreal height_ = 0;
   qreal x_ = 0;

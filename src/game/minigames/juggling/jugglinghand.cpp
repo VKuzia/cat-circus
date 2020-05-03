@@ -5,17 +5,17 @@ JugglingHand::JugglingHand(GameView* graphics_view, qreal width, qreal height,
     : GameObject(graphics_view, width, height, x, y),
       is_left_(left),
       base_pos_(x, y),
-      throw_pos_(x_ + (is_left_ ? kThrowXRange : -kThrowXRange), y_) {}
+      throw_pos_(x_ + (is_left_ ? kSwingXRange : -kSwingXRange), y_) {}
 
 void JugglingHand::SetUp() {
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  pixmap_free_ = QPixmap(graphics_view_->GetPathToMinigameImages() +
-                         "juggling/hand_free.png");
+  pixmap_free_ =
+      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/hand_free.png");
   pixmap_free_.setMask(pixmap_free_.createHeuristicMask());
   pixmap_free_ = pixmap_free_.scaled(qRound(boundingRect().width()),
                                      qRound(boundingRect().height()));
 
-  pixmap_closed_ = QPixmap(graphics_view_->GetPathToMinigameImages() +
+  pixmap_closed_ = QPixmap(game_view_->GetPathToMinigameImages() +
                            "juggling/hand_closed.png");
   pixmap_closed_.setMask(pixmap_closed_.createHeuristicMask());
   pixmap_closed_ = pixmap_closed_.scaled(qRound(boundingRect().width()),
@@ -28,12 +28,12 @@ void JugglingHand::Update() {
     return;
   }
   // If hand still holds some balls
-  if (!is_just_thrown_) {
+  if (!is_coming_back_) {
     // If distance passed is sufficient for a throw
-    if (qAbs(base_pos_.x() - GetX()) >= kThrowXRange) {
-      is_just_thrown_ = true;
+    if (qAbs(base_pos_.x() - GetX()) >= kSwingXRange) {
+      is_coming_back_ = true;
       // Return to base_pos_
-      SetVelocity(kThrowXRange * (is_left_ ? -1.0 : 1.0) / (kComeBackTime), 0);
+      SetVelocity(kSwingXRange * (is_left_ ? -1.0 : 1.0) / kComeBackTime, 0);
       // If there are several balls caught, we need to throw all of them
       for (auto ball : balls_) {
         ball->SetVelocity(GetThrowVelocity());
@@ -41,17 +41,19 @@ void JugglingHand::Update() {
       }
       balls_.clear();
     } else {
-      AddVelocity(0, kAcceleration.y() * kUpdateTime);
+      AddVelocity(kAcceleration.x() * kUpdateTime,
+                  kAcceleration.y() * kUpdateTime);
     }
   }
-  qreal x_difference = static_cast<qreal>(velocity_.x()) * kUpdateTime;
-  qreal y_difference = static_cast<qreal>(velocity_.y()) * kUpdateTime;
+  qreal x_difference = velocity_.x() * kUpdateTime;
+  qreal y_difference = velocity_.y() * kUpdateTime;
   // If we are close enough to base_pos_ -> move right to base_pos_
-  if (is_just_thrown_ &&
+  if (is_coming_back_ &&
       ((is_left_ && (GetX() + x_difference) < base_pos_.x()) ||
        (!is_left_ && (GetX() + x_difference) > base_pos_.x()))) {
     this->setPixmap(pixmap_free_);
     is_throwing_ = false;
+    is_coming_back_ = false;
     SetVelocity(0, 0);
     x_difference = (base_pos_.x() - GetX());
     y_difference = (base_pos_.y() - GetY());
@@ -68,7 +70,7 @@ void JugglingHand::Throw() {
   }
   this->setPixmap(pixmap_closed_);
   is_throwing_ = true;
-  is_just_thrown_ = false;
+  is_coming_back_ = false;
   SetVelocity(physics::Throw(base_pos_, throw_pos_, kThrowTime, kAcceleration));
 }
 

@@ -11,5 +11,4 @@ void BackgroundObject::SetUp(GameView* graphics_view,
   setPixmap(
       QPixmap(QDir::currentPath() + "/data/images/minigames/" + path_to_image)
           .scaled(graphics_view->width(), graphics_view->height()));
-  graphics_view->scene()->addItem(this);
 }

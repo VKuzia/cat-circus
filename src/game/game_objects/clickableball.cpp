@@ -9,8 +9,8 @@ ClickableBall::ClickableBall(GameView* graphics_view, qreal width, qreal height,
     : GameObject(graphics_view, width, height, pos) {}
 
 void ClickableBall::SetUp() {
-  qreal width = width_ * graphics_view_->GetPixelsInMeter();
-  qreal height = height_ * graphics_view_->GetPixelsInMeter();
+  qreal width = width_ * game_view_->GetPixelsInMeter();
+  qreal height = height_ * game_view_->GetPixelsInMeter();
   QPixmap pixmap(qRound(width), qRound(height));
   QPainter painter(&pixmap);
   painter.setBrush(kBasicColor);
