@@ -5,7 +5,7 @@
 
 class JugglingBall : public GameObject {
  public:
-  JugglingBall(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+  JugglingBall(GameView* game_view, qreal width, qreal height, qreal x = 0,
                qreal y = 0, qreal floor_y = 0);
   ~JugglingBall() override = default;
   void SetUp() override;

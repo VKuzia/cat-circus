@@ -1,8 +1,8 @@
 #include "jugglinghand.h"
 
-JugglingHand::JugglingHand(GameView* graphics_view, qreal width, qreal height,
+JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
                            qreal x, qreal y, bool left)
-    : GameObject(graphics_view, width, height, x, y),
+    : GameObject(game_view, width, height, x, y),
       kIsLeft_(left),
       kBasePos_(x, y),
       kThrowPos_(x_ + (kIsLeft_ ? kSwingXRange : -kSwingXRange), y_) {}

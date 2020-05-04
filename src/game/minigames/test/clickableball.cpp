@@ -1,12 +1,12 @@
 #include "clickableball.h"
 
-ClickableBall::ClickableBall(GameView* graphics_view, qreal width, qreal height,
+ClickableBall::ClickableBall(GameView* game_view, qreal width, qreal height,
                              qreal x, qreal y)
-    : GameObject(graphics_view, width, height, x, y) {}
+    : GameObject(game_view, width, height, x, y) {}
 
-ClickableBall::ClickableBall(GameView* graphics_view, qreal width, qreal height,
+ClickableBall::ClickableBall(GameView* game_view, qreal width, qreal height,
                              QPointF pos)
-    : GameObject(graphics_view, width, height, pos) {}
+    : GameObject(game_view, width, height, pos) {}
 
 void ClickableBall::SetUp() {
   qreal width = width_ * game_view_->GetPixelsInMeter();

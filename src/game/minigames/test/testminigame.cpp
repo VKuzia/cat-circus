@@ -3,8 +3,9 @@
 #include <QMouseEvent>
 #include <QRandomGenerator64>
 
-TestMinigame::TestMinigame(GameView* graphics_view, qreal difficulty)
-    : Minigame(graphics_view, difficulty) {
+TestMinigame::TestMinigame(GameView* game_view, qreal difficulty,
+                           qreal pixels_in_meter)
+    : Minigame(game_view, difficulty, pixels_in_meter) {
   game_view_->SetPixelsInMeter(kPixelsInMeter);
 }
 

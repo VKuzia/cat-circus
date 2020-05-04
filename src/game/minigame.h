@@ -14,7 +14,7 @@ class Minigame : public QObject {
   Q_OBJECT
 
  public:
-  Minigame(GameView* graphics_view, qreal difficulty);
+  Minigame(GameView* game_view, qreal difficulty, qreal pixels_in_meter);
   virtual ~Minigame();
 
   void Init();
@@ -45,14 +45,15 @@ class Minigame : public QObject {
 
   int32_t time_ = 0;
   int32_t score_ = 0;
-  int32_t width_;
-  int32_t height_;
+  qreal width_;
+  qreal height_;
 
-  TimeBar* time_bar_;
+  TimeBar* time_bar_ = nullptr;
   QGraphicsTextItem* tutorial_label_;
   BackgroundObject* background_;
 
   qreal difficulty_;
+  qreal pixels_in_meter_;
 
   bool is_running_ = false;
 

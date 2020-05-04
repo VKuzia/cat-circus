@@ -2,10 +2,9 @@
 
 #include <QKeyEvent>
 
-JugglingMinigame::JugglingMinigame(GameView* graphics_view, qreal difficulty)
-    : Minigame(graphics_view, difficulty) {
-  game_view_->SetPixelsInMeter(kBasicPixelsInMeter);
-}
+JugglingMinigame::JugglingMinigame(GameView* game_view, qreal difficulty,
+                                   qreal pixels_in_meter)
+    : Minigame(game_view, difficulty, pixels_in_meter) {}
 
 void JugglingMinigame::Start() { AnimateTutorial(); }
 

@@ -9,7 +9,8 @@ class TestMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  TestMinigame(GameView* graphics_view, qreal difficulty);
+  TestMinigame(GameView* game_view, qreal difficulty,
+               qreal pixels_in_meter = 100);
   ~TestMinigame() override = default;
 
   void Start() override;

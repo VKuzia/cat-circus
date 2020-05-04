@@ -11,14 +11,12 @@ class TimeBar : public GameObject {
   Q_PROPERTY(qreal progress READ GetProgress WRITE SetProgress)
 
  public:
-  TimeBar(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+  TimeBar(GameView* game_view, qreal width, qreal height, qreal x = 0,
           qreal y = 0);
-  TimeBar(GameView* graphics_view, qreal width, qreal height, QPointF pos);
+  TimeBar(GameView* game_view, qreal width, qreal height, QPointF pos);
   ~TimeBar() override = default;
 
   void SetUp() override;
-
-  QRectF boundingRect() const override;
 
   // Animates progress from 1 to 0 in a given amout of time
   void Launch(int32_t millis);

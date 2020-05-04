@@ -13,10 +13,9 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   Q_INTERFACES(QGraphicsItem)
 
  public:
-  explicit GameObject(GameView* graphics_view);
-  GameObject(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+  GameObject(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
-  GameObject(GameView* graphics_view, qreal width, qreal height, QPointF pos);
+  GameObject(GameView* game_view, qreal width, qreal height, QPointF pos);
   ~GameObject() override = default;
 
   virtual void SetUp();

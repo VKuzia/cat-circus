@@ -8,7 +8,7 @@
 
 class JugglingHand : public GameObject {
  public:
-  JugglingHand(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+  JugglingHand(GameView* game_view, qreal width, qreal height, qreal x = 0,
                qreal y = 0, bool left = true);
   ~JugglingHand() override = default;
 

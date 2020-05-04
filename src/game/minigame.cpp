@@ -2,17 +2,16 @@
 
 #include "src/game/gameview.h"
 
-Minigame::Minigame(GameView* graphics_view, qreal difficulty)
-    : game_view_(graphics_view),
+Minigame::Minigame(GameView* game_view, qreal difficulty, qreal pixels_in_meter)
+    : game_view_(game_view),
       timer_(this),
       tick_timer_(this),
-      width_(game_view_->width()),
-      height_(game_view_->height()),
-      time_bar_(new TimeBar(game_view_, width_, height_ * kTimeBarHeightFactor,
-                            0, -height_ / 2)),
+      width_(game_view_->width() / pixels_in_meter),
+      height_(game_view_->height() / pixels_in_meter),
       tutorial_label_(new QGraphicsTextItem()),
       background_(new BackgroundObject()),
-      difficulty_(difficulty) {}
+      difficulty_(difficulty),
+      pixels_in_meter_(pixels_in_meter) {}
 
 Minigame::~Minigame() {
   // clear removes and deletes items
@@ -20,6 +19,10 @@ Minigame::~Minigame() {
 }
 
 void Minigame::Init() {
+  game_view_->SetPixelsInMeter(pixels_in_meter_);
+  // Timebar needs game_view_ to know pixels_in_meter_
+  time_bar_ = new TimeBar(game_view_, width_, height_ * kTimeBarHeightFactor, 0,
+                          -height_ / 2);
   time_bar_->SetUp();
   time_bar_->setVisible(false);
   game_view_->scene()->addItem(time_bar_);

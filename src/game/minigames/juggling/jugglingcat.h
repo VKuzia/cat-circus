@@ -8,7 +8,7 @@
 
 class JugglingCat : public GameObject {
  public:
-  JugglingCat(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+  JugglingCat(GameView* game_view, qreal width, qreal height, qreal x = 0,
               qreal y = 0);
   ~JugglingCat() override = default;
   void SetUp() override;

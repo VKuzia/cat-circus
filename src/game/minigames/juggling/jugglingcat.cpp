@@ -3,12 +3,12 @@
 const qreal JugglingCat::kZValue = 0;
 const qreal JugglingCat::kHandsZValue = 1;
 
-JugglingCat::JugglingCat(GameView* graphics_view, qreal width, qreal height,
+JugglingCat::JugglingCat(GameView* game_view, qreal width, qreal height,
                          qreal x, qreal y)
-    : GameObject(graphics_view, width, height, x, y),
-      left_hand_(new JugglingHand(graphics_view, kHandRadius * 2,
+    : GameObject(game_view, width, height, x, y),
+      left_hand_(new JugglingHand(game_view, kHandRadius * 2,
                                   kHandRadius * 2, x - width_ / 2, y, true)),
-      right_hand_(new JugglingHand(graphics_view, kHandRadius * 2,
+      right_hand_(new JugglingHand(game_view, kHandRadius * 2,
                                    kHandRadius * 2, x + width_ / 2, y, false)) {
 }
 

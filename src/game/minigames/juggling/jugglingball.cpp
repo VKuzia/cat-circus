@@ -2,9 +2,9 @@
 
 const qreal JugglingBall::kZValue = 2;
 
-JugglingBall::JugglingBall(GameView* graphics_view, qreal width, qreal height,
+JugglingBall::JugglingBall(GameView* game_view, qreal width, qreal height,
                            qreal x, qreal y, qreal floor_y)
-    : GameObject(graphics_view, width, height, x, y),
+    : GameObject(game_view, width, height, x, y),
       radius_(width / 2),
       floor_y_(floor_y) {}
 

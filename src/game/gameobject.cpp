@@ -1,21 +1,16 @@
 #include "gameobject.h"
 
-GameObject::GameObject(GameView* graphics_view) : game_view_(graphics_view) {
-  this->setCacheMode(DeviceCoordinateCache);
-}
+GameObject::GameObject(GameView* game_view, qreal width, qreal height, qreal x,
+                       qreal y)
+    : GameObject(game_view, width, height, QPointF(x, y)) {}
 
-GameObject::GameObject(GameView* graphics_view, qreal width, qreal height,
-                       qreal x, qreal y)
-    : GameObject(graphics_view, width, height, QPointF(x, y)) {}
-
-GameObject::GameObject(GameView* graphics_view, qreal width, qreal height,
+GameObject::GameObject(GameView* game_view, qreal width, qreal height,
                        QPointF pos)
-    : kDefaultBoundingRect(
-          QRectF(-width * graphics_view->GetPixelsInMeter() / 2,
-                 -height * graphics_view->GetPixelsInMeter() / 2,
-                 width * graphics_view->GetPixelsInMeter(),
-                 height * graphics_view->GetPixelsInMeter())),
-      game_view_(graphics_view),
+    : kDefaultBoundingRect(QRectF(-width * game_view->GetPixelsInMeter() / 2,
+                                  -height * game_view->GetPixelsInMeter() / 2,
+                                  width * game_view->GetPixelsInMeter(),
+                                  height * game_view->GetPixelsInMeter())),
+      game_view_(game_view),
       width_(width),
       height_(height),
       x_(pos.x()),

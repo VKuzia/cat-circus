@@ -11,15 +11,13 @@ class JugglingMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  JugglingMinigame(GameView* graphics_view, qreal difficulty);
+  JugglingMinigame(GameView* game_view, qreal difficulty,
+                   qreal pixels_in_meter = 576 / 5.0);
   ~JugglingMinigame() override = default;
 
   void Start() override;
 
   void KeyPressEvent(QKeyEvent* event) override;
-
- private:
-  const qreal kBasicPixelsInMeter = 576 / 5.0;  // To show 5m height
 
   const qreal kCatWidth = 1.5;
   const qreal kCatHeight = 2.1;
