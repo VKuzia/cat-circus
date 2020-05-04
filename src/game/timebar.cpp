@@ -40,3 +40,7 @@ void TimeBar::Launch(int32_t millis) {
   progress_animation_.setDuration(millis);
   progress_animation_.start();
 }
+
+int32_t TimeBar::GetCurrentTime() const {
+  return progress_animation_.currentTime();
+}

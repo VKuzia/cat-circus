@@ -39,15 +39,13 @@ void TestMinigame::StartGame() {
   tutorial_label_->setVisible(false);
   time_bar_->Launch(time_);
   time_bar_->setVisible(true);
-  timer_.setInterval(time_);
-  connect(&timer_, &QTimer::timeout, this, [this] { Stop(Status::kFail); });
+  QTimer::singleShot(time_, this, [this] { Stop(Status::kFail); });
 
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &TestMinigame::Tick);
 
   is_running_ = true;
 
-  timer_.start();
   tick_timer_.start();
 }
 
@@ -74,7 +72,7 @@ void TestMinigame::DeleteBall() {
   current_ball_ = nullptr;
   balls_count_--;
   if (balls_count_ == 0) {
-    time_left_ = timer_.remainingTime();
+    time_left_ = time_ - time_bar_->GetCurrentTime();
     Stop(Status::kPass);
   } else {
     AddBall();
@@ -99,7 +97,6 @@ QPointF TestMinigame::GetRandomBallCenter() const {
 void TestMinigame::Stop(Status status) {
   is_running_ = false;
   tick_timer_.stop();
-  timer_.stop();
   time_bar_->setVisible(false);
   if (status == Status::kPass) {
     Win();
@@ -112,7 +109,7 @@ void TestMinigame::Win() {
   game_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
   QTimer::singleShot(kOutroDuration, this, [this] {
     game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-    score_ = 100 + time_left_ * 10 / timer_.interval();
+    score_ = 100 + time_left_ * 10 / time_;
     emit Passed(score_);
   });
   timer_.start();

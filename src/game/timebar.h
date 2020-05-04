@@ -21,6 +21,8 @@ class TimeBar : public GameObject {
   // Animates progress from 1 to 0 in a given amout of time
   void Launch(int32_t millis);
 
+  int32_t GetCurrentTime() const;
+
  private:
   const QColor kBasicColor = QColor::fromRgb(81, 204, 24);
   qreal progress_ = 1;
