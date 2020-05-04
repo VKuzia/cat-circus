@@ -99,7 +99,7 @@ void GameWidget::SetUp(const QSize& resolution) {
   // ui_score_page_ needs to know its width in SetUp()
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
   ui_->ui_score_page_->SetUp();  
-  ui_->ui_game_view_->SetUp(resolution.width(), resolution.height());
+  ui_->ui_game_view_->SetUp(resolution);
   ShowScore();
   InitMinigame();
 }

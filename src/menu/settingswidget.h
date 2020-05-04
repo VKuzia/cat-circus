@@ -32,9 +32,11 @@ private:
 
   void TurnVolume();
 
+  void Save();
+
   static const QString kPathToSettings;
   QSize resolution_;
-  bool volume_on_;
+  bool volume_off_;
   int volume_;
   int current_resolution_index_;
   int current_language_index_;
