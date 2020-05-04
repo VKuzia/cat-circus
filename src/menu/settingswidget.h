@@ -14,6 +14,9 @@ class SettingsWidget : public QWidget {
   explicit SettingsWidget(QWidget* parent = nullptr);
   ~SettingsWidget();
 
+    void Load();
+    QSize GetSize();
+
  signals:
   void MainMenu();
 
@@ -25,11 +28,18 @@ private slots:
 
   void ChangeResolution();
 
-  void on_ui_sound_check_box__stateChanged(int arg1);
-
 private:
 
   void TurnVolume();
+
+  static const QString kPathToSettings;
+  QSize resolution_;
+  bool volume_on_;
+  int volume_;
+  int current_resolution_index_;
+  int current_language_index_;
+  QString user_name_;
+
 
   Ui::SettingsWidget* ui_;
 };

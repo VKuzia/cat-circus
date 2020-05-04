@@ -2,10 +2,10 @@
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui_(new Ui::MainWindow) {
   ui_->setupUi(this);
-  this->setFixedSize(width, height);
+  ui_->ui_settings_widget_->Load();
   connect(ui_->ui_settings_widget_, &SettingsWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
   connect(ui_->ui_about_widget_, &AboutWidget::MainMenu, this,
@@ -19,7 +19,7 @@ void MainWindow::ChangeToMainMenu() {
 }
 
 void MainWindow::ChangeToGame() {
-  ui_->ui_game_widget_->SetUp();
+  ui_->ui_game_widget_->SetUp(ui_->ui_settings_widget_->GetSize());
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_game_widget_);
 }
 
@@ -34,3 +34,9 @@ void MainWindow::ChangeToAbout() {
 void MainWindow::Exit() { QApplication::exit(0); }
 
 MainWindow::~MainWindow() { delete ui_; }
+
+void MainWindow::SetUp()
+{
+    this->setFixedSize(ui_->ui_settings_widget_->GetSize());
+
+}

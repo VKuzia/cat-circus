@@ -4,11 +4,11 @@ GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
   this->setScene(new QGraphicsScene(this));
 }
 
-void GameView::SetUp(int32_t width, int32_t height) {
-  this->setFixedSize(width, height);
+void GameView::SetUp(const QSize& resolution) {
+  this->setFixedSize(resolution.width(), resolution.height());
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
-  this->scene()->setSceneRect(-width / 2, -height / 2, width, height);
+  this->scene()->setSceneRect(-resolution.width() / 2, -resolution.height() / 2, resolution.width(), resolution.height());
 }
 
 void GameView::mousePressEvent(QMouseEvent* event) {
