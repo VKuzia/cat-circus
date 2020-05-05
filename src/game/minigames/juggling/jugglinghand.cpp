@@ -1,11 +1,11 @@
 #include "jugglinghand.h"
 
 JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
-                           qreal x, qreal y, bool left)
+                           qreal x, qreal y, Side side)
     : GameObject(game_view, width, height, x, y),
-      kIsLeft_(left),
+      kSide_(side),
       kBasePos_(x, y),
-      kThrowPos_(x_ + (kIsLeft_ ? kSwingXRange : -kSwingXRange), y_) {}
+      kThrowPos_(x_ + GetHorizontalSwing(), y_) {}
 
 void JugglingHand::SetUp() {
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
@@ -33,7 +33,7 @@ void JugglingHand::Update() {
     if (qAbs(kBasePos_.x() - GetX()) >= kSwingXRange) {
       is_coming_back_ = true;
       // Return to base_pos_
-      SetVelocity(kSwingXRange * (kIsLeft_ ? -1.0 : 1.0) / kComeBackTime, 0);
+      SetVelocity(-GetHorizontalSwing() / kComeBackTime, 0);
       // If there are several balls caught, we need to throw all of them
       if (current_ball_ != nullptr) {
         current_ball_->SetVelocity(GetThrowVelocity());
@@ -50,8 +50,8 @@ void JugglingHand::Update() {
   qreal y_difference = velocity_.y() * kUpdateTime;
   // If we are close enough to base_pos_ -> move right to base_pos_
   if (is_coming_back_ &&
-      ((kIsLeft_ && (GetX() + x_difference) < kBasePos_.x()) ||
-       (!kIsLeft_ && (GetX() + x_difference) > kBasePos_.x()))) {
+      ((kSide_ == Side::kLeft && (GetX() + x_difference) < kBasePos_.x()) ||
+       (kSide_ == Side::kRight && (GetX() + x_difference) > kBasePos_.x()))) {
     this->setPixmap(pixmap_free_);
     is_throwing_ = false;
     is_coming_back_ = false;
@@ -87,4 +87,17 @@ bool JugglingHand::IsThrowing() const { return is_throwing_; }
 
 Vector2D JugglingHand::GetThrowVelocity() const {
   return physics::Throw(GetPos(), aim_point_, ball_air_time_);
+}
+
+qreal JugglingHand::GetHorizontalSwing() const {
+  qreal swing;
+  switch (kSide_) {
+    case Side::kLeft:
+      swing = kSwingXRange;
+      break;
+    case Side::kRight:
+      swing = -kSwingXRange;
+      break;
+  }
+  return swing;
 }

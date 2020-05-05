@@ -6,11 +6,12 @@ const qreal JugglingCat::kHandsZValue = 1;
 JugglingCat::JugglingCat(GameView* game_view, qreal width, qreal height,
                          qreal x, qreal y)
     : GameObject(game_view, width, height, x, y),
-      left_hand_(new JugglingHand(game_view, kHandRadius * 2,
-                                  kHandRadius * 2, x - width_ / 2, y, true)),
-      right_hand_(new JugglingHand(game_view, kHandRadius * 2,
-                                   kHandRadius * 2, x + width_ / 2, y, false)) {
-}
+      left_hand_(new JugglingHand(game_view, kHandRadius * 2, kHandRadius * 2,
+                                  x - width_ / 2, y,
+                                  JugglingHand::Side::kLeft)),
+      right_hand_(new JugglingHand(game_view, kHandRadius * 2, kHandRadius * 2,
+                                   x + width_ / 2, y,
+                                   JugglingHand::Side::kRight)) {}
 
 void JugglingCat::SetUp() {
   SetUpHand(left_hand_, right_hand_->GetBasePos());

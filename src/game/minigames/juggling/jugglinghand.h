@@ -8,8 +8,10 @@
 
 class JugglingHand : public GameObject {
  public:
-  JugglingHand(GameView* game_view, qreal width, qreal height, qreal x = 0,
-               qreal y = 0, bool left = true);
+  enum class Side { kLeft, kRight };
+
+  JugglingHand(GameView* game_view, qreal width, qreal height, qreal x, qreal y,
+               Side side);
   ~JugglingHand() override = default;
 
   void SetUp() override;
@@ -39,7 +41,7 @@ class JugglingHand : public GameObject {
 
   // Sets parabolic motion of a hand while throwing
   const Vector2D kAcceleration = {0, -18};
-  const bool kIsLeft_;
+  const Side kSide_;
   const QPointF kBasePos_;
   const QPointF kThrowPos_;
 
@@ -53,6 +55,7 @@ class JugglingHand : public GameObject {
 
   // Used to direct thrown balls
   Vector2D GetThrowVelocity() const;
+  qreal GetHorizontalSwing() const;
 };
 
 #endif  // JUGGLINGHAND_H
