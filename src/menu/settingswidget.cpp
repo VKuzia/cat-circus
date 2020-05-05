@@ -22,37 +22,36 @@ SettingsWidget::SettingsWidget(QWidget* parent)
   ui_->ui_resolution_combo_box_->addItem("1920×1080");
   ui_->ui_resolution_combo_box_->addItem("4096×2160");
   Load();
-
-//  QSettings resolutionSetting("my company","catsProject");
-//  resolutionSetting.beginGroup("SettingWindow");
-//  ui_->ui_resolution_combo_box_->setCurrentIndex(resolutionSetting.value("position").toInt());
-//  resolutionSetting.endGroup();
 }
 
 SettingsWidget::~SettingsWidget() { delete ui_; }
 
-void SettingsWidget::ReturnToMainMenu()
-{
+void SettingsWidget::ReturnToMainMenu() {
     Save();
     emit MainMenu();
 }
 
-void SettingsWidget::TurnVolume()
-{
+void SettingsWidget::TurnVolume() {
     if (ui_->ui_sound_check_box_->isChecked()) {
         ui_->ui_sound_check_box_->setText("Off");
         volume_off_ = true;
+        return;
     }
-    else {
-        ui_->ui_sound_check_box_->setText("On");
-        volume_off_ = false;
-    }
+    ui_->ui_sound_check_box_->setText("On");
+    volume_off_ = false;
 }
 
-void SettingsWidget::Save()
-{
-    QFile file (kPathToSettings + "basic.txt");
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {}
+void SettingsWidget::Save() {
+    QFile file(kPathToSettings + "basic.txt");
+    try {
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            throw "Error, imposible to save changes!";
+        }
+    }
+    catch(char *exeption) {
+        QTextStream error (stdout);
+        error << exeption;
+    }
 
     QTextStream save(&file);
     save.setCodec("UTF-8");
@@ -64,7 +63,6 @@ void SettingsWidget::Save()
     volume_ = ui_->ui_volume_->value();
     save << volume_ << "\n";
 
-    current_resolution_index_ = ui_->ui_resolution_combo_box_->currentIndex();
     save << current_resolution_index_ << "\n";
 
     current_language_index_ = ui_->ui_language_combo_box_->currentIndex();
@@ -76,10 +74,17 @@ void SettingsWidget::Save()
     file.close();
 }
 
-void SettingsWidget::Load()
-{
-    QFile file (kPathToSettings + "basic.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {}
+void SettingsWidget::Load() {
+    QFile file(kPathToSettings + "basic.txt");
+    try {
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            throw "Error, imposible to load changes!";
+        }
+    }
+    catch(char *exeption) {
+        QTextStream error (stdout);
+        error << exeption;
+    }
 
     QTextStream load(&file);
     load.setCodec("UTF-8");
@@ -109,20 +114,16 @@ void SettingsWidget::Load()
     ui_->ui_user_line_edit_->setText(user_name_);
 }
 
-QSize SettingsWidget::GetSize()
-{
+QSize SettingsWidget::GetSize() {
     return resolution_;
 }
 
-void SettingsWidget::ChangeSound()
-{
+void SettingsWidget::ChangeSound() {
     TurnVolume();
 }
 
-void SettingsWidget::ChangeResolution()
-{
-    switch(ui_->ui_resolution_combo_box_->currentIndex())
-    {
+void SettingsWidget::ChangeResolution() {
+    switch (ui_->ui_resolution_combo_box_->currentIndex()) {
     case 0:
         resolution_.setWidth(1024);
         resolution_.setHeight(576);
@@ -140,31 +141,7 @@ void SettingsWidget::ChangeResolution()
         resolution_.setHeight(2160);
         break;
     }
-
-//    QSettings resolutionSetting("my company","catsProject");
-//    resolutionSetting.beginGroup("SettingWindow");
-//    if(ui_->ui_resolution_combo_box_->currentIndex() == 1) {
-//        resolutionSetting.setValue("position", 1);
-//        QRect* currentRect = new QRect(0, 0, 1024, 576);
-//        setGeometry(*currentRect);
-//    }
-//    if(ui_->ui_resolution_combo_box_->currentIndex() == 2) {
-//        resolutionSetting.setValue("position", 2);
-//        QRect* currentRect = new QRect(0, 0, 1280, 800);
-//        setGeometry(*currentRect);
-//    }
-//    if(ui_->ui_resolution_combo_box_->currentIndex() == 3) {
-//        resolutionSetting.setValue("position", 3);
-//        QRect* currentRect = new QRect(0, 0, 1920, 1080);
-//        setGeometry(*currentRect);
-//    }
-//    if(ui_->ui_resolution_combo_box_->currentIndex() == 4) {
-//        resolutionSetting.setValue("position", 4);
-
-//        QRect* currentRect = new QRect(0, 0, 4096, 2160);
-//        this->setGeometry(0, 0, 4096, 2160);
-//        setGeometry(*currentRect);
-//    }
-//    resolutionSetting.endGroup();
+    current_resolution_index_ = ui_->ui_resolution_combo_box_->currentIndex();
+    emit Resolution();
 }
 

@@ -19,20 +19,20 @@ class SettingsWidget : public QWidget {
 
  signals:
   void MainMenu();
+  void Resolution();
 
  public slots:
   void ReturnToMainMenu();
 
-private slots:
+ private slots:
   void ChangeSound();
 
   void ChangeResolution();
 
-private:
-
+ private:
+  void Save();
   void TurnVolume();
 
-  void Save();
 
   static const QString kPathToSettings;
   QSize resolution_;

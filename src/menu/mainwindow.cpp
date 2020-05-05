@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget* parent)
           &MainWindow::ChangeToMainMenu);
   connect(ui_->ui_game_widget_, &GameWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
+  connect(ui_->ui_settings_widget_, &SettingsWidget::Resolution, this,
+          &MainWindow::SetUp);
 }
 
 void MainWindow::ChangeToMainMenu() {
@@ -35,8 +37,7 @@ void MainWindow::Exit() { QApplication::exit(0); }
 
 MainWindow::~MainWindow() { delete ui_; }
 
-void MainWindow::SetUp()
-{
+void MainWindow::SetUp() {
     this->setFixedSize(ui_->ui_settings_widget_->GetSize());
     ui_->ui_game_widget_->SetResolution(ui_->ui_settings_widget_->GetSize());
 }

@@ -8,7 +8,8 @@ void GameView::SetUp(const QSize& resolution) {
   this->setFixedSize(resolution.width(), resolution.height());
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
-  this->scene()->setSceneRect(-resolution.width() / 2, -resolution.height() / 2, resolution.width(), resolution.height());
+  this->scene()->setSceneRect(-resolution.width() / 2, -resolution.height() / 2,
+                              resolution.width(), resolution.height());
 }
 
 void GameView::mousePressEvent(QMouseEvent* event) {
