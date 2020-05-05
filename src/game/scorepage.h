@@ -65,13 +65,12 @@ class ScorePage : public QWidget {
   QGraphicsScene* lives_scene_;
   Ui::ScorePage* ui_;
   QVector<QGraphicsPixmapItem*> lives_;
-  QMovie* life_movie_ =
-      new QMovie(QDir::currentPath() + "/data/images/score/life.gif");
-  QMovie* life_disappear_movie_ =
-      new QMovie(QDir::currentPath() + "/data/images/score/life_disappear.gif");
+  QMovie life_movie_;
+  QMovie life_disappear_movie_;
 
   QTimer expire_timer_;
   bool is_minigame_passed_ = false;
+  bool is_life_disappearing_ = false;
 
   void SetUpLives();
   QGraphicsPixmapItem* GetNewLife(int32_t index) const;
