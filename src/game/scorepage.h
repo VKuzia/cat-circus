@@ -58,9 +58,8 @@ class ScorePage : public QWidget {
   int32_t score_ = 0;
   QPropertyAnimation score_animation_;
 
-  int32_t lives_count_ = kLivesCount;
-  int32_t life_width_ = 0;
-  int32_t life_height_ = 0;
+  int32_t remaining_lives_ = kLivesCount;
+  QSize life_size_;
 
   QGraphicsScene* lives_scene_;
   Ui::ScorePage* ui_;
