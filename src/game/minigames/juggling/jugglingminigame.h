@@ -19,9 +19,8 @@ class JugglingMinigame : public Minigame {
 
   void KeyPressEvent(QKeyEvent* event) override;
 
-  const qreal kCatWidth = 1.5;
-  const qreal kCatHeight = 2.1;
-  const qreal kCatY = 1;
+  const QSizeF kCatSize = {1.5, 2.1};
+  const QPointF kCatPos = {0, 1};
 
   const qreal KTutorialHeight = -1.5;
 
@@ -29,8 +28,7 @@ class JugglingMinigame : public Minigame {
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
-  const qreal kBallStartX = 4.6;
-  const qreal kBallStartY = 0;
+  const QPointF kBallStartPos = {4.6, 0};
   const qreal kBallRadius = 0.11;
   const qreal kBallLaunchFlightTime = 1.3;
 

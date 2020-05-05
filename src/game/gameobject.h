@@ -16,12 +16,14 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   GameObject(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
   GameObject(GameView* game_view, qreal width, qreal height, QPointF pos);
+  GameObject(GameView* game_view, QSizeF size, QPointF pos);
   ~GameObject() override = default;
 
   virtual void SetUp();
   virtual void Update();
 
   void AddVelocity(qreal x, qreal y);
+  void AddVelocity(Vector2D rhs);
   void SetVelocity(qreal x, qreal y);
   void SetVelocity(Vector2D velocity);
   Vector2D GetVelocity() const;
@@ -38,6 +40,7 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   void SetPos(QPointF pos);
 
   void MoveByMeters(qreal x, qreal y);
+  void MoveByMeters(Vector2D shift);
 
  protected:
   // Represents 60 frames a second refresh time
@@ -46,10 +49,8 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   const QRectF kDefaultBoundingRect;
 
   GameView* game_view_ = nullptr;
-  qreal width_ = 0;
-  qreal height_ = 0;
-  qreal x_ = 0;
-  qreal y_ = 0;
+  QSizeF size_;
+  QPointF pos_;
   Vector2D velocity_ = {0, 0};
 };
 

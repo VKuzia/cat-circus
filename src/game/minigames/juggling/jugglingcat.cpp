@@ -3,14 +3,13 @@
 const qreal JugglingCat::kZValue = 0;
 const qreal JugglingCat::kHandsZValue = 1;
 
-JugglingCat::JugglingCat(GameView* game_view, qreal width, qreal height,
-                         qreal x, qreal y)
-    : GameObject(game_view, width, height, x, y),
+JugglingCat::JugglingCat(GameView* game_view, QSizeF size, QPointF pos)
+    : GameObject(game_view, size, pos),
       left_hand_(new JugglingHand(game_view, kHandRadius * 2, kHandRadius * 2,
-                                  x - width_ / 2, y,
+                                  pos.x() - size.width() / 2, pos.y(),
                                   JugglingHand::Side::kLeft)),
       right_hand_(new JugglingHand(game_view, kHandRadius * 2, kHandRadius * 2,
-                                   x + width_ / 2, y,
+                                   pos.x() + size.width() / 2, pos.y(),
                                    JugglingHand::Side::kRight)) {}
 
 void JugglingCat::SetUp() {
@@ -21,8 +20,7 @@ void JugglingCat::SetUp() {
   QPixmap pixmap =
       QPixmap(game_view_->GetPathToMinigameImages() + "juggling/cat.png");
   pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(qRound(boundingRect().width()),
-                                qRound(boundingRect().height())));
+  this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
 }
 
 void JugglingCat::Update() {

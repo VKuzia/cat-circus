@@ -9,9 +9,9 @@ ClickableBall::ClickableBall(GameView* game_view, qreal width, qreal height,
     : GameObject(game_view, width, height, pos) {}
 
 void ClickableBall::SetUp() {
-  qreal width = width_ * game_view_->GetPixelsInMeter();
-  qreal height = height_ * game_view_->GetPixelsInMeter();
-  QPixmap pixmap(qRound(width), qRound(height));
+  qreal width = boundingRect().width();
+  qreal height = boundingRect().height();
+  QPixmap pixmap(boundingRect().size().toSize());
   QPainter painter(&pixmap);
   painter.setBrush(kBasicColor);
   // Some edge pixels left to render ball without edges cut

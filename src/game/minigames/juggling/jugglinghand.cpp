@@ -5,21 +5,19 @@ JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
     : GameObject(game_view, width, height, x, y),
       kSide_(side),
       kBasePos_(x, y),
-      kThrowPos_(x_ + GetHorizontalSwing(), y_) {}
+      kThrowPos_(x + GetHorizontalSwing(), y) {}
 
 void JugglingHand::SetUp() {
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
   pixmap_free_ =
       QPixmap(game_view_->GetPathToMinigameImages() + "juggling/hand_free.png");
   pixmap_free_.setMask(pixmap_free_.createHeuristicMask());
-  pixmap_free_ = pixmap_free_.scaled(qRound(boundingRect().width()),
-                                     qRound(boundingRect().height()));
+  pixmap_free_ = pixmap_free_.scaled(boundingRect().size().toSize());
 
   pixmap_closed_ = QPixmap(game_view_->GetPathToMinigameImages() +
                            "juggling/hand_closed.png");
   pixmap_closed_.setMask(pixmap_closed_.createHeuristicMask());
-  pixmap_closed_ = pixmap_closed_.scaled(qRound(boundingRect().width()),
-                                         qRound(boundingRect().height()));
+  pixmap_closed_ = pixmap_closed_.scaled(boundingRect().size().toSize());
   this->setPixmap(pixmap_free_);
 }
 
@@ -42,26 +40,23 @@ void JugglingHand::Update() {
         current_ball_ = nullptr;
       }
     } else {
-      AddVelocity(kAcceleration.x() * kUpdateTime,
-                  kAcceleration.y() * kUpdateTime);
+      AddVelocity(kAcceleration * kUpdateTime);
     }
   }
-  qreal x_difference = velocity_.x() * kUpdateTime;
-  qreal y_difference = velocity_.y() * kUpdateTime;
+  Vector2D shift = velocity_ * kUpdateTime;
   // If we are close enough to base_pos_ -> move right to base_pos_
   if (is_coming_back_ &&
-      ((kSide_ == Side::kLeft && (GetX() + x_difference) < kBasePos_.x()) ||
-       (kSide_ == Side::kRight && (GetX() + x_difference) > kBasePos_.x()))) {
+      ((kSide_ == Side::kLeft && (GetX() + shift.x()) < kBasePos_.x()) ||
+       (kSide_ == Side::kRight && (GetX() + shift.x()) > kBasePos_.x()))) {
     this->setPixmap(pixmap_free_);
     is_throwing_ = false;
     is_coming_back_ = false;
     SetVelocity(0, 0);
-    x_difference = (kBasePos_.x() - GetX());
-    y_difference = (kBasePos_.y() - GetY());
+    shift = Vector2D(kBasePos_.x() - GetX(), kBasePos_.y() - GetY());
   }
-  MoveByMeters(x_difference, y_difference);
+  MoveByMeters(shift);
   if (current_ball_ != nullptr) {
-    current_ball_->MoveByMeters(x_difference, y_difference);
+    current_ball_->MoveByMeters(shift);
   }
 }
 

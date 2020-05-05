@@ -13,7 +13,7 @@ void JugglingMinigame::SetUp() {
   background_->SetUp(game_view_, "juggling/arena.png");
   game_view_->scene()->addItem(background_);
 
-  cat_ = new JugglingCat(game_view_, kCatWidth, kCatHeight, 0, kCatY);
+  cat_ = new JugglingCat(game_view_, kCatSize, kCatPos);
   cat_->SetUp();
   // Need to set this here because ball_air_time_ is defined by SetParamateres
   cat_->GetLeftHand()->SetBallAirTime(ball_air_time_ / 1000.0);
@@ -201,10 +201,10 @@ void JugglingMinigame::LaunchBall() {
     ball_timer_.stop();
     return;
   }
-  JugglingBall* ball =
-      new JugglingBall(game_view_, kBallRadius * 2, kBallRadius * 2,
-                       (balls_.size() % 2 ? kBallStartX : -kBallStartX),
-                       kBallStartY, kFloorHeight);
+  JugglingBall* ball = new JugglingBall(
+      game_view_, kBallRadius,
+      (balls_.size() % 2 ? kBallStartPos.x() : -kBallStartPos.x()),
+      kBallStartPos.y(), kFloorHeight);
   QPointF target_pos = balls_.size() % 2 ? cat_->GetRightHand()->GetBasePos()
                                          : cat_->GetLeftHand()->GetBasePos();
   ball->SetVelocity(
