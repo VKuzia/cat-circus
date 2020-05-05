@@ -1,6 +1,7 @@
 #include "jugglingminigame.h"
 
 #include <QKeyEvent>
+#include <limits>
 
 JugglingMinigame::JugglingMinigame(GameView* game_view, qreal difficulty,
                                    qreal pixels_in_meter)
@@ -35,15 +36,13 @@ void JugglingMinigame::SetUpLabel() {
 
 void JugglingMinigame::AnimateTutorial() {
   tutorial_label_->setVisible(true);
-  QTimer::singleShot(kTutorialDuration, [this] {
-    tutorial_label_->setVisible(false);
-    time_bar_->setVisible(true);
-    StartGame();
-  });
+  QTimer::singleShot(kTutorialDuration, [this] { StartGame(); });
 }
 
 void JugglingMinigame::StartGame() {
   time_bar_->Launch(time_);
+  time_bar_->setVisible(true);
+  tutorial_label_->setVisible(false);
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &JugglingMinigame::Tick);
 
@@ -179,7 +178,7 @@ void JugglingMinigame::KeyPressEvent(QKeyEvent* event) {
       ball = dynamic_cast<JugglingBall*>(item);
       if (ball != nullptr) {
         ball->SetCaught(true);
-        cat_->GetLeftHand()->AddBall(ball);
+        cat_->GetLeftHand()->SetBall(ball);
       }
     }
     cat_->GetLeftHand()->Throw();
@@ -189,7 +188,7 @@ void JugglingMinigame::KeyPressEvent(QKeyEvent* event) {
       ball = dynamic_cast<JugglingBall*>(item);
       if (ball != nullptr) {
         ball->SetCaught(true);
-        cat_->GetRightHand()->AddBall(ball);
+        cat_->GetRightHand()->SetBall(ball);
       }
     }
     cat_->GetRightHand()->Throw();

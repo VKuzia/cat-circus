@@ -14,7 +14,7 @@ Minigame::Minigame(GameView* game_view, qreal difficulty, qreal pixels_in_meter)
       pixels_in_meter_(pixels_in_meter) {}
 
 Minigame::~Minigame() {
-  // clear removes and deletes items
+  // Сlear removes and deletes items
   game_view_->scene()->clear();
 }
 

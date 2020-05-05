@@ -2,6 +2,7 @@
 
 #include <QMouseEvent>
 #include <QRandomGenerator64>
+#include <limits>
 
 TestMinigame::TestMinigame(GameView* game_view, qreal difficulty,
                            qreal pixels_in_meter)
@@ -36,9 +37,9 @@ void TestMinigame::AnimateTutorial() {
 }
 
 void TestMinigame::StartGame() {
+  time_bar_->setVisible(true);
   tutorial_label_->setVisible(false);
   time_bar_->Launch(time_);
-  time_bar_->setVisible(true);
   QTimer::singleShot(time_, this, [this] { Stop(Status::kFail); });
 
   tick_timer_.setInterval(1000 / kFps);
@@ -112,7 +113,6 @@ void TestMinigame::Win() {
     score_ = 100 + time_left_ * 10 / time_;
     emit Passed(score_);
   });
-  timer_.start();
 }
 
 void TestMinigame::Lose() {
@@ -121,7 +121,6 @@ void TestMinigame::Lose() {
     game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
     emit Failed();
   });
-  timer_.start();
 }
 
 void TestMinigame::MousePressEvent(QMouseEvent*) {

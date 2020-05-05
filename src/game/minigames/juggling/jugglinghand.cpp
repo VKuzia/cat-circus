@@ -35,11 +35,12 @@ void JugglingHand::Update() {
       // Return to base_pos_
       SetVelocity(kSwingXRange * (kIsLeft_ ? -1.0 : 1.0) / kComeBackTime, 0);
       // If there are several balls caught, we need to throw all of them
-      for (auto ball : balls_) {
-        ball->SetVelocity(GetThrowVelocity());
-        ball->SetCaught(false);
+      if (current_ball_ != nullptr) {
+        current_ball_->SetVelocity(GetThrowVelocity());
+        current_ball_->SetCaught(false);
+        // Release the ball
+        current_ball_ = nullptr;
       }
-      balls_.clear();
     } else {
       AddVelocity(kAcceleration.x() * kUpdateTime,
                   kAcceleration.y() * kUpdateTime);
@@ -59,8 +60,8 @@ void JugglingHand::Update() {
     y_difference = (kBasePos_.y() - GetY());
   }
   MoveByMeters(x_difference, y_difference);
-  for (auto ball : balls_) {
-    ball->MoveByMeters(x_difference, y_difference);
+  if (current_ball_ != nullptr) {
+    current_ball_->MoveByMeters(x_difference, y_difference);
   }
 }
 
@@ -76,7 +77,7 @@ void JugglingHand::Throw() {
 
 void JugglingHand::SetAimPoint(const QPointF& point) { aim_point_ = point; }
 
-void JugglingHand::AddBall(JugglingBall* ball) { balls_.insert(ball); }
+void JugglingHand::SetBall(JugglingBall* ball) { current_ball_ = ball; }
 
 QPointF JugglingHand::GetBasePos() const { return kBasePos_; }
 

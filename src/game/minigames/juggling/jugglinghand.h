@@ -13,13 +13,16 @@ class JugglingHand : public GameObject {
   ~JugglingHand() override = default;
 
   void SetUp() override;
+
   void Update() override;
 
   void Throw();
 
   void SetAimPoint(const QPointF& point);
 
-  void AddBall(JugglingBall*);
+  // Set current ball to be thrown
+  void SetBall(JugglingBall*);
+
   QPointF GetBasePos() const;
 
   void SetBallAirTime(qreal sec);
@@ -34,13 +37,13 @@ class JugglingHand : public GameObject {
   // Horizontal distance hand passes throwing
   const qreal kSwingXRange = 0.4;
 
-  // Set's parabolic motion of a hand while throwing
+  // Sets parabolic motion of a hand while throwing
   const Vector2D kAcceleration = {0, -18};
   const bool kIsLeft_;
   const QPointF kBasePos_;
   const QPointF kThrowPos_;
 
-  QSet<JugglingBall*> balls_;
+  JugglingBall* current_ball_ = nullptr;
   QPixmap pixmap_free_;
   QPixmap pixmap_closed_;
   bool is_throwing_ = false;
