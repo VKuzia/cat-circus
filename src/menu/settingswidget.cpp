@@ -49,7 +49,7 @@ void SettingsWidget::Save() {
         }
     }
     catch(char *exeption) {
-        QTextStream error (stdout);
+        QTextStream error(stdout);
         error << exeption;
     }
 
@@ -82,7 +82,7 @@ void SettingsWidget::Load() {
         }
     }
     catch(char *exeption) {
-        QTextStream error (stdout);
+        QTextStream error(stdout);
         error << exeption;
     }
 
