@@ -21,7 +21,7 @@ SettingsWidget::SettingsWidget(QWidget* parent)
   ui_->ui_resolution_combo_box_->addItem("1280×800");
   ui_->ui_resolution_combo_box_->addItem("1920×1080");
   ui_->ui_resolution_combo_box_->addItem("4096×2160");
-
+  Load();
 
 //  QSettings resolutionSetting("my company","catsProject");
 //  resolutionSetting.beginGroup("SettingWindow");
@@ -33,8 +33,8 @@ SettingsWidget::~SettingsWidget() { delete ui_; }
 
 void SettingsWidget::ReturnToMainMenu()
 {
-    emit MainMenu();
     Save();
+    emit MainMenu();
 }
 
 void SettingsWidget::TurnVolume()
@@ -52,9 +52,7 @@ void SettingsWidget::TurnVolume()
 void SettingsWidget::Save()
 {
     QFile file (kPathToSettings + "basic.txt");
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-    return;
-    }
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {}
 
     QTextStream save(&file);
     save.setCodec("UTF-8");
@@ -72,7 +70,7 @@ void SettingsWidget::Save()
     current_language_index_ = ui_->ui_language_combo_box_->currentIndex();
     save << current_language_index_ << "\n";
 
-    user_name_ = ui_->ui_user_label_->text();
+    user_name_ = ui_->ui_user_line_edit_->text();
     save << user_name_ << "\n";
 
     file.close();
@@ -81,9 +79,7 @@ void SettingsWidget::Save()
 void SettingsWidget::Load()
 {
     QFile file (kPathToSettings + "basic.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    return;
-    }
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {}
 
     QTextStream load(&file);
     load.setCodec("UTF-8");
@@ -110,7 +106,7 @@ void SettingsWidget::Load()
     ui_->ui_language_combo_box_->setCurrentIndex(current_language_index_);
 
     user_name_ = load.readLine();
-    ui_->ui_user_label_->setText(user_name_);
+    ui_->ui_user_line_edit_->setText(user_name_);
 }
 
 QSize SettingsWidget::GetSize()

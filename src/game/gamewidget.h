@@ -16,7 +16,8 @@ class GameWidget : public QWidget {
   explicit GameWidget(QWidget* parent = nullptr);
   ~GameWidget() override;
 
-  void SetUp(const QSize& resolution);
+  void SetUp();
+  void SetResolution(const QSize& resolution);
 
  signals:
   void MainMenu();

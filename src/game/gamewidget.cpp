@@ -92,16 +92,19 @@ GameWidget::~GameWidget() {
   delete ui_;
 }
 
-void GameWidget::SetUp(const QSize& resolution) {
+void GameWidget::SetUp() {
   current_difficulty_ = kStartDifficulty_;
   // QStackedWidget doesn't resize widgets,
   // that were not visible before, but
   // ui_score_page_ needs to know its width in SetUp()
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
-  ui_->ui_score_page_->SetUp();  
-  ui_->ui_game_view_->SetUp(resolution);
+  ui_->ui_score_page_->SetUp();
   ShowScore();
   InitMinigame();
+}
+
+void GameWidget::SetResolution(const QSize& resolution) {
+    ui_->ui_game_view_->SetUp(resolution);
 }
 
 void GameWidget::SetMinigame(Minigame* minigame) {

@@ -19,7 +19,7 @@ void MainWindow::ChangeToMainMenu() {
 }
 
 void MainWindow::ChangeToGame() {
-  ui_->ui_game_widget_->SetUp(ui_->ui_settings_widget_->GetSize());
+  ui_->ui_game_widget_->SetUp();
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_game_widget_);
 }
 
@@ -38,5 +38,5 @@ MainWindow::~MainWindow() { delete ui_; }
 void MainWindow::SetUp()
 {
     this->setFixedSize(ui_->ui_settings_widget_->GetSize());
-
+    ui_->ui_game_widget_->SetResolution(ui_->ui_settings_widget_->GetSize());
 }
