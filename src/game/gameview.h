@@ -10,8 +10,6 @@ class GameView : public QGraphicsView {
   Q_OBJECT
 
  public:
-  enum class Key { kAny, kUp, kDown, kLeft, kRight };
-
   explicit GameView(QWidget* parent = nullptr);
   ~GameView() override = default;
 
@@ -24,15 +22,7 @@ class GameView : public QGraphicsView {
 
   QString GetPathToMinigameImages() const;
 
-  uint32_t GetKey(Key key) const;
-
  private:
-  const uint32_t kKeyLeft_ = 0x41;
-  const uint32_t kKeyRight_ = 0x44;
-  const uint32_t kKeyDown_ = 0x53;
-  const uint32_t kKeyUp_ = 0x57;
-  const uint32_t kKeyAny_ = 0;
-
   const QString kPathToMinigameImages_ =
       QDir::currentPath() + "/data/images/minigames/";
   Minigame* current_minigame_ = nullptr;
