@@ -61,3 +61,25 @@ qreal GameView::GetPixelsInMeter() const { return pixels_in_meter_; }
 QString GameView::GetPathToMinigameImages() const {
   return kPathToMinigameImages_;
 }
+
+uint32_t GameView::GetKey(GameView::Key key) const {
+  uint32_t code;
+  switch (key) {
+    case Key::kUp:
+      code = kKeyUp_;
+      break;
+    case Key::kDown:
+      code = kKeyDown_;
+      break;
+    case Key::kLeft:
+      code = kKeyLeft_;
+      break;
+    case Key::kRight:
+      code = kKeyRight_;
+      break;
+    case Key::kAny:
+      code = kKeyAny_;
+      break;
+  }
+  return code;
+}

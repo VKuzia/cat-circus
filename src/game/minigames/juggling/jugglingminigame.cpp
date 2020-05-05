@@ -172,7 +172,8 @@ void JugglingMinigame::KeyPressEvent(QKeyEvent* event) {
   if (!is_running_) {
     return;
   }
-  if (event->key() == Qt::Key_A && !cat_->GetLeftHand()->IsThrowing()) {
+  if (event->nativeVirtualKey() == game_view_->GetKey(GameView::Key::kLeft) &&
+      !cat_->GetLeftHand()->IsThrowing()) {
     JugglingBall* ball;
     for (auto item : cat_->GetLeftHand()->collidingItems()) {
       ball = dynamic_cast<JugglingBall*>(item);
@@ -182,7 +183,9 @@ void JugglingMinigame::KeyPressEvent(QKeyEvent* event) {
       }
     }
     cat_->GetLeftHand()->Throw();
-  } else if (event->key() == Qt::Key_D && !cat_->GetRightHand()->IsThrowing()) {
+  } else if (event->nativeVirtualKey() ==
+                 game_view_->GetKey(GameView::Key::kRight) &&
+             !cat_->GetRightHand()->IsThrowing()) {
     JugglingBall* ball;
     for (auto item : cat_->GetRightHand()->collidingItems()) {
       ball = dynamic_cast<JugglingBall*>(item);
