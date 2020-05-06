@@ -1,6 +1,6 @@
 #include "jugglinghand.h"
 
-#include <exception>
+#include <stdexcept>
 
 JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
                            qreal x, qreal y, Side side)
