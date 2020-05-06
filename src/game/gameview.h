@@ -1,9 +1,10 @@
 #ifndef GAMEVIEW_H
 #define GAMEVIEW_H
 
+#include <QDir>
 #include <QGraphicsView>
 
-#include "src/game/minigame.h"
+class Minigame;
 
 class GameView : public QGraphicsView {
   Q_OBJECT
@@ -16,8 +17,16 @@ class GameView : public QGraphicsView {
 
   void SetMinigame(Minigame* current_minigame);
 
+  void SetPixelsInMeter(qreal pixels_in_meter);
+  qreal GetPixelsInMeter() const;
+
+  QString GetPathToMinigameImages() const;
+
  private:
+  const QString kPathToMinigameImages_ =
+      QDir::currentPath() + "/data/images/minigames/";
   Minigame* current_minigame_ = nullptr;
+  qreal pixels_in_meter_ = 0;
 
   void mousePressEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;
