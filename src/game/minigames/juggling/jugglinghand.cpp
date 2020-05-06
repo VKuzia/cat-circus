@@ -1,5 +1,7 @@
 #include "jugglinghand.h"
 
+#include <exception>
+
 JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
                            qreal x, qreal y, Side side)
     : GameObject(game_view, width, height, x, y),
@@ -91,5 +93,5 @@ qreal JugglingHand::GetHorizontalSwing() const {
     case Side::kRight:
       return -kSwingXRange;
   }
-  throw "Unknown hand side";
+  throw std::runtime_error("Unknown hand side");
 }
