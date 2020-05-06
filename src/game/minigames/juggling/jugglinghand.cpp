@@ -70,7 +70,7 @@ void JugglingHand::Throw() {
   SetVelocity(physics::Throw(kBasePos_, kThrowPos_, kThrowTime, kAcceleration));
 }
 
-void JugglingHand::SetAimPoint(const QPointF& point) { aim_point_ = point; }
+void JugglingHand::SetAimPoint(QPointF point) { aim_point_ = point; }
 
 void JugglingHand::SetBall(JugglingBall* ball) { current_ball_ = ball; }
 
@@ -85,14 +85,11 @@ Vector2D JugglingHand::GetThrowVelocity() const {
 }
 
 qreal JugglingHand::GetHorizontalSwing() const {
-  qreal swing;
   switch (kSide_) {
     case Side::kLeft:
-      swing = kSwingXRange;
-      break;
+      return kSwingXRange;
     case Side::kRight:
-      swing = -kSwingXRange;
-      break;
+      return -kSwingXRange;
   }
-  return swing;
+  throw "Unknown hand side";
 }

@@ -45,7 +45,7 @@ class TestMinigame : public Minigame {
 
   void SetUp() override;
   void SetUpLabel() override;
-  void SeUpParameters() override;
+  void SetUpParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;

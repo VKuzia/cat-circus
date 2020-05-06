@@ -27,7 +27,7 @@ void Minigame::Init() {
   time_bar_->setVisible(false);
   game_view_->scene()->addItem(time_bar_);
   game_view_->scene()->addItem(tutorial_label_);
-  SeUpParameters();
+  SetUpParameters();
   SetUpLabel();
   SetUp();
 }

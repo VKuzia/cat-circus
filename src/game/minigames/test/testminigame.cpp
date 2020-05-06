@@ -23,7 +23,7 @@ void TestMinigame::SetUpLabel() {
   tutorial_label_->setZValue(std::numeric_limits<qreal>::max());
 }
 
-void TestMinigame::SeUpParameters() {
+void TestMinigame::SetUpParameters() {
   // Random coefs just for testing the basic game loop
   time_ = qRound(kBasicDuration / (difficulty_ * 1.5 + 1.0));
   balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2);

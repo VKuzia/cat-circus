@@ -72,7 +72,7 @@ void JugglingMinigame::Tick() {
   cat_->Update();
 }
 
-void JugglingMinigame::SeUpParameters() {
+void JugglingMinigame::SetUpParameters() {
   ball_launch_period_ = 500;
   int32_t difficulty_level = qFloor(difficulty_ / 0.1);
   switch (difficulty_level) {

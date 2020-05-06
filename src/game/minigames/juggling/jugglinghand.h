@@ -20,7 +20,7 @@ class JugglingHand : public GameObject {
 
   void Throw();
 
-  void SetAimPoint(const QPointF& point);
+  void SetAimPoint(QPointF point);
 
   // Set current ball to be thrown
   void SetBall(JugglingBall*);
