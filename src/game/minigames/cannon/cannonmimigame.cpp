@@ -27,9 +27,10 @@ void Cannonmimigame::SetUp() {
   // Need to set this here because ball_air_time_ is defined by SetParamateres
   game_view_->scene()->addItem(cat_);
   // Create cannon
-  //  cannon_ = new Cannon(game_view_, kCatWidth, kCatHeight, -6, kCatY);
-  //  cannon_->SetUp();
-  //  game_view_->scene()->addItem(cannon_);
+  cannon_ =
+      new Cannon(game_view_, 2.5 * kCatWidth, 1.5 * kCatHeight, -6, kCatY);
+  cannon_->SetUp();
+  game_view_->scene()->addItem(cannon_);
 
   arrow_ = new Arrow(game_view_, kCatWidth, kCatHeight, 6, -kCatY);
   arrow_->SetUp();
@@ -80,7 +81,6 @@ void Cannonmimigame::StartGame() {
 
   tick_timer_.start();
   ball_timer_.start();
-  //  QTimer::singleShot(time_, this, [this] { Stop(Status::kPass); });
 }
 
 void Cannonmimigame::AnimateOutro() {}
@@ -108,12 +108,14 @@ void Cannonmimigame::Tick() {
     if (angle_increases) {
       angle += M_PI / 200;
       cat_->setRotation(cat_->rotation() - angle);
+      cannon_->setRotation(cat_->rotation() - angle);
       if (angle > M_PI / 2) {
         angle_increases = false;
       }
     } else {
       angle -= M_PI / 200;
       cat_->setRotation(cat_->rotation() + angle);
+      cannon_->setRotation(cat_->rotation() + angle);
       if (angle <= 0) {
         angle_increases = true;
       }

@@ -24,12 +24,6 @@ void Sausage::Update() {
   if (is_caught_) {
     return;
   }
-  //  Вопрос надо ли менять местоположение,
-  //  возможно приятнее бы смотрелосьб плавное движение ввверхвниз, или вращение
-  //  AddVelocity(0, physics::kGravity.y() * kUpdateTime);
-  //  qreal x_difference = velocity_.x() * kUpdateTime;
-  //  qreal y_difference = velocity_.y() * kUpdateTime;
-  //  this->MoveByMeters(x_difference, y_difference);
 }
 
 void Sausage::SetCaught(bool is_caught) { is_caught_ = is_caught; }
