@@ -31,6 +31,14 @@ SOURCES += \
         src/game/gameview.cpp \
         src/game/gamewidget.cpp \
         src/game/minigame.cpp \
+        src/game/minigames/cannon/arrow.cpp \
+        src/game/minigames/cannon/cannon.cpp \
+        src/game/minigames/cannon/cannoncat.cpp \
+        src/game/minigames/cannon/cannonmimigame.cpp \
+        src/game/minigames/cannon/no.cpp \
+        src/game/minigames/cannon/sausage.cpp \
+        src/game/minigames/cannon/speedometer.cpp \
+        src/game/minigames/cannon/yes.cpp \
         src/game/minigames/juggling/jugglingball.cpp \
         src/game/minigames/juggling/jugglingcat.cpp \
         src/game/minigames/juggling/jugglinghand.cpp \
@@ -54,6 +62,14 @@ HEADERS += \
         src/game/gameview.h \
         src/game/gamewidget.h \
         src/game/minigame.h \
+        src/game/minigames/cannon/arrow.h \
+        src/game/minigames/cannon/cannon.h \
+        src/game/minigames/cannon/cannoncat.h \
+        src/game/minigames/cannon/cannonmimigame.h \
+        src/game/minigames/cannon/no.h \
+        src/game/minigames/cannon/sausage.h \
+        src/game/minigames/cannon/speedometer.h \
+        src/game/minigames/cannon/yes.h \
         src/game/minigames/juggling/jugglingball.h \
         src/game/minigames/juggling/jugglingcat.h \
         src/game/minigames/juggling/jugglinghand.h \
@@ -81,3 +97,11 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    data/images/minigames/cannon/sauasage.png \
+    data/images/minigames/juggling/arena.png \
+    data/images/minigames/juggling/ball.png \
+    data/images/minigames/juggling/cat.png \
+    data/images/minigames/juggling/hand_closed.png \
+    data/images/minigames/juggling/hand_free.png
