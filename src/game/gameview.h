@@ -21,8 +21,8 @@ class GameView : public QGraphicsView {
 
   void SetUp(int32_t width, int32_t height);
 
-  // Should be called inside a current_minigame on win|lose;
-  // apply effects to the whole scene, trigger OutroFinished
+  // Should be called inside a current_minigame on win|lose
+  // Apply effects to the whole scene, trigger OutroFinished
   void AnimatePassed();
   void AnimateFailed();
 
@@ -43,7 +43,7 @@ class GameView : public QGraphicsView {
   const int32_t kPassedAnimationDuration = 2200;
   const int32_t kPassedFadeInDuration = 300;
   const int32_t kPassedImageShowTime = 700;
-  const qreal kPassedMaxOpacity = 0.6;
+  const qreal kPassedMaxOpacity = 0.7;
   // Shows image's width respectively to the width of GameView
   const qreal kPassedImageWidthFactor = 0.33;
 

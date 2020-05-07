@@ -29,8 +29,10 @@ void GameView::AnimatePassed() {
   outro_rect_->setVisible(true);
   outro_rect_->setOpacity(0);
   scene()->addItem(outro_rect_);
+
   passed_image_->setVisible(false);
   scene()->addItem(passed_image_);
+
   passed_animation_.start();
 }
 
@@ -38,8 +40,10 @@ void GameView::AnimateFailed() {
   outro_rect_->setVisible(true);
   outro_rect_->setOpacity(0);
   scene()->addItem(outro_rect_);
+
   failed_image_->setVisible(true);
   scene()->addItem(failed_image_);
+
   failed_animation_.start();
 }
 
@@ -72,7 +76,7 @@ void GameView::SetUpPassedAnimation() {
   passed_animation_.setTargetObject(this);
   passed_animation_.setDuration(kPassedAnimationDuration);
   passed_animation_.setStartValue(0);
-  // Stay an kPassedMaxOpacity when fading in ends
+  // Stay at kPassedMaxOpacity when fading in ends
   passed_animation_.setKeyValueAt(
       (1.0 * kPassedFadeInDuration) / kPassedAnimationDuration, 1);
   passed_animation_.setEndValue(1);
@@ -136,7 +140,7 @@ void GameView::SetUpOutroRect() {
                             this->width() + 2, this->height() + 2);
   outro_rect_->setVisible(false);
   outro_rect_->setOpacity(0);
-  // Set "almost maximum" to set maximum for images (to be opaque)
+  // Set "almost maximum" to set maximum for images (to be them totaly opaque)
   outro_rect_->setZValue(std::numeric_limits<qreal>::max() - 1);
   outro_rect_->setPen(Qt::NoPen);
   outro_rect_->setBrush(kShadowColor);
