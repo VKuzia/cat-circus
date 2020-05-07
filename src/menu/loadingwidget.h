@@ -1,7 +1,6 @@
 #ifndef LOADINGWIDGET_H
 #define LOADINGWIDGET_H
 
-#include <QDir>
 #include <QMovie>
 #include <QPropertyAnimation>
 #include <QWidget>
@@ -30,11 +29,10 @@ class LoadingWidget : public QWidget {
   const int32_t kAnimationInOutDuration = 600;
   const int32_t kAnimationStayDuration = 1000;
 
-  QMovie* loading_movie_ =
-      new QMovie(QDir::currentPath() + "/data/images/loading/loading.gif");
+  QMovie loading_movie_;
 
-  Ui::LoadingWidget* ui_;
   QPropertyAnimation animation_;
+  Ui::LoadingWidget* ui_;
   int32_t opacity_ = 0;
   bool is_opaque_ = false;
 

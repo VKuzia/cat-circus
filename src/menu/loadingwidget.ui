@@ -95,6 +95,9 @@
           <property name="text">
            <string>[LOADING]</string>
           </property>
+          <property name="scaledContents">
+           <bool>false</bool>
+          </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
