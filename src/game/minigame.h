@@ -5,8 +5,8 @@
 #include <QObject>
 #include <QTimer>
 
-#include "src/game/game_objects/backgroundobject.h"
-#include "src/game/game_objects/timebar.h"
+#include "src/game/backgroundobject.h"
+#include "src/game/timebar.h"
 
 class GameView;
 
@@ -14,7 +14,7 @@ class Minigame : public QObject {
   Q_OBJECT
 
  public:
-  Minigame(GameView* graphics_view, qreal difficulty);
+  Minigame(GameView* game_view, qreal difficulty, qreal pixels_in_meter);
   virtual ~Minigame();
 
   void Init();
@@ -39,28 +39,29 @@ class Minigame : public QObject {
   const int32_t kTutorialDuration = 2500;
   const int32_t kOutroDuration = 2000;
 
-  GameView* graphics_view_;
+  GameView* game_view_;
   QTimer timer_;       // For minigame progress
   QTimer tick_timer_;  // For 1 frame updates
 
   int32_t time_ = 0;
   int32_t score_ = 0;
-  int32_t width_;
-  int32_t height_;
+  qreal width_;
+  qreal height_;
 
-  TimeBar* time_bar_;
+  TimeBar* time_bar_ = nullptr;
   QGraphicsTextItem* tutorial_label_;
   BackgroundObject* background_;
 
   qreal difficulty_;
+  qreal pixels_in_meter_;
 
   bool is_running_ = false;
 
   // Sets up a certain Minigame child
   // Adds start GameObjects to scene
   virtual void SetUp() = 0;
-  virtual void SetLabel() = 0;
-  virtual void SetParameters() = 0;
+  virtual void SetUpLabel() = 0;
+  virtual void SetUpParameters() = 0;
 
   virtual void AnimateTutorial() = 0;
   virtual void StartGame() = 0;

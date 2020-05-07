@@ -1,8 +1,8 @@
 #ifndef GAMEVIEW_H
 #define GAMEVIEW_H
 
+#include <QDir>
 #include <QGraphicsPixmapItem>
-#include <QGraphicsRectItem>
 #include <QGraphicsView>
 #include <QPropertyAnimation>
 
@@ -31,10 +31,14 @@ class GameView : public QGraphicsView {
   void SetPixelsInMeter(qreal pixels_in_meter);
   qreal GetPixelsInMeter() const;
 
+  QString GetPathToMinigameImages() const;
+
  signals:
   void OutroFinished();
 
  private:
+  const QString kPathToMinigameImages_ =
+      QDir::currentPath() + "/data/images/minigames/";
   const QColor kShadowColor = QColor::fromRgb(20, 20, 20);
   const int32_t kPassedAnimationDuration = 2200;
   const int32_t kPassedFadeInDuration = 300;

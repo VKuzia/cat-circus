@@ -184,3 +184,7 @@ void GameView::SetPixelsInMeter(qreal pixels_in_meter) {
 }
 
 qreal GameView::GetPixelsInMeter() const { return pixels_in_meter_; }
+
+QString GameView::GetPathToMinigameImages() const {
+  return kPathToMinigameImages_;
+}

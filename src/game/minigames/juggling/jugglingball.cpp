@@ -2,21 +2,19 @@
 
 const qreal JugglingBall::kZValue = 2;
 
-JugglingBall::JugglingBall(GameView* graphics_view, qreal width, qreal height,
-                           qreal x, qreal y, qreal floor_y)
-    : GameObject(graphics_view, width, height, x, y),
-      radius_(width / 2),
+JugglingBall::JugglingBall(GameView* game_view, qreal radius, qreal x, qreal y,
+                           qreal floor_y)
+    : GameObject(game_view, radius * 2, radius * 2, x, y),
+      radius_(radius),
       floor_y_(floor_y) {}
-
-JugglingBall::~JugglingBall() {}
 
 void JugglingBall::SetUp() {
   this->setZValue(kZValue);
   this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  QPixmap pixmap = QPixmap(kPathToMinigameImages + "juggling/ball.png");
+  QPixmap pixmap =
+      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/ball.png");
   pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(qRound(boundingRect().width()),
-                                qRound(boundingRect().height())));
+  this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
 }
 
 void JugglingBall::Update() {
@@ -24,14 +22,13 @@ void JugglingBall::Update() {
     return;
   }
   AddVelocity(0, physics::kGravity.y() * kUpdateTime);
-  qreal x_difference = velocity_.x() * kUpdateTime;
-  qreal y_difference = velocity_.y() * kUpdateTime;
+  Vector2D shift = velocity_ * kUpdateTime;
   // Checking if the floor was reached
-  if (GetY() + y_difference + radius_ > floor_y_) {
-    y_difference = floor_y_ - radius_ - GetY();
+  if (GetY() + shift.y() + radius_ > floor_y_) {
+    shift.setY(floor_y_ - radius_ - GetY());
     is_fallen_ = true;
   }
-  this->MoveByMeters(x_difference, y_difference);
+  this->MoveByMeters(shift);
 }
 
 void JugglingBall::SetCaught(bool is_caught) { is_caught_ = is_caught; }
@@ -39,3 +36,5 @@ void JugglingBall::SetCaught(bool is_caught) { is_caught_ = is_caught; }
 qreal JugglingBall::GetRadius() const { return radius_; }
 
 void JugglingBall::SetFallen(bool is_fallen) { is_fallen_ = is_fallen; }
+
+bool JugglingBall::IsFallen() const { return is_fallen_; }

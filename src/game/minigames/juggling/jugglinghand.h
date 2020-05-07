@@ -8,21 +8,28 @@
 
 class JugglingHand : public GameObject {
  public:
-  JugglingHand(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
-               qreal y = 0, bool left = true);
+  enum class Side { kLeft, kRight };
+
+  JugglingHand(GameView* game_view, qreal width, qreal height, qreal x, qreal y,
+               Side side);
   ~JugglingHand() override = default;
 
   void SetUp() override;
 
   void Update() override;
+
   void Throw();
 
-  void SetAimPoint(const QPointF& point);
+  void SetAimPoint(QPointF point);
 
-  void AddBall(JugglingBall*);
+  // Set current ball to be thrown
+  void SetBall(JugglingBall*);
+
   QPointF GetBasePos() const;
 
   void SetBallAirTime(qreal sec);
+
+  bool IsThrowing() const;
 
  private:
   // Hand motion durations
@@ -30,24 +37,25 @@ class JugglingHand : public GameObject {
   const qreal kComeBackTime = 0.05;
 
   // Horizontal distance hand passes throwing
-  const qreal kThrowXRange = 0.4;
+  const qreal kSwingXRange = 0.4;
 
-  // Set's parabolic motion of a hand while throwing
+  // Sets parabolic motion of a hand while throwing
   const Vector2D kAcceleration = {0, -18};
-  const bool is_left_;
-  const QPointF base_pos_;
-  const QPointF throw_pos_;
+  const Side kSide_;
+  const QPointF kBasePos_;
+  const QPointF kThrowPos_;
 
-  QSet<JugglingBall*> balls_;
   QPixmap pixmap_free_;
   QPixmap pixmap_closed_;
-  bool is_throwing_ = false;
-  bool is_just_thrown_ = false;
   QPointF aim_point_;
+  JugglingBall* current_ball_ = nullptr;
   qreal ball_air_time_ = 0;
+  bool is_throwing_ = false;
+  bool is_coming_back_ = false;
 
   // Used to direct thrown balls
   Vector2D GetThrowVelocity() const;
+  qreal GetHorizontalSwing() const;
 };
 
 #endif  // JUGGLINGHAND_H
