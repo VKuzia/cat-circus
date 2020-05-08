@@ -1,5 +1,7 @@
 #include "gameview.h"
 
+#include <QKeyEvent>
+
 #include "src/game/minigame.h"
 
 GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
@@ -57,3 +59,7 @@ void GameView::SetPixelsInMeter(qreal pixels_in_meter) {
 }
 
 qreal GameView::GetPixelsInMeter() const { return pixels_in_meter_; }
+
+QString GameView::GetPathToMinigameImages() const {
+  return kPathToMinigameImages_;
+}

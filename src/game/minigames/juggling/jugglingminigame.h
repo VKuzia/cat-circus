@@ -11,19 +11,16 @@ class JugglingMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  JugglingMinigame(GameView* graphics_view, qreal difficulty);
-  ~JugglingMinigame() override;
+  JugglingMinigame(GameView* game_view, qreal difficulty,
+                   qreal pixels_in_meter = 576 / 5.0);
+  ~JugglingMinigame() override = default;
 
   void Start() override;
 
   void KeyPressEvent(QKeyEvent* event) override;
 
- private:
-  const qreal kBasicPixelsInMeter = 576 / 5.0;  // To show 5m height
-
-  const qreal kCatWidth = 1.5;
-  const qreal kCatHeight = 2.1;
-  const qreal kCatY = 1;
+  const QSizeF kCatSize = {1.5, 2.1};
+  const QPointF kCatPos = {0, 1};
 
   const qreal KTutorialHeight = -1.5;
 
@@ -31,8 +28,7 @@ class JugglingMinigame : public Minigame {
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
-  const qreal kBallStartX = 4.6;
-  const qreal kBallStartY = 0;
+  const QPointF kBallStartPos = {4.6, 0};
   const qreal kBallRadius = 0.11;
   const qreal kBallLaunchFlightTime = 1.3;
 
@@ -49,8 +45,8 @@ class JugglingMinigame : public Minigame {
   void LaunchBall();
 
   void SetUp() override;
-  void SetLabel() override;
-  void SetParameters() override;
+  void SetUpLabel() override;
+  void SetUpParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;

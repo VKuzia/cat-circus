@@ -1,22 +1,22 @@
 #include "trampolinecat.h"
 
-TrampolineCat::TrampolineCat(GameView* graphics_view, qreal width, qreal height,
+TrampolineCat::TrampolineCat(GameView* game_view, qreal width, qreal height,
                              QPointF pos)
-    : GameObject(graphics_view, width, height, pos) {}
+    : GameObject(game_view, width, height, pos) {}
 
 TrampolineCat::~TrampolineCat() {}
 
-TrampolineCat::TrampolineCat(GameView* graphics_view, qreal width, qreal height,
+TrampolineCat::TrampolineCat(GameView* game_view, qreal width, qreal height,
                              qreal x, qreal y)
 
-    : TrampolineCat(graphics_view, width, height, QPointF(x, y)) {}
+    : TrampolineCat(game_view, width, height, QPointF(x, y)) {}
 
 void TrampolineCat::SetUp() {
-  int32_t width = qRound(width_ * graphics_view_->GetPixelsInMeter());
-  int32_t height = qRound(height_ * graphics_view_->GetPixelsInMeter());
-  QPixmap pixmap = QPixmap(kPathToMinigameImages + "trampoline/cat.png");
+  int32_t width = boundingRect().size().toSize().width();
+  int32_t height = boundingRect().size().toSize().height();
+  QPixmap pixmap =
+      QPixmap(game_view_->GetPathToMinigameImages() + "trampoline/cat.png");
   pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(width, height));
   setOffset(-width / 2, -height / 2);
   setPixmap(pixmap.scaled(width, height));
 

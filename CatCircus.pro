@@ -25,11 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        src/game/backgroundobject.cpp \
         src/game/game.cpp \
-        src/game/game_objects/backgroundobject.cpp \
-        src/game/game_objects/clickableball.cpp \
-    src/game/game_objects/pathobject.cpp \
-        src/game/game_objects/timebar.cpp \
         src/game/gameobject.cpp \
         src/game/gameview.cpp \
         src/game/gamewidget.cpp \
@@ -38,26 +35,26 @@ SOURCES += \
         src/game/minigames/juggling/jugglingcat.cpp \
         src/game/minigames/juggling/jugglinghand.cpp \
         src/game/minigames/juggling/jugglingminigame.cpp \
-        src/game/minigames/test/testminigame.cpp \
         src/game/minigames/trampoline/trampoline.cpp \
         src/game/minigames/trampoline/trampolinecat.cpp \
         src/game/minigames/trampoline/trampolineminigame.cpp \
-    src/game/minigames/trampoline/trampolinetile.cpp \
+        src/game/minigames/trampoline/trampolinepath.cpp \
+        src/game/minigames/trampoline/trampolinetile.cpp \
+        src/game/minigames/test/clickableball.cpp \
+        src/game/minigames/test/testminigame.cpp \
         src/game/pausepage.cpp \
         src/game/physics/vector2d.cpp \
         src/game/scorepage.cpp \
         src/game/physics/physics.cpp \
+        src/game/timebar.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
         src/menu/settingswidget.cpp \
 
 HEADERS += \
+        src/game/backgroundobject.h \
         src/game/game.h \
-        src/game/game_objects/backgroundobject.h \
-        src/game/game_objects/clickableball.h \
-        src/game/game_objects/pathobject.h \
-        src/game/game_objects/timebar.h \
         src/game/gameobject.h \
         src/game/gameview.h \
         src/game/gamewidget.h \
@@ -66,15 +63,18 @@ HEADERS += \
         src/game/minigames/juggling/jugglingcat.h \
         src/game/minigames/juggling/jugglinghand.h \
         src/game/minigames/juggling/jugglingminigame.h \
-        src/game/minigames/test/testminigame.h \
         src/game/minigames/trampoline/trampoline.h \
         src/game/minigames/trampoline/trampolinecat.h \
         src/game/minigames/trampoline/trampolineminigame.h \
+        src/game/minigames/trampoline/trampolinepath.h \
         src/game/minigames/trampoline/trampolinetile.h \
+        src/game/minigames/test/clickableball.h \
+        src/game/minigames/test/testminigame.h \
         src/game/pausepage.h \
         src/game/physics/vector2d.h \
         src/game/scorepage.h \
         src/game/physics/physics.h \
+        src/game/timebar.h \
         src/menu/aboutwidget.h \
         src/menu/mainwindow.h \
         src/menu/settingswidget.h

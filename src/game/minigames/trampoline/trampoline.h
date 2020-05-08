@@ -5,12 +5,13 @@
 
 class Trampoline : public GameObject {
  public:
-  Trampoline(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+  Trampoline(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
-  Trampoline(GameView* graphics_view, qreal width, qreal height, QPointF pos);
+  Trampoline(GameView* game_view, qreal width, qreal height, QPointF pos);
   ~Trampoline() override = default;
 
   void SetUp() override;
+
   void SetPushed(bool pushed);
 
  private:

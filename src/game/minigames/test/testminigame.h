@@ -1,15 +1,16 @@
 #ifndef TESTMINIGAME_H
 #define TESTMINIGAME_H
 
-#include "src/game/game_objects/clickableball.h"
 #include "src/game/gameview.h"
 #include "src/game/minigame.h"
+#include "src/game/minigames/test/clickableball.h"
 
 class TestMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  TestMinigame(GameView* graphics_view, qreal difficulty);
+  TestMinigame(GameView* game_view, qreal difficulty,
+               qreal pixels_in_meter = 100);
   ~TestMinigame() override = default;
 
   void Start() override;
@@ -43,8 +44,8 @@ class TestMinigame : public Minigame {
   ClickableBall* current_ball_ = nullptr;
 
   void SetUp() override;
-  void SetLabel() override;
-  void SetParameters() override;
+  void SetUpLabel() override;
+  void SetUpParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;

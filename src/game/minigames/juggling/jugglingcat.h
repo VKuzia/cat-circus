@@ -8,9 +8,9 @@
 
 class JugglingCat : public GameObject {
  public:
-  JugglingCat(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
-              qreal y = 0);
-  ~JugglingCat() override;
+  JugglingCat(GameView* game_view, QSizeF size, QPointF pos);
+  ~JugglingCat() override = default;
+
   void SetUp() override;
 
   void Update() override;
@@ -27,7 +27,7 @@ class JugglingCat : public GameObject {
   JugglingHand* left_hand_;
   JugglingHand* right_hand_;
 
-  void SetUpHands();
+  void SetUpHand(JugglingHand* hand, QPointF aim_point);
 };
 
 #endif  // JUGGLINGCAT_H

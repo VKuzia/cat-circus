@@ -3,16 +3,16 @@
 #include <QGraphicsColorizeEffect>
 #include <QRandomGenerator>
 
-TrampolineTile::TrampolineTile(GameView* graphics_view, qreal width,
-                               qreal height, QPointF pos)
-    : GameObject(graphics_view, width, height, pos) {
+TrampolineTile::TrampolineTile(GameView* game_view, qreal width, qreal height,
+                               QPointF pos)
+    : GameObject(game_view, width, height, pos) {
   setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
   setOpacity(kNoFocusOpacity);
 }
 
-TrampolineTile::TrampolineTile(GameView* graphics_view, qreal width,
-                               qreal height, qreal x, qreal y)
-    : TrampolineTile(graphics_view, width, height, QPointF(x, y)) {}
+TrampolineTile::TrampolineTile(GameView* game_view, qreal width, qreal height,
+                               qreal x, qreal y)
+    : TrampolineTile(game_view, width, height, QPointF(x, y)) {}
 
 void TrampolineTile::SetPixmap(const QPixmap& pixmap) {
   setGraphicsEffect(nullptr);
@@ -25,8 +25,8 @@ void TrampolineTile::Activate() {
   // Some effect should be here :)
 }
 
-bool TrampolineTile::CheckPath(const PathObject& path_item_,
-                               const QPointF& start, const QPointF& finish) {
+bool TrampolineTile::CheckPath(const TrampolinePath& path_item_, QPointF start,
+                               QPointF finish) {
   bool result = false;
   qreal path_width =
       path_item_.path().boundingRect().width() + 1;  // To prevent zero division
@@ -34,22 +34,22 @@ bool TrampolineTile::CheckPath(const PathObject& path_item_,
   Vector2D shift(finish.x() - start.x(), finish.y() - start.y());
   if (direction_ == SwipeDirection::kUp) {
     if (path_height / path_width > kMinimalPathRectRatio &&
-        shift.y() < -kMinimalSwipeLength * graphics_view_->GetPixelsInMeter()) {
+        shift.y() < -kMinimalSwipeLength * game_view_->GetPixelsInMeter()) {
       result = true;
     }
   } else if (direction_ == SwipeDirection::kDown) {
     if (path_height / path_width > kMinimalPathRectRatio &&
-        shift.y() > kMinimalSwipeLength * graphics_view_->GetPixelsInMeter()) {
+        shift.y() > kMinimalSwipeLength * game_view_->GetPixelsInMeter()) {
       result = true;
     }
   } else if (direction_ == SwipeDirection::kLeft) {
     if (path_width / path_height > kMinimalPathRectRatio &&
-        shift.x() < -kMinimalSwipeLength * graphics_view_->GetPixelsInMeter()) {
+        shift.x() < -kMinimalSwipeLength * game_view_->GetPixelsInMeter()) {
       result = true;
     }
   } else if (direction_ == SwipeDirection::kRight) {
     if (path_width / path_height > kMinimalPathRectRatio &&
-        shift.x() > kMinimalSwipeLength * graphics_view_->GetPixelsInMeter()) {
+        shift.x() > kMinimalSwipeLength * game_view_->GetPixelsInMeter()) {
       result = true;
     }
   }

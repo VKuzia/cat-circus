@@ -13,17 +13,17 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   Q_INTERFACES(QGraphicsItem)
 
  public:
-  explicit GameObject(GameView* graphics_view);
-  GameObject(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+  GameObject(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
-  GameObject(GameView* graphics_view, qreal width, qreal height, QPointF pos);
+  GameObject(GameView* game_view, qreal width, qreal height, QPointF pos);
+  GameObject(GameView* game_view, QSizeF size, QPointF pos);
   ~GameObject() override = default;
 
   virtual void SetUp();
   virtual void Update();
 
   void AddVelocity(qreal x, qreal y);
-  void AddVelocity(Vector2D velocity);
+  void AddVelocity(Vector2D rhs);
   void SetVelocity(qreal x, qreal y);
   void SetVelocity(Vector2D velocity);
   Vector2D GetVelocity() const;
@@ -40,19 +40,17 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   void SetPos(QPointF pos);
 
   void MoveByMeters(qreal x, qreal y);
+  void MoveByMeters(Vector2D shift);
 
  protected:
-  static const QString kPathToMinigameImages;
-
-  // 60 frames period
+  // Represents 60 frames a second refresh time
+  // Is used for motion calculus
   const qreal kUpdateTime = 1.0 / 60;
   const QRectF kDefaultBoundingRect;
 
-  GameView* graphics_view_ = nullptr;
-  qreal width_ = 0;
-  qreal height_ = 0;
-  qreal x_ = 0;
-  qreal y_ = 0;
+  GameView* game_view_ = nullptr;
+  QSizeF size_;
+  QPointF pos_;
   Vector2D velocity_ = {0, 0};
 };
 

@@ -1,7 +1,10 @@
 #ifndef POINTSPAGE_H
 #define POINTSPAGE_H
 
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <QMovie>
+#include <QPropertyAnimation>
 #include <QTimer>
 #include <QWidget>
 
@@ -11,6 +14,7 @@ class ScorePage;
 
 class ScorePage : public QWidget {
   Q_OBJECT
+  Q_PROPERTY(int score READ GetScore WRITE SetScore)
 
  public:
   explicit ScorePage(QWidget* parent = nullptr);
@@ -37,29 +41,43 @@ class ScorePage : public QWidget {
   void ReturnToMainMenu();
 
  private:
-  const QColor kActiveLifeColor = QColor::fromRgb(10, 230, 10, 200);
-  const QColor kInactiveLifeColor = QColor::fromRgb(230, 10, 10, 200);
-
   const int32_t kExpireTime = 2500;
+  const int32_t kScoreAnimationTime = 800;
   const int32_t kResumeTime = 1500;
-  const int32_t kLifeInterval = 20;
-  const int32_t kBasicLivesCount = 3;
+  const int32_t kLivesCount = 3;
 
-  // Ratio of live height to lives_scene_ height;
-  // Temporary parameter for lives appearance
-  const qreal kLiveHeightFactor = 0.9;
+  // Ratio of life height relatively ui_lives_view_ height
+  const qreal kLiveScaleYFactor = 0.9;
+  const qreal kLiveScaleXFactor = 0.2;
+  // Ratio of horizontal space between lives relatively life_width_
+  const qreal kLifeIntervalXFactor = 0.3;
+  // Disappear animation speed in percents
+  const int32_t kLifeDisappearSpeed = 150;
 
   int32_t score_ = 0;
-  int32_t lives_count_ = kBasicLivesCount;
+  QPropertyAnimation score_animation_;
+
+  int32_t remaining_lives_ = kLivesCount;
+  QSize life_size_;
 
   QGraphicsScene* lives_scene_;
   Ui::ScorePage* ui_;
-  QVector<QGraphicsEllipseItem*> lives_;
+  QVector<QGraphicsPixmapItem*> lives_;
+  QMovie life_movie_;
+  QMovie life_disappear_movie_;
+
   QTimer expire_timer_;
+  bool is_minigame_passed_ = false;
+  bool is_life_disappearing_ = false;
 
   void SetUpLives();
-  QGraphicsEllipseItem* GetNewLife(int32_t index) const;
+  QGraphicsPixmapItem* GetNewLife(int32_t index) const;
   void RemoveLife();
+
+  void SetUpAnimations();
+
+  void SetScore(int32_t score);
+  int32_t GetScore() const;
 };
 
 #endif  // POINTSPAGE_H

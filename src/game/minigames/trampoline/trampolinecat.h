@@ -10,13 +10,13 @@ class TrampolineCat : public GameObject {
   Q_PROPERTY(qreal rotation READ rotation WRITE SetRotation)
 
  public:
-  TrampolineCat(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
+  TrampolineCat(GameView* game_view, qreal width, qreal height, qreal x = 0,
                 qreal y = 0);
-  TrampolineCat(GameView* graphics_view, qreal width, qreal height,
-                QPointF pos);
+  TrampolineCat(GameView* game_view, qreal width, qreal height, QPointF pos);
   ~TrampolineCat() override;
 
   void SetUp() override;
+
   void Update() override;
 
   void RotateFor(int32_t millis);

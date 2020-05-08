@@ -3,17 +3,18 @@
 
 #include <QDir>
 
-#include "src/game/game_objects/pathobject.h"
 #include "src/game/minigame.h"
 #include "src/game/minigames/trampoline/trampoline.h"
 #include "src/game/minigames/trampoline/trampolinecat.h"
+#include "src/game/minigames/trampoline/trampolinepath.h"
 #include "src/game/minigames/trampoline/trampolinetile.h"
 
 class TrampolineMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  TrampolineMinigame(GameView* graphics_view, qreal difficulty);
+  TrampolineMinigame(GameView* game_view, qreal difficulty,
+                     qreal pixels_in_meter = 576 / 8.0);
   ~TrampolineMinigame() override = default;
 
   void Start() override;
@@ -23,8 +24,6 @@ class TrampolineMinigame : public Minigame {
   void MouseMoveEvent(QMouseEvent*) override;
 
  private:
-  const qreal kPixelsInMeter = 576 / 8.0;  // To show 7m height
-
   const QPixmap kUp =
       QPixmap(QDir::currentPath() + "/data/images/minigames/trampoline/up.png");
   const QPixmap kDown = QPixmap(QDir::currentPath() +
@@ -64,7 +63,7 @@ class TrampolineMinigame : public Minigame {
 
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;
-  PathObject* current_mouse_path_ = nullptr;
+  TrampolinePath* current_mouse_path_ = nullptr;
   QVector<TrampolineTile*> tiles_;
   QPointF last_mouse_pressed_;
   QPointF first_mouse_pressed_;
@@ -84,9 +83,9 @@ class TrampolineMinigame : public Minigame {
   void FinishFlip();
 
   void SetUp() override;
-  void SetLabel() override;
-  void SetTiles();
-  void SetParameters() override;
+  void SetUpLabel() override;
+  void SetUpParameters() override;
+  void SetUpTiles();
 
   void AnimateTutorial() override;
   void StartGame() override;

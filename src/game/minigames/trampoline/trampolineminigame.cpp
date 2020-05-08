@@ -3,37 +3,35 @@
 #include <QMouseEvent>
 #include <QRandomGenerator>
 
-TrampolineMinigame::TrampolineMinigame(GameView* graphics_view,
-                                       qreal difficulty)
-    : Minigame(graphics_view, difficulty) {
-  graphics_view->SetPixelsInMeter(kPixelsInMeter);
-}
+TrampolineMinigame::TrampolineMinigame(GameView* game_view, qreal difficulty,
+                                       qreal pixels_in_meter)
+    : Minigame(game_view, difficulty, pixels_in_meter) {}
 
 void TrampolineMinigame::Start() { AnimateTutorial(); }
 
 void TrampolineMinigame::SetUp() {
-  SetParameters();
+  SetUpParameters();
   time_bar_->setVisible(false);
 
-  cat_ = new TrampolineCat(graphics_view_, kCatWidth, kCatHeight, kCatStartPos);
+  cat_ = new TrampolineCat(game_view_, kCatWidth, kCatHeight, kCatStartPos);
   cat_->SetUp();
-  graphics_view_->scene()->addItem(cat_);
+  game_view_->scene()->addItem(cat_);
 
-  trampoline_ = new Trampoline(graphics_view_, kTrampolineWidth,
-                               kTrampolineHeight, kTrampolineStartPos);
+  trampoline_ = new Trampoline(game_view_, kTrampolineWidth, kTrampolineHeight,
+                               kTrampolineStartPos);
   trampoline_->SetUp();
-  graphics_view_->scene()->addItem(trampoline_);
+  game_view_->scene()->addItem(trampoline_);
 
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &TrampolineMinigame::Tick);
 
-  SetTiles();
+  SetUpTiles();
 
   is_running_ = true;
-  SetLabel();
+  SetUpLabel();
 }
 
-void TrampolineMinigame::SetLabel() {
+void TrampolineMinigame::SetUpLabel() {
   tutorial_label_->setHtml("[TUTORIAL]");
   tutorial_label_->setDefaultTextColor(Qt::black);
   tutorial_label_->setTextWidth(300);
@@ -42,7 +40,7 @@ void TrampolineMinigame::SetLabel() {
   tutorial_label_->setVisible(false);
 }
 
-void TrampolineMinigame::SetParameters() {
+void TrampolineMinigame::SetUpParameters() {
   int32_t difficulty_level_ = qRound(difficulty_ / (0.1));
   switch (difficulty_level_) {
     case 1:
@@ -170,14 +168,14 @@ void TrampolineMinigame::PrepareTiles() {
   }
 }
 
-void TrampolineMinigame::SetTiles() {
+void TrampolineMinigame::SetUpTiles() {
   for (int32_t i = -swipe_count_ / 2; i <= (swipe_count_ - 1) / 2; i++) {
     TrampolineTile* tile =
-        new TrampolineTile(graphics_view_, kTileWidth, kTileHeight,
+        new TrampolineTile(game_view_, kTileWidth, kTileHeight,
                            kTileX + i * (kTileWidth + kTileXInterval), kTileY);
     tile->setVisible(false);
     tiles_.push_back(tile);
-    graphics_view_->scene()->addItem(tile);
+    game_view_->scene()->addItem(tile);
   }
 }
 
@@ -225,17 +223,17 @@ void TrampolineMinigame::Stop(Status status) {
 }
 
 void TrampolineMinigame::Win() {
-  graphics_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
+  game_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
   QTimer::singleShot(kOutroDuration, this, [this] {
-    graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
+    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
     emit Passed(score_);
   });
 }
 
 void TrampolineMinigame::Lose() {
-  graphics_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
+  game_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
   QTimer::singleShot(kOutroDuration, this, [this] {
-    graphics_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
+    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
     emit Failed();
   });
 }
@@ -246,10 +244,10 @@ void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
   is_mouse_pressed_ = true;
   first_mouse_pressed_ = event->pos();
   last_mouse_pressed_ = first_mouse_pressed_;
-  current_mouse_path_ = new PathObject(graphics_view_);
+  current_mouse_path_ = new TrampolinePath(game_view_);
   current_mouse_path_->setPen(kMousePathPen);
   current_mouse_path_->MoveTo(first_mouse_pressed_);
-  graphics_view_->scene()->addItem(current_mouse_path_);
+  game_view_->scene()->addItem(current_mouse_path_);
 }
 
 void TrampolineMinigame::MouseReleaseEvent(QMouseEvent*) {

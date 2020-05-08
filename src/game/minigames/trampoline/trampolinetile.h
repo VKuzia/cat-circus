@@ -1,16 +1,16 @@
 #ifndef TRAMPOLINETILE_H
 #define TRAMPOLINETILE_H
 
-#include "src/game/game_objects/pathobject.h"
 #include "src/game/gameobject.h"
+#include "src/game/minigames/trampoline/trampolinepath.h"
 
 class TrampolineTile : public GameObject {
  public:
   enum class SwipeDirection { kUp, kDown, kLeft, kRight };
 
-  TrampolineTile(GameView* graphics_view, qreal width, qreal height,
+  TrampolineTile(GameView* game_view, qreal width, qreal height,
                  qreal x = 0, qreal y = 0);
-  TrampolineTile(GameView* graphics_view, qreal width, qreal height,
+  TrampolineTile(GameView* game_view, qreal width, qreal height,
                  QPointF pos);
   ~TrampolineTile() override = default;
 
@@ -18,8 +18,8 @@ class TrampolineTile : public GameObject {
 
   void Activate();
 
-  bool CheckPath(const PathObject& path_item_, const QPointF& start,
-                 const QPointF& finish);
+  bool CheckPath(const TrampolinePath& path_item_, QPointF start,
+                 QPointF finish);
 
   void SetDirection(SwipeDirection direction);
 

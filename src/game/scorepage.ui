@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="2,3,4,3,3,3,3,3">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="3,3,3,10,2,3,2,3">
    <item>
     <spacer name="verticalSpacer_2">
      <property name="orientation">
