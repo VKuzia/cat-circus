@@ -16,6 +16,7 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   GameObject(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
   GameObject(GameView* game_view, qreal width, qreal height, QPointF pos);
+  GameObject(GameView* game_view, QSizeF size, qreal x, qreal y);
   GameObject(GameView* game_view, QSizeF size, QPointF pos);
   ~GameObject() override = default;
 

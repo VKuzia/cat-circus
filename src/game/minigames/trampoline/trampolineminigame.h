@@ -40,8 +40,7 @@ class TrampolineMinigame : public Minigame {
   const QPen kMousePathPen = QPen(QBrush(QColor::fromRgb(200, 0, 0, 150)), 5);
   const int32_t kMousePathFadeAwayTime = 2000;
 
-  const qreal kCatWidth = 1.5;
-  const qreal kCatHeight = 1.5;
+  const QSizeF kCatSize = {1.5, 1.5};
   const QPointF kCatStartPos = QPointF(-3.5, -2.5);
   const qreal kCatFlipHeight = -2;
   const Vector2D kWrongVelocity = {8, -9.5};
@@ -49,14 +48,11 @@ class TrampolineMinigame : public Minigame {
   const int32_t kCorrectFlipTime = 1000;
   const int32_t kIncorrectFlipTime = 2500;
 
-  const qreal kTileWidth = 1.2;
-  const qreal kTileHeight = 1.2;
-  const qreal kTileX = 3.5;
+  const QSizeF kTileSize_ = {1.2, 1.2};
+  const QPointF kTileCentrePos_ = {3.5, -2.5};
   const qreal kTileXInterval = 0.4;
-  const qreal kTileY = -2.5;
 
-  const qreal kTrampolineWidth = 3;
-  const qreal kTrampolineHeight = 1.5;
+  const QSizeF kTrampolineSize_ = {3, 1.5};
   const QPointF kTrampolineStartPos = QPointF(-3.5, 3);
 
   const int32_t kFlyAwayTime = 2800;
@@ -76,9 +72,9 @@ class TrampolineMinigame : public Minigame {
   bool is_making_flip_ = false;
   bool is_failed_ = false;
 
-  void MakeFlip();
   void PrepareTiles();
   void SetTilesVisible(bool visible);
+  void MakeFlip();
   void FinishTile();
   void FinishFlip();
 

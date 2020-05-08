@@ -13,9 +13,7 @@ class TrampolineTile : public GameObject {
  public:
   enum class SwipeDirection { kUp, kDown, kLeft, kRight };
 
-  TrampolineTile(GameView* game_view, qreal width, qreal height, qreal x = 0,
-                 qreal y = 0);
-  TrampolineTile(GameView* game_view, qreal width, qreal height, QPointF pos);
+  TrampolineTile(GameView* game_view, QSizeF size, qreal x, qreal y);
   ~TrampolineTile() override = default;
 
   void SetPixmap(const QPixmap& pixmap);

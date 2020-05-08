@@ -1,15 +1,9 @@
 #include "trampolinecat.h"
 
-TrampolineCat::TrampolineCat(GameView* game_view, qreal width, qreal height,
-                             QPointF pos)
-    : GameObject(game_view, width, height, pos) {}
+TrampolineCat::TrampolineCat(GameView* game_view, QSizeF size, QPointF pos)
+    : GameObject(game_view, size, pos) {}
 
 TrampolineCat::~TrampolineCat() {}
-
-TrampolineCat::TrampolineCat(GameView* game_view, qreal width, qreal height,
-                             qreal x, qreal y)
-
-    : TrampolineCat(game_view, width, height, QPointF(x, y)) {}
 
 void TrampolineCat::SetUp() {
   int32_t width = boundingRect().size().toSize().width();

@@ -1,12 +1,7 @@
 #include "trampoline.h"
 
-Trampoline::Trampoline(GameView* game_view, qreal width, qreal height, qreal x,
-                       qreal y)
-    : Trampoline(game_view, width, height, QPointF(x, y)) {}
-
-Trampoline::Trampoline(GameView* game_view, qreal width, qreal height,
-                       QPointF pos)
-    : GameObject(game_view, width, height, pos) {}
+Trampoline::Trampoline(GameView* game_view, QSizeF size, QPointF pos)
+    : GameObject(game_view, size, pos) {}
 
 void Trampoline::SetUp() {
   int32_t width = boundingRect().size().toSize().width();

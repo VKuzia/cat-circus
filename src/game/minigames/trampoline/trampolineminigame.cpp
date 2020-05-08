@@ -13,12 +13,12 @@ void TrampolineMinigame::SetUp() {
   SetUpParameters();
   time_bar_->setVisible(false);
 
-  cat_ = new TrampolineCat(game_view_, kCatWidth, kCatHeight, kCatStartPos);
+  cat_ = new TrampolineCat(game_view_, kCatSize, kCatStartPos);
   cat_->SetUp();
   game_view_->scene()->addItem(cat_);
 
-  trampoline_ = new Trampoline(game_view_, kTrampolineWidth, kTrampolineHeight,
-                               kTrampolineStartPos);
+  trampoline_ =
+      new Trampoline(game_view_, kTrampolineSize_, kTrampolineStartPos);
   trampoline_->SetUp();
   game_view_->scene()->addItem(trampoline_);
 
@@ -74,6 +74,18 @@ void TrampolineMinigame::SetUpParameters() {
   }
 }
 
+void TrampolineMinigame::SetUpTiles() {
+  for (int32_t i = -swipe_count_ / 2; i <= (swipe_count_ - 1) / 2; i++) {
+    TrampolineTile* tile = new TrampolineTile(
+        game_view_, kTileSize_,
+        kTileCentrePos_.x() + i * (kTileSize_.width() + kTileXInterval),
+        kTileCentrePos_.y());
+    tile->setVisible(false);
+    tiles_.push_back(tile);
+    game_view_->scene()->addItem(tile);
+  }
+}
+
 void TrampolineMinigame::AnimateTutorial() {
   tutorial_label_->setVisible(true);
   QTimer::singleShot(kTutorialDuration, this, &TrampolineMinigame::StartGame);
@@ -114,28 +126,6 @@ void TrampolineMinigame::Tick() {
   }
 }
 
-void TrampolineMinigame::MakeFlip() {
-  if (flip_count_ == 0) {
-    Stop(Status::kPass);
-    return;
-  }
-  SetTilesVisible(true);
-  tiles_.at(0)->Activate();
-  current_swipe_count_ = swipe_count_;
-  is_making_flip_ = true;
-  flip_count_--;
-  cat_->SetJustFlipped(true);
-  cat_->SetMoving(false);
-  time_bar_->setVisible(true);
-  time_bar_->Launch(flip_time_);
-  is_successful_flip_ = false;
-  QTimer::singleShot(flip_time_, this, [this] {
-    if (is_making_flip_) {
-      FinishFlip();
-    }
-  });
-}
-
 void TrampolineMinigame::PrepareTiles() {
   for (auto current_tile : tiles_) {
     int32_t direction_num = QRandomGenerator::global()->bounded(3);
@@ -161,21 +151,35 @@ void TrampolineMinigame::PrepareTiles() {
   }
 }
 
-void TrampolineMinigame::SetUpTiles() {
-  for (int32_t i = -swipe_count_ / 2; i <= (swipe_count_ - 1) / 2; i++) {
-    TrampolineTile* tile =
-        new TrampolineTile(game_view_, kTileWidth, kTileHeight,
-                           kTileX + i * (kTileWidth + kTileXInterval), kTileY);
-    tile->setVisible(false);
-    tiles_.push_back(tile);
-    game_view_->scene()->addItem(tile);
-  }
-}
-
 void TrampolineMinigame::SetTilesVisible(bool visible) {
   for (auto current_tile : tiles_) {
     current_tile->setVisible(visible);
   }
+}
+
+void TrampolineMinigame::MakeFlip() {
+  if (flip_count_ == 0) {
+    Stop(Status::kPass);
+    return;
+  }
+  SetTilesVisible(true);
+  tiles_.at(0)->Activate();
+  current_swipe_count_ = swipe_count_;
+  is_making_flip_ = true;
+  flip_count_--;
+  cat_->SetJustFlipped(true);
+  cat_->SetMoving(false);
+  time_bar_->setVisible(true);
+  time_bar_->Launch(flip_time_);
+  is_successful_flip_ = false;
+  QTimer::singleShot(flip_time_, this, [this] {
+    if (is_making_flip_) {
+      if (swipe_count_ - current_swipe_count_ < tiles_.size()) {
+        tiles_.at(swipe_count_ - current_swipe_count_)->Deactivate(false);
+      }
+      FinishFlip();
+    }
+  });
 }
 
 void TrampolineMinigame::FinishTile() {

@@ -8,6 +8,9 @@ GameObject::GameObject(GameView* game_view, qreal width, qreal height,
                        QPointF pos)
     : GameObject(game_view, QSizeF(width, height), pos) {}
 
+GameObject::GameObject(GameView* game_view, QSizeF size, qreal x, qreal y)
+    : GameObject(game_view, size, QPointF(x, y)) {}
+
 GameObject::GameObject(GameView* game_view, QSizeF size, QPointF pos)
     : kDefaultBoundingRect(
           QRectF(-size.width() * game_view->GetPixelsInMeter() / 2,
