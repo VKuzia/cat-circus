@@ -8,6 +8,12 @@ TrampolineTile::TrampolineTile(GameView* game_view, qreal width, qreal height,
     : GameObject(game_view, width, height, pos) {
   setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
   setOpacity(kNoFocusOpacity);
+
+  animation_.setTargetObject(this);
+  animation_.setPropertyName("animationProgress");
+  animation_.setDuration(kScaleAnimationDuration_);
+  animation_.setStartValue(0);
+  animation_.setEndValue(1);
 }
 
 TrampolineTile::TrampolineTile(GameView* game_view, qreal width, qreal height,
@@ -21,8 +27,8 @@ void TrampolineTile::SetPixmap(const QPixmap& pixmap) {
 }
 
 void TrampolineTile::Activate() {
-  setOpacity(1);
-  // Some effect should be here :)
+  animation_.setDirection(QPropertyAnimation::Direction::Forward);
+  animation_.start();
 }
 
 bool TrampolineTile::CheckPath(const TrampolinePath& path_item_, QPointF start,
@@ -53,7 +59,6 @@ bool TrampolineTile::CheckPath(const TrampolinePath& path_item_, QPointF start,
       result = true;
     }
   }
-  Deactivate(result);
   return result;
 }
 
@@ -65,10 +70,22 @@ void TrampolineTile::Deactivate(bool is_path_correct) {
   QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect();
   if (is_path_correct) {
     effect->setColor(kPassColor);
-    setOpacity(kNoFocusOpacity);
   } else {
     effect->setColor(kFailColor);
   }
-  effect->setStrength(0.7);
+  effect->setStrength(kEffectStrength_);
   setGraphicsEffect(effect);
+
+  animation_.setDirection(QPropertyAnimation::Direction::Backward);
+  animation_.start();
+}
+
+qreal TrampolineTile::GetAnimationProgress() const {
+  return animation_progress_;
+}
+
+void TrampolineTile::SetAnimationProgress(qreal progress) {
+  animation_progress_ = progress;
+  setOpacity(kNoFocusOpacity + (1 - kNoFocusOpacity) * animation_progress_);
+  setScale(1 + kScaleAnimationAmount_ * progress);
 }

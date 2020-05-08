@@ -27,7 +27,7 @@ class TrampolinePath : public QObject, public QGraphicsPathItem {
  private:
   GameView* game_view_;
   QPainterPath path_;
-  QPropertyAnimation animation_;
+  QPropertyAnimation opacity_animation_;
 };
 
 #endif  // TRAMPOLINEPATH_H

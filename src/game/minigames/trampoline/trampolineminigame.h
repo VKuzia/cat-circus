@@ -24,14 +24,14 @@ class TrampolineMinigame : public Minigame {
   void MouseMoveEvent(QMouseEvent*) override;
 
  private:
-  const QPixmap kUp =
+  const QPixmap kUpPixmap =
       QPixmap(QDir::currentPath() + "/data/images/minigames/trampoline/up.png");
-  const QPixmap kDown = QPixmap(QDir::currentPath() +
-                                "/data/images/minigames/trampoline/down.png");
-  const QPixmap kLeft = QPixmap(QDir::currentPath() +
-                                "/data/images/minigames/trampoline/left.png");
-  const QPixmap kRight = QPixmap(QDir::currentPath() +
-                                 "/data/images/minigames/trampoline/right.png");
+  const QPixmap kDownPixmap = QPixmap(
+      QDir::currentPath() + "/data/images/minigames/trampoline/down.png");
+  const QPixmap kLeftPixmap = QPixmap(
+      QDir::currentPath() + "/data/images/minigames/trampoline/left.png");
+  const QPixmap kRightPixmap = QPixmap(
+      QDir::currentPath() + "/data/images/minigames/trampoline/right.png");
 
   const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
@@ -74,7 +74,7 @@ class TrampolineMinigame : public Minigame {
   bool is_mouse_pressed_ = false;
   bool is_successful_flip_ = false;
   bool is_making_flip_ = false;
-  bool is_lost_ = false;
+  bool is_failed_ = false;
 
   void MakeFlip();
   void PrepareTiles();

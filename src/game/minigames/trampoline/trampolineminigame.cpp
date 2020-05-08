@@ -26,8 +26,6 @@ void TrampolineMinigame::SetUp() {
   connect(&tick_timer_, &QTimer::timeout, this, &TrampolineMinigame::Tick);
 
   SetUpTiles();
-
-  is_running_ = true;
   SetUpLabel();
 }
 
@@ -93,16 +91,18 @@ void TrampolineMinigame::Tick() {
     return;
   }
   cat_->Update();
-  if (!is_lost_ && cat_->GetY() < kCatFlipHeight && !cat_->IsJustFlipped()) {
+  if (!is_failed_ && cat_->GetY() < kCatFlipHeight && !cat_->IsJustFlipped()) {
     MakeFlip();
   } else if (cat_->collidesWithItem(trampoline_)) {
+    // Jump up if cat reached trampoline
     if (cat_->IsFlying()) {
       cat_->SetFlying(false);
       trampoline_->SetPushed(true);
       cat_->SetJustFlipped(false);
+      // Hide tiles from previous jump
       SetTilesVisible(false);
       PrepareTiles();
-      if (is_lost_) {
+      if (is_failed_) {
         cat_->SetVelocity(kWrongVelocity);
       } else {
         cat_->SetVelocity(0, -cat_->GetVelocity().y());
@@ -120,6 +120,7 @@ void TrampolineMinigame::MakeFlip() {
     return;
   }
   SetTilesVisible(true);
+  tiles_.at(0)->Activate();
   current_swipe_count_ = swipe_count_;
   is_making_flip_ = true;
   flip_count_--;
@@ -141,27 +142,19 @@ void TrampolineMinigame::PrepareTiles() {
     switch (direction_num) {
       case 0:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kUp);
-        current_tile->SetPixmap(
-            kUp.scaled(qRound(current_tile->boundingRect().width()),
-                       qRound(current_tile->boundingRect().height())));
+        current_tile->SetPixmap(kUpPixmap);
         break;
       case 1:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kDown);
-        current_tile->SetPixmap(
-            kDown.scaled(qRound(current_tile->boundingRect().width()),
-                         qRound(current_tile->boundingRect().height())));
+        current_tile->SetPixmap(kDownPixmap);
         break;
       case 2:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kLeft);
-        current_tile->SetPixmap(
-            kLeft.scaled(qRound(current_tile->boundingRect().width()),
-                         qRound(current_tile->boundingRect().height())));
+        current_tile->SetPixmap(kLeftPixmap);
         break;
       case 3:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kRight);
-        current_tile->SetPixmap(
-            kRight.scaled(qRound(current_tile->boundingRect().width()),
-                          qRound(current_tile->boundingRect().height())));
+        current_tile->SetPixmap(kRightPixmap);
         break;
     }
     current_tile->SetUp();
@@ -187,13 +180,22 @@ void TrampolineMinigame::SetTilesVisible(bool visible) {
 
 void TrampolineMinigame::FinishTile() {
   current_swipe_count_--;
-  if (!tiles_.at(swipe_count_ - current_swipe_count_ - 1)
-           ->CheckPath(*current_mouse_path_, first_mouse_pressed_,
-                       last_mouse_pressed_)) {
+  int32_t current_tile_index = swipe_count_ - current_swipe_count_ - 1;
+  TrampolineTile* current_tile = tiles_.at(current_tile_index);
+  // If the path is acceptable
+  if (!current_tile->CheckPath(*current_mouse_path_, first_mouse_pressed_,
+                               last_mouse_pressed_)) {
+    current_tile->Deactivate(false);
     FinishFlip();
-  } else if (current_swipe_count_ == 0) {
-    is_successful_flip_ = true;
-    FinishFlip();
+  } else {
+    current_tile->Deactivate(true);
+    if (current_swipe_count_ == 0) {
+      is_successful_flip_ = true;
+      FinishFlip();
+    }
+    if (current_tile_index + 1 < swipe_count_) {
+      tiles_.at(current_tile_index + 1)->Activate();
+    }
   }
 }
 
@@ -202,7 +204,7 @@ void TrampolineMinigame::FinishFlip() {
   is_making_flip_ = false;
   cat_->SetMoving(true);
   if (!is_successful_flip_) {
-    is_lost_ = true;
+    is_failed_ = true;
     QTimer::singleShot(kFlyAwayTime, this, [this] { Stop(Status::kFail); });
     cat_->RotateFor(kIncorrectFlipTime);
   } else {

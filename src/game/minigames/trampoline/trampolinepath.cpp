@@ -3,10 +3,10 @@
 TrampolinePath::TrampolinePath(GameView* game_view) : game_view_(game_view) {
   setPos(-game_view_->width() / 2, -game_view_->height() / 2);
 
-  animation_.setTargetObject(this);
-  animation_.setPropertyName("opacity");
-  animation_.setKeyValueAt(0.0, 1.0);
-  animation_.setKeyValueAt(1.0, 0.0);
+  opacity_animation_.setTargetObject(this);
+  opacity_animation_.setPropertyName("opacity");
+  opacity_animation_.setKeyValueAt(0.0, 1.0);
+  opacity_animation_.setKeyValueAt(1.0, 0.0);
 }
 
 void TrampolinePath::MoveTo(QPointF point) { path_.moveTo(point); }
@@ -17,8 +17,8 @@ void TrampolinePath::LineTo(QPointF point) {
 }
 
 void TrampolinePath::FadeAway(int32_t millis) {
-  animation_.setDuration(millis);
-  animation_.start();
-  connect(&animation_, &QPropertyAnimation::finished, this,
+  opacity_animation_.setDuration(millis);
+  opacity_animation_.start();
+  connect(&opacity_animation_, &QPropertyAnimation::finished, this,
           [this] { emit FadedAway(); });
 }

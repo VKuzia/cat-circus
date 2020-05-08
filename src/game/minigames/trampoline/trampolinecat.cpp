@@ -30,8 +30,8 @@ void TrampolineCat::Update() {
   if (!is_moving_) {
     return;
   }
-  AddVelocity(0, physics::kGravity.y() * kUpdateTime);
-  MoveByMeters(velocity_.x() * kUpdateTime, velocity_.y() * kUpdateTime);
+  AddVelocity(physics::kGravity * kUpdateTime);
+  MoveByMeters(velocity_ * kUpdateTime);
 }
 
 void TrampolineCat::RotateFor(int32_t millis) {
