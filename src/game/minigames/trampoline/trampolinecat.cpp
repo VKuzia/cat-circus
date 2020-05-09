@@ -6,7 +6,10 @@ TrampolineCat::TrampolineCat(GameView* game_view, QSizeF size, QPointF pos)
 TrampolineCat::~TrampolineCat() {}
 
 void TrampolineCat::SetUp() {
-  setPixmap(GetPixmapFrom("trampoline/cat.png"));
+  pixmap_normal_ = GetPixmapFrom("trampoline/cat_normal.png");
+  pixmap_happy_ = GetPixmapFrom("trampoline/cat_happy.png");
+  pixmap_sad_ = GetPixmapFrom("trampoline/cat_sad.png");
+  setPixmap(pixmap_normal_);
 
   rotation_animation_.setPropertyName("rotation");
   rotation_animation_.setTargetObject(this);
@@ -26,6 +29,20 @@ void TrampolineCat::RotateFor(int32_t millis) {
   rotation_animation_.stop();
   rotation_animation_.setDuration(millis);
   rotation_animation_.start();
+}
+
+void TrampolineCat::SetMood(TrampolineCat::Mood mood) {
+  switch (mood) {
+    case Mood::kNormal:
+      setPixmap(pixmap_normal_);
+      break;
+    case Mood::kHappy:
+      setPixmap(pixmap_happy_);
+      break;
+    case Mood::kSad:
+      setPixmap(pixmap_sad_);
+      break;
+  }
 }
 
 void TrampolineCat::SetMoving(bool moving) { is_moving_ = moving; }

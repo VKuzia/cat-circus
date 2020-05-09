@@ -109,14 +109,15 @@ void TrampolineMinigame::Tick() {
     // Jump up if cat reached trampoline
     if (cat_->IsFlying()) {
       cat_->SetFlying(false);
-      trampoline_->SetPushed(true);
       cat_->SetJustFlipped(false);
+      trampoline_->SetPushed(true);
       // Hide tiles from previous jump
       SetTilesVisible(false);
       PrepareTiles();
       if (is_failed_) {
         cat_->SetVelocity(kWrongVelocity);
       } else {
+        cat_->SetMood(TrampolineCat::Mood::kNormal);
         cat_->SetVelocity(0, -cat_->GetVelocity().y());
       }
     }
@@ -177,6 +178,7 @@ void TrampolineMinigame::MakeFlip() {
       if (swipe_count_ - current_swipe_count_ < tiles_.size()) {
         tiles_.at(swipe_count_ - current_swipe_count_)->Deactivate(false);
       }
+      cat_->SetMood(TrampolineCat::Mood::kSad);
       FinishFlip();
     }
   });
@@ -190,9 +192,11 @@ void TrampolineMinigame::FinishTile() {
   if (!current_tile->CheckPath(*current_mouse_path_, first_mouse_pressed_,
                                last_mouse_pressed_)) {
     current_tile->Deactivate(false);
+    cat_->SetMood(TrampolineCat::Mood::kSad);
     FinishFlip();
   } else {
     current_tile->Deactivate(true);
+    cat_->SetMood(TrampolineCat::Mood::kHappy);
     if (current_swipe_count_ == 0) {
       is_successful_flip_ = true;
       FinishFlip();
