@@ -54,6 +54,7 @@ class TrampolineMinigame : public Minigame {
 
   const QSizeF kTrampolineSize_ = {3, 1.5};
   const QPointF kTrampolineStartPos = QPointF(-3.5, 3);
+  const qreal kTrampolineDepth_ = 0.5;
 
   const int32_t kFlyAwayTime = 2800;
 

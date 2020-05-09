@@ -108,22 +108,29 @@ void TrampolineMinigame::Tick() {
   if (!is_failed_ && cat_->GetY() < kCatFlipHeight && !cat_->IsJustFlipped()) {
     MakeFlip();
   } else if (cat_->collidesWithItem(trampoline_)) {
-    // Jump up if cat reached trampoline
+    // Jump up if cat reached trampoline from above
     if (cat_->IsFlying()) {
-      cat_->SetFlying(false);
-      cat_->SetJustFlipped(false);
       trampoline_->SetPushed(true);
-      // Hide tiles from previous jump
-      SetTilesVisible(false);
-      PrepareTiles();
-      if (is_failed_) {
-        cat_->SetVelocity(kWrongVelocity);
-      } else {
-        cat_->SetMood(TrampolineCat::Mood::kNormal);
-        cat_->SetVelocity(0, -cat_->GetVelocity().y());
+      // If cat is sufficiently deep in the trampoline
+      if (cat_->GetPos().y() + cat_->GetWidth() / 2 >
+          trampoline_->GetPos().y() - trampoline_->GetHeight() / 2 +
+              kTrampolineDepth_) {
+        cat_->SetFlying(false);
+        cat_->SetJustFlipped(false);
+        trampoline_->SetPushed(true);
+        // Hide tiles from previous jump
+        SetTilesVisible(false);
+        PrepareTiles();
+        if (is_failed_) {
+          cat_->SetVelocity(kWrongVelocity);
+        } else {
+          cat_->SetMood(TrampolineCat::Mood::kNormal);
+          cat_->SetVelocity(0, -cat_->GetVelocity().y());
+        }
       }
     }
   } else if (!cat_->IsFlying()) {
+    // If cat has just jumped off
     cat_->SetFlying(true);
     trampoline_->SetPushed(false);
   }

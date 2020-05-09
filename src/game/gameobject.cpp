@@ -50,6 +50,10 @@ QPointF GameObject::GetPos() const { return pos_; }
 
 void GameObject::SetPos(QPointF pos) { pos_ = pos; }
 
+qreal GameObject::GetWidth() const { return size_.width(); }
+
+qreal GameObject::GetHeight() const { return size_.height(); }
+
 void GameObject::AddVelocity(qreal x, qreal y) { velocity_ += Vector2D(x, y); }
 
 void GameObject::AddVelocity(Vector2D rhs) { velocity_ += rhs; }
