@@ -112,9 +112,7 @@ void TrampolineMinigame::Tick() {
     if (cat_->IsFlying()) {
       trampoline_->SetPushed(true);
       // If cat is sufficiently deep in the trampoline
-      if (cat_->GetPos().y() + cat_->GetWidth() / 2 >
-          trampoline_->GetPos().y() - trampoline_->GetHeight() / 2 +
-              kTrampolineDepth_) {
+      if (cat_->Bottom() > trampoline_->Top() + kTrampolineDepth_) {
         cat_->SetFlying(false);
         cat_->SetJustFlipped(false);
         trampoline_->SetPushed(true);

@@ -54,6 +54,14 @@ qreal GameObject::GetWidth() const { return size_.width(); }
 
 qreal GameObject::GetHeight() const { return size_.height(); }
 
+qreal GameObject::Top() const { return pos_.y() - size_.height() / 2; }
+
+qreal GameObject::Bottom() const { return pos_.y() + size_.height() / 2; }
+
+qreal GameObject::Left() const { return pos_.x() - size_.width() / 2; }
+
+qreal GameObject::Right() const { return pos_.x() + size_.width() / 2; }
+
 void GameObject::AddVelocity(qreal x, qreal y) { velocity_ += Vector2D(x, y); }
 
 void GameObject::AddVelocity(Vector2D rhs) { velocity_ += rhs; }

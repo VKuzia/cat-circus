@@ -46,6 +46,11 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   qreal GetWidth() const;
   qreal GetHeight() const;
 
+  qreal Top() const;
+  qreal Bottom() const;
+  qreal Left() const;
+  qreal Right() const;
+
   void MoveByMeters(qreal x, qreal y);
   void MoveByMeters(Vector2D shift);
 
