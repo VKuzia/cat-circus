@@ -12,6 +12,8 @@ void TrampolineMinigame::Start() { AnimateTutorial(); }
 void TrampolineMinigame::SetUp() {
   SetUpParameters();
   time_bar_->setVisible(false);
+  background_->SetUp(game_view_, "juggling/arena.png");
+  game_view_->scene()->addItem(background_);
 
   cat_ = new TrampolineCat(game_view_, kCatSize, kCatStartPos);
   cat_->SetUp();
