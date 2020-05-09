@@ -6,13 +6,7 @@ TrampolineCat::TrampolineCat(GameView* game_view, QSizeF size, QPointF pos)
 TrampolineCat::~TrampolineCat() {}
 
 void TrampolineCat::SetUp() {
-  int32_t width = boundingRect().size().toSize().width();
-  int32_t height = boundingRect().size().toSize().height();
-  QPixmap pixmap =
-      QPixmap(game_view_->GetPathToMinigameImages() + "trampoline/cat.png");
-  pixmap.setMask(pixmap.createHeuristicMask());
-  setOffset(-width / 2, -height / 2);
-  setPixmap(pixmap.scaled(width, height));
+  setPixmap(GetPixmapFrom("trampoline/cat.png"));
 
   rotation_animation_.setPropertyName("rotation");
   rotation_animation_.setTargetObject(this);

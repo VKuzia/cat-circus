@@ -4,19 +4,8 @@ Trampoline::Trampoline(GameView* game_view, QSizeF size, QPointF pos)
     : GameObject(game_view, size, pos) {}
 
 void Trampoline::SetUp() {
-  int32_t width = boundingRect().size().toSize().width();
-  int32_t height = boundingRect().size().toSize().height();
-  setOffset(-width / 2, -height / 2);
-
-  pixmap_free_ = QPixmap(game_view_->GetPathToMinigameImages() +
-                         "trampoline/trampoline_free.png");
-  pixmap_free_.setMask(pixmap_free_.createHeuristicMask());
-  pixmap_free_ = pixmap_free_.scaled(width, height);
-
-  pixmap_pushed_ = QPixmap(game_view_->GetPathToMinigameImages() +
-                           "trampoline/trampoline_pushed.png");
-  pixmap_pushed_.setMask(pixmap_pushed_.createHeuristicMask());
-  pixmap_pushed_ = pixmap_pushed_.scaled(width, height);
+  pixmap_free_ = GetPixmapFrom("trampoline/trampoline_free.png");
+  pixmap_pushed_ = GetPixmapFrom("trampoline/trampoline_pushed.png");
   setPixmap(pixmap_free_);
 }
 

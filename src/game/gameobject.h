@@ -21,7 +21,10 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   ~GameObject() override = default;
 
   virtual void SetUp();
+
   virtual void Update();
+
+  QPixmap GetPixmapFrom(const QString& short_path);
 
   void AddVelocity(qreal x, qreal y);
   void AddVelocity(Vector2D rhs);

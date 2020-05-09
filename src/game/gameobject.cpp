@@ -27,6 +27,15 @@ GameObject::GameObject(GameView* game_view, QSizeF size, QPointF pos)
 void GameObject::SetUp() {}
 void GameObject::Update() {}
 
+QPixmap GameObject::GetPixmapFrom(const QString& short_path) {
+  int32_t width = boundingRect().size().toSize().width();
+  int32_t height = boundingRect().size().toSize().height();
+  setOffset(-width / 2, -height / 2);
+  QPixmap pixmap = QPixmap(game_view_->GetPathToMinigameImages() + short_path);
+  pixmap.setMask(pixmap.createHeuristicMask());
+  return pixmap.scaled(width, height);
+}
+
 QRectF GameObject::boundingRect() const { return kDefaultBoundingRect; }
 
 qreal GameObject::GetX() const { return pos_.x(); }
