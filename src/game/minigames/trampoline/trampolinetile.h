@@ -27,15 +27,15 @@ class TrampolineTile : public GameObject {
   void SetDirection(SwipeDirection direction);
 
  private:
-  const qreal kMinimalSwipeLength = 3;
-  const qreal kMinimalPathRectRatio = 6;
+  const qreal kMinimalSwipeLength_ = 3;
+  const qreal kMinimalPathRectRatio_ = 6;
 
-  const qreal kNoFocusOpacity = 0.8;
+  const qreal kNoFocusOpacity_ = 0.8;
   const qreal kScaleAnimationAmount_ = 0.1;
   const int32_t kScaleAnimationDuration_ = 300;
 
-  const QColor kFailColor = QColor::fromRgb(200, 0, 0);
-  const QColor kPassColor = QColor::fromRgb(0, 200, 0);
+  const QColor kFailColor_ = QColor::fromRgb(200, 0, 0);
+  const QColor kPassColor_ = QColor::fromRgb(0, 200, 0);
   const qreal kEffectStrength_ = 0.7;
 
   QPropertyAnimation animation_;

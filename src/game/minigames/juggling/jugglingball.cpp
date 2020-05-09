@@ -20,8 +20,8 @@ void JugglingBall::Update() {
   AddVelocity(0, physics::kGravity.y() * kUpdateTime);
   Vector2D shift = velocity_ * kUpdateTime;
   // Checking if the floor was reached
-  if (GetY() + shift.y() + radius_ > floor_y_) {
-    shift.setY(floor_y_ - radius_ - GetY());
+  if (Bottom() + shift.y() > floor_y_) {
+    shift.setY(floor_y_ - Bottom());
     is_fallen_ = true;
   }
   this->MoveByMeters(shift);

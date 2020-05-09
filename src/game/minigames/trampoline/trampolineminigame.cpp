@@ -10,22 +10,17 @@ TrampolineMinigame::TrampolineMinigame(GameView* game_view, qreal difficulty,
 void TrampolineMinigame::Start() { AnimateTutorial(); }
 
 void TrampolineMinigame::SetUp() {
-  SetUpParameters();
-  time_bar_->setVisible(false);
   background_->SetUp(game_view_, "juggling/arena.png");
   game_view_->scene()->addItem(background_);
 
-  cat_ = new TrampolineCat(game_view_, kCatSize, kCatStartPos);
+  cat_ = new TrampolineCat(game_view_, kCatSize_, kCatStartPos_);
   cat_->SetUp();
   game_view_->scene()->addItem(cat_);
 
   trampoline_ =
-      new Trampoline(game_view_, kTrampolineSize_, kTrampolineStartPos);
+      new Trampoline(game_view_, kTrampolineSize_, kTrampolineStartPos_);
   trampoline_->SetUp();
   game_view_->scene()->addItem(trampoline_);
-
-  tick_timer_.setInterval(1000 / kFps);
-  connect(&tick_timer_, &QTimer::timeout, this, &TrampolineMinigame::Tick);
 
   SetUpTiles();
   SetUpLabel();
@@ -80,7 +75,7 @@ void TrampolineMinigame::SetUpTiles() {
   for (int32_t i = -swipe_count_ / 2; i <= (swipe_count_ - 1) / 2; i++) {
     TrampolineTile* tile = new TrampolineTile(
         game_view_, kTileSize_,
-        kTileCentrePos_.x() + i * (kTileSize_.width() + kTileXInterval),
+        kTileCentrePos_.x() + i * (kTileSize_.width() + kTileXInterval_),
         kTileCentrePos_.y());
     tile->setVisible(false);
     tiles_.push_back(tile);
@@ -95,17 +90,19 @@ void TrampolineMinigame::AnimateTutorial() {
 
 void TrampolineMinigame::StartGame() {
   tutorial_label_->setVisible(false);
+  tick_timer_.setInterval(1000 / kFps);
+  connect(&tick_timer_, &QTimer::timeout, this, &TrampolineMinigame::Tick);
   tick_timer_.start();
 }
 
 void TrampolineMinigame::AnimateOutro() {}
 
 void TrampolineMinigame::Tick() {
-  if (!cat_->IsMoving()) {
+  if (!cat_->IsRotating()) {
     return;
   }
   cat_->Update();
-  if (!is_failed_ && cat_->GetY() < kCatFlipHeight && !cat_->IsJustFlipped()) {
+  if (!is_failed_ && cat_->GetY() < kCatFlipHeight_ && !cat_->IsJustFlipped()) {
     MakeFlip();
   } else if (cat_->collidesWithItem(trampoline_)) {
     // Jump up if cat reached trampoline from above
@@ -120,7 +117,7 @@ void TrampolineMinigame::Tick() {
         SetTilesVisible(false);
         PrepareTiles();
         if (is_failed_) {
-          cat_->SetVelocity(kWrongVelocity);
+          cat_->SetVelocity(kWrongVelocity_);
         } else {
           cat_->SetMood(TrampolineCat::Mood::kNormal);
           cat_->SetVelocity(0, -cat_->GetVelocity().y());
@@ -140,19 +137,19 @@ void TrampolineMinigame::PrepareTiles() {
     switch (direction_num) {
       case 0:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kUp);
-        current_tile->SetPixmap(kUpPixmap);
+        current_tile->SetPixmap(kUpPixmap_);
         break;
       case 1:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kDown);
-        current_tile->SetPixmap(kDownPixmap);
+        current_tile->SetPixmap(kDownPixmap_);
         break;
       case 2:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kLeft);
-        current_tile->SetPixmap(kLeftPixmap);
+        current_tile->SetPixmap(kLeftPixmap_);
         break;
       case 3:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kRight);
-        current_tile->SetPixmap(kRightPixmap);
+        current_tile->SetPixmap(kRightPixmap_);
         break;
     }
     current_tile->SetUp();
@@ -176,7 +173,7 @@ void TrampolineMinigame::MakeFlip() {
   is_making_flip_ = true;
   flip_count_--;
   cat_->SetJustFlipped(true);
-  cat_->SetMoving(false);
+  cat_->SetRotating(false);
   time_bar_->setVisible(true);
   time_bar_->Launch(flip_time_);
   is_successful_flip_ = false;
@@ -217,13 +214,13 @@ void TrampolineMinigame::FinishTile() {
 void TrampolineMinigame::FinishFlip() {
   time_bar_->setVisible(false);
   is_making_flip_ = false;
-  cat_->SetMoving(true);
+  cat_->SetRotating(true);
   if (!is_successful_flip_) {
     is_failed_ = true;
-    QTimer::singleShot(kFlyAwayTime, this, [this] { Stop(Status::kFail); });
-    cat_->RotateFor(kIncorrectFlipTime);
+    QTimer::singleShot(kFlyAwayTime_, this, [this] { Stop(Status::kFail); });
+    cat_->RotateFor(kIncorrectFlipTime_);
   } else {
-    cat_->RotateFor(kCorrectFlipTime);
+    cat_->RotateFor(kCorrectFlipTime_);
   }
 }
 
@@ -240,17 +237,17 @@ void TrampolineMinigame::Stop(Status status) {
 }
 
 void TrampolineMinigame::Win() {
-  game_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
+  game_view_->scene()->setBackgroundBrush(kWinBackgroundBrush_);
   QTimer::singleShot(kOutroDuration, this, [this] {
-    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
+    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush_);
     emit Passed(score_);
   });
 }
 
 void TrampolineMinigame::Lose() {
-  game_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
+  game_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush_);
   QTimer::singleShot(kOutroDuration, this, [this] {
-    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
+    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush_);
     emit Failed();
   });
 }
@@ -262,7 +259,7 @@ void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
   first_mouse_pressed_ = event->pos();
   last_mouse_pressed_ = first_mouse_pressed_;
   current_mouse_path_ = new TrampolinePath(game_view_);
-  current_mouse_path_->setPen(kMousePathPen);
+  current_mouse_path_->setPen(kMousePathPen_);
   current_mouse_path_->MoveTo(first_mouse_pressed_);
   game_view_->scene()->addItem(current_mouse_path_);
 }
@@ -272,7 +269,7 @@ void TrampolineMinigame::MouseReleaseEvent(QMouseEvent*) {
   if (!is_making_flip_) {
     return;
   }
-  current_mouse_path_->FadeAway(kMousePathFadeAwayTime);
+  current_mouse_path_->FadeAway(kMousePathFadeAwayTime_);
   FinishTile();
 }
 

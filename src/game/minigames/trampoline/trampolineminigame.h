@@ -24,39 +24,39 @@ class TrampolineMinigame : public Minigame {
   void MouseMoveEvent(QMouseEvent*) override;
 
  private:
-  const QPixmap kUpPixmap =
+  const QPixmap kUpPixmap_ =
       QPixmap(QDir::currentPath() + "/data/images/minigames/trampoline/up.png");
-  const QPixmap kDownPixmap = QPixmap(
+  const QPixmap kDownPixmap_ = QPixmap(
       QDir::currentPath() + "/data/images/minigames/trampoline/down.png");
-  const QPixmap kLeftPixmap = QPixmap(
+  const QPixmap kLeftPixmap_ = QPixmap(
       QDir::currentPath() + "/data/images/minigames/trampoline/left.png");
-  const QPixmap kRightPixmap = QPixmap(
+  const QPixmap kRightPixmap_ = QPixmap(
       QDir::currentPath() + "/data/images/minigames/trampoline/right.png");
 
-  const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
-  const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
-  const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
+  const QBrush kEmptyBackgroundBrush_ = Qt::NoBrush;
+  const QBrush kWinBackgroundBrush_ = QBrush(QColor::fromRgb(10, 200, 10));
+  const QBrush kLoseBackgroundBrush_ = QBrush(QColor::fromRgb(191, 8, 8));
 
-  const QPen kMousePathPen = QPen(QBrush(QColor::fromRgb(200, 0, 0, 150)), 5);
-  const int32_t kMousePathFadeAwayTime = 2000;
+  const QPen kMousePathPen_ = QPen(QBrush(QColor::fromRgb(200, 0, 0, 150)), 5);
+  const int32_t kMousePathFadeAwayTime_ = 2000;
 
-  const QSizeF kCatSize = {1.5, 1.5};
-  const QPointF kCatStartPos = QPointF(-3.5, -2.5);
-  const qreal kCatFlipHeight = -2;
-  const Vector2D kWrongVelocity = {8, -9.5};
+  const QSizeF kCatSize_ = {1.5, 1.5};
+  const QPointF kCatStartPos_ = QPointF(-3.5, -2.5);
+  const qreal kCatFlipHeight_ = -2;
+  const Vector2D kWrongVelocity_ = {8, -9.5};
 
-  const int32_t kCorrectFlipTime = 1000;
-  const int32_t kIncorrectFlipTime = 2500;
+  const int32_t kCorrectFlipTime_ = 1000;
+  const int32_t kIncorrectFlipTime_ = 2500;
 
   const QSizeF kTileSize_ = {1.2, 1.2};
   const QPointF kTileCentrePos_ = {3.5, -2.5};
-  const qreal kTileXInterval = 0.4;
+  const qreal kTileXInterval_ = 0.4;
 
   const QSizeF kTrampolineSize_ = {3, 1.5};
-  const QPointF kTrampolineStartPos = QPointF(-3.5, 3);
+  const QPointF kTrampolineStartPos_ = QPointF(-3.5, 3);
   const qreal kTrampolineDepth_ = 0.5;
 
-  const int32_t kFlyAwayTime = 2800;
+  const int32_t kFlyAwayTime_ = 2800;
 
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;

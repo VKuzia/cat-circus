@@ -1,13 +1,12 @@
 #include "trampolinetile.h"
 
 #include <QGraphicsColorizeEffect>
-#include <QRandomGenerator>
 
 TrampolineTile::TrampolineTile(GameView* game_view, QSizeF size, qreal x,
                                qreal y)
     : GameObject(game_view, size, x, y) {
   setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  setOpacity(kNoFocusOpacity);
+  setOpacity(kNoFocusOpacity_);
 
   animation_.setTargetObject(this);
   animation_.setPropertyName("animationProgress");
@@ -30,9 +29,9 @@ void TrampolineTile::Activate() {
 void TrampolineTile::Deactivate(bool is_path_correct) {
   QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect();
   if (is_path_correct) {
-    effect->setColor(kPassColor);
+    effect->setColor(kPassColor_);
   } else {
-    effect->setColor(kFailColor);
+    effect->setColor(kFailColor_);
   }
   effect->setStrength(kEffectStrength_);
   setGraphicsEffect(effect);
@@ -50,26 +49,26 @@ bool TrampolineTile::CheckPath(const TrampolinePath& path_item_, QPointF start,
   Vector2D shift(finish.x() - start.x(), finish.y() - start.y());
   switch (direction_) {
     case SwipeDirection::kUp:
-      if (path_height / path_width > kMinimalPathRectRatio &&
-          shift.y() < -kMinimalSwipeLength * game_view_->GetPixelsInMeter()) {
+      if (path_height / path_width > kMinimalPathRectRatio_ &&
+          shift.y() < -kMinimalSwipeLength_ * game_view_->GetPixelsInMeter()) {
         result = true;
       }
       break;
     case SwipeDirection::kDown:
-      if (path_height / path_width > kMinimalPathRectRatio &&
-          shift.y() > kMinimalSwipeLength * game_view_->GetPixelsInMeter()) {
+      if (path_height / path_width > kMinimalPathRectRatio_ &&
+          shift.y() > kMinimalSwipeLength_ * game_view_->GetPixelsInMeter()) {
         result = true;
       }
       break;
     case SwipeDirection::kLeft:
-      if (path_width / path_height > kMinimalPathRectRatio &&
-          shift.x() < -kMinimalSwipeLength * game_view_->GetPixelsInMeter()) {
+      if (path_width / path_height > kMinimalPathRectRatio_ &&
+          shift.x() < -kMinimalSwipeLength_ * game_view_->GetPixelsInMeter()) {
         result = true;
       }
       break;
     case SwipeDirection::kRight:
-      if (path_width / path_height > kMinimalPathRectRatio &&
-          shift.x() > kMinimalSwipeLength * game_view_->GetPixelsInMeter()) {
+      if (path_width / path_height > kMinimalPathRectRatio_ &&
+          shift.x() > kMinimalSwipeLength_ * game_view_->GetPixelsInMeter()) {
         result = true;
       }
       break;
@@ -87,6 +86,6 @@ qreal TrampolineTile::GetAnimationProgress() const {
 
 void TrampolineTile::SetAnimationProgress(qreal progress) {
   animation_progress_ = progress;
-  setOpacity(kNoFocusOpacity + (1 - kNoFocusOpacity) * animation_progress_);
+  setOpacity(kNoFocusOpacity_ + (1 - kNoFocusOpacity_) * animation_progress_);
   setScale(1 + kScaleAnimationAmount_ * progress);
 }

@@ -13,7 +13,7 @@ class TrampolineCat : public GameObject {
   enum class Mood { kNormal, kHappy, kSad };
 
   TrampolineCat(GameView* game_view, QSizeF size, QPointF pos);
-  ~TrampolineCat() override;
+  ~TrampolineCat() override = default;
 
   void SetUp() override;
 
@@ -23,8 +23,8 @@ class TrampolineCat : public GameObject {
 
   void SetMood(Mood mood);
 
-  void SetMoving(bool moving);
-  bool IsMoving() const;
+  void SetRotating(bool rotating);
+  bool IsRotating() const;
 
   void SetFlying(bool flying);
   bool IsFlying() const;
@@ -37,7 +37,7 @@ class TrampolineCat : public GameObject {
   QPixmap pixmap_normal_;
   QPixmap pixmap_happy_;
   QPixmap pixmap_sad_;
-  bool is_moving_ = true;
+  bool is_rotating_ = true;
   bool is_flying_ = true;
   bool is_just_flipped_ = true;
 

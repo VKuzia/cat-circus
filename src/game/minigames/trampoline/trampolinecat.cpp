@@ -3,8 +3,6 @@
 TrampolineCat::TrampolineCat(GameView* game_view, QSizeF size, QPointF pos)
     : GameObject(game_view, size, pos) {}
 
-TrampolineCat::~TrampolineCat() {}
-
 void TrampolineCat::SetUp() {
   pixmap_normal_ = GetPixmapFrom("trampoline/cat_normal.png");
   pixmap_happy_ = GetPixmapFrom("trampoline/cat_happy.png");
@@ -18,7 +16,7 @@ void TrampolineCat::SetUp() {
 }
 
 void TrampolineCat::Update() {
-  if (!is_moving_) {
+  if (!is_rotating_) {
     return;
   }
   AddVelocity(physics::kGravity * kUpdateTime);
@@ -45,9 +43,9 @@ void TrampolineCat::SetMood(TrampolineCat::Mood mood) {
   }
 }
 
-void TrampolineCat::SetMoving(bool moving) { is_moving_ = moving; }
+void TrampolineCat::SetRotating(bool rotating) { is_rotating_ = rotating; }
 
-bool TrampolineCat::IsMoving() const { return is_moving_; }
+bool TrampolineCat::IsRotating() const { return is_rotating_; }
 
 void TrampolineCat::SetFlying(bool flying) { is_flying_ = flying; }
 
@@ -58,7 +56,7 @@ void TrampolineCat::SetJustFlipped(bool flipped) { is_just_flipped_ = flipped; }
 bool TrampolineCat::IsJustFlipped() const { return is_just_flipped_; }
 
 void TrampolineCat::SetRotation(qreal rotation) {
-  if (!is_moving_) {
+  if (!is_rotating_) {
     return;
   }
   setRotation(rotation);
