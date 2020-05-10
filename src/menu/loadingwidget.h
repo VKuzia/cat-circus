@@ -25,7 +25,7 @@ class LoadingWidget : public QWidget {
   void BecameOpaque();
 
  private:
-  const QString kBackgroundStyleSheet = "background-color: rgba(163, 44, 31);";
+  const QColor kBackgroundColor = QColor::fromRgb(163, 44, 31);
   const int32_t kAnimationInOutDuration = 600;
   const int32_t kAnimationStayDuration = 1000;
 

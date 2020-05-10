@@ -58,9 +58,12 @@ void LoadingWidget::SetOpacity(int opacity) {
   opacity_ = opacity;
   // Sets the opacity of the widget using StyleSheet
   // There is no direct way to set it in QWidget
-  ui_->ui_loading_base_widget_->setStyleSheet(kBackgroundStyleSheet.chopped(2) +
-                                              ", " + QString::number(opacity_) +
-                                              ");");
+  ui_->ui_loading_base_widget_->setStyleSheet(
+      QString("background-color: rgba(%1, %2, %3, %4)")
+          .arg(kBackgroundColor.red())
+          .arg(kBackgroundColor.green())
+          .arg(kBackgroundColor.blue())
+          .arg(opacity));
   if (opacity == 255 && !is_opaque_) {
     emit BecameOpaque();
     is_opaque_ = true;
