@@ -39,5 +39,6 @@ MainWindow::~MainWindow() { delete ui_; }
 
 void MainWindow::SetUp() {
     this->setFixedSize(ui_->ui_settings_widget_->GetResolution());
-    ui_->ui_game_widget_->SetResolution(ui_->ui_settings_widget_->GetResolution());
+    ui_->ui_game_widget_->SetResolution(
+                ui_->ui_settings_widget_->GetResolution());
 }

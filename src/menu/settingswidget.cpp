@@ -93,7 +93,7 @@ void SettingsWidget::Load() {
 
     QString volume_off_line = load.readLine();
     int64_t volume_off_int_ = volume_off_line.toInt();
-    volume_off_int_ == 0 ? volume_off_ = false : volume_off_ = true;
+    volume_off_ = (volume_off_int_ == 0 ? false : true);
     ui_->ui_sound_check_box_->setChecked(volume_off_);
 
     QString volume_line = load.readLine();
@@ -105,7 +105,8 @@ void SettingsWidget::Load() {
 //    ui_->ui_resolution_combo_box_->setCurrentIndex(current_resolution_index_);
 
     QString current_resolution_line = load.readLine();
-    ui_->ui_resolution_combo_box_->setCurrentIndex(current_resolution_line.toInt());
+    ui_->ui_resolution_combo_box_->setCurrentIndex(
+                current_resolution_line.toInt());
 
     QString current_language_index_line = load.readLine();
     current_language_index_ = current_language_index_line.toInt();
