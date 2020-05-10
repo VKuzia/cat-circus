@@ -5,6 +5,7 @@
 
 #include "src/game/minigames/juggling/jugglingminigame.h"
 #include "src/game/minigames/test/testminigame.h"
+#include "src/game/minigames/unicycle/unicycleminigame.h"
 #include "ui_gamewidget.h"
 
 GameWidget::GameWidget(QWidget* parent)
@@ -43,7 +44,7 @@ void GameWidget::Retry() { SetUp(); }
 void GameWidget::InitMinigame() {
   // Some game picking logic should be here
   Minigame* minigame =
-      new JugglingMinigame(ui_->ui_game_view_, current_difficulty_);
+      new UnicycleMinigame(ui_->ui_game_view_, current_difficulty_);
   SetMinigame(minigame);
   current_minigame_->Init();
 }
