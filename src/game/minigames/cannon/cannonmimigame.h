@@ -74,8 +74,6 @@ class Cannonmimigame : public Minigame {
 
   QTimer ball_timer_;
 
-  QRandomGenerator generator_;
-
   void LaunchSausage();
 
   void SetUp() override;

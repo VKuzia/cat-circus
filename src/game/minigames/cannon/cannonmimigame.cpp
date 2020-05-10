@@ -143,7 +143,6 @@ void Cannonmimigame::Tick() {
   if (cat_->GetY() >= kFloorHeight) {
     cat_->SetFallen(true);
     if (cat_->GetCaught() >= number_to_win_) {
-      difficulty_++;
       Stop(Status::kPass);
     } else {
       Stop(Status::kFail);
@@ -156,9 +155,9 @@ void Cannonmimigame::Tick() {
 
 void Cannonmimigame::SetUpParameters() {
   sausage_launch_period_ = 100;
-  sausage_a_param = generator_.generateDouble();
-  sausage_b_param = generator_.generateDouble();
-  int32_t difficulty_level = difficulty_ + 1;
+  sausage_a_param = QRandomGenerator().global()->bounded(100) * 1.0 / 100;
+  sausage_b_param = QRandomGenerator().global()->bounded(100) * 1.0 / 100;
+  int32_t difficulty_level = qFloor(difficulty_ / 0.1);
   switch (difficulty_level) {
     case 1:
       sausage_count_ = 7;
@@ -209,7 +208,6 @@ void Cannonmimigame::Stop(Status status) {
   ball_timer_.stop();
   time_bar_->setVisible(false);
   if (status == Status::kPass) {
-    difficulty_++;
     score_ = 100;
     Win();
   }
@@ -253,7 +251,8 @@ void Cannonmimigame::LaunchSausage() {
     return;
   }
 
-  qreal SausageX = generator_.bounded(-6, 6) + generator_.generateDouble();
+  qreal SausageX = QRandomGenerator().global()->bounded(-6, 6) +
+                   QRandomGenerator().global()->bounded(100) * 1.0 / 100;
 
   Sausage* ball =
       new Sausage(game_view_, KSausageRadius * 2, KSausageRadius * 2, SausageX,
