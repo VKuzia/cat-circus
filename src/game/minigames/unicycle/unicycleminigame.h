@@ -9,7 +9,7 @@
 class UnicycleMinigame : public Minigame {
  public:
   UnicycleMinigame(GameView* game_view, qreal difficulty,
-                   qreal pixels_in_meter = 576 / 7.0);
+                   qreal pixels_in_meter = 576 / 5.5);
   ~UnicycleMinigame() override = default;
 
   void Start() override;

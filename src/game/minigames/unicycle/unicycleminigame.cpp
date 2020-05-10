@@ -43,6 +43,8 @@ void UnicycleMinigame::StartGame() {
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &UnicycleMinigame::Tick);
 
+  cat_->StartAnimation();
+
   is_running_ = true;
   tick_timer_.start();
 }
@@ -75,6 +77,7 @@ void UnicycleMinigame::SetUpParameters() {
 
 void UnicycleMinigame::Stop(Minigame::Status status) {
   is_running_ = false;
+  cat_->StopAnimation();
   tick_timer_.stop();
   time_bar_->setVisible(false);
   switch (status) {
