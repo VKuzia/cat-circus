@@ -56,8 +56,6 @@ void JugglingMinigame::StartGame() {
   });
 }
 
-void JugglingMinigame::AnimateOutro() {}
-
 void JugglingMinigame::Tick() {
   if (!is_running_) {
     return;

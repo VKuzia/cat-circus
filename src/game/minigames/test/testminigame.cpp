@@ -50,8 +50,6 @@ void TestMinigame::StartGame() {
   tick_timer_.start();
 }
 
-void TestMinigame::AnimateOutro() {}
-
 void TestMinigame::Tick() {}
 
 void TestMinigame::AddBall() {

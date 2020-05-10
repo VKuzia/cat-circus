@@ -50,7 +50,6 @@ class JugglingMinigame : public Minigame {
 
   void AnimateTutorial() override;
   void StartGame() override;
-  void AnimateOutro() override;
 
   void Tick() override;
 

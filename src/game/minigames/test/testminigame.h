@@ -48,7 +48,6 @@ class TestMinigame : public Minigame {
   void SetUpParameters() override;
   void AnimateTutorial() override;
   void StartGame() override;
-  void AnimateOutro() override;
 
   void Tick() override;
   void AddBall();

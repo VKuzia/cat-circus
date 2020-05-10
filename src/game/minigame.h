@@ -65,7 +65,6 @@ class Minigame : public QObject {
 
   virtual void AnimateTutorial() = 0;
   virtual void StartGame() = 0;
-  virtual void AnimateOutro() = 0;
 
   virtual void Tick() = 0;
 
