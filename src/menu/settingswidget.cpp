@@ -12,19 +12,13 @@ SettingsWidget::SettingsWidget(QWidget* parent)
   ui_->ui_language_combo_box_->addItem("english");
   ui_->ui_language_combo_box_->addItem("русский");
   ui_->ui_language_combo_box_->addItem("беларуская");
-  ui_->ui_resolution_combo_box_->addItem("1024×576");
-  ui_->ui_resolution_combo_box_->addItem("1280×800");
-  ui_->ui_resolution_combo_box_->addItem("1920×1080");
-  ui_->ui_resolution_combo_box_->addItem("2048×1100");
 
-  resolutions_[0].setWidth(1024);
-  resolutions_[0].setHeight(576);
-  resolutions_[1].setWidth(1280);
-  resolutions_[1].setHeight(800);
-  resolutions_[2].setWidth(1920);
-  resolutions_[2].setHeight(1080);
-  resolutions_[3].setWidth(2048);
-  resolutions_[3].setHeight(1100);
+  for(auto element = kResolutions_.begin();
+      element != kResolutions_.end(); ++element){
+  ui_->ui_resolution_combo_box_->addItem(QString::number(element->width())
+                                         + "×"
+                                         + QString::number(element->height()));
+  }
 
   Load();
 }
@@ -86,11 +80,6 @@ void SettingsWidget::Load() {
     QTextStream load(&file);
     load.setCodec("UTF-8");
 
-//    QString resolution_line = load.readLine();
-//    QStringList resolution_pair = resolution_line.split(' ');
-//    resolution_.setWidth(resolution_pair[0].toInt());
-//    resolution_.setHeight(resolution_pair[1].toInt());
-
     QString volume_off_line = load.readLine();
     int64_t volume_off_int_ = volume_off_line.toInt();
     volume_off_ = (volume_off_int_ == 0 ? false : true);
@@ -99,10 +88,6 @@ void SettingsWidget::Load() {
     QString volume_line = load.readLine();
     volume_ = volume_line.toInt();
     ui_->ui_volume_->setValue(volume_);
-
-//    QString current_resolution_index_line = load.readLine();
-//    current_resolution_index_ = current_resolution_index_line.toInt();
-//    ui_->ui_resolution_combo_box_->setCurrentIndex(current_resolution_index_);
 
     QString current_resolution_line = load.readLine();
     ui_->ui_resolution_combo_box_->setCurrentIndex(
@@ -117,8 +102,7 @@ void SettingsWidget::Load() {
 }
 
 QSize SettingsWidget::GetResolution() const {
-//    return resolution_;
-    return resolutions_[ui_->ui_resolution_combo_box_->currentIndex()];
+    return kResolutions_[ui_->ui_resolution_combo_box_->currentIndex()];
 }
 
 void SettingsWidget::ChangeSound() {
@@ -132,25 +116,6 @@ void SettingsWidget::ChangeSound() {
 }
 
 void SettingsWidget::ChangeResolution() {
-//    switch (ui_->ui_resolution_combo_box_->currentIndex()) {
-//    case 0:
-//        resolution_.setWidth(1024);
-//        resolution_.setHeight(576);
-//        break;
-//    case 1:
-//        resolution_.setWidth(1280);
-//        resolution_.setHeight(800);
-//        break;
-//    case 2:
-//        resolution_.setWidth(1920);
-//        resolution_.setHeight(1080);
-//        break;
-//    case 3:
-//        resolution_.setWidth(4096);
-//        resolution_.setHeight(2160);
-//        break;
-//    }
-//    current_resolution_index_ = ui_->ui_resolution_combo_box_->currentIndex();
     emit ResolutionChanged();
 }
 

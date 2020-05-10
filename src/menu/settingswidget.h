@@ -33,11 +33,9 @@ class SettingsWidget : public QWidget {
 
  private:
   const QString kPathToSettings = QDir::currentPath() + "/data/settings/";
-//  QSize resolution_;
+  const QVector<QSize> kResolutions_ = {{1024, 576}, {1366, 768}, {1600, 900}, {1920, 1080}, {3200, 1800}};
   bool volume_off_;
   int volume_;
-//  int current_resolution_index_;
-  QMap<int64_t, QSize> resolutions_;
   int current_language_index_;
   QString user_name_;
 
