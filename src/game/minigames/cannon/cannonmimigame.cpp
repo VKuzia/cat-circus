@@ -37,10 +37,10 @@ void Cannonmimigame::SetUp() {
   // Need to set this here because ball_air_time_ is defined by SetParamateres
   game_view_->scene()->addItem(arrow_);
 
-  speedometer = new Speedometer(game_view_, kCatWidth, kCatHeight, 7, -kCatY);
-  speedometer->SetUp();
+  speedometer_ = new Speedometer(game_view_, kCatWidth, kCatHeight, 7, -kCatY);
+  speedometer_->SetUp();
   // Need to set this here because ball_air_time_ is defined by SetParamateres
-  game_view_->scene()->addItem(speedometer);
+  game_view_->scene()->addItem(speedometer_);
 
   SetUpLabel();
   time_bar_->setVisible(false);
@@ -51,13 +51,13 @@ void Cannonmimigame::SetUp() {
   for (int i = 0; i < number_to_win_; i++) {
     No* no = new No(game_view_, 1, 1, -7 + 1.5 * i, -kCatY - 1.5);
     no->SetUp();
-    not_caught.insert(no);
+    not_caught_.insert(no);
     game_view_->scene()->addItem(no);
   }
   for (int i = 0; i < number_to_win_; i++) {
     Yes* yes = new Yes(game_view_, 1, 1, -7 + 1.5 * i, -kCatY - 1.5);
     yes->SetUp();
-    caught.insert(yes);
+    caught_.insert(yes);
     yes->setVisible(false);
     game_view_->scene()->addItem(yes);
   }
@@ -96,35 +96,35 @@ void Cannonmimigame::Tick() {
   if (!is_running_) {
     return;
   }
-  if (!params_choosen_power) {
-    if (power_increases) {
-      power += 0.001;
-      arrow_->setRotation(arrow_->rotation() + M_PI * (power / 0.12));
-      if (power >= 0.12) {
-        power_increases = false;
+  if (!params_choosen_power_) {
+    if (power_increases_) {
+      power_ += 0.001;
+      arrow_->setRotation(arrow_->rotation() + M_PI * (power_ / 0.12));
+      if (power_ >= 0.12) {
+        power_increases_ = false;
       }
     } else {
-      power -= 0.001;
-      arrow_->setRotation(arrow_->rotation() - M_PI * (power / 0.12));
-      if (power <= 0) {
-        power_increases = true;
+      power_ -= 0.001;
+      arrow_->setRotation(arrow_->rotation() - M_PI * (power_ / 0.12));
+      if (power_ <= 0) {
+        power_increases_ = true;
       }
     }
   }
-  if (!params_choosen_angle) {
-    if (angle_increases) {
-      angle += M_PI / 200;
-      cat_->setRotation(cat_->rotation() - angle);
-      cannon_->setRotation(cat_->rotation() - angle);
-      if (angle > M_PI / 2) {
-        angle_increases = false;
+  if (!params_choosen_angle_) {
+    if (angle_increases_) {
+      angle_ += M_PI / 200;
+      cat_->setRotation(cat_->rotation() - angle_);
+      cannon_->setRotation(cat_->rotation() - angle_);
+      if (angle_ > M_PI / 2) {
+        angle_increases_ = false;
       }
     } else {
-      angle -= M_PI / 200;
-      cat_->setRotation(cat_->rotation() + angle);
-      cannon_->setRotation(cat_->rotation() + angle);
-      if (angle <= 0) {
-        angle_increases = true;
+      angle_ -= M_PI / 200;
+      cat_->setRotation(cat_->rotation() + angle_);
+      cannon_->setRotation(cat_->rotation() + angle_);
+      if (angle_ <= 0) {
+        angle_increases_ = true;
       }
     }
   }
@@ -132,12 +132,12 @@ void Cannonmimigame::Tick() {
   if (cat_flight) {
     cat_->Update();
     if (cat_->was_caught_last_tick && cat_->GetCaught() <= number_to_win_) {
-      (*(not_caught.begin() + cat_->GetCaught() - 1))->setVisible(false);
-      (*(caught.begin() + cat_->GetCaught() - 1))->setVisible(true);
+      (*(not_caught_.begin() + cat_->GetCaught() - 1))->setVisible(false);
+      (*(caught_.begin() + cat_->GetCaught() - 1))->setVisible(true);
     }
-  } else if (params_choosen_angle && params_choosen_power) {
-    cat_->SetAngle(angle);
-    cat_->SetPower(power);
+  } else if (params_choosen_angle_ && params_choosen_power_) {
+    cat_->SetAngle(angle_);
+    cat_->SetPower(power_);
     cat_flight = true;
   }
   if (cat_->GetY() >= kFloorHeight) {
@@ -148,7 +148,7 @@ void Cannonmimigame::Tick() {
       Stop(Status::kFail);
     }
   }
-  for (auto item : balls_) {
+  for (auto item : sausages_) {
     item->Update();
   }
 }
@@ -237,32 +237,32 @@ void Cannonmimigame::KeyPressEvent(QKeyEvent* event) {
     return;
   }
   if (event->key() == Qt::Key_A) {
-    params_choosen_angle = true;
+    params_choosen_angle_ = true;
   } else if (event->key() == Qt::Key_D) {
-    params_choosen_power = true;
+    params_choosen_power_ = true;
   } else if (event->key() == Qt::Key_Space) {
-    params_choosen_angle = true;
-    params_choosen_power = true;
+    params_choosen_angle_ = true;
+    params_choosen_power_ = true;
   }
 }
 
 void Cannonmimigame::LaunchSausage() {
-  if (balls_.size() >= sausage_count_) {
+  if (sausages_.size() >= sausage_count_) {
     return;
   }
 
   qreal SausageX = QRandomGenerator().global()->bounded(-6, 6) +
                    QRandomGenerator().global()->bounded(100) * 1.0 / 100;
 
-  Sausage* ball =
+  Sausage* sausage =
       new Sausage(game_view_, KSausageRadius * 2, KSausageRadius * 2, SausageX,
                   sausage_a_param * SausageX * SausageX / 2 +
                       sausage_b_param * SausageX - 3,
                   kFloorHeight);
-  if (balls_.size() % 2 == 0) {
-    ball->move_down = false;
+  if (sausages_.size() % 2 == 0) {
+    sausage->move_down = false;
   }
-  balls_.insert(ball);
-  ball->SetUp();
-  game_view_->scene()->addItem(ball);
+  sausages_.insert(sausage);
+  sausage->SetUp();
+  game_view_->scene()->addItem(sausage);
 }

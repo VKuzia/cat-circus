@@ -39,5 +39,3 @@ void Sausage::Update() {
 }
 
 void Sausage::SetCaught(bool is_caught) { is_caught_ = is_caught; }
-
-qreal Sausage::GetRadius() const { return radius_; }

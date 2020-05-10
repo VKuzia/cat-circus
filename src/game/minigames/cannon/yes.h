@@ -15,7 +15,6 @@ class Yes : public GameObject {
 
   qreal radius_;
   qreal floor_y_;
-  int caught_sausages = 0;
 };
 
 #endif  // YES_H

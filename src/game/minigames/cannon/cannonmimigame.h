@@ -48,13 +48,13 @@ class Cannonmimigame : public Minigame {
   qreal sausage_a_param = 0;
   qreal sausage_b_param = 0;
 
-  qreal angle = M_PI / 2;
-  qreal power = 0;
-  bool angle_increases = true;
-  bool power_increases = true;
+  qreal angle_ = M_PI / 2;
+  qreal power_ = 0;
+  bool angle_increases_ = true;
+  bool power_increases_ = true;
   bool cat_flight = false;
-  bool params_choosen_angle = false;
-  bool params_choosen_power = false;
+  bool params_choosen_angle_ = false;
+  bool params_choosen_power_ = false;
 
   int32_t sausage_count_ = 0;
   int32_t ball_air_time_ = 0;
@@ -63,14 +63,14 @@ class Cannonmimigame : public Minigame {
   Cannon* cannon_ = nullptr;
   Cannoncat* cat_ = nullptr;
 
-  Speedometer* speedometer = nullptr;
+  Speedometer* speedometer_ = nullptr;
 
   Arrow* arrow_ = nullptr;
 
-  QSet<Sausage*> balls_;
+  QSet<Sausage*> sausages_;
 
-  QSet<No*> not_caught;
-  QSet<Yes*> caught;
+  QSet<No*> not_caught_;
+  QSet<Yes*> caught_;
 
   QTimer ball_timer_;
 

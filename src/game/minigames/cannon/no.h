@@ -10,12 +10,10 @@ class No : public GameObject {
   ~No() override;
   void SetUp() override;
 
- private:
   static const qreal kZValue;
 
   qreal radius_;
   qreal floor_y_;
-  int caught_sausages = 0;
 };
 
 #endif  // NO_H

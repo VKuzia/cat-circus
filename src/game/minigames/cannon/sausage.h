@@ -8,12 +8,10 @@ class Sausage : public GameObject {
   Sausage(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
           qreal y = 0, qreal floor_y_ = 0);
   ~Sausage() override;
+
   void SetUp() override;
-
   void Update() override;
-
   void SetCaught(bool is_caught);
-  qreal GetRadius() const;
 
   static const qreal kZValue;
 
