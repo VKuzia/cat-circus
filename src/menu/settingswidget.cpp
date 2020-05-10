@@ -1,15 +1,10 @@
 #include "settingswidget.h"
-#include <QtCore>
-#include <QSettings>
-#include <QDir>
 #include <QFile>
 #include <QTextStream>
 
 #include "mainwindow.h"
 #include "ui_settingswidget.h"
 
-const QString SettingsWidget::kPathToSettings =
-    QDir::currentPath() + "/data/settings/";
 
 SettingsWidget::SettingsWidget(QWidget* parent)
     : QWidget(parent), ui_(new Ui::SettingsWidget) {
@@ -31,18 +26,8 @@ void SettingsWidget::ReturnToMainMenu() {
     emit MainMenu();
 }
 
-void SettingsWidget::TurnVolume() {
-    if (ui_->ui_sound_check_box_->isChecked()) {
-        ui_->ui_sound_check_box_->setText("Off");
-        volume_off_ = true;
-        return;
-    }
-    ui_->ui_sound_check_box_->setText("On");
-    volume_off_ = false;
-}
-
 void SettingsWidget::Save() {
-    QFile file(kPathToSettings + "basic.txt");
+    QFile file(kPathToSettings + "basic_settings.txt");
     try {
         if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
             throw "Error, imposible to save changes!";
@@ -75,7 +60,7 @@ void SettingsWidget::Save() {
 }
 
 void SettingsWidget::Load() {
-    QFile file(kPathToSettings + "basic.txt");
+    QFile file(kPathToSettings + "basic_settings.txt");
     try {
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             throw "Error, imposible to load changes!";
@@ -95,7 +80,8 @@ void SettingsWidget::Load() {
     resolution_.setHeight(resolution_pair[1].toInt());
 
     QString volume_off_line = load.readLine();
-    volume_off_ = volume_off_line.toInt();
+    int64_t volume_off_int_ = volume_off_line.toInt();
+    volume_off_int_ == 0 ? volume_off_ = false : volume_off_ = true;
     ui_->ui_sound_check_box_->setChecked(volume_off_);
 
     QString volume_line = load.readLine();
@@ -114,12 +100,18 @@ void SettingsWidget::Load() {
     ui_->ui_user_line_edit_->setText(user_name_);
 }
 
-QSize SettingsWidget::GetSize() {
+QSize SettingsWidget::GetResolution() const {
     return resolution_;
 }
 
 void SettingsWidget::ChangeSound() {
-    TurnVolume();
+    if (ui_->ui_sound_check_box_->isChecked()) {
+        ui_->ui_sound_check_box_->setText("Off");
+        volume_off_ = true;
+        return;
+    }
+    ui_->ui_sound_check_box_->setText("On");
+    volume_off_ = false;
 }
 
 void SettingsWidget::ChangeResolution() {
@@ -142,6 +134,6 @@ void SettingsWidget::ChangeResolution() {
         break;
     }
     current_resolution_index_ = ui_->ui_resolution_combo_box_->currentIndex();
-    emit Resolution();
+    emit ResolutionChanged();
 }
 

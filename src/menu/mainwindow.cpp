@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget* parent)
           &MainWindow::ChangeToMainMenu);
   connect(ui_->ui_game_widget_, &GameWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
-  connect(ui_->ui_settings_widget_, &SettingsWidget::Resolution, this,
+  connect(ui_->ui_settings_widget_, &SettingsWidget::ResolutionChanged, this,
           &MainWindow::SetUp);
 }
 
@@ -38,6 +38,6 @@ void MainWindow::Exit() { QApplication::exit(0); }
 MainWindow::~MainWindow() { delete ui_; }
 
 void MainWindow::SetUp() {
-    this->setFixedSize(ui_->ui_settings_widget_->GetSize());
-    ui_->ui_game_widget_->SetResolution(ui_->ui_settings_widget_->GetSize());
+    this->setFixedSize(ui_->ui_settings_widget_->GetResolution());
+    ui_->ui_game_widget_->SetResolution(ui_->ui_settings_widget_->GetResolution());
 }

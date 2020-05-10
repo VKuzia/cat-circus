@@ -2,6 +2,7 @@
 #define SETTINGSWIDGET_H
 
 #include <QWidget>
+#include <QDir>
 
 namespace Ui {
 class SettingsWidget;
@@ -15,11 +16,11 @@ class SettingsWidget : public QWidget {
   ~SettingsWidget();
 
     void Load();
-    QSize GetSize();
+    QSize GetResolution() const;
 
  signals:
   void MainMenu();
-  void Resolution();
+  void ResolutionChanged();
 
  public slots:
   void ReturnToMainMenu();
@@ -30,11 +31,7 @@ class SettingsWidget : public QWidget {
   void ChangeResolution();
 
  private:
-  void Save();
-  void TurnVolume();
-
-
-  static const QString kPathToSettings;
+  const QString kPathToSettings = QDir::currentPath() + "/data/settings/";
   QSize resolution_;
   bool volume_off_;
   int volume_;
@@ -42,8 +39,9 @@ class SettingsWidget : public QWidget {
   int current_language_index_;
   QString user_name_;
 
-
   Ui::SettingsWidget* ui_;
+
+  void Save();
 };
 
 #endif  // SETTINGSWIDGET_H
