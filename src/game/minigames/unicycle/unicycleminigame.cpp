@@ -45,6 +45,12 @@ void UnicycleMinigame::Tick() {
     return;
   }
   cat_->Update();
+  qreal progress =
+      (cat_->GetX() - kCatStartPos_.x()) / (kCatGoalX_ - kCatStartPos_.x());
+  time_bar_->SetProgress(1 - progress);
+  if (progress >= 1) {
+    Stop(Status::kPass);
+  }
 }
 
 void UnicycleMinigame::SetUpParameters() {

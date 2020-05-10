@@ -23,13 +23,13 @@ class TimeBar : public GameObject {
 
   int32_t GetCurrentTime() const;
 
+  void SetProgress(qreal progress);
+  qreal GetProgress() const;
+
  private:
   const QColor kBasicColor = QColor::fromRgb(81, 204, 24);
   qreal progress_ = 1;
   QPropertyAnimation progress_animation_;
-
-  void SetProgress(qreal progress);
-  qreal GetProgress() const;
 };
 
 #endif  // TIMEBAR_H

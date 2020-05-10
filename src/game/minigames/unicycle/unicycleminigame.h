@@ -24,6 +24,7 @@ class UnicycleMinigame : public Minigame {
 
   const QPointF kCatStartPos_ = {-2.5, 1};
   const QSizeF kCatSize_ = {0.6, 1.5};
+  const qreal kCatGoalX_ = 3;
 
   const QPointF kGratePos_ = {2.5, 1};
   const QSizeF kGrateSize_ = {0.5, 2};
