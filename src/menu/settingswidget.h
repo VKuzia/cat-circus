@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDir>
+#include <QMap>
 
 namespace Ui {
 class SettingsWidget;
@@ -32,10 +33,11 @@ class SettingsWidget : public QWidget {
 
  private:
   const QString kPathToSettings = QDir::currentPath() + "/data/settings/";
-  QSize resolution_;
+//  QSize resolution_;
   bool volume_off_;
   int volume_;
-  int current_resolution_index_;
+//  int current_resolution_index_;
+  QMap<int64_t, QSize> resolutions_;
   int current_language_index_;
   QString user_name_;
 
