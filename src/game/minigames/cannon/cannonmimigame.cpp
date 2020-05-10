@@ -45,14 +45,21 @@ void Cannonmimigame::SetUp() {
   SetUpLabel();
   time_bar_->setVisible(false);
   ball_timer_.setInterval(sausage_launch_period_);
-  connect(&ball_timer_, &QTimer::timeout, this, &Cannonmimigame::LaunchSausage);
-  LaunchSausage();
-
+  for (int i = 0; i < sausage_count_; i++) {
+    LaunchSausage();
+  }
   for (int i = 0; i < number_to_win_; i++) {
     No* no = new No(game_view_, 1, 1, -7 + 1.5 * i, -kCatY - 1.5);
     no->SetUp();
     not_caught.insert(no);
     game_view_->scene()->addItem(no);
+  }
+  for (int i = 0; i < number_to_win_; i++) {
+    Yes* yes = new Yes(game_view_, 1, 1, -7 + 1.5 * i, -kCatY - 1.5);
+    yes->SetUp();
+    caught.insert(yes);
+    yes->setVisible(false);
+    game_view_->scene()->addItem(yes);
   }
 }
 
@@ -124,13 +131,9 @@ void Cannonmimigame::Tick() {
 
   if (cat_flight) {
     cat_->Update();
-    if (cat_->was_caught_last_tick && caught.size() < number_to_win_) {
-      delete *(not_caught.begin() + caught.size());
-      Yes* yes =
-          new Yes(game_view_, 1, 1, -7 + 1.5 * caught.size(), -kCatY - 1.5);
-      yes->SetUp();
-      game_view_->scene()->addItem(yes);
-      caught.insert(yes);
+    if (cat_->was_caught_last_tick && cat_->GetCaught() <= number_to_win_) {
+      (*(not_caught.begin() + cat_->GetCaught() - 1))->setVisible(false);
+      (*(caught.begin() + cat_->GetCaught() - 1))->setVisible(true);
     }
   } else if (params_choosen_angle && params_choosen_power) {
     cat_->SetAngle(angle);
