@@ -13,8 +13,8 @@ SettingsWidget::SettingsWidget(QWidget* parent)
   ui_->ui_language_combo_box_->addItem("русский");
   ui_->ui_language_combo_box_->addItem("беларуская");
 
-  for(auto element = kResolutions_.begin();
-      element != kResolutions_.end(); ++element){
+  for (auto element = kResolutions_.begin();
+      element != kResolutions_.end(); ++element) {
   ui_->ui_resolution_combo_box_->addItem(QString::number(element->width())
                                          + "×"
                                          + QString::number(element->height()));
