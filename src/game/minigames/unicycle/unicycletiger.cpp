@@ -16,3 +16,5 @@ void UnicycleTiger::SetUp() {
 }
 
 void UnicycleTiger::Update() { MoveByMeters(velocity_ * kUpdateTime); }
+
+void UnicycleTiger::Stop() { SetVelocity(0, 0); }

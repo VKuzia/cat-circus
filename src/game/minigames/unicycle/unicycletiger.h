@@ -11,6 +11,7 @@ class UnicycleTiger : public GameObject {
   void SetUp() override;
 
   void Update() override;
+  void Stop();
 };
 
 #endif  // UNICYCLETIGER_H

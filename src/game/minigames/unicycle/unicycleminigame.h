@@ -3,6 +3,7 @@
 
 #include "src/game/minigame.h"
 #include "src/game/minigames/unicycle/unicyclecat.h"
+#include "src/game/minigames/unicycle/unicyclegrate.h"
 #include "src/game/minigames/unicycle/unicycletiger.h"
 
 class UnicycleMinigame : public Minigame {
@@ -27,14 +28,15 @@ class UnicycleMinigame : public Minigame {
   const QSizeF kCatSize_ = {0.6, 1.5};
   const qreal kCatGoalX_ = 3;
 
-  const QPointF kGratePos_ = {2.5, 1};
-  const QSizeF kGrateSize_ = {0.5, 2};
+  const QPointF kGratePos_ = {2.5, 0};
+  const QSizeF kGrateSize_ = {0.5, 3};
 
   const QPointF kTigerStartPos_ = {-4.0, 1};
   const QSizeF kTigerSize_ = {2, 1.5};
 
   UnicycleCat* cat_ = nullptr;
   UnicycleTiger* tiger_ = nullptr;
+  UnicycleGrate* grate_ = nullptr;
   Vector2D cat_step_acceleration_;
   Vector2D tiger_velocity_;
   CurrentKey current_key_ = CurrentKey::kAny;

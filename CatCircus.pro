@@ -38,6 +38,7 @@ SOURCES += \
         src/game/minigames/test/clickableball.cpp \
         src/game/minigames/test/testminigame.cpp \
         src/game/minigames/unicycle/unicyclecat.cpp \
+    src/game/minigames/unicycle/unicyclegrate.cpp \
         src/game/minigames/unicycle/unicycleminigame.cpp \
     src/game/minigames/unicycle/unicycletiger.cpp \
         src/game/pausepage.cpp \
@@ -64,6 +65,7 @@ HEADERS += \
         src/game/minigames/test/clickableball.h \
         src/game/minigames/test/testminigame.h \
         src/game/minigames/unicycle/unicyclecat.h \
+        src/game/minigames/unicycle/unicyclegrate.h \
         src/game/minigames/unicycle/unicycleminigame.h \
         src/game/minigames/unicycle/unicycletiger.h \
         src/game/pausepage.h \

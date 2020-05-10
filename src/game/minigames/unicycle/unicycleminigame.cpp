@@ -17,6 +17,10 @@ void UnicycleMinigame::SetUp() {
   tiger_->SetUp();
   tiger_->SetVelocity(tiger_velocity_);
   game_view_->scene()->addItem(tiger_);
+
+  grate_ = new UnicycleGrate(game_view_, kGrateSize_, kGratePos_);
+  grate_->SetUp();
+  game_view_->scene()->addItem(grate_);
 }
 
 void UnicycleMinigame::SetUpLabel() {
@@ -54,6 +58,8 @@ void UnicycleMinigame::Tick() {
       (cat_->GetX() - kCatStartPos_.x()) / (kCatGoalX_ - kCatStartPos_.x());
   time_bar_->SetProgress(1 - progress);
   if (progress >= 1) {
+    grate_->Close();
+    tiger_->Stop();
     Stop(Status::kPass);
   }
   tiger_->Update();
