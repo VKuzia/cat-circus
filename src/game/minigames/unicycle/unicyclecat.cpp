@@ -19,5 +19,7 @@ void UnicycleCat::Update() {
   MoveByMeters(velocity_ * kUpdateTime);
   if (velocity_.x() >= speed_loss_.x()) {
     velocity_ -= speed_loss_;
+  } else {
+    velocity_ = {0, 0};
   }
 }

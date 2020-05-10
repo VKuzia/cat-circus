@@ -3,6 +3,7 @@
 
 #include "src/game/minigame.h"
 #include "src/game/minigames/unicycle/unicyclecat.h"
+#include "src/game/minigames/unicycle/unicycletiger.h"
 
 class UnicycleMinigame : public Minigame {
  public:
@@ -33,6 +34,7 @@ class UnicycleMinigame : public Minigame {
   const QSizeF kTigerSize_ = {2, 1.5};
 
   UnicycleCat* cat_ = nullptr;
+  UnicycleTiger* tiger_ = nullptr;
   Vector2D cat_step_acceleration_;
   Vector2D tiger_velocity_;
   CurrentKey current_key_ = CurrentKey::kAny;

@@ -39,6 +39,7 @@ SOURCES += \
         src/game/minigames/test/testminigame.cpp \
         src/game/minigames/unicycle/unicyclecat.cpp \
         src/game/minigames/unicycle/unicycleminigame.cpp \
+    src/game/minigames/unicycle/unicycletiger.cpp \
         src/game/pausepage.cpp \
         src/game/physics/vector2d.cpp \
         src/game/scorepage.cpp \
@@ -64,6 +65,7 @@ HEADERS += \
         src/game/minigames/test/testminigame.h \
         src/game/minigames/unicycle/unicyclecat.h \
         src/game/minigames/unicycle/unicycleminigame.h \
+        src/game/minigames/unicycle/unicycletiger.h \
         src/game/pausepage.h \
         src/game/physics/vector2d.h \
         src/game/scorepage.h \

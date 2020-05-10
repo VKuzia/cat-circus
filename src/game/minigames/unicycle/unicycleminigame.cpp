@@ -12,6 +12,11 @@ void UnicycleMinigame::SetUp() {
   cat_ = new UnicycleCat(game_view_, kCatSize_, kCatStartPos_);
   cat_->SetUp();
   game_view_->scene()->addItem(cat_);
+
+  tiger_ = new UnicycleTiger(game_view_, kTigerSize_, kTigerStartPos_);
+  tiger_->SetUp();
+  tiger_->SetVelocity(tiger_velocity_);
+  game_view_->scene()->addItem(tiger_);
 }
 
 void UnicycleMinigame::SetUpLabel() {
@@ -51,11 +56,15 @@ void UnicycleMinigame::Tick() {
   if (progress >= 1) {
     Stop(Status::kPass);
   }
+  tiger_->Update();
+  if (tiger_->collidesWithItem(cat_)) {
+    Stop(Status::kFail);
+  }
 }
 
 void UnicycleMinigame::SetUpParameters() {
   cat_step_acceleration_ = {0.2, 0};
-  tiger_velocity_ = {0.2, 0};
+  tiger_velocity_ = {0.4, 0};
 }
 
 void UnicycleMinigame::Stop(Minigame::Status status) {
