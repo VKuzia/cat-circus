@@ -24,6 +24,18 @@ void Sausage::Update() {
   if (is_caught_) {
     return;
   }
+  if (delta_pos >= 1) {
+    move_down = false;
+  } else if (delta_pos <= -1) {
+    move_down = true;
+  }
+  if (move_down) {
+    delta_pos += 0.01;
+    MoveByMeters(0, 0.01);
+  } else {
+    delta_pos -= 0.01;
+    MoveByMeters(0, -0.01);
+  }
 }
 
 void Sausage::SetCaught(bool is_caught) { is_caught_ = is_caught; }

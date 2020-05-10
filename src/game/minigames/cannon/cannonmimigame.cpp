@@ -149,6 +149,9 @@ void Cannonmimigame::Tick() {
       Stop(Status::kFail);
     }
   }
+  for (auto item : balls_) {
+    item->Update();
+  }
 }
 
 void Cannonmimigame::SetUpParameters() {
@@ -257,7 +260,9 @@ void Cannonmimigame::LaunchSausage() {
                   sausage_a_param * SausageX * SausageX / 2 +
                       sausage_b_param * SausageX - 3,
                   kFloorHeight);
-
+  if (balls_.size() % 2 == 0) {
+    ball->move_down = false;
+  }
   balls_.insert(ball);
   ball->SetUp();
   game_view_->scene()->addItem(ball);

@@ -45,7 +45,7 @@ void Cannoncat::Update() {
         continue;
       } else {
         if (dynamic_cast<Sausage *>(item)) {
-          delete item;
+          item->setVisible(false);
           was_caught_last_tick = true;
           caught_sausages++;
         }

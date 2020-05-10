@@ -15,11 +15,12 @@ class Sausage : public GameObject {
   void SetCaught(bool is_caught);
   qreal GetRadius() const;
 
- private:
   static const qreal kZValue;
 
   qreal radius_;
   qreal floor_y_;
+  qreal delta_pos = 0;
+  bool move_down = true;
   bool is_caught_ = false;
 };
 
