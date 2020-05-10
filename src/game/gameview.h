@@ -33,6 +33,7 @@ class GameView : public QGraphicsView {
   void mouseMoveEvent(QMouseEvent* event) override;
   void keyPressEvent(QKeyEvent* event) override;
   void keyReleaseEvent(QKeyEvent* event) override;
+  void wheelEvent(QWheelEvent* event) override;
 };
 
 #endif  // GAMEVIEW_H
