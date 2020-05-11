@@ -14,29 +14,28 @@ LoadingWidget::LoadingWidget(QWidget *parent)
 LoadingWidget::~LoadingWidget() { delete ui_; }
 
 void LoadingWidget::SetUp() {
-  this->setDisabled(true);
   this->setVisible(false);
-  ui_->ui_loading_base_widget_->setAutoFillBackground(true);
   is_opaque_ = false;
+  effect_ = new QGraphicsOpacityEffect();
+  setGraphicsEffect(effect_);
   SetOpacity(0);
 
   animation_.setTargetObject(this);
   animation_.setPropertyName("opacity");
   // Fade in + Fade out + Stay opaque time
   int32_t animation_duration =
-      kAnimationInOutDuration * 2 + kAnimationStayDuration;
+      kAnimationFadeDuration * 2 + kAnimationStayDuration;
   animation_.setDuration(animation_duration);
   animation_.setStartValue(0);
   // Stay totally opaque when kAnimationInOutDuration
   // is reached for kAnimationStayDuration
-  animation_.setKeyValueAt(kAnimationInOutDuration * 1.0 / animation_duration,
+  animation_.setKeyValueAt(kAnimationFadeDuration * 1.0 / animation_duration,
                            255);
-  animation_.setKeyValueAt((kAnimationInOutDuration + kAnimationStayDuration) *
+  animation_.setKeyValueAt((kAnimationFadeDuration + kAnimationStayDuration) *
                                1.0 / animation_duration,
                            255);
   animation_.setEndValue(0);
   connect(&animation_, &QPropertyAnimation::finished, this, [this] {
-    this->setDisabled(true);
     this->setVisible(false);
     is_opaque_ = false;
     loading_movie_.stop();
@@ -48,7 +47,6 @@ void LoadingWidget::SetUp() {
 
 void LoadingWidget::Animate() {
   this->setVisible(true);
-  this->setDisabled(false);
   loading_movie_.setScaledSize(ui_->ui_loading_label_->size());
   loading_movie_.start();
   animation_.start();
@@ -56,8 +54,11 @@ void LoadingWidget::Animate() {
 
 void LoadingWidget::SetOpacity(int opacity) {
   opacity_ = opacity;
-  // Sets the opacity of the widget using StyleSheet
-  // There is no direct way to set it in QWidget
+  // To animate opacity of the children
+  effect_->setOpacity(opacity_ / 255.0);
+  // Background's opacity is not animated with effect
+  // (only strict background color is set with StyleSheet)
+  // so we need to update it too
   ui_->ui_loading_base_widget_->setStyleSheet(
       QString("background-color: rgba(%1, %2, %3, %4)")
           .arg(kBackgroundColor.red())
