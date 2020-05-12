@@ -23,7 +23,11 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
 
   virtual void Update();
 
+  // Returns QPixmap scaled to GameObject's size with HeuristicMask applied
+  // Might be used to load multiple object's pixmaps
   QPixmap GetScaledPixmapFrom(const QString& short_path) const;
+
+  // Sets GameObject's pixmap scaled to boundingRect and centered properly
   void SetScaledPixmap(const QPixmap& pixmap);
   void SetScaledPixmapFrom(const QString& short_path);
 

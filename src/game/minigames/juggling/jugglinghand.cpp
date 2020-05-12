@@ -10,17 +10,10 @@ JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
       kThrowPos_(x + GetHorizontalSwing(), y) {}
 
 void JugglingHand::SetUp() {
-  this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  pixmap_free_ =
-      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/hand_free.png");
-  pixmap_free_.setMask(pixmap_free_.createHeuristicMask());
-  pixmap_free_ = pixmap_free_.scaled(boundingRect().size().toSize());
-
-  pixmap_closed_ = QPixmap(game_view_->GetPathToMinigameImages() +
-                           "juggling/hand_closed.png");
-  pixmap_closed_.setMask(pixmap_closed_.createHeuristicMask());
-  pixmap_closed_ = pixmap_closed_.scaled(boundingRect().size().toSize());
-  this->setPixmap(pixmap_free_);
+  setOffset(boundingRect().topLeft());
+  pixmap_free_ = GetScaledPixmapFrom("juggling/hand_free.png");
+  pixmap_closed_ = GetScaledPixmapFrom("juggling/hand_closed.png");
+  setPixmap(pixmap_free_);
 }
 
 void JugglingHand::Update() {

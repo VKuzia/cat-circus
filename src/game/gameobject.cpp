@@ -28,13 +28,13 @@ void GameObject::Update() {}
 QPixmap GameObject::GetScaledPixmapFrom(const QString& short_path) const {
   QPixmap pixmap(game_view_->GetPathToMinigameImages() + short_path);
   pixmap.setMask(pixmap.createHeuristicMask());
-  return pixmap;
+  return pixmap.scaled(boundingRect().size().toSize());
 }
 
 void GameObject::SetScaledPixmap(const QPixmap& new_pixmap) {
   // Pixmap's left upper corner is in GameObject center by default
   // to match centers we need to translate pixmap's corner
-  setOffset(-boundingRect().center());
+  setOffset(boundingRect().topLeft());
   QPixmap pixmap = new_pixmap;
   pixmap.setMask(pixmap.createHeuristicMask());
   setPixmap(pixmap.scaled(boundingRect().size().toSize()));

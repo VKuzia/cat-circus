@@ -28,6 +28,7 @@ class JugglingMinigame : public Minigame {
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
+  const QPixmap kBallPixmap_;
   const QPointF kBallStartPos = {4.6, 0};
   const qreal kBallRadius = 0.11;
   const qreal kBallLaunchFlightTime = 1.3;

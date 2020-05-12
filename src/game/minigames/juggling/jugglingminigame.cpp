@@ -5,7 +5,9 @@
 
 JugglingMinigame::JugglingMinigame(GameView* game_view, qreal difficulty,
                                    qreal pixels_in_meter)
-    : Minigame(game_view, difficulty, pixels_in_meter) {}
+    : Minigame(game_view, difficulty, pixels_in_meter),
+      kBallPixmap_(game_view->GetPathToMinigameImages() + "juggling/ball.png") {
+}
 
 void JugglingMinigame::Start() { AnimateTutorial(); }
 
@@ -209,7 +211,7 @@ void JugglingMinigame::LaunchBall() {
                                          : cat_->GetLeftHand()->GetBasePos();
   ball->SetVelocity(
       physics::Throw(ball->GetPos(), target_pos, kBallLaunchFlightTime));
+  ball->SetScaledPixmap(kBallPixmap_);
   balls_.insert(ball);
-  ball->SetUp();
   game_view_->scene()->addItem(ball);
 }

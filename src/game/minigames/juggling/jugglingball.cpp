@@ -6,15 +6,8 @@ JugglingBall::JugglingBall(GameView* game_view, qreal radius, qreal x, qreal y,
                            qreal floor_y)
     : GameObject(game_view, radius * 2, radius * 2, x, y),
       radius_(radius),
-      floor_y_(floor_y) {}
-
-void JugglingBall::SetUp() {
-  this->setZValue(kZValue);
-  this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  QPixmap pixmap =
-      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/ball.png");
-  pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
+      floor_y_(floor_y) {
+  setZValue(kZValue);
 }
 
 void JugglingBall::Update() {
