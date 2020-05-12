@@ -27,13 +27,13 @@ void LoadingWidget::SetUp() {
       kAnimationFadeDuration * 2 + kAnimationStayDuration;
   animation_.setDuration(animation_duration);
   animation_.setStartValue(0);
-  // Stay totally opaque when kAnimationInOutDuration
-  // is reached for kAnimationStayDuration
-  animation_.setKeyValueAt(kAnimationFadeDuration * 1.0 / animation_duration,
-                           255);
-  animation_.setKeyValueAt((kAnimationFadeDuration + kAnimationStayDuration) *
-                               1.0 / animation_duration,
-                           255);
+  // Stay totally opaque for kAnimationStayDuration
+  // when kAnimationFadeDuration passed
+  qreal fade_in_step_ = kAnimationFadeDuration * 1.0 / animation_duration;
+  animation_.setKeyValueAt(fade_in_step_, 255);
+  qreal fade_out_step_ = (kAnimationFadeDuration + kAnimationStayDuration) *
+                         1.0 / animation_duration;
+  animation_.setKeyValueAt(fade_out_step_, 255);
   animation_.setEndValue(0);
   connect(&animation_, &QPropertyAnimation::finished, this, [this] {
     this->setVisible(false);
