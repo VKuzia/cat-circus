@@ -6,8 +6,13 @@ JugglingBall::JugglingBall(GameView* game_view, qreal radius, qreal x, qreal y,
                            qreal floor_y)
     : GameObject(game_view, radius * 2, radius * 2, x, y),
       radius_(radius),
-      floor_y_(floor_y) {
+      floor_y_(floor_y) {}
+
+void JugglingBall::SetUp() {
   setZValue(kZValue);
+  setOffset(boundingRect().topLeft());
+  setPixmap(GameObject::pixmap_loader_.GetPixmap(
+      "juggling/ball.png", boundingRect().size().toSize()));
 }
 
 void JugglingBall::Update() {

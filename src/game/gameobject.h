@@ -7,12 +7,15 @@
 
 #include "src/game/gameview.h"
 #include "src/game/physics/physics.h"
+#include "src/game/pixmaploader.h"
 
 class GameObject : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT
   Q_INTERFACES(QGraphicsItem)
 
  public:
+  static PixmapLoader pixmap_loader_;
+
   GameObject(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
   GameObject(GameView* game_view, qreal width, qreal height, QPointF pos);
@@ -22,14 +25,6 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   virtual void SetUp();
 
   virtual void Update();
-
-  // Returns QPixmap scaled to GameObject's size with HeuristicMask applied
-  // Might be used to load multiple object's pixmaps
-  QPixmap GetScaledPixmapFrom(const QString& short_path) const;
-
-  // Sets GameObject's pixmap scaled to boundingRect and centered properly
-  void SetScaledPixmap(const QPixmap& pixmap);
-  void SetScaledPixmapFrom(const QString& short_path);
 
   void AddVelocity(qreal x, qreal y);
   void AddVelocity(Vector2D rhs);

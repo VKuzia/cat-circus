@@ -211,7 +211,7 @@ void JugglingMinigame::LaunchBall() {
                                          : cat_->GetLeftHand()->GetBasePos();
   ball->SetVelocity(
       physics::Throw(ball->GetPos(), target_pos, kBallLaunchFlightTime));
-  ball->SetScaledPixmap(kBallPixmap_);
+  ball->SetUp();
   balls_.insert(ball);
   game_view_->scene()->addItem(ball);
 }

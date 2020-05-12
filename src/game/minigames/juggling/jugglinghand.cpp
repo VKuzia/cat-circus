@@ -11,8 +11,10 @@ JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
 
 void JugglingHand::SetUp() {
   setOffset(boundingRect().topLeft());
-  pixmap_free_ = GetScaledPixmapFrom("juggling/hand_free.png");
-  pixmap_closed_ = GetScaledPixmapFrom("juggling/hand_closed.png");
+  pixmap_free_ = GameObject::pixmap_loader_.GetPixmap(
+      "juggling/hand_free.png", boundingRect().size().toSize());
+  pixmap_closed_ = GameObject::pixmap_loader_.GetPixmap(
+      "juggling/hand_closed.png", boundingRect().size().toSize());
   setPixmap(pixmap_free_);
 }
 

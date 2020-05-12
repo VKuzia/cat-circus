@@ -9,6 +9,8 @@ class JugglingBall : public GameObject {
                qreal floor_y = 0);
   ~JugglingBall() override = default;
 
+  void SetUp() override;
+
   void Update() override;
 
   void SetCaught(bool is_caught);

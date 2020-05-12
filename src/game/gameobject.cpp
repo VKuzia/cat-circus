@@ -1,5 +1,7 @@
 #include "gameobject.h"
 
+PixmapLoader GameObject::pixmap_loader_ = PixmapLoader();
+
 GameObject::GameObject(GameView* game_view, qreal width, qreal height, qreal x,
                        qreal y)
     : GameObject(game_view, width, height, QPointF(x, y)) {}
@@ -24,25 +26,6 @@ GameObject::GameObject(GameView* game_view, QSizeF size, QPointF pos)
 void GameObject::SetUp() {}
 
 void GameObject::Update() {}
-
-QPixmap GameObject::GetScaledPixmapFrom(const QString& short_path) const {
-  QPixmap pixmap(game_view_->GetPathToMinigameImages() + short_path);
-  pixmap.setMask(pixmap.createHeuristicMask());
-  return pixmap.scaled(boundingRect().size().toSize());
-}
-
-void GameObject::SetScaledPixmap(const QPixmap& new_pixmap) {
-  // Pixmap's left upper corner is in GameObject center by default
-  // to match centers we need to translate pixmap's corner
-  setOffset(boundingRect().topLeft());
-  QPixmap pixmap = new_pixmap;
-  pixmap.setMask(pixmap.createHeuristicMask());
-  setPixmap(pixmap.scaled(boundingRect().size().toSize()));
-}
-
-void GameObject::SetScaledPixmapFrom(const QString& short_path) {
-  SetScaledPixmap(QPixmap(game_view_->GetPathToMinigameImages() + short_path));
-}
 
 QRectF GameObject::boundingRect() const { return kDefaultBoundingRect; }
 
