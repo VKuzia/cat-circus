@@ -20,7 +20,7 @@ class Cannonmimigame : public Minigame {
  public:
   Cannonmimigame(GameView* game_view, qreal difficulty,
                  qreal pixels_in_meter = 576 / 10.0);
-  ~Cannonmimigame() override;
+  ~Cannonmimigame() override = default;
 
   void Start() override;
 
@@ -72,7 +72,7 @@ class Cannonmimigame : public Minigame {
   QSet<No*> not_caught_;
   QSet<Yes*> caught_;
 
-  QTimer ball_timer_;
+  QTimer sausage_timer_;
 
   void LaunchSausage();
 

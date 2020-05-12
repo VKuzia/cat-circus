@@ -5,15 +5,13 @@
 
 class No : public GameObject {
  public:
-  No(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
-     qreal y = 0, qreal floor_y_ = 0);
-  ~No() override;
+  No(GameView* game_view, qreal width, qreal height, qreal x = 0, qreal y = 0);
+  ~No() override = default;
+
   void SetUp() override;
 
-  static const qreal kZValue;
-
-  qreal radius_;
-  qreal floor_y_;
+ private:
+  static const qreal kZValue_;
 };
 
 #endif  // NO_H

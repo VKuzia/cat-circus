@@ -5,16 +5,13 @@
 
 class Yes : public GameObject {
  public:
-  Yes(GameView* graphics_view, qreal width, qreal height, qreal x = 0,
-      qreal y = 0, qreal floor_y_ = 0);
-  ~Yes() override;
+  Yes(GameView* game_view, qreal width, qreal height, qreal x = 0, qreal y = 0);
+  ~Yes() override = default;
+
   void SetUp() override;
 
  private:
-  static const qreal kZValue;
-
-  qreal radius_;
-  qreal floor_y_;
+  static const qreal kZValue_;
 };
 
 #endif  // YES_H

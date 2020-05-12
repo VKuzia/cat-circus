@@ -6,27 +6,20 @@ Cannonmimigame::Cannonmimigame(GameView* game_view, qreal difficulty,
                                qreal pixels_in_meter)
     : Minigame(game_view, difficulty, pixels_in_meter) {}
 
-Cannonmimigame::~Cannonmimigame() {
-  delete cat_;
-  delete cannon_;
-}
-
 void Cannonmimigame::Start() { AnimateTutorial(); }
 
 void Cannonmimigame::SetUp() {
   background_->SetUp(game_view_, "cannon/circus.png");
   game_view_->scene()->addItem(background_);
 
-  // Create cannon
   cannon_ = new Cannon(game_view_, kCatWidth, kCatHeight, -6, kCatY);
   cannon_->SetUp();
   game_view_->scene()->addItem(cannon_);
-  // Create cat
+
   cat_ = new Cannoncat(game_view_, kCatWidth, kCatHeight, -6, kCatY);
   cat_->SetUp();
-  // Need to set this here because ball_air_time_ is defined by SetParamateres
   game_view_->scene()->addItem(cat_);
-  // Create cannon
+
   cannon_ =
       new Cannon(game_view_, 2.5 * kCatWidth, 1.5 * kCatHeight, -6, kCatY);
   cannon_->SetUp();
@@ -34,17 +27,15 @@ void Cannonmimigame::SetUp() {
 
   arrow_ = new Arrow(game_view_, kCatWidth, kCatHeight, 6, -kCatY);
   arrow_->SetUp();
-  // Need to set this here because ball_air_time_ is defined by SetParamateres
   game_view_->scene()->addItem(arrow_);
 
   speedometer_ = new Speedometer(game_view_, kCatWidth, kCatHeight, 7, -kCatY);
   speedometer_->SetUp();
-  // Need to set this here because ball_air_time_ is defined by SetParamateres
   game_view_->scene()->addItem(speedometer_);
 
   SetUpLabel();
   time_bar_->setVisible(false);
-  ball_timer_.setInterval(sausage_launch_period_);
+  sausage_timer_.setInterval(sausage_launch_period_);
   for (int i = 0; i < sausage_count_; i++) {
     LaunchSausage();
   }
@@ -87,7 +78,7 @@ void Cannonmimigame::StartGame() {
   is_running_ = true;
 
   tick_timer_.start();
-  ball_timer_.start();
+  sausage_timer_.start();
 }
 
 void Cannonmimigame::AnimateOutro() {}
@@ -131,7 +122,7 @@ void Cannonmimigame::Tick() {
 
   if (cat_flight) {
     cat_->Update();
-    if (cat_->was_caught_last_tick && cat_->GetCaught() <= number_to_win_) {
+    if (cat_->was_caught_last_tick_ && cat_->GetCaught() <= number_to_win_) {
       (*(not_caught_.begin() + cat_->GetCaught() - 1))->setVisible(false);
       (*(caught_.begin() + cat_->GetCaught() - 1))->setVisible(true);
     }
@@ -205,7 +196,7 @@ void Cannonmimigame::SetUpParameters() {
 void Cannonmimigame::Stop(Status status) {
   is_running_ = false;
   tick_timer_.stop();
-  ball_timer_.stop();
+  sausage_timer_.stop();
   time_bar_->setVisible(false);
   if (status == Status::kPass) {
     score_ = 100;
@@ -257,8 +248,7 @@ void Cannonmimigame::LaunchSausage() {
   Sausage* sausage =
       new Sausage(game_view_, KSausageRadius * 2, KSausageRadius * 2, SausageX,
                   sausage_a_param * SausageX * SausageX / 2 +
-                      sausage_b_param * SausageX - 3,
-                  kFloorHeight);
+                      sausage_b_param * SausageX - 3);
   if (sausages_.size() % 2 == 0) {
     sausage->move_down = false;
   }
