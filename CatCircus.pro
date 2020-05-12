@@ -43,6 +43,7 @@ SOURCES += \
         src/game/physics/physics.cpp \
         src/game/timebar.cpp \
         src/menu/aboutwidget.cpp \
+    src/menu/button.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
         src/menu/settingswidget.cpp \
@@ -66,6 +67,7 @@ HEADERS += \
         src/game/physics/physics.h \
         src/game/timebar.h \
         src/menu/aboutwidget.h \
+        src/menu/button.h \
         src/menu/mainwindow.h \
         src/menu/settingswidget.h
 
