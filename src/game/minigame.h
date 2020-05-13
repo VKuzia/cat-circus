@@ -26,6 +26,7 @@ class Minigame : public QObject {
   virtual void MouseMoveEvent(QMouseEvent* event);
   virtual void KeyPressEvent(QKeyEvent* event);
   virtual void KeyReleaseEvent(QKeyEvent* event);
+  virtual void WheelEvent(QWheelEvent* event);
 
  signals:
   void Passed(int32_t score);
