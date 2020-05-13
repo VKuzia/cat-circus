@@ -10,12 +10,12 @@ class Button : public QPushButton {
                  SetAnimationProgress)
 
  public:
-  Button(QWidget* parent = nullptr);
+  explicit Button(QWidget* parent = nullptr);
   ~Button() override = default;
 
  private:
-  const int32_t kMouseOverDuration_ = 200;
-  const qreal kMouseOverScaleFactor_ = 1.2;
+  const int32_t kMouseOverDuration_ = 150;
+  const qreal kMouseOverScaleFactor_ = 1.15;
 
   QPropertyAnimation hover_animation_;
   QSize last_size_;

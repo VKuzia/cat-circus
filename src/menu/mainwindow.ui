@@ -118,7 +118,7 @@
              <number>20</number>
             </property>
             <property name="sizeConstraint">
-             <enum>QLayout::SetFixedSize</enum>
+             <enum>QLayout::SetNoConstraint</enum>
             </property>
             <item>
              <widget class="QLabel" name="ui_game_name_label_">
@@ -311,7 +311,20 @@ BEST SCORE]</string>
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,10">
+           <layout class="QVBoxLayout" name="exitVerticalLayout" stretch="1,2,20">
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,3,1">
               <item>
@@ -359,7 +372,7 @@ BEST SCORE]</string>
              </layout>
             </item>
             <item>
-             <spacer name="verticalSpacer">
+             <spacer name="exitVerticalSpacer">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
               </property>
