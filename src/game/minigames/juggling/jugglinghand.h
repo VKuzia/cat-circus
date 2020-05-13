@@ -32,6 +32,9 @@ class JugglingHand : public GameObject {
   bool IsThrowing() const;
 
  private:
+  const QPixmap pixmap_free_;
+  const QPixmap pixmap_closed_;
+
   // Hand motion durations
   const qreal kThrowTime = 0.15;
   const qreal kComeBackTime = 0.05;
@@ -46,8 +49,6 @@ class JugglingHand : public GameObject {
   const QPointF kThrowPos_;
 
   JugglingBall* current_ball_ = nullptr;
-  QPixmap pixmap_free_;
-  QPixmap pixmap_closed_;
   bool is_throwing_ = false;
   bool is_coming_back_ = false;
   QPointF aim_point_;

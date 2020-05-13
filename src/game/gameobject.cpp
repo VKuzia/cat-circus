@@ -62,4 +62,4 @@ void GameObject::MoveByMeters(Vector2D shift) {
          shift.y() * game_view_->GetPixelsInMeter());
 }
 
-PixmapLoader* GameObject::GetPixmapLoader() { return &pixmap_loader_; }
+const PixmapLoader* GameObject::GetPixmapLoader() { return &pixmap_loader_; }

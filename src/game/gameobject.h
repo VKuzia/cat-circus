@@ -44,7 +44,7 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   void MoveByMeters(qreal x, qreal y);
   void MoveByMeters(Vector2D shift);
 
-  static PixmapLoader* GetPixmapLoader();
+  static const PixmapLoader* GetPixmapLoader();
 
  protected:
   // Represents 60 frames a second refresh time
