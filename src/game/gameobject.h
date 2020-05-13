@@ -14,7 +14,7 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   Q_INTERFACES(QGraphicsItem)
 
  public:
-  static PixmapLoader pixmap_loader_;
+  static PixmapLoader* GetPixmapLoader();
 
   GameObject(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
@@ -56,6 +56,9 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   QSizeF size_;
   QPointF pos_;
   Vector2D velocity_ = {0, 0};
+
+ private:
+  static PixmapLoader pixmap_loader_;
 };
 
 #endif  // GAMEOBJECT_H
