@@ -7,6 +7,7 @@
 
 #include "src/game/gameview.h"
 #include "src/game/physics/physics.h"
+#include "src/game/pixmaploader.h"
 
 class GameObject : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT
@@ -20,6 +21,7 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   ~GameObject() override = default;
 
   virtual void SetUp();
+
   virtual void Update();
 
   void AddVelocity(qreal x, qreal y);
@@ -42,6 +44,8 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   void MoveByMeters(qreal x, qreal y);
   void MoveByMeters(Vector2D shift);
 
+  static const PixmapLoader* GetPixmapLoader();
+
  protected:
   // Represents 60 frames a second refresh time
   // Is used for motion calculus
@@ -52,6 +56,9 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   QSizeF size_;
   QPointF pos_;
   Vector2D velocity_ = {0, 0};
+
+ private:
+  static PixmapLoader pixmap_loader_;
 };
 
 #endif  // GAMEOBJECT_H

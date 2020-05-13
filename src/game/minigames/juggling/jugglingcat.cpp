@@ -16,11 +16,9 @@ void JugglingCat::SetUp() {
   SetUpHand(left_hand_, right_hand_->GetBasePos());
   SetUpHand(right_hand_, left_hand_->GetBasePos());
   this->setZValue(kZValue);
-  this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  QPixmap pixmap =
-      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/cat.png");
-  pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
+  this->setOffset(boundingRect().topLeft());
+  setPixmap(GetPixmapLoader()->GetPixmap("juggling/cat.png",
+                                         boundingRect().size().toSize()));
 }
 
 void JugglingCat::Update() {

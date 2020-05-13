@@ -5,22 +5,17 @@
 JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
                            qreal x, qreal y, Side side)
     : GameObject(game_view, width, height, x, y),
+      kPixmapFree_(GetPixmapLoader()->GetPixmap(
+          "juggling/hand_free.png", boundingRect().size().toSize())),
+      kPixmapClosed_(GetPixmapLoader()->GetPixmap(
+          "juggling/hand_closed.png", boundingRect().size().toSize())),
       kSide_(side),
       kBasePos_(x, y),
       kThrowPos_(x + GetHorizontalSwing(), y) {}
 
 void JugglingHand::SetUp() {
-  this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  pixmap_free_ =
-      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/hand_free.png");
-  pixmap_free_.setMask(pixmap_free_.createHeuristicMask());
-  pixmap_free_ = pixmap_free_.scaled(boundingRect().size().toSize());
-
-  pixmap_closed_ = QPixmap(game_view_->GetPathToMinigameImages() +
-                           "juggling/hand_closed.png");
-  pixmap_closed_.setMask(pixmap_closed_.createHeuristicMask());
-  pixmap_closed_ = pixmap_closed_.scaled(boundingRect().size().toSize());
-  this->setPixmap(pixmap_free_);
+  setOffset(boundingRect().topLeft());
+  setPixmap(kPixmapFree_);
 }
 
 void JugglingHand::Update() {
@@ -50,7 +45,7 @@ void JugglingHand::Update() {
   if (is_coming_back_ &&
       ((kSide_ == Side::kLeft && (GetX() + shift.x()) < kBasePos_.x()) ||
        (kSide_ == Side::kRight && (GetX() + shift.x()) > kBasePos_.x()))) {
-    this->setPixmap(pixmap_free_);
+    this->setPixmap(kPixmapFree_);
     is_throwing_ = false;
     is_coming_back_ = false;
     SetVelocity(0, 0);
@@ -66,7 +61,7 @@ void JugglingHand::Throw() {
   if (is_throwing_) {
     return;
   }
-  this->setPixmap(pixmap_closed_);
+  this->setPixmap(kPixmapClosed_);
   is_throwing_ = true;
   is_coming_back_ = false;
   SetVelocity(physics::Throw(kBasePos_, kThrowPos_, kThrowTime, kAcceleration));
