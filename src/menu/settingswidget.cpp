@@ -80,25 +80,22 @@ void SettingsWidget::Load() {
     QTextStream load(&file);
     load.setCodec("UTF-8");
 
-    QString volume_off_line = load.readLine();
-    int64_t volume_off_int_ = volume_off_line.toInt();
-    volume_off_ = (volume_off_int_ == 0 ? false : true);
+    volume_off_ = load.readLine().toInt() == 1;
     ui_->ui_sound_check_box_->setChecked(volume_off_);
 
-    QString volume_line = load.readLine();
-    volume_ = volume_line.toInt();
+    volume_ = load.readLine().toInt();
     ui_->ui_volume_->setValue(volume_);
 
-    QString current_resolution_line = load.readLine();
     ui_->ui_resolution_combo_box_->setCurrentIndex(
-                current_resolution_line.toInt());
+               load.readLine().toInt());
 
-    QString current_language_index_line = load.readLine();
-    current_language_index_ = current_language_index_line.toInt();
+    current_language_index_ = load.readLine().toInt();
     ui_->ui_language_combo_box_->setCurrentIndex(current_language_index_);
 
     user_name_ = load.readLine();
     ui_->ui_user_line_edit_->setText(user_name_);
+
+    file.close();
 }
 
 QSize SettingsWidget::GetResolution() const {
@@ -113,6 +110,21 @@ void SettingsWidget::ChangeSound() {
     }
     ui_->ui_sound_check_box_->setText("On");
     volume_off_ = false;
+}
+
+void SettingsWidget::ChangeVolume()
+{
+
+}
+
+void SettingsWidget::ChangeLanguage()
+{
+
+}
+
+void SettingsWidget::ChangeUserName()
+{
+
 }
 
 void SettingsWidget::ChangeResolution() {

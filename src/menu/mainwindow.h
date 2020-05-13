@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow {
   explicit MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
-    void SetUp();
+  void SetUp();
 
  public slots:
   void ChangeToMainMenu();

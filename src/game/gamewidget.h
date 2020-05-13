@@ -17,7 +17,7 @@ class GameWidget : public QWidget {
   ~GameWidget() override;
 
   void SetUp();
-  void SetResolution(const QSize& resolution);
+  void SetResolution(QSize resolution);
 
  signals:
   void MainMenu();

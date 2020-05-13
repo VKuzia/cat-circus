@@ -103,7 +103,7 @@ void GameWidget::SetUp() {
   InitMinigame();
 }
 
-void GameWidget::SetResolution(const QSize& resolution) {
+void GameWidget::SetResolution(QSize resolution) {
     ui_->ui_game_view_->SetUp(resolution);
 }
 
