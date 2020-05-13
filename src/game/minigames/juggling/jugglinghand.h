@@ -32,8 +32,8 @@ class JugglingHand : public GameObject {
   bool IsThrowing() const;
 
  private:
-  const QPixmap pixmap_free_;
-  const QPixmap pixmap_closed_;
+  const QPixmap kPixmapFree_;
+  const QPixmap kPixmapClosed_;
 
   // Hand motion durations
   const qreal kThrowTime = 0.15;
