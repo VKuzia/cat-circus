@@ -45,27 +45,25 @@ void SettingsWidget::Save() {
     QTextStream save(&file);
     save.setCodec("UTF-8");
 
-//    save << resolution_.width() << " " << resolution_.height() << "\n";
-
     save << volume_off_ << "\n";
 
-    volume_ = ui_->ui_volume_->value();
     save << volume_ << "\n";
-
-//    save << current_resolution_index_ << "\n";
 
     save << ui_->ui_resolution_combo_box_->currentIndex() << "\n";
 
-    current_language_index_ = ui_->ui_language_combo_box_->currentIndex();
     save << current_language_index_ << "\n";
 
-    user_name_ = ui_->ui_user_line_edit_->text();
     save << user_name_ << "\n";
 
     file.close();
 }
 
 void SettingsWidget::Load() {
+    QDir dir(kPathToSettings + "basic_settings.txt");
+    if (!dir.exists()) {
+        dir.mkpath(kPathToSettings + "basic_settings.txt");
+    }
+
     QFile file(kPathToSettings + "basic_settings.txt");
     try {
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -112,19 +110,16 @@ void SettingsWidget::ChangeSound() {
     volume_off_ = false;
 }
 
-void SettingsWidget::ChangeVolume()
-{
-
+void SettingsWidget::ChangeVolume() {
+    volume_ = ui_->ui_volume_->value();
 }
 
-void SettingsWidget::ChangeLanguage()
-{
-
+void SettingsWidget::ChangeLanguage() {
+    current_language_index_ = ui_->ui_language_combo_box_->currentIndex();
 }
 
-void SettingsWidget::ChangeUserName()
-{
-
+void SettingsWidget::ChangeUserName() {
+    user_name_ = ui_->ui_user_line_edit_->text();
 }
 
 void SettingsWidget::ChangeResolution() {

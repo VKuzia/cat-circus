@@ -235,10 +235,61 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ui_language_combo_box_</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SettingsWidget</receiver>
+   <slot>ChangeLanguage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>571</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ui_user_line_edit_</sender>
+   <signal>editingFinished()</signal>
+   <receiver>SettingsWidget</receiver>
+   <slot>ChangeUserName()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>571</x>
+     <y>124</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ui_volume_</sender>
+   <signal>sliderReleased()</signal>
+   <receiver>SettingsWidget</receiver>
+   <slot>ChangeVolume()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>533</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ReturnToMainMenu()</slot>
   <slot>ChangeSound()</slot>
   <slot>ChangeResolution()</slot>
+  <slot>ChangeVolume()</slot>
+  <slot>ChangeLanguage()</slot>
+  <slot>ChangeUserName()</slot>
  </slots>
 </ui>
