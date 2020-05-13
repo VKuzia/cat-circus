@@ -14,8 +14,6 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   Q_INTERFACES(QGraphicsItem)
 
  public:
-  static PixmapLoader* GetPixmapLoader();
-
   GameObject(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
   GameObject(GameView* game_view, qreal width, qreal height, QPointF pos);
@@ -45,6 +43,8 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
 
   void MoveByMeters(qreal x, qreal y);
   void MoveByMeters(Vector2D shift);
+
+  static PixmapLoader* GetPixmapLoader();
 
  protected:
   // Represents 60 frames a second refresh time
