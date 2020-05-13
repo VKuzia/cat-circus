@@ -25,18 +25,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        src/game/backgroundobject.cpp \
         src/game/game.cpp \
-        src/game/game_objects/clickableball.cpp \
-        src/game/game_objects/timebar.cpp \
         src/game/gameobject.cpp \
         src/game/gameview.cpp \
         src/game/gamewidget.cpp \
         src/game/minigame.cpp \
-        src/game/minigames/testminigame.cpp \
+        src/game/minigames/juggling/jugglingball.cpp \
+        src/game/minigames/juggling/jugglingcat.cpp \
+        src/game/minigames/juggling/jugglinghand.cpp \
+        src/game/minigames/juggling/jugglingminigame.cpp \
+        src/game/minigames/test/clickableball.cpp \
+        src/game/minigames/test/testminigame.cpp \
         src/game/pausepage.cpp \
         src/game/physics/vector2d.cpp \
         src/game/scorepage.cpp \
         src/game/physics/physics.cpp \
+        src/game/timebar.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/loadingwidget.cpp \
         src/menu/main.cpp \
@@ -44,18 +49,23 @@ SOURCES += \
         src/menu/settingswidget.cpp \
 
 HEADERS += \
+        src/game/backgroundobject.h \
         src/game/game.h \
-        src/game/game_objects/clickableball.h \
-        src/game/game_objects/timebar.h \
         src/game/gameobject.h \
         src/game/gameview.h \
         src/game/gamewidget.h \
         src/game/minigame.h \
-        src/game/minigames/testminigame.h \
+        src/game/minigames/juggling/jugglingball.h \
+        src/game/minigames/juggling/jugglingcat.h \
+        src/game/minigames/juggling/jugglinghand.h \
+        src/game/minigames/juggling/jugglingminigame.h \
+        src/game/minigames/test/clickableball.h \
+        src/game/minigames/test/testminigame.h \
         src/game/pausepage.h \
         src/game/physics/vector2d.h \
         src/game/scorepage.h \
         src/game/physics/physics.h \
+        src/game/timebar.h \
         src/menu/aboutwidget.h \
         src/menu/loadingwidget.h \
         src/menu/mainwindow.h \
