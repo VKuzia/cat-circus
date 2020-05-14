@@ -3,11 +3,11 @@
 
 #include "src/game/gameobject.h"
 
-class Cannoncat : public GameObject {
+class CannonCat : public GameObject {
  public:
-  Cannoncat(GameView* game_view, qreal width, qreal height, qreal x = 0,
+  CannonCat(GameView* game_view, qreal width, qreal height, qreal x = 0,
             qreal y = 0, qreal floor_y_ = 0);
-  ~Cannoncat() override = default;
+  ~CannonCat() override = default;
 
   void SetUp() override;
 
@@ -19,11 +19,10 @@ class Cannoncat : public GameObject {
   void SetPower(qreal);
   void SetFallen(bool is_fallen);
   int GetCaught() const;
-  bool was_caught_last_tick_ = false;
+  bool GetLastTickStatus() const;
 
  private:
-  static const qreal kZValue_;
-
+  const Vector2D kGravityCannon = physics::kGravity / 6000;
   qreal radius_;
   qreal floor_y_;
   qreal angle_ = 0;
@@ -32,6 +31,7 @@ class Cannoncat : public GameObject {
   bool is_caught_ = false;
   bool is_fallen_ = false;
   bool in_flight_ = true;
+  bool was_caught_last_tick_ = false;
   int caught_sausages_ = 0;
 };
 

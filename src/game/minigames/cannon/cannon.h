@@ -11,9 +11,6 @@ class Cannon : public GameObject {
   ~Cannon() override = default;
 
   void SetUp() override;
-
- private:
-  static const qreal kZValue_;
 };
 
 #endif  // CANNON_H

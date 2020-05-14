@@ -10,9 +10,6 @@ class Speedometer : public GameObject {
   ~Speedometer() override = default;
 
   void SetUp() override;
-
- private:
-  static const qreal kZValue_;
 };
 
 #endif  // SPEEDOMETER_H

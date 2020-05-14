@@ -1,25 +1,22 @@
 #include "cannoncat.h"
 
-#include "sausage.h"
+#include "cannonsausage.h"
 
-const qreal Cannoncat::kZValue_ = 2;
-
-Cannoncat::Cannoncat(GameView *game_view, qreal width, qreal height, qreal x,
+CannonCat::CannonCat(GameView *game_view, qreal width, qreal height, qreal x,
                      qreal y, qreal floor_y)
     : GameObject(game_view, width, height, x, y),
       radius_(width / 2),
       floor_y_(floor_y) {}
 
-void Cannoncat::SetUp() {
-  this->setZValue(kZValue_);
-  this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
+void CannonCat::SetUp() {
+  this->setOffset(boundingRect().topLeft());
   QPixmap pixmap =
       QPixmap(game_view_->GetPathToMinigameImages() + "juggling/cat.png");
   pixmap.setMask(pixmap.createHeuristicMask());
   this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
 }
 
-void Cannoncat::Update() {
+void CannonCat::Update() {
   was_caught_last_tick_ = false;
   if (start_vil_.x() == 0 && start_vil_.y() == 0) {
     start_vil_.setX(cos(angle_) * power_);
@@ -27,7 +24,7 @@ void Cannoncat::Update() {
   }
   if (in_flight_) {
     AddVelocity(start_vil_.x(), start_vil_.y());
-    start_vil_ += physics::kGravity / 6000;
+    start_vil_ += kGravityCannon;
     qreal x_difference = (velocity_.x()) * kUpdateTime;
     qreal y_difference = (velocity_.y()) * kUpdateTime;
     this->MoveByMeters(x_difference, y_difference);
@@ -41,7 +38,7 @@ void Cannoncat::Update() {
       if (item == this) {
         continue;
       } else {
-        if (dynamic_cast<Sausage *>(item)) {
+        if (dynamic_cast<CannonSausage *>(item)) {
           item->setVisible(false);
           was_caught_last_tick_ = true;
           caught_sausages_++;
@@ -51,12 +48,14 @@ void Cannoncat::Update() {
   }
 }
 
-qreal Cannoncat::GetRadius() const { return radius_; }
+qreal CannonCat::GetRadius() const { return radius_; }
 
-void Cannoncat::SetAngle(qreal angle) { angle_ = angle; }
+void CannonCat::SetAngle(qreal angle) { angle_ = angle; }
 
-void Cannoncat::SetPower(qreal power) { power_ = power; }
+void CannonCat::SetPower(qreal power) { power_ = power; }
 
-void Cannoncat::SetFallen(bool is_fallen) { is_fallen_ = is_fallen; }
+void CannonCat::SetFallen(bool is_fallen) { is_fallen_ = is_fallen; }
 
-int Cannoncat::GetCaught() const { return caught_sausages_; }
+int CannonCat::GetCaught() const { return caught_sausages_; }
+
+bool CannonCat::GetLastTickStatus() const { return was_caught_last_tick_; }

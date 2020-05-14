@@ -3,11 +3,11 @@
 
 #include "src/game/gameobject.h"
 
-class Sausage : public GameObject {
+class CannonSausage : public GameObject {
  public:
-  Sausage(GameView* game_view, qreal width, qreal height, qreal x = 0,
-          qreal y = 0);
-  ~Sausage() override = default;
+  CannonSausage(GameView* game_view, qreal width, qreal height, qreal x = 0,
+                qreal y = 0);
+  ~CannonSausage() override = default;
 
   void SetUp() override;
   void Update() override;
@@ -15,8 +15,6 @@ class Sausage : public GameObject {
   bool move_down = true;
 
  private:
-  static const qreal kZValue_;
-
   qreal delta_pos = 0;
   bool is_caught_ = false;
 };

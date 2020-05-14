@@ -35,8 +35,8 @@ SOURCES += \
         src/game/minigames/cannon/cannon.cpp \
         src/game/minigames/cannon/cannoncat.cpp \
         src/game/minigames/cannon/cannonmimigame.cpp \
+        src/game/minigames/cannon/cannonsausage.cpp \
         src/game/minigames/cannon/no.cpp \
-        src/game/minigames/cannon/sausage.cpp \
         src/game/minigames/cannon/speedometer.cpp \
         src/game/minigames/cannon/yes.cpp \
         src/game/minigames/juggling/jugglingball.cpp \
@@ -66,8 +66,8 @@ HEADERS += \
         src/game/minigames/cannon/cannon.h \
         src/game/minigames/cannon/cannoncat.h \
         src/game/minigames/cannon/cannonmimigame.h \
+        src/game/minigames/cannon/cannonsausage.h \
         src/game/minigames/cannon/no.h \
-        src/game/minigames/cannon/sausage.h \
         src/game/minigames/cannon/speedometer.h \
         src/game/minigames/cannon/yes.h \
         src/game/minigames/juggling/jugglingball.h \

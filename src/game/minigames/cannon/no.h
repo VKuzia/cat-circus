@@ -9,9 +9,6 @@ class No : public GameObject {
   ~No() override = default;
 
   void SetUp() override;
-
- private:
-  static const qreal kZValue_;
 };
 
 #endif  // NO_H

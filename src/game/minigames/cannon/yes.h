@@ -9,9 +9,6 @@ class Yes : public GameObject {
   ~Yes() override = default;
 
   void SetUp() override;
-
- private:
-  static const qreal kZValue_;
 };
 
 #endif  // YES_H

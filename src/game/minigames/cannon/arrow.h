@@ -10,8 +10,5 @@ class Arrow : public GameObject {
   ~Arrow() = default;
 
   void SetUp() override;
-
- private:
-  static const qreal kZValue_;
 };
 #endif  // ARROW_H

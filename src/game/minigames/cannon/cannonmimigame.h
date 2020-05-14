@@ -9,18 +9,18 @@
 #include "src/game/minigames/cannon/arrow.h"
 #include "src/game/minigames/cannon/cannon.h"
 #include "src/game/minigames/cannon/cannoncat.h"
+#include "src/game/minigames/cannon/cannonsausage.h"
 #include "src/game/minigames/cannon/no.h"
-#include "src/game/minigames/cannon/sausage.h"
 #include "src/game/minigames/cannon/speedometer.h"
 #include "src/game/minigames/cannon/yes.h"
 
-class Cannonmimigame : public Minigame {
+class CannonMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  Cannonmimigame(GameView* game_view, qreal difficulty,
+  CannonMinigame(GameView* game_view, qreal difficulty,
                  qreal pixels_in_meter = 576 / 10.0);
-  ~Cannonmimigame() override = default;
+  ~CannonMinigame() override = default;
 
   void Start() override;
 
@@ -29,6 +29,23 @@ class Cannonmimigame : public Minigame {
   const qreal kCatWidth = 1.5;
   const qreal kCatHeight = 2.1;
   const qreal kCatY = 3;
+  const qreal kCatX = -6;
+
+  const qreal kCannonWidth = 3.75;
+  const qreal kCannonHeight = 3.15;
+  const qreal kCannonY = 3;
+  const qreal KCannonX = -6;
+
+  const qreal kStatusStartX = -7;
+  const qreal kStatusStartY = -4.5;
+  const qreal kStatusWidth = 1;
+  const qreal kStatusHeight = 1;
+  const qreal KStatusDeltaX = 1.5;
+
+  const qreal kPowerDelta = 0.001;
+  const qreal kAngleDelta = M_PI / 200;
+
+  const QPoint kSausageXBoders = {-6, 6};
 
   const qreal KTutorialHeight = -1.5;
 
@@ -36,12 +53,7 @@ class Cannonmimigame : public Minigame {
   const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
-  const qreal kCatStartX = 4.6;
-  const qreal kCatStartY = 0;
-  const qreal kCatRadius = 0.11;
-  const qreal kCatLaunchFlightTime = 1.3;
-
-  const qreal KSausageRadius = 0.6;
+  const qreal KSausageRadius = 1.2;
 
   const qreal kFloorHeight = 3.2;
 
@@ -52,27 +64,24 @@ class Cannonmimigame : public Minigame {
   qreal power_ = 0;
   bool angle_increases_ = true;
   bool power_increases_ = true;
-  bool cat_flight = false;
+  bool is_cat_flying_ = false;
   bool params_choosen_angle_ = false;
   bool params_choosen_power_ = false;
 
   int32_t sausage_count_ = 0;
   int32_t ball_air_time_ = 0;
-  int32_t sausage_launch_period_ = 0;
   int32_t number_to_win_ = 0;
   Cannon* cannon_ = nullptr;
-  Cannoncat* cat_ = nullptr;
+  CannonCat* cat_ = nullptr;
 
   Speedometer* speedometer_ = nullptr;
 
   Arrow* arrow_ = nullptr;
 
-  QSet<Sausage*> sausages_;
+  QSet<CannonSausage*> sausages_;
 
   QSet<No*> not_caught_;
   QSet<Yes*> caught_;
-
-  QTimer sausage_timer_;
 
   void LaunchSausage();
 

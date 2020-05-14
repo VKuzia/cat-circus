@@ -2,30 +2,26 @@
 
 #include <QKeyEvent>
 
-Cannonmimigame::Cannonmimigame(GameView* game_view, qreal difficulty,
+CannonMinigame::CannonMinigame(GameView* game_view, qreal difficulty,
                                qreal pixels_in_meter)
     : Minigame(game_view, difficulty, pixels_in_meter) {}
 
-void Cannonmimigame::Start() { AnimateTutorial(); }
+void CannonMinigame::Start() { AnimateTutorial(); }
 
-void Cannonmimigame::SetUp() {
+void CannonMinigame::SetUp() {
   background_->SetUp(game_view_, "cannon/circus.png");
   game_view_->scene()->addItem(background_);
 
-  cannon_ = new Cannon(game_view_, kCatWidth, kCatHeight, -6, kCatY);
-  cannon_->SetUp();
-  game_view_->scene()->addItem(cannon_);
-
-  cat_ = new Cannoncat(game_view_, kCatWidth, kCatHeight, -6, kCatY);
+  cat_ = new CannonCat(game_view_, kCatWidth, kCatHeight, kCatX, kCatY);
   cat_->SetUp();
   game_view_->scene()->addItem(cat_);
 
   cannon_ =
-      new Cannon(game_view_, 2.5 * kCatWidth, 1.5 * kCatHeight, -6, kCatY);
+      new Cannon(game_view_, kCannonWidth, kCannonHeight, KCannonX, kCannonY);
   cannon_->SetUp();
   game_view_->scene()->addItem(cannon_);
 
-  arrow_ = new Arrow(game_view_, kCatWidth, kCatHeight, 6, -kCatY);
+  arrow_ = new Arrow(game_view_, kCatWidth, kCatHeight, -kCatX, -kCatY);
   arrow_->SetUp();
   game_view_->scene()->addItem(arrow_);
 
@@ -34,19 +30,21 @@ void Cannonmimigame::SetUp() {
   game_view_->scene()->addItem(speedometer_);
 
   SetUpLabel();
-  time_bar_->setVisible(false);
-  sausage_timer_.setInterval(sausage_launch_period_);
+
   for (int i = 0; i < sausage_count_; i++) {
     LaunchSausage();
   }
+
   for (int i = 0; i < number_to_win_; i++) {
-    No* no = new No(game_view_, 1, 1, -7 + 1.5 * i, -kCatY - 1.5);
+    No* no = new No(game_view_, kStatusHeight, kStatusWidth,
+                    kStatusStartX + KStatusDeltaX * i, kStatusStartY);
     no->SetUp();
     not_caught_.insert(no);
     game_view_->scene()->addItem(no);
   }
   for (int i = 0; i < number_to_win_; i++) {
-    Yes* yes = new Yes(game_view_, 1, 1, -7 + 1.5 * i, -kCatY - 1.5);
+    Yes* yes = new Yes(game_view_, kStatusHeight, kStatusWidth,
+                       kStatusStartX + KStatusDeltaX * i, kStatusStartY);
     yes->SetUp();
     caught_.insert(yes);
     yes->setVisible(false);
@@ -54,7 +52,7 @@ void Cannonmimigame::SetUp() {
   }
 }
 
-void Cannonmimigame::SetUpLabel() {
+void CannonMinigame::SetUpLabel() {
   tutorial_label_->setHtml("[TUTORIAL]");
   tutorial_label_->setDefaultTextColor(Qt::black);
   tutorial_label_->setTextWidth(300);
@@ -63,7 +61,7 @@ void Cannonmimigame::SetUpLabel() {
   tutorial_label_->setVisible(false);
 }
 
-void Cannonmimigame::AnimateTutorial() {
+void CannonMinigame::AnimateTutorial() {
   tutorial_label_->setVisible(true);
   QTimer::singleShot(kTutorialDuration, [this] {
     tutorial_label_->setVisible(false);
@@ -71,25 +69,24 @@ void Cannonmimigame::AnimateTutorial() {
   });
 }
 
-void Cannonmimigame::StartGame() {
+void CannonMinigame::StartGame() {
   tick_timer_.setInterval(1000 / kFps);
-  connect(&tick_timer_, &QTimer::timeout, this, &Cannonmimigame::Tick);
+  connect(&tick_timer_, &QTimer::timeout, this, &CannonMinigame::Tick);
 
   is_running_ = true;
 
   tick_timer_.start();
-  sausage_timer_.start();
 }
 
-void Cannonmimigame::AnimateOutro() {}
+void CannonMinigame::AnimateOutro() {}
 
-void Cannonmimigame::Tick() {
+void CannonMinigame::Tick() {
   if (!is_running_) {
     return;
   }
   if (!params_choosen_power_) {
     if (power_increases_) {
-      power_ += 0.001;
+      power_ += kPowerDelta;
       arrow_->setRotation(arrow_->rotation() + M_PI * (power_ / 0.12));
       if (power_ >= 0.12) {
         power_increases_ = false;
@@ -104,14 +101,14 @@ void Cannonmimigame::Tick() {
   }
   if (!params_choosen_angle_) {
     if (angle_increases_) {
-      angle_ += M_PI / 200;
+      angle_ += kAngleDelta;
       cat_->setRotation(cat_->rotation() - angle_);
       cannon_->setRotation(cat_->rotation() - angle_);
       if (angle_ > M_PI / 2) {
         angle_increases_ = false;
       }
     } else {
-      angle_ -= M_PI / 200;
+      angle_ -= kAngleDelta;
       cat_->setRotation(cat_->rotation() + angle_);
       cannon_->setRotation(cat_->rotation() + angle_);
       if (angle_ <= 0) {
@@ -120,16 +117,16 @@ void Cannonmimigame::Tick() {
     }
   }
 
-  if (cat_flight) {
+  if (is_cat_flying_) {
     cat_->Update();
-    if (cat_->was_caught_last_tick_ && cat_->GetCaught() <= number_to_win_) {
+    if (cat_->GetLastTickStatus() && cat_->GetCaught() <= number_to_win_) {
       (*(not_caught_.begin() + cat_->GetCaught() - 1))->setVisible(false);
       (*(caught_.begin() + cat_->GetCaught() - 1))->setVisible(true);
     }
   } else if (params_choosen_angle_ && params_choosen_power_) {
     cat_->SetAngle(angle_);
     cat_->SetPower(power_);
-    cat_flight = true;
+    is_cat_flying_ = true;
   }
   if (cat_->GetY() >= kFloorHeight) {
     cat_->SetFallen(true);
@@ -144,9 +141,9 @@ void Cannonmimigame::Tick() {
   }
 }
 
-void Cannonmimigame::SetUpParameters() {
-  sausage_launch_period_ = 100;
-  sausage_a_param = QRandomGenerator().global()->bounded(100) * 1.0 / 100;
+void CannonMinigame::SetUpParameters() {
+  // Parameters of quadratic equation - (ax^2 + bx + c) generation
+  sausage_a_param = QRandomGenerator().global()->bounded(50) * 1.0 / 100;
   sausage_b_param = QRandomGenerator().global()->bounded(100) * 1.0 / 100;
   int32_t difficulty_level = qFloor(difficulty_ / 0.1);
   switch (difficulty_level) {
@@ -193,10 +190,9 @@ void Cannonmimigame::SetUpParameters() {
   }
 }
 
-void Cannonmimigame::Stop(Status status) {
+void CannonMinigame::Stop(Status status) {
   is_running_ = false;
   tick_timer_.stop();
-  sausage_timer_.stop();
   time_bar_->setVisible(false);
   if (status == Status::kPass) {
     score_ = 100;
@@ -207,7 +203,7 @@ void Cannonmimigame::Stop(Status status) {
   }
 }
 
-void Cannonmimigame::Win() {
+void CannonMinigame::Win() {
   game_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
   QTimer::singleShot(kOutroDuration, this, [this] {
     game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
@@ -215,7 +211,7 @@ void Cannonmimigame::Win() {
   });
 }
 
-void Cannonmimigame::Lose() {
+void CannonMinigame::Lose() {
   game_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
   QTimer::singleShot(kOutroDuration, this, [this] {
     game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
@@ -223,7 +219,7 @@ void Cannonmimigame::Lose() {
   });
 }
 
-void Cannonmimigame::KeyPressEvent(QKeyEvent* event) {
+void CannonMinigame::KeyPressEvent(QKeyEvent* event) {
   if (!is_running_) {
     return;
   }
@@ -237,18 +233,19 @@ void Cannonmimigame::KeyPressEvent(QKeyEvent* event) {
   }
 }
 
-void Cannonmimigame::LaunchSausage() {
+void CannonMinigame::LaunchSausage() {
   if (sausages_.size() >= sausage_count_) {
     return;
   }
 
-  qreal SausageX = QRandomGenerator().global()->bounded(-6, 6) +
-                   QRandomGenerator().global()->bounded(100) * 1.0 / 100;
+  qreal sausage_x = QRandomGenerator().global()->bounded(kSausageXBoders.x(),
+                                                         kSausageXBoders.y()) +
+                    QRandomGenerator().global()->bounded(100) * 1.0 / 100;
 
-  Sausage* sausage =
-      new Sausage(game_view_, KSausageRadius * 2, KSausageRadius * 2, SausageX,
-                  sausage_a_param * SausageX * SausageX / 2 +
-                      sausage_b_param * SausageX - 3);
+  CannonSausage* sausage =
+      new CannonSausage(game_view_, KSausageRadius, KSausageRadius, sausage_x,
+                        sausage_a_param * sausage_x * sausage_x +
+                            sausage_b_param * sausage_x - 3);
   if (sausages_.size() % 2 == 0) {
     sausage->move_down = false;
   }
