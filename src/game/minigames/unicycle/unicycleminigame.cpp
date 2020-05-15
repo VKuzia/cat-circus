@@ -108,6 +108,9 @@ void UnicycleMinigame::Lose() {
 }
 
 void UnicycleMinigame::KeyPressEvent(QKeyEvent* event) {
+  if (!is_running_) {
+    return;
+  }
   if (event->key() == Qt::Key_A &&
       (current_key_ == CurrentKey::kLeft || current_key_ == CurrentKey::kAny)) {
     current_key_ = CurrentKey::kRight;
