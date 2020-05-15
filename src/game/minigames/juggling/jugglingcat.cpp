@@ -15,8 +15,10 @@ JugglingCat::JugglingCat(GameView* game_view, QSizeF size, QPointF pos)
 void JugglingCat::SetUp() {
   SetUpHand(left_hand_, right_hand_->GetBasePos());
   SetUpHand(right_hand_, left_hand_->GetBasePos());
-  this->setZValue(kZValue);
-  setPixmap(GetPixmapFrom("juggling/cat.png"));
+  setZValue(kZValue);
+  setOffset(boundingRect().topLeft());
+  setPixmap(GetPixmapLoader()->GetPixmap("juggling/cat.png",
+                                         boundingRect().size().toSize()));
 }
 
 void JugglingCat::Update() {

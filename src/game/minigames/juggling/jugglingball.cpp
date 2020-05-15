@@ -9,8 +9,10 @@ JugglingBall::JugglingBall(GameView* game_view, qreal radius, qreal x, qreal y,
       floor_y_(floor_y) {}
 
 void JugglingBall::SetUp() {
-  this->setZValue(kZValue);
-  setPixmap(GetPixmapFrom("juggling/ball.png"));
+  setZValue(kZValue);
+  setOffset(boundingRect().topLeft());
+  setPixmap(GetPixmapLoader()->GetPixmap("juggling/ball.png",
+                                         boundingRect().size().toSize()));
 }
 
 void JugglingBall::Update() {

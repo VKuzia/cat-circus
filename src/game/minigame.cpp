@@ -41,3 +41,5 @@ void Minigame::MouseMoveEvent(QMouseEvent*) {}
 void Minigame::KeyPressEvent(QKeyEvent*) {}
 
 void Minigame::KeyReleaseEvent(QKeyEvent*) {}
+
+void Minigame::WheelEvent(QWheelEvent*) {}
