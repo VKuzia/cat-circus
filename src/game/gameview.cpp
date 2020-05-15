@@ -6,7 +6,10 @@
 
 #include "src/game/minigame.h"
 
-GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
+GameView::GameView(QWidget* parent)
+    : QGraphicsView(parent),
+      failed_image_(new QGraphicsPixmapItem()),
+      passed_image_(new QGraphicsPixmapItem()) {
   this->setScene(new QGraphicsScene(this));
 }
 
@@ -21,129 +24,85 @@ void GameView::SetUp(int32_t width, int32_t height) {
   this->scene()->setSceneRect(-width / 2, -height / 2, width, height);
 
   SetUpOutroRect();
-  SetUpPassedAnimation();
-  SetUpFailedAnimation();
+  SetUpOutroAnimation();
+  SetUpOutroImage(failed_image_, "failed.png");
+  failed_image_start_y_ = this->height() * kFailedImageStartYFactor_;
+  SetUpOutroImage(passed_image_, "passed.png");
+  passed_image_start_y_ = this->height() * kPassedImageStartYFactor_;
 }
 
-void GameView::AnimatePassed() {
+void GameView::AnimateOutro(OutroStatus status) {
   outro_rect_->setVisible(true);
   outro_rect_->setOpacity(0);
   scene()->addItem(outro_rect_);
-
-  passed_image_->setVisible(false);
-  scene()->addItem(passed_image_);
-
-  passed_animation_.start();
-}
-
-void GameView::AnimateFailed() {
-  outro_rect_->setVisible(true);
-  outro_rect_->setOpacity(0);
-  scene()->addItem(outro_rect_);
-
-  failed_image_->setVisible(true);
-  scene()->addItem(failed_image_);
-
-  failed_animation_.start();
-}
-
-void GameView::SetFailedAnimationProgress(qreal progress) {
-  failed_animation_progress_ = progress;
-  outro_rect_->setOpacity(kFailedMaxOpacity * failed_animation_progress_);
-  // Moving up to (0, 0)
-  failed_image_->setY(failed_image_start_y_ * (1 - progress));
-}
-
-qreal GameView::GetFailedAnimationProgress() const {
-  return failed_animation_progress_;
-}
-
-void GameView::SetPassedAnimationProgress(qreal progress) {
-  passed_animation_progress_ = progress;
-  outro_rect_->setOpacity((kPassedMaxOpacity * passed_animation_progress_));
-  if (passed_animation_.currentTime() >= kPassedImageShowTime &&
-      !passed_image_->isVisible()) {
-    passed_image_->setVisible(true);
+  switch (status) {
+    case OutroStatus::kFailed:
+      current_outro_image_ = failed_image_;
+      current_image_start_y_ = failed_image_start_y_;
+      break;
+    case OutroStatus::kPassed:
+      current_outro_image_ = passed_image_;
+      current_image_start_y_ = passed_image_start_y_;
+      break;
   }
+  scene()->addItem(current_outro_image_);
+  current_outro_image_->setVisible(true);
+  outro_animation_.start();
 }
 
-qreal GameView::GetPassedAnimationProgress() const {
-  return passed_animation_progress_;
+void GameView::SetOutroAnimationProgress(qreal progress) {
+  outro_animation_progress_ = progress;
+  outro_rect_->setOpacity(kOutroRectMaxOpacity_ * outro_animation_progress_);
+  // Moving to (0, 0)
+  current_outro_image_->setY(current_image_start_y_ * (1 - progress));
 }
 
-void GameView::SetUpPassedAnimation() {
-  passed_animation_.setPropertyName("passedAnimationProgress");
-  passed_animation_.setTargetObject(this);
-  passed_animation_.setDuration(kPassedAnimationDuration);
-  passed_animation_.setStartValue(0);
-  // Stay at kPassedMaxOpacity when fading in ends
-  passed_animation_.setKeyValueAt(
-      (1.0 * kPassedFadeInDuration) / kPassedAnimationDuration, 1);
-  passed_animation_.setEndValue(1);
-  connect(&passed_animation_, &QPropertyAnimation::finished, this, [this] {
-    outro_rect_->setVisible(false);
-    passed_image_->setVisible(false);
-    outro_rect_->setOpacity(0);
-    // To keep undeleted when scene clears up in Minigame's destructor
-    scene()->removeItem(outro_rect_);
-    scene()->removeItem(passed_image_);
-    emit OutroFinished();
-  });
-
-  QPixmap passed_pixmap(QDir::currentPath() +
-                        "/data/images/gameview/passed.png");
-  passed_pixmap = passed_pixmap.scaledToWidth(
-      qRound(this->width() * kFailedImageWidthFactor));
-
-  passed_image_ = new QGraphicsPixmapItem(passed_pixmap);
-  passed_image_->setVisible(false);
-  passed_image_->setOffset(-passed_pixmap.width() / 2,
-                           -passed_pixmap.height() / 2);
-  passed_image_->setZValue(std::numeric_limits<qreal>::max());
-  passed_image_->setPos(0, 0);
+qreal GameView::GetOutroAnimationProgress() const {
+  return outro_animation_progress_;
 }
 
-void GameView::SetUpFailedAnimation() {
-  failed_animation_.setPropertyName("failedAnimationProgress");
-  failed_animation_.setTargetObject(this);
-  failed_animation_.setDuration(kFailedAnimationDuration);
-  failed_animation_.setStartValue(0);
-  // Stay an kFailedMaxOpacity when fading in ends
-  failed_animation_.setKeyValueAt(
-      (1.0 * kFailedFadeInDuration) / kFailedAnimationDuration, 1);
-  failed_animation_.setEndValue(1);
-  connect(&failed_animation_, &QPropertyAnimation::finished, this, [this] {
+void GameView::SetUpOutroAnimation() {
+  outro_animation_.setPropertyName("outroAnimationProgress");
+  outro_animation_.setTargetObject(this);
+  outro_animation_.setDuration(kOutroAnimationDuration_);
+  outro_animation_.setStartValue(0);
+  // Stay at kOutroMaxOpacity_ when fading in ends
+  outro_animation_.setKeyValueAt(
+      (1.0 * kOutroFadeInDuration_) / kOutroAnimationDuration_, 1);
+  outro_animation_.setEndValue(1);
+  connect(&outro_animation_, &QPropertyAnimation::finished, this, [this] {
     outro_rect_->setVisible(false);
     outro_rect_->setOpacity(0);
+    // To save them from scene()->clean() in Minigame destructor
     scene()->removeItem(outro_rect_);
-    scene()->removeItem(failed_image_);
+    scene()->removeItem(current_outro_image_);
     emit OutroFinished();
   });
+}
 
-  QPixmap failed_pixmap(QDir::currentPath() +
-                        "/data/images/gameview/failed.png");
-  failed_pixmap = failed_pixmap.scaledToWidth(
-      qRound(this->width() * kFailedImageWidthFactor));
-
-  failed_image_ = new QGraphicsPixmapItem(failed_pixmap);
-  failed_image_->setVisible(false);
-  failed_image_->setOffset(-failed_pixmap.width() / 2,
-                           -failed_pixmap.height() / 2);
-  failed_image_->setZValue(std::numeric_limits<qreal>::max());
-  // Set position below the screen to animate moving up
-  failed_image_start_y_ = this->height() * kFailedImageStartYFactor;
+void GameView::SetUpOutroImage(QGraphicsPixmapItem* image,
+                               const QString& file_name) {
+  QPixmap pixmap(QDir::currentPath() + "/data/images/gameview/" + file_name);
+  pixmap =
+      pixmap.scaledToWidth(qRound(this->width() * kOutroImageWidthFactor_));
+  image->setPixmap(pixmap);
+  image->setOffset(-pixmap.rect().center());
+  image->setZValue(std::numeric_limits<qreal>::max());
+  image->setVisible(false);
 }
 
 void GameView::SetUpOutroRect() {
+  // QPainter draws rectangles with strange borders,
+  // so we extend rect by a couple of pixels
   outro_rect_ =
-      new QGraphicsRectItem(-this->width() / 2 + 1, -this->height() / 2 + 1,
+      new QGraphicsRectItem(-this->width() / 2 - 1, -this->height() / 2 - 1,
                             this->width() + 2, this->height() + 2);
   outro_rect_->setVisible(false);
   outro_rect_->setOpacity(0);
   // Set "almost maximum" to set maximum for images (to be them totaly opaque)
   outro_rect_->setZValue(std::numeric_limits<qreal>::max() - 1);
   outro_rect_->setPen(Qt::NoPen);
-  outro_rect_->setBrush(kShadowColor);
+  outro_rect_->setBrush(kShadowColor_);
 }
 
 void GameView::mousePressEvent(QMouseEvent* event) {

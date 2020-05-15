@@ -108,13 +108,13 @@ void TestMinigame::Win() {
   score_ = 100 + time_left_ * 10 / timer_.interval();
   connect(game_view_, &GameView::OutroFinished, this,
           [this] { emit Passed(score_); });
-  game_view_->AnimatePassed();
+  game_view_->AnimateOutro(GameView::OutroStatus::kPassed);
 }
 
 void TestMinigame::Lose() {
   connect(game_view_, &GameView::OutroFinished, this,
           [this] { emit Failed(); });
-  game_view_->AnimateFailed();
+  game_view_->AnimateOutro(GameView::OutroStatus::kFailed);
 }
 
 void TestMinigame::MousePressEvent(QMouseEvent*) {

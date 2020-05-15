@@ -153,13 +153,13 @@ void JugglingMinigame::Win() {
   score_ = 100;
   connect(game_view_, &GameView::OutroFinished, this,
           [this] { emit Passed(score_); });
-  game_view_->AnimatePassed();
+  game_view_->AnimateOutro(GameView::OutroStatus::kPassed);
 }
 
 void JugglingMinigame::Lose() {
   connect(game_view_, &GameView::OutroFinished, this,
           [this] { emit Failed(); });
-  game_view_->AnimateFailed();
+  game_view_->AnimateOutro(GameView::OutroStatus::kFailed);
 }
 
 void JugglingMinigame::KeyPressEvent(QKeyEvent* event) {
