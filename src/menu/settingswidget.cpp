@@ -50,7 +50,8 @@ void SettingsWidget::Save() const {
 
     save << volume_ << "\n";
 
-    int current_resolution_index = ui_->ui_resolution_combo_box_->currentIndex();
+    int current_resolution_index =
+            ui_->ui_resolution_combo_box_->currentIndex();
     save << kResolutions_[current_resolution_index].width();
     save << " ";
     save << kResolutions_[current_resolution_index].height() << "\n";
