@@ -112,6 +112,7 @@
  <resources/>
  <connections/>
  <slots>
+  <signal>CaughtSausage()</signal>
   <slot>ReturnToMainMenu()</slot>
  </slots>
 </ui>

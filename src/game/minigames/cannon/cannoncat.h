@@ -4,6 +4,8 @@
 #include "src/game/gameobject.h"
 
 class CannonCat : public GameObject {
+  Q_OBJECT
+
  public:
   CannonCat(GameView* game_view, qreal width, qreal height, qreal x = 0,
             qreal y = 0, qreal floor_y_ = 0);
@@ -19,7 +21,7 @@ class CannonCat : public GameObject {
   void SetPower(qreal);
   void SetFallen(bool is_fallen);
   int GetCaught() const;
-  bool GetLastTickStatus() const;
+  void CheckIfCaught();
 
  private:
   const Vector2D kGravityCannon = physics::kGravity / 6000;
@@ -31,7 +33,6 @@ class CannonCat : public GameObject {
   bool is_caught_ = false;
   bool is_fallen_ = false;
   bool in_flight_ = true;
-  bool was_caught_last_tick_ = false;
   int caught_sausages_ = 0;
 };
 

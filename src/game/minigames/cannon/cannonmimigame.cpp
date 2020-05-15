@@ -2,9 +2,16 @@
 
 #include <QKeyEvent>
 
+#include "QSize"
+
 CannonMinigame::CannonMinigame(GameView* game_view, qreal difficulty,
                                qreal pixels_in_meter)
-    : Minigame(game_view, difficulty, pixels_in_meter) {}
+    : Minigame(game_view, difficulty, pixels_in_meter) {
+  sausage_pixmap = GameObject::LoadPixmap(
+      "cannon/sausage.png", QSize(KSausageRadius, KSausageRadius));
+  yes_pixmap = GameObject::LoadPixmap("cannon/ok.png",
+                                      QSize(KSausageRadius, KSausageRadius));
+}
 
 void CannonMinigame::Start() { AnimateTutorial(); }
 
@@ -81,9 +88,28 @@ void CannonMinigame::StartGame() {
 void CannonMinigame::AnimateOutro() {}
 
 void CannonMinigame::Tick() {
-  if (!is_running_) {
-    return;
+  ChangeParameters();
+  if (is_cat_flying_) {
+    cat_->Update();
+  } else if (params_choosen_angle_ && params_choosen_power_) {
+    cat_->SetAngle(angle_);
+    cat_->SetPower(power_);
+    is_cat_flying_ = true;
   }
+  if (cat_->GetY() >= kFloorHeight) {
+    cat_->SetFallen(true);
+    if (cat_->GetCaught() >= number_to_win_) {
+      Stop(Status::kPass);
+    } else {
+      Stop(Status::kFail);
+    }
+  }
+  for (auto item : sausages_) {
+    item->Update();
+  }
+}
+
+void CannonMinigame::ChangeParameters() {
   if (!params_choosen_power_) {
     if (power_increases_) {
       power_ += kPowerDelta;
@@ -92,7 +118,7 @@ void CannonMinigame::Tick() {
         power_increases_ = false;
       }
     } else {
-      power_ -= 0.001;
+      power_ -= kPowerDelta;
       arrow_->setRotation(arrow_->rotation() - M_PI * (power_ / 0.12));
       if (power_ <= 0) {
         power_increases_ = true;
@@ -115,29 +141,6 @@ void CannonMinigame::Tick() {
         angle_increases_ = true;
       }
     }
-  }
-
-  if (is_cat_flying_) {
-    cat_->Update();
-    if (cat_->GetLastTickStatus() && cat_->GetCaught() <= number_to_win_) {
-      (*(not_caught_.begin() + cat_->GetCaught() - 1))->setVisible(false);
-      (*(caught_.begin() + cat_->GetCaught() - 1))->setVisible(true);
-    }
-  } else if (params_choosen_angle_ && params_choosen_power_) {
-    cat_->SetAngle(angle_);
-    cat_->SetPower(power_);
-    is_cat_flying_ = true;
-  }
-  if (cat_->GetY() >= kFloorHeight) {
-    cat_->SetFallen(true);
-    if (cat_->GetCaught() >= number_to_win_) {
-      Stop(Status::kPass);
-    } else {
-      Stop(Status::kFail);
-    }
-  }
-  for (auto item : sausages_) {
-    item->Update();
   }
 }
 
@@ -219,6 +222,13 @@ void CannonMinigame::Lose() {
   });
 }
 
+void CannonMinigame::SausageWasCaught() {
+  if (cat_->GetCaught() <= number_to_win_) {
+    (*(not_caught_.begin() + cat_->GetCaught() - 1))->setPixmap(yes_pixmap);
+    (*(caught_.begin() + cat_->GetCaught() - 1))->setVisible(true);
+  }
+}
+
 void CannonMinigame::KeyPressEvent(QKeyEvent* event) {
   if (!is_running_) {
     return;
@@ -246,6 +256,8 @@ void CannonMinigame::LaunchSausage() {
       new CannonSausage(game_view_, KSausageRadius, KSausageRadius, sausage_x,
                         sausage_a_param * sausage_x * sausage_x +
                             sausage_b_param * sausage_x - 3);
+  connect(sausage, &CannonSausage::CaughtSausage, this,
+          &CannonMinigame::SausageWasCaught);
   if (sausages_.size() % 2 == 0) {
     sausage->move_down = false;
   }

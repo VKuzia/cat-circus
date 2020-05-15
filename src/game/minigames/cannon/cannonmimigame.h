@@ -57,6 +57,10 @@ class CannonMinigame : public Minigame {
 
   const qreal kFloorHeight = 3.2;
 
+  QPixmap sausage_pixmap;
+  QPixmap yes_pixmap;
+  const QPixmap no_pixmap;
+
   qreal sausage_a_param = 0;
   qreal sausage_b_param = 0;
 
@@ -94,10 +98,14 @@ class CannonMinigame : public Minigame {
   void AnimateOutro() override;
 
   void Tick() override;
+  void ChangeParameters();
 
   void Stop(Status) override;
   void Win() override;
   void Lose() override;
+
+ public slots:
+  void SausageWasCaught();
 };
 
 #endif  // CANNONMIMIGAME_H

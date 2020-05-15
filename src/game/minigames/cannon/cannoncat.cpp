@@ -17,7 +17,6 @@ void CannonCat::SetUp() {
 }
 
 void CannonCat::Update() {
-  was_caught_last_tick_ = false;
   if (start_vil_.x() == 0 && start_vil_.y() == 0) {
     start_vil_.setX(cos(angle_) * power_);
     start_vil_.setY(-sin(angle_) * power_);
@@ -29,23 +28,8 @@ void CannonCat::Update() {
     qreal y_difference = (velocity_.y()) * kUpdateTime;
     this->MoveByMeters(x_difference, y_difference);
     setRotation(rotation() + atan(x_difference / y_difference));
-    // Check if Sausage is caught
-    const QList<QGraphicsItem *> sausages =
-        scene()->items(QPolygonF() << mapToScene(0, 0) << mapToScene(-30, -30)
-                                   << mapToScene(30, -30));
-
-    for (QGraphicsItem *item : sausages) {
-      if (item == this) {
-        continue;
-      } else {
-        if (dynamic_cast<CannonSausage *>(item)) {
-          item->setVisible(false);
-          was_caught_last_tick_ = true;
-          caught_sausages_++;
-        }
-      }
-    }
   }
+  CheckIfCaught();
 }
 
 qreal CannonCat::GetRadius() const { return radius_; }
@@ -58,4 +42,22 @@ void CannonCat::SetFallen(bool is_fallen) { is_fallen_ = is_fallen; }
 
 int CannonCat::GetCaught() const { return caught_sausages_; }
 
-bool CannonCat::GetLastTickStatus() const { return was_caught_last_tick_; }
+void CannonCat::CheckIfCaught() {
+  // Check if Sausage is caught
+  const QList<QGraphicsItem *> sausages =
+      scene()->items(QPolygonF() << mapToScene(0, 0) << mapToScene(-30, -30)
+                                 << mapToScene(30, -30));
+
+  for (QGraphicsItem *item : sausages) {
+    if (item == this) {
+      continue;
+    } else {
+      if (dynamic_cast<CannonSausage *>(item)) {
+        caught_sausages_++;
+        dynamic_cast<CannonSausage *>(item)->WasCaught();
+      }
+    }
+  }
+}
+
+// void CannonCat::CaughtSausage() {}

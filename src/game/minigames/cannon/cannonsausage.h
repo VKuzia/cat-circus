@@ -4,6 +4,7 @@
 #include "src/game/gameobject.h"
 
 class CannonSausage : public GameObject {
+  Q_OBJECT
  public:
   CannonSausage(GameView* game_view, qreal width, qreal height, qreal x = 0,
                 qreal y = 0);
@@ -12,7 +13,11 @@ class CannonSausage : public GameObject {
   void SetUp() override;
   void Update() override;
   void SetCaught(bool is_caught);
+  void WasCaught();
   bool move_down = true;
+
+ signals:
+  void CaughtSausage();
 
  private:
   qreal delta_pos = 0;

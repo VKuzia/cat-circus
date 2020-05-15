@@ -31,3 +31,8 @@ void CannonSausage::Update() {
 }
 
 void CannonSausage::SetCaught(bool is_caught) { is_caught_ = is_caught; }
+
+void CannonSausage::WasCaught() {
+  setVisible(false);
+  emit CaughtSausage();
+}
