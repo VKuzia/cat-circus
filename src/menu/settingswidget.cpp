@@ -44,7 +44,7 @@ void SettingsWidget::Save() const {
     QTextStream save(&file);
     save.setCodec("UTF-8");
 
-    save << volume_off_ << "\n";
+    save << volume_on_ << "\n";
 
     save << volume_ << "\n";
 
@@ -71,8 +71,8 @@ void SettingsWidget::Load() {
     QTextStream load(&file);
     load.setCodec("UTF-8");
 
-    volume_off_ = load.readLine().toInt() == 1;
-    ui_->ui_sound_check_box_->setChecked(volume_off_);
+    volume_on_ = load.readLine().toInt() == 0;
+    ui_->ui_sound_check_box_->setChecked(volume_on_);
 
     int volume = load.readLine().toInt();
     if (volume >= ui_->ui_volume_->minimum() &&
@@ -113,11 +113,11 @@ QSize SettingsWidget::GetResolution() const {
 void SettingsWidget::ChangeSound() {
     if (ui_->ui_sound_check_box_->isChecked()) {
         ui_->ui_sound_check_box_->setText("Off");
-        volume_off_ = true;
+        volume_on_ = false;
         return;
     }
     ui_->ui_sound_check_box_->setText("On");
-    volume_off_ = false;
+    volume_on_ = true;
 }
 
 void SettingsWidget::ChangeVolume() {
