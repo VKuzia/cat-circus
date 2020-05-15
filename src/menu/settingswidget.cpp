@@ -10,9 +10,11 @@
 SettingsWidget::SettingsWidget(QWidget* parent)
     : QWidget(parent), ui_(new Ui::SettingsWidget) {
   ui_->setupUi(this);
-  ui_->ui_language_combo_box_->addItem("english");
-  ui_->ui_language_combo_box_->addItem("русский");
-  ui_->ui_language_combo_box_->addItem("беларуская");
+
+  for (auto element = kLanguages_.begin();
+      element != kLanguages_.end(); ++element) {
+  ui_->ui_language_combo_box_->addItem(*element);
+  }
 
   for (auto element = kResolutions_.begin();
       element != kResolutions_.end(); ++element) {
@@ -48,12 +50,13 @@ void SettingsWidget::Save() const {
 
     save << volume_ << "\n";
 
-    int current_index = ui_->ui_resolution_combo_box_->currentIndex();
-    save << kResolutions_[current_index].width();
+    int current_resolution_index = ui_->ui_resolution_combo_box_->currentIndex();
+    save << kResolutions_[current_resolution_index].width();
     save << " ";
-    save << kResolutions_[current_index].height() << "\n";
+    save << kResolutions_[current_resolution_index].height() << "\n";
 
-    save << current_language_index_ << "\n";
+    int current_language_index = ui_->ui_language_combo_box_->currentIndex();
+    save << kLanguages_[current_language_index] << "\n";
 
     save << user_name_ << "\n";
 
@@ -84,7 +87,9 @@ void SettingsWidget::Load() {
     QSize loaded_size;
     QStringList size_pair = load.readLine().split(' ');
     loaded_size.setWidth(size_pair[0].toInt());
-    loaded_size.setHeight(size_pair[1].toInt());
+    if (size_pair.size() > 1) {
+        loaded_size.setHeight(size_pair[1].toInt());
+    }
     for (int i = 0; i < kResolutions_.size(); i++) {
         if (loaded_size == kResolutions_[i]) {
             ui_->ui_resolution_combo_box_->setCurrentIndex(i);
@@ -92,12 +97,12 @@ void SettingsWidget::Load() {
         }
     }
 
-    int language_index = load.readLine().toInt();
-    if (language_index >= 0 && language_index <=
-            ui_->ui_language_combo_box_->count()) {
-        current_language_index_ = language_index;
-        ui_->ui_language_combo_box_->setCurrentIndex(
-                    current_language_index_);
+    QString loaded_language = load.readLine();
+    for (int i = 0; i < kLanguages_.size(); i++) {
+        if (loaded_language == kLanguages_[i]) {
+            ui_->ui_language_combo_box_->setCurrentIndex(i);
+            break;
+        }
     }
 
     user_name_ = load.readLine();
@@ -108,6 +113,10 @@ void SettingsWidget::Load() {
 
 QSize SettingsWidget::GetResolution() const {
     return kResolutions_[ui_->ui_resolution_combo_box_->currentIndex()];
+}
+
+QString SettingsWidget::GetLanguage() const {
+    return kLanguages_[ui_->ui_language_combo_box_->currentIndex()];
 }
 
 void SettingsWidget::ChangeSound() {
@@ -125,7 +134,7 @@ void SettingsWidget::ChangeVolume() {
 }
 
 void SettingsWidget::ChangeLanguage() {
-    current_language_index_ = ui_->ui_language_combo_box_->currentIndex();
+    emit LanguageChanged();
 }
 
 void SettingsWidget::ChangeUserName() {
@@ -135,4 +144,3 @@ void SettingsWidget::ChangeUserName() {
 void SettingsWidget::ChangeResolution() {
     emit ResolutionChanged();
 }
-

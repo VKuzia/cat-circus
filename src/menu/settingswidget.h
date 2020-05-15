@@ -18,10 +18,12 @@ class SettingsWidget : public QWidget {
 
   void Load();
   QSize GetResolution() const;
+  QString GetLanguage() const;
 
  signals:
   void MainMenu();
   void ResolutionChanged();
+  void LanguageChanged();
 
  public slots:
   void ReturnToMainMenu();
@@ -40,9 +42,11 @@ class SettingsWidget : public QWidget {
   const QString kPathToSettings = QDir::currentPath() + "/data/settings/";
   const QVector<QSize> kResolutions_ = {
       {1024, 576}, {1366, 768}, {1600, 900}, {1920, 1080}, {3200, 1800}};
+  const QVector<QString> kLanguages_ = {
+      "english", "русский", "беларуская"};
+
   bool volume_on_ = false;
   int volume_ = 1;
-  int current_language_index_ = 0;
   QString user_name_ = "Player";
 
   Ui::SettingsWidget* ui_;
