@@ -49,7 +49,10 @@ void SettingsWidget::Save() {
 
     save << volume_ << "\n";
 
-    save << ui_->ui_resolution_combo_box_->currentIndex() << "\n";
+    int current_index = ui_->ui_resolution_combo_box_->currentIndex();
+    save << kResolutions_[current_index].width();
+    save << " ";
+    save << kResolutions_[current_index].height() << "\n";
 
     save << current_language_index_ << "\n";
 
@@ -81,14 +84,29 @@ void SettingsWidget::Load() {
     volume_off_ = load.readLine().toInt() == 1;
     ui_->ui_sound_check_box_->setChecked(volume_off_);
 
-    volume_ = load.readLine().toInt();
-    ui_->ui_volume_->setValue(volume_);
+    int volume = load.readLine().toInt();
+    if (volume >= ui_->ui_volume_->minimum() && volume <= ui_->ui_volume_->maximum()) {
+        volume_ = volume;
+        ui_->ui_volume_->setValue(volume_);
+    }
 
-    ui_->ui_resolution_combo_box_->setCurrentIndex(
-               load.readLine().toInt());
+    QSize loaded_size;
+    QStringList size_pair = load.readLine().split(' ');
+    loaded_size.setWidth(size_pair[0].toInt());
+    loaded_size.setHeight(size_pair[1].toInt());
+    for (int i = 0; i < kResolutions_.size(); i++) {
+        if (loaded_size == kResolutions_[i]) {
+            ui_->ui_resolution_combo_box_->setCurrentIndex(i);
+            break;
+        }
+    }
 
-    current_language_index_ = load.readLine().toInt();
-    ui_->ui_language_combo_box_->setCurrentIndex(current_language_index_);
+    int language_index = load.readLine().toInt();
+    if (language_index >= 0 && language_index <=
+            ui_->ui_language_combo_box_->count()) {
+        current_language_index_ = language_index;
+        ui_->ui_language_combo_box_->setCurrentIndex(current_language_index_);
+    }
 
     user_name_ = load.readLine();
     ui_->ui_user_line_edit_->setText(user_name_);
