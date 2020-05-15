@@ -14,11 +14,6 @@ TrampolineTile::TrampolineTile(GameView* game_view, QSizeF size, qreal x,
   animation_.setEndValue(1);
 }
 
-void TrampolineTile::SetPixmap(const QPixmap& pixmap) {
-  setGraphicsEffect(nullptr);
-  setPixmap(pixmap.scaled(boundingRect().size().toSize()));
-}
-
 void TrampolineTile::Activate() {
   animation_.setDirection(QPropertyAnimation::Direction::Forward);
   animation_.start();
@@ -76,6 +71,25 @@ bool TrampolineTile::CheckPath(const TrampolinePath& path_item_, QPointF start,
 
 void TrampolineTile::SetDirection(TrampolineTile::SwipeDirection direction) {
   direction_ = direction;
+  setGraphicsEffect(nullptr);
+  switch (direction_) {
+    case SwipeDirection::kUp:
+      setPixmap(GetPixmapLoader()->GetPixmap("trampoline/up.png",
+                                             boundingRect().size().toSize()));
+      break;
+    case SwipeDirection::kDown:
+      setPixmap(GetPixmapLoader()->GetPixmap("trampoline/down.png",
+                                             boundingRect().size().toSize()));
+      break;
+    case SwipeDirection::kLeft:
+      setPixmap(GetPixmapLoader()->GetPixmap("trampoline/left.png",
+                                             boundingRect().size().toSize()));
+      break;
+    case SwipeDirection::kRight:
+      setPixmap(GetPixmapLoader()->GetPixmap("trampoline/right.png",
+                                             boundingRect().size().toSize()));
+      break;
+  }
 }
 
 qreal TrampolineTile::GetAnimationProgress() const {

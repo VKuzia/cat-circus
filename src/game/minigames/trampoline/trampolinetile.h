@@ -16,8 +16,6 @@ class TrampolineTile : public GameObject {
   TrampolineTile(GameView* game_view, QSizeF size, qreal x, qreal y);
   ~TrampolineTile() override = default;
 
-  void SetPixmap(const QPixmap& pixmap);
-
   void Activate();
   void Deactivate(bool is_path_correct);
 

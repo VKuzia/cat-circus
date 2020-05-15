@@ -137,19 +137,15 @@ void TrampolineMinigame::PrepareTiles() {
     switch (direction_num) {
       case 0:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kUp);
-        current_tile->SetPixmap(kUpPixmap_);
         break;
       case 1:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kDown);
-        current_tile->SetPixmap(kDownPixmap_);
         break;
       case 2:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kLeft);
-        current_tile->SetPixmap(kLeftPixmap_);
         break;
       case 3:
         current_tile->SetDirection(TrampolineTile::SwipeDirection::kRight);
-        current_tile->SetPixmap(kRightPixmap_);
         break;
     }
     current_tile->SetUp();

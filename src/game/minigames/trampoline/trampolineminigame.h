@@ -24,15 +24,6 @@ class TrampolineMinigame : public Minigame {
   void MouseMoveEvent(QMouseEvent*) override;
 
  private:
-  const QPixmap kUpPixmap_ =
-      QPixmap(QDir::currentPath() + "/data/images/minigames/trampoline/up.png");
-  const QPixmap kDownPixmap_ = QPixmap(
-      QDir::currentPath() + "/data/images/minigames/trampoline/down.png");
-  const QPixmap kLeftPixmap_ = QPixmap(
-      QDir::currentPath() + "/data/images/minigames/trampoline/left.png");
-  const QPixmap kRightPixmap_ = QPixmap(
-      QDir::currentPath() + "/data/images/minigames/trampoline/right.png");
-
   const QBrush kEmptyBackgroundBrush_ = Qt::NoBrush;
   const QBrush kWinBackgroundBrush_ = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush_ = QBrush(QColor::fromRgb(191, 8, 8));
