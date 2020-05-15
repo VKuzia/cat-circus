@@ -4,13 +4,7 @@ CannonSausage::CannonSausage(GameView* game_view, qreal width, qreal height,
                              qreal x, qreal y)
     : GameObject(game_view, width, height, x, y) {}
 
-void CannonSausage::SetUp() {
-  this->setOffset(boundingRect().topLeft());
-  QPixmap pixmap =
-      QPixmap(game_view_->GetPathToMinigameImages() + "cannon/sausage.png");
-  pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
-}
+void CannonSausage::SetUp() { setPixmap(LoadPixmap("cannon/sausage.png")); }
 
 void CannonSausage::Update() {
   if (is_caught_) {

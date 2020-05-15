@@ -8,13 +8,7 @@ CannonCat::CannonCat(GameView *game_view, qreal width, qreal height, qreal x,
       radius_(width / 2),
       floor_y_(floor_y) {}
 
-void CannonCat::SetUp() {
-  this->setOffset(boundingRect().topLeft());
-  QPixmap pixmap =
-      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/cat.png");
-  pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
-}
+void CannonCat::SetUp() { setPixmap(LoadPixmap("juggling/cat.png")); }
 
 void CannonCat::Update() {
   if (start_vil_.x() == 0 && start_vil_.y() == 0) {

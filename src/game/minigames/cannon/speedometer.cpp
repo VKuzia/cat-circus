@@ -4,10 +4,4 @@ Speedometer::Speedometer(GameView *game_view, qreal width, qreal height,
                          qreal x, qreal y)
     : GameObject(game_view, width, height, x, y) {}
 
-void Speedometer::SetUp() {
-  this->setOffset(boundingRect().topLeft());
-  QPixmap pixmap =
-      QPixmap(game_view_->GetPathToMinigameImages() + "cannon/spedometer.png");
-  pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
-}
+void Speedometer::SetUp() { setPixmap(LoadPixmap("cannon/spedometer.png")); }
