@@ -47,7 +47,7 @@ class SettingsWidget : public QWidget {
 
   Ui::SettingsWidget* ui_;
 
-  void Save();
+  void Save() const;
 };
 
 #endif  // SETTINGSWIDGET_H

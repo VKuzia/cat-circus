@@ -30,16 +30,13 @@ void SettingsWidget::ReturnToMainMenu() {
     emit MainMenu();
 }
 
-void SettingsWidget::Save() {
+void SettingsWidget::Save() const {
+    QDir(kPathToSettings).mkpath(".");
+
     QFile file(kPathToSettings + "basic_settings.txt");
-    try {
-        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            throw std::runtime_error("Error, imposible to save changes!");
-        }
-    }
-    catch(std::exception const& exception) {
-        QTextStream error(stdout);
-        error << exception.what() << "\n";
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        std::runtime_error("Error, imposible to save changes!");
     }
 
     QTextStream save(&file);
@@ -62,20 +59,10 @@ void SettingsWidget::Save() {
 }
 
 void SettingsWidget::Load() {
-    QDir dir(kPathToSettings + "basic_settings.txt");
-    if (!dir.exists()) {
-        dir.mkpath(kPathToSettings + "basic_settings.txt");
-    }
-
     QFile file(kPathToSettings + "basic_settings.txt");
-    try {
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            throw std::runtime_error("Error, imposible to load changes!");
-        }
-    }
-    catch(std::exception const& exception) {
-        QTextStream error(stdout);
-        error << exception.what() << "\n";
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        std::runtime_error("Error, imposible to load changes!");
     }
 
     QTextStream load(&file);
@@ -85,7 +72,8 @@ void SettingsWidget::Load() {
     ui_->ui_sound_check_box_->setChecked(volume_off_);
 
     int volume = load.readLine().toInt();
-    if (volume >= ui_->ui_volume_->minimum() && volume <= ui_->ui_volume_->maximum()) {
+    if (volume >= ui_->ui_volume_->minimum() &&
+            volume <= ui_->ui_volume_->maximum()) {
         volume_ = volume;
         ui_->ui_volume_->setValue(volume_);
     }
@@ -105,7 +93,8 @@ void SettingsWidget::Load() {
     if (language_index >= 0 && language_index <=
             ui_->ui_language_combo_box_->count()) {
         current_language_index_ = language_index;
-        ui_->ui_language_combo_box_->setCurrentIndex(current_language_index_);
+        ui_->ui_language_combo_box_->setCurrentIndex(
+                    current_language_index_);
     }
 
     user_name_ = load.readLine();
