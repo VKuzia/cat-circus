@@ -16,7 +16,6 @@ void ClickableBall::SetUp() {
   painter.setBrush(kBasicColor);
   // Some edge pixels left to render ball without edges cut
   painter.drawEllipse(1, 1, qFloor(width) - 2, qFloor(height) - 2);
-  this->setOffset(-width / 2, -height / 2);
   this->setPixmap(pixmap);
 }
 

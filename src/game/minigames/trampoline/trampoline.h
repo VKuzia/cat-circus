@@ -13,8 +13,8 @@ class Trampoline : public GameObject {
   void SetPushed(bool pushed);
 
  private:
-  QPixmap pixmap_free_;
-  QPixmap pixmap_pushed_;
+  const QPixmap kPixmapFree_;
+  const QPixmap kPixmapPushed_;
 };
 
 #endif  // TRAMPOLINE_H

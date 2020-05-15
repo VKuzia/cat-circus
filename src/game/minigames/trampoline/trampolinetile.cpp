@@ -5,7 +5,6 @@
 TrampolineTile::TrampolineTile(GameView* game_view, QSizeF size, qreal x,
                                qreal y)
     : GameObject(game_view, size, x, y) {
-  setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
   setOpacity(kNoFocusOpacity_);
 
   animation_.setTargetObject(this);
@@ -17,8 +16,7 @@ TrampolineTile::TrampolineTile(GameView* game_view, QSizeF size, qreal x,
 
 void TrampolineTile::SetPixmap(const QPixmap& pixmap) {
   setGraphicsEffect(nullptr);
-  setPixmap(pixmap.scaled(qRound(boundingRect().width()),
-                          qRound(boundingRect().height())));
+  setPixmap(pixmap.scaled(boundingRect().size().toSize()));
 }
 
 void TrampolineTile::Activate() {

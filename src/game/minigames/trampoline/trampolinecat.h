@@ -33,10 +33,11 @@ class TrampolineCat : public GameObject {
   bool IsJustFlipped() const;
 
  private:
+  const QPixmap kPixmapNormal_;
+  const QPixmap kPixmapHappy_;
+  const QPixmap kPixmapSad_;
+
   QPropertyAnimation rotation_animation_;
-  QPixmap pixmap_normal_;
-  QPixmap pixmap_happy_;
-  QPixmap pixmap_sad_;
   bool is_rotating_ = true;
   bool is_flying_ = true;
   bool is_just_flipped_ = true;

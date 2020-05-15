@@ -1,13 +1,17 @@
 #include "trampolinecat.h"
 
 TrampolineCat::TrampolineCat(GameView* game_view, QSizeF size, QPointF pos)
-    : GameObject(game_view, size, pos) {}
+    : GameObject(game_view, size, pos),
+
+      kPixmapNormal_(GetPixmapLoader()->GetPixmap(
+          "trampoline/cat_normal.png", boundingRect().size().toSize())),
+      kPixmapHappy_(GetPixmapLoader()->GetPixmap(
+          "trampoline/cat_happy.png", boundingRect().size().toSize())),
+      kPixmapSad_(GetPixmapLoader()->GetPixmap(
+          "trampoline/cat_sad.png", boundingRect().size().toSize())) {}
 
 void TrampolineCat::SetUp() {
-  pixmap_normal_ = GetPixmapFrom("trampoline/cat_normal.png");
-  pixmap_happy_ = GetPixmapFrom("trampoline/cat_happy.png");
-  pixmap_sad_ = GetPixmapFrom("trampoline/cat_sad.png");
-  setPixmap(pixmap_normal_);
+  setPixmap(kPixmapNormal_);
 
   rotation_animation_.setPropertyName("rotation");
   rotation_animation_.setTargetObject(this);
@@ -32,13 +36,13 @@ void TrampolineCat::RotateFor(int32_t millis) {
 void TrampolineCat::SetMood(TrampolineCat::Mood mood) {
   switch (mood) {
     case Mood::kNormal:
-      setPixmap(pixmap_normal_);
+      setPixmap(kPixmapNormal_);
       break;
     case Mood::kHappy:
-      setPixmap(pixmap_happy_);
+      setPixmap(kPixmapHappy_);
       break;
     case Mood::kSad:
-      setPixmap(pixmap_sad_);
+      setPixmap(kPixmapSad_);
       break;
   }
 }

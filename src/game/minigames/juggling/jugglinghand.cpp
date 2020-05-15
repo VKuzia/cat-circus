@@ -13,10 +13,7 @@ JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
       kBasePos_(x, y),
       kThrowPos_(x + GetHorizontalSwing(), y) {}
 
-void JugglingHand::SetUp() {
-  setOffset(boundingRect().topLeft());
-  setPixmap(kPixmapFree_);
-}
+void JugglingHand::SetUp() { setPixmap(kPixmapFree_); }
 
 void JugglingHand::Update() {
   if (!is_throwing_) {

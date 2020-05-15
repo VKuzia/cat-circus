@@ -24,6 +24,7 @@ GameObject::GameObject(GameView* game_view, QSizeF size, QPointF pos)
       pos_(pos) {
   this->setCacheMode(DeviceCoordinateCache);
   setPos(pos_ * game_view_->GetPixelsInMeter());
+  setOffset(boundingRect().topLeft());
 }
 
 void GameObject::SetUp() {}
