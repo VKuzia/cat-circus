@@ -2,11 +2,8 @@
 
 Trampoline::Trampoline(GameView* game_view, QSizeF size, QPointF pos)
     : GameObject(game_view, size, pos),
-      kPixmapFree_(GetPixmapLoader()->GetPixmap(
-          "trampoline/trampoline_free.png", boundingRect().size().toSize())),
-      kPixmapPushed_(GetPixmapLoader()->GetPixmap(
-          "trampoline/trampoline_pushed.png", boundingRect().size().toSize())) {
-}
+      kPixmapFree_(LoadPixmap("trampoline/trampoline_free.png")),
+      kPixmapPushed_(LoadPixmap("trampoline/trampoline_pushed.png")) {}
 
 void Trampoline::SetUp() { setPixmap(kPixmapFree_); }
 

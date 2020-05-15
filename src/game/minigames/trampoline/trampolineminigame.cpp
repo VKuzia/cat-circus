@@ -3,6 +3,8 @@
 #include <QMouseEvent>
 #include <QRandomGenerator>
 
+#include "src/game/gameobject.h"
+
 TrampolineMinigame::TrampolineMinigame(GameView* game_view, qreal difficulty,
                                        qreal pixels_in_meter)
     : Minigame(game_view, difficulty, pixels_in_meter) {}

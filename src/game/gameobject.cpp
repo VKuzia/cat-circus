@@ -89,4 +89,12 @@ void GameObject::MoveByMeters(Vector2D shift) {
          shift.y() * game_view_->GetPixelsInMeter());
 }
 
+QPixmap GameObject::LoadPixmap(const QString& short_path, QSize size) {
+  return pixmap_loader_.GetPixmap(short_path, size);
+}
+
 const PixmapLoader* GameObject::GetPixmapLoader() { return &pixmap_loader_; }
+
+QPixmap GameObject::LoadPixmap(const QString& short_path) const {
+  return pixmap_loader_.GetPixmap(short_path, boundingRect().size().toSize());
+}

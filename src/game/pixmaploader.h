@@ -12,6 +12,8 @@ class PixmapLoader {
 
   QPixmap GetPixmap(const QString& short_path, QSize size) const;
 
+  void PreloadPixmaps() const;
+
  private:
   const QString kPathToImages_ =
       QDir::currentPath() + "/data/images/minigames/";

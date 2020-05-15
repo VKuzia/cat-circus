@@ -16,8 +16,7 @@ void JugglingCat::SetUp() {
   SetUpHand(left_hand_, right_hand_->GetBasePos());
   SetUpHand(right_hand_, left_hand_->GetBasePos());
   setZValue(kZValue);
-  setPixmap(GetPixmapLoader()->GetPixmap("juggling/cat.png",
-                                         boundingRect().size().toSize()));
+  setPixmap(LoadPixmap("juggling/cat.png"));
 }
 
 void JugglingCat::Update() {

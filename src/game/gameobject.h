@@ -55,6 +55,8 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   void MoveByMeters(qreal x, qreal y);
   void MoveByMeters(Vector2D shift);
 
+  static QPixmap LoadPixmap(const QString& short_path, QSize size);
+
   static const PixmapLoader* GetPixmapLoader();
 
  protected:
@@ -67,6 +69,8 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   QSizeF size_;
   QPointF pos_;
   Vector2D velocity_ = {0, 0};
+
+  QPixmap LoadPixmap(const QString& short_path) const;
 
  private:
   static PixmapLoader pixmap_loader_;

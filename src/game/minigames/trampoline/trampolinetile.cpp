@@ -74,20 +74,16 @@ void TrampolineTile::SetDirection(TrampolineTile::SwipeDirection direction) {
   setGraphicsEffect(nullptr);
   switch (direction_) {
     case SwipeDirection::kUp:
-      setPixmap(GetPixmapLoader()->GetPixmap("trampoline/up.png",
-                                             boundingRect().size().toSize()));
+      setPixmap(LoadPixmap("trampoline/up.png"));
       break;
     case SwipeDirection::kDown:
-      setPixmap(GetPixmapLoader()->GetPixmap("trampoline/down.png",
-                                             boundingRect().size().toSize()));
+      setPixmap(LoadPixmap("trampoline/down.png"));
       break;
     case SwipeDirection::kLeft:
-      setPixmap(GetPixmapLoader()->GetPixmap("trampoline/left.png",
-                                             boundingRect().size().toSize()));
+      setPixmap(LoadPixmap("trampoline/left.png"));
       break;
     case SwipeDirection::kRight:
-      setPixmap(GetPixmapLoader()->GetPixmap("trampoline/right.png",
-                                             boundingRect().size().toSize()));
+      setPixmap(LoadPixmap("trampoline/right.png"));
       break;
   }
 }
