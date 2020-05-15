@@ -61,7 +61,8 @@ void SettingsWidget::Load() {
     QFile file(kPathToSettings + "basic_settings.txt");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::warning(nullptr, "Warning", "Settings file not found."
+        QMessageBox::warning(nullptr, "Warning", "Settings file is not"
+                                                 " found."
                                                  " Default settings were"
                                                  " applied. \n");
         return;
@@ -77,21 +78,37 @@ void SettingsWidget::Load() {
             volume <= ui_->ui_volume_->maximum()) {
         volume_ = volume;
         ui_->ui_volume_->setValue(volume_);
+    } else {
+        QMessageBox::warning(nullptr, "Warning", "Invalid volume."
+                                                 " Default volume was"
+                                                 " applied. \n");
     }
 
     QStringList size_pair = load.readLine().split(' ');
     if (size_pair.size() > 1) {
         QSize loaded_size{size_pair[0].toInt(), size_pair[1].toInt()};
-        int index = kResolutions_.indexOf(loaded_size);
-        ui_->ui_resolution_combo_box_->setCurrentIndex(index);
+        int resolution_index = kResolutions_.indexOf(loaded_size);
+        if (resolution_index == -1) {
+            QMessageBox::warning(nullptr, "Warning", "Invalid resolution."
+                                                     " Default resolution was"
+                                                     " applied. \n");
+        } else {
+            ui_->ui_resolution_combo_box_->setCurrentIndex(resolution_index);
+        }
+    } else {
+        QMessageBox::warning(nullptr, "Warning", "Invalid resolution."
+                                                 " Default resolution was"
+                                                 " applied. \n");
     }
 
     QString loaded_language = load.readLine();
-    for (int i = 0; i < kLanguages_.size(); i++) {
-        if (loaded_language == kLanguages_[i]) {
-            ui_->ui_language_combo_box_->setCurrentIndex(i);
-            break;
-        }
+    int language_index = kLanguages_.indexOf(loaded_language);
+    if (language_index == -1) {
+        QMessageBox::warning(nullptr, "Warning", "Invalid language."
+                                                 " Default language was"
+                                                 " applied. \n");
+    } else {
+        ui_->ui_language_combo_box_->setCurrentIndex(language_index);
     }
 
     user_name_ = load.readLine();
