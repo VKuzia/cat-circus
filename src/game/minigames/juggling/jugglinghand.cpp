@@ -5,18 +5,13 @@
 JugglingHand::JugglingHand(GameView* game_view, qreal width, qreal height,
                            qreal x, qreal y, Side side)
     : GameObject(game_view, width, height, x, y),
-      kPixmapFree_(GetPixmapLoader()->GetPixmap(
-          "juggling/hand_free.png", boundingRect().size().toSize())),
-      kPixmapClosed_(GetPixmapLoader()->GetPixmap(
-          "juggling/hand_closed.png", boundingRect().size().toSize())),
+      kPixmapFree_(LoadPixmap("juggling/hand_free.png")),
+      kPixmapClosed_(LoadPixmap("juggling/hand_closed.png")),
       kSide_(side),
       kBasePos_(x, y),
       kThrowPos_(x + GetHorizontalSwing(), y) {}
 
-void JugglingHand::SetUp() {
-  setOffset(boundingRect().topLeft());
-  setPixmap(kPixmapFree_);
-}
+void JugglingHand::SetUp() { setPixmap(kPixmapFree_); }
 
 void JugglingHand::Update() {
   if (!is_throwing_) {

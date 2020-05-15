@@ -21,6 +21,7 @@ GameObject::GameObject(GameView* game_view, QSizeF size, QPointF pos)
       pos_(pos) {
   this->setCacheMode(DeviceCoordinateCache);
   setPos(pos_ * game_view_->GetPixelsInMeter());
+  setOffset(boundingRect().topLeft());
 }
 
 void GameObject::SetUp() {}
@@ -62,4 +63,10 @@ void GameObject::MoveByMeters(Vector2D shift) {
          shift.y() * game_view_->GetPixelsInMeter());
 }
 
-const PixmapLoader* GameObject::GetPixmapLoader() { return &pixmap_loader_; }
+QPixmap GameObject::LoadPixmap(const QString& short_path, QSize size) {
+  return pixmap_loader_.GetPixmap(short_path, size);
+}
+
+QPixmap GameObject::LoadPixmap(const QString& short_path) const {
+  return pixmap_loader_.GetPixmap(short_path, boundingRect().size().toSize());
+}
