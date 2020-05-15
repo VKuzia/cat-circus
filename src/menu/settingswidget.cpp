@@ -1,6 +1,7 @@
 #include "settingswidget.h"
 #include <QFile>
 #include <QTextStream>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "ui_settingswidget.h"
@@ -36,7 +37,8 @@ void SettingsWidget::Save() const {
     QFile file(kPathToSettings + "basic_settings.txt");
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        std::runtime_error("Error, imposible to save changes!");
+        QMessageBox::warning(nullptr, "Error", "Imposible to save changes! \n");
+        return;
     }
 
     QTextStream save(&file);
@@ -62,7 +64,9 @@ void SettingsWidget::Load() {
     QFile file(kPathToSettings + "basic_settings.txt");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        std::runtime_error("Error, imposible to load changes!");
+        QMessageBox::warning(nullptr, "Error", "Imposible to load changes! \n");
+        return;
+
     }
 
     QTextStream load(&file);
