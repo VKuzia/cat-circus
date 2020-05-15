@@ -12,7 +12,7 @@ TrampolineMinigame::TrampolineMinigame(GameView* game_view, qreal difficulty,
 void TrampolineMinigame::Start() { AnimateTutorial(); }
 
 void TrampolineMinigame::SetUp() {
-  background_->SetUp(game_view_, "juggling/arena.png");
+  background_->SetUp(game_view_, "trampoline/background.png");
   game_view_->scene()->addItem(background_);
 
   cat_ = new TrampolineCat(game_view_, kCatSize_, kCatStartPos_);
