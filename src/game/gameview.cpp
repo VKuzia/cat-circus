@@ -49,6 +49,12 @@ void GameView::keyReleaseEvent(QKeyEvent* event) {
   }
 }
 
+void GameView::wheelEvent(QWheelEvent* event) {
+  if (current_minigame_ != nullptr) {
+    current_minigame_->WheelEvent(event);
+  }
+}
+
 void GameView::SetMinigame(Minigame* current_minigame) {
   // GameWidget controls deleting, only assignment required
   current_minigame_ = current_minigame;

@@ -1,5 +1,7 @@
 #include "gameobject.h"
 
+PixmapLoader GameObject::pixmap_loader_ = PixmapLoader();
+
 GameObject::GameObject(GameView* game_view, qreal width, qreal height, qreal x,
                        qreal y)
     : GameObject(game_view, width, height, QPointF(x, y)) {}
@@ -22,6 +24,7 @@ GameObject::GameObject(GameView* game_view, QSizeF size, QPointF pos)
 }
 
 void GameObject::SetUp() {}
+
 void GameObject::Update() {}
 
 QRectF GameObject::boundingRect() const { return kDefaultBoundingRect; }
@@ -58,3 +61,5 @@ void GameObject::MoveByMeters(Vector2D shift) {
   moveBy(shift.x() * game_view_->GetPixelsInMeter(),
          shift.y() * game_view_->GetPixelsInMeter());
 }
+
+const PixmapLoader* GameObject::GetPixmapLoader() { return &pixmap_loader_; }

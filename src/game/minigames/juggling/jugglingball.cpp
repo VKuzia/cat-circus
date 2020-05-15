@@ -9,12 +9,10 @@ JugglingBall::JugglingBall(GameView* game_view, qreal radius, qreal x, qreal y,
       floor_y_(floor_y) {}
 
 void JugglingBall::SetUp() {
-  this->setZValue(kZValue);
-  this->setOffset(qRound(boundingRect().x()), qRound(boundingRect().y()));
-  QPixmap pixmap =
-      QPixmap(game_view_->GetPathToMinigameImages() + "juggling/ball.png");
-  pixmap.setMask(pixmap.createHeuristicMask());
-  this->setPixmap(pixmap.scaled(boundingRect().size().toSize()));
+  setZValue(kZValue);
+  setOffset(boundingRect().topLeft());
+  setPixmap(GetPixmapLoader()->GetPixmap("juggling/ball.png",
+                                         boundingRect().size().toSize()));
 }
 
 void JugglingBall::Update() {

@@ -17,6 +17,7 @@ class GameWidget : public QWidget {
   ~GameWidget() override;
 
   void SetUp();
+  void Start();
 
  signals:
   void MainMenu();
