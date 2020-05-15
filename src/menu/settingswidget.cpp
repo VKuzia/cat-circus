@@ -66,7 +66,6 @@ void SettingsWidget::Load() {
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::warning(nullptr, "Error", "Imposible to load changes! \n");
         return;
-
     }
 
     QTextStream load(&file);
