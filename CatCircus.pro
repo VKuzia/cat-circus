@@ -43,7 +43,7 @@ SOURCES += \
         src/game/physics/physics.cpp \
         src/game/timebar.cpp \
         src/menu/aboutwidget.cpp \
-    src/menu/button.cpp \
+        src/menu/button.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
         src/menu/settingswidget.cpp \
