@@ -11,16 +11,14 @@ SettingsWidget::SettingsWidget(QWidget* parent)
     : QWidget(parent), ui_(new Ui::SettingsWidget) {
   ui_->setupUi(this);
 
-  for (auto element = kLanguages_.begin();
-      element != kLanguages_.end(); ++element) {
-  ui_->ui_language_combo_box_->addItem(*element);
+  for (auto element : kLanguages_) {
+  ui_->ui_language_combo_box_->addItem(element);
   }
 
-  for (auto element = kResolutions_.begin();
-      element != kResolutions_.end(); ++element) {
-  ui_->ui_resolution_combo_box_->addItem(QString::number(element->width())
-                                         + "×"
-                                         + QString::number(element->height()));
+  for (auto element : kResolutions_) {
+  ui_->ui_resolution_combo_box_->addItem(QString::number(element.width()) +
+                                         "×" +
+                                         QString::number(element.height()));
   }
 
   Load();
@@ -35,30 +33,25 @@ void SettingsWidget::ReturnToMainMenu() {
 
 void SettingsWidget::Save() const {
     QDir(kPathToSettings).mkpath(".");
-
     QFile file(kPathToSettings + "basic_settings.txt");
-
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::warning(nullptr, "Error", "Imposible to save changes! \n");
+        QMessageBox::warning(nullptr, "Warning", "Settings were not saved."
+                                                 " \n");
         return;
     }
 
     QTextStream save(&file);
     save.setCodec("UTF-8");
 
-    save << volume_on_ << "\n";
-
-    save << volume_ << "\n";
-
+    save << volume_on_ << '\n';
+    save << volume_ << '\n';
     int current_resolution_index =
             ui_->ui_resolution_combo_box_->currentIndex();
     save << kResolutions_[current_resolution_index].width();
     save << " ";
-    save << kResolutions_[current_resolution_index].height() << "\n";
-
+    save << kResolutions_[current_resolution_index].height() << '\n';
     int current_language_index = ui_->ui_language_combo_box_->currentIndex();
-    save << kLanguages_[current_language_index] << "\n";
-
+    save << kLanguages_[current_language_index] << '\n';
     save << user_name_ << "\n";
 
     file.close();
@@ -68,14 +61,15 @@ void SettingsWidget::Load() {
     QFile file(kPathToSettings + "basic_settings.txt");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::warning(nullptr, "Error", "Imposible to load changes! \n");
+        QMessageBox::warning(nullptr, "Warning", "Settings file not found."
+                                                 " Default settings were"
+                                                 " applied. \n");
         return;
     }
-
     QTextStream load(&file);
     load.setCodec("UTF-8");
 
-    volume_on_ = load.readLine().toInt() == 0;
+    volume_on_ = load.readLine().toInt() == 1;
     ui_->ui_sound_check_box_->setChecked(volume_on_);
 
     int volume = load.readLine().toInt();
@@ -85,17 +79,11 @@ void SettingsWidget::Load() {
         ui_->ui_volume_->setValue(volume_);
     }
 
-    QSize loaded_size;
     QStringList size_pair = load.readLine().split(' ');
-    loaded_size.setWidth(size_pair[0].toInt());
     if (size_pair.size() > 1) {
-        loaded_size.setHeight(size_pair[1].toInt());
-    }
-    for (int i = 0; i < kResolutions_.size(); i++) {
-        if (loaded_size == kResolutions_[i]) {
-            ui_->ui_resolution_combo_box_->setCurrentIndex(i);
-            break;
-        }
+        QSize loaded_size{size_pair[0].toInt(), size_pair[1].toInt()};
+        int index = kResolutions_.indexOf(loaded_size);
+        ui_->ui_resolution_combo_box_->setCurrentIndex(index);
     }
 
     QString loaded_language = load.readLine();

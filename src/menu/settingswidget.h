@@ -29,13 +29,9 @@ class SettingsWidget : public QWidget {
   void ReturnToMainMenu();
 
   void ChangeSound();
-
   void ChangeVolume();
-
   void ChangeLanguage();
-
   void ChangeUserName();
-
   void ChangeResolution();
 
  private:
@@ -45,7 +41,7 @@ class SettingsWidget : public QWidget {
   const QVector<QString> kLanguages_ = {
       "english", "русский", "беларуская"};
 
-  bool volume_on_ = false;
+  bool volume_on_ = true;
   int volume_ = 1;
   QString user_name_ = "Player";
 

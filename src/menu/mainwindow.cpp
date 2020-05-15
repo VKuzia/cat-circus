@@ -5,7 +5,6 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui_(new Ui::MainWindow) {
   ui_->setupUi(this);
-  ui_->ui_settings_widget_->Load();
   connect(ui_->ui_settings_widget_, &SettingsWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
   connect(ui_->ui_about_widget_, &AboutWidget::MainMenu, this,
