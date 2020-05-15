@@ -1,7 +1,5 @@
 #include "button.h"
 
-#include <QDebug>
-
 Button::Button(QWidget* parent) : QPushButton(parent), hover_animation_(this) {
   hover_animation_.setTargetObject(this);
   hover_animation_.setPropertyName("animationProgress");
