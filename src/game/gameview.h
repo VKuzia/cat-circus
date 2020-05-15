@@ -14,7 +14,7 @@ class GameView : public QGraphicsView {
                  SetOutroAnimationProgress)
 
  public:
-  enum class OutroStatus { kFailed, kPassed };
+  enum class Status { kFailed, kPassed };
 
   explicit GameView(QWidget* parent = nullptr);
   ~GameView() override = default;
@@ -23,7 +23,7 @@ class GameView : public QGraphicsView {
 
   // Should be called inside a current_minigame on win|lose
   // Apply effects to the whole scene, trigger OutroFinished
-  void AnimateOutro(OutroStatus status);
+  void AnimateOutro(Status status);
 
   void SetMinigame(Minigame* current_minigame);
 
@@ -33,14 +33,15 @@ class GameView : public QGraphicsView {
   QString GetPathToMinigameImages() const;
 
  signals:
-  void OutroFinished();
+  void MinigamePassed(int32_t score);
+  void MinigameFailed();
 
  private:
   const QString kPathToMinigameImages_ =
       QDir::currentPath() + "/data/images/minigames/";
 
   const QColor kShadowColor_ = QColor::fromRgb(20, 20, 20);
-  const int32_t kOutroAnimationDuration_ = 2200;
+  const int32_t kOutroAnimationDuration_ = 2000;
   const int32_t kOutroFadeInDuration_ = 300;
   const int32_t kOutroImageShowTime_ = 700;
   const qreal kOutroRectMaxOpacity_ = 0.7;
@@ -60,6 +61,7 @@ class GameView : public QGraphicsView {
   qreal passed_image_start_y_ = 0;
   qreal current_image_start_y_ = 0;
   qreal outro_animation_progress_ = 0;
+  Status minigame_status_ = Status::kFailed;
 
   qreal pixels_in_meter_ = 0;
 

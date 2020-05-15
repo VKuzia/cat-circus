@@ -54,8 +54,6 @@ class JugglingMinigame : public Minigame {
   void Tick() override;
 
   void Stop(Status) override;
-  void Win() override;
-  void Lose() override;
 };
 
 #endif  // JUGGLINGMINIGAME_H

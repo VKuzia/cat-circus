@@ -22,6 +22,11 @@ GameWidget::GameWidget(QWidget* parent)
   connect(ui_->ui_pause_page_, &PausePage::MainMenu, this,
           &GameWidget::ReturnToMainMenu);
   connect(ui_->ui_pause_page_, &PausePage::Resume, this, &GameWidget::Resume);
+
+  connect(ui_->ui_game_view_, &GameView::MinigamePassed, this,
+          &GameWidget::MinigamePassed);
+  connect(ui_->ui_game_view_, &GameView::MinigameFailed, this,
+          &GameWidget::MinigameFailed);
 }
 
 void GameWidget::ReturnToMainMenu() {
@@ -53,10 +58,6 @@ void GameWidget::StartMinigame() {
     return;
   }
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_game_page_);
-  connect(current_minigame_, &Minigame::Passed, this,
-          &GameWidget::MinigamePassed);
-  connect(current_minigame_, &Minigame::Failed, this,
-          &GameWidget::MinigameFailed);
   current_minigame_->Start();
 }
 

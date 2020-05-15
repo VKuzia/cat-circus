@@ -97,24 +97,15 @@ void TestMinigame::Stop(Status status) {
   is_running_ = false;
   tick_timer_.stop();
   time_bar_->setVisible(false);
-  if (status == Status::kPass) {
-    Win();
-  } else {
-    Lose();
+  switch (status) {
+    case Status::kPass:
+      score_ = 100 + time_left_ * 10 / timer_.interval();
+      Win();
+      break;
+    case Status::kFail:
+      Lose();
+      break;
   }
-}
-
-void TestMinigame::Win() {
-  score_ = 100 + time_left_ * 10 / timer_.interval();
-  connect(game_view_, &GameView::OutroFinished, this,
-          [this] { emit Passed(score_); });
-  game_view_->AnimateOutro(GameView::OutroStatus::kPassed);
-}
-
-void TestMinigame::Lose() {
-  connect(game_view_, &GameView::OutroFinished, this,
-          [this] { emit Failed(); });
-  game_view_->AnimateOutro(GameView::OutroStatus::kFailed);
 }
 
 void TestMinigame::MousePressEvent(QMouseEvent*) {

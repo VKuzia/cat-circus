@@ -31,16 +31,17 @@ void GameView::SetUp(int32_t width, int32_t height) {
   passed_image_start_y_ = this->height() * kPassedImageStartYFactor_;
 }
 
-void GameView::AnimateOutro(OutroStatus status) {
+void GameView::AnimateOutro(Status status) {
+  minigame_status_ = status;
   outro_rect_->setVisible(true);
   outro_rect_->setOpacity(0);
   scene()->addItem(outro_rect_);
   switch (status) {
-    case OutroStatus::kFailed:
+    case Status::kFailed:
       current_outro_image_ = failed_image_;
       current_image_start_y_ = failed_image_start_y_;
       break;
-    case OutroStatus::kPassed:
+    case Status::kPassed:
       current_outro_image_ = passed_image_;
       current_image_start_y_ = passed_image_start_y_;
       break;
@@ -76,7 +77,14 @@ void GameView::SetUpOutroAnimation() {
     // To save them from scene()->clean() in Minigame destructor
     scene()->removeItem(outro_rect_);
     scene()->removeItem(current_outro_image_);
-    emit OutroFinished();
+    switch (minigame_status_) {
+      case Status::kFailed:
+        emit MinigameFailed();
+        break;
+      case Status::kPassed:
+        emit MinigamePassed(current_minigame_->GetScore());
+        break;
+    }
   });
 }
 

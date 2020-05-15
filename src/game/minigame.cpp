@@ -41,3 +41,9 @@ void Minigame::MouseMoveEvent(QMouseEvent*) {}
 void Minigame::KeyPressEvent(QKeyEvent*) {}
 
 void Minigame::KeyReleaseEvent(QKeyEvent*) {}
+
+void Minigame::Win() { game_view_->AnimateOutro(GameView::Status::kPassed); }
+
+void Minigame::Lose() { game_view_->AnimateOutro(GameView::Status::kFailed); }
+
+int32_t Minigame::GetScore() const { return score_; }

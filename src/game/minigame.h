@@ -27,9 +27,7 @@ class Minigame : public QObject {
   virtual void KeyPressEvent(QKeyEvent* event);
   virtual void KeyReleaseEvent(QKeyEvent* event);
 
- signals:
-  void Passed(int32_t score);
-  void Failed();
+  int32_t GetScore() const;
 
  protected:
   enum class Status { kFail, kPass };
@@ -69,8 +67,8 @@ class Minigame : public QObject {
   virtual void Tick() = 0;
 
   virtual void Stop(Status) = 0;
-  virtual void Win() = 0;
-  virtual void Lose() = 0;
+  virtual void Win();
+  virtual void Lose();
 };
 
 #endif  // MINIGAME_H
