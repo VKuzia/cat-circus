@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDir>
 #include <QMainWindow>
 
 namespace Ui {
@@ -23,6 +24,9 @@ class MainWindow : public QMainWindow {
   void Exit();
 
  private:
+  const QString kPathToBackground_ =
+      QDir::currentPath() + "/data/images/background/main_background.gif";
+
   Ui::MainWindow* ui_;
   QWidget* widget_to_change_to_ = nullptr;
 
