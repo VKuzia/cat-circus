@@ -3,7 +3,8 @@
 #include <QStackedLayout>
 #include <QtMath>
 
-#include "src/game/minigames/testminigame.h"
+#include "src/game/minigames/juggling/jugglingminigame.h"
+#include "src/game/minigames/test/testminigame.h"
 #include "ui_gamewidget.h"
 
 GameWidget::GameWidget(QWidget* parent)
@@ -40,9 +41,8 @@ void GameWidget::Retry() { SetUp(); }
 
 void GameWidget::InitMinigame() {
   // Some game picking logic should be here
-  // This version is used only to implement MiniGame switch
   Minigame* minigame =
-      new TestMinigame(ui_->ui_game_view_, current_difficulty_);
+      new JugglingMinigame(ui_->ui_game_view_, current_difficulty_);
   SetMinigame(minigame);
   current_minigame_->Init();
 }
@@ -73,7 +73,7 @@ void GameWidget::MinigamePassed(int32_t score) {
   ui_->ui_score_page_->MiniGamePassed(score);
   ShowScore();
   // To increase difficulty staying in (0, 1)
-  current_difficulty_ = std::pow(current_difficulty_, kDifficultyPower);
+  current_difficulty_ = qPow(current_difficulty_, kDifficultyPower);
   InitMinigame();
 }
 
@@ -99,13 +99,15 @@ void GameWidget::SetUp() {
   // ui_score_page_ needs to know its width in SetUp()
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
   ui_->ui_score_page_->SetUp();
-  ShowScore();
+  ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
   InitMinigame();
 }
 
 void GameWidget::SetResolution(QSize resolution) {
     ui_->ui_game_view_->SetUp(resolution);
 }
+
+void GameWidget::Start() { ui_->ui_score_page_->Animate(); }
 
 void GameWidget::SetMinigame(Minigame* minigame) {
   delete current_minigame_;

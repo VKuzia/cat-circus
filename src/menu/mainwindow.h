@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow {
   void SetUp();
 
  public slots:
+  void ChangeWidget();
   void ChangeToMainMenu();
   void ChangeToGame();
   void ChangeToSettings();
@@ -25,6 +26,10 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow* ui_;
+  QWidget* widget_to_change_to_ = nullptr;
+
+  void AnimateLoading();
+  void SetGamePage();
 };
 
 #endif  // MAINWINDOW_H

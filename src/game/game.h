@@ -6,6 +6,7 @@
 class Game {
  public:
   Game();
+  ~Game() = default;
 
   void Start();
 

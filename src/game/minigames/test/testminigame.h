@@ -1,27 +1,29 @@
 #ifndef TESTMINIGAME_H
 #define TESTMINIGAME_H
 
-#include "src/game/game_objects/clickableball.h"
+#include "src/game/gameview.h"
 #include "src/game/minigame.h"
+#include "src/game/minigames/test/clickableball.h"
 
 class TestMinigame : public Minigame {
   Q_OBJECT
 
  public:
-  TestMinigame(QGraphicsView* graphics_view, float difficulty);
-  ~TestMinigame() override;
+  TestMinigame(GameView* game_view, qreal difficulty,
+               qreal pixels_in_meter = 100);
+  ~TestMinigame() override = default;
 
   void Start() override;
 
   void MousePressEvent(QMouseEvent* event) override;
   void MouseReleaseEvent(QMouseEvent* event) override;
-  void MouseMoveEvent(QMouseEvent* event) override;
   void KeyPressEvent(QKeyEvent* event) override;
   void KeyReleaseEvent(QKeyEvent* event) override;
 
  private:
+  const qreal kPixelsInMeter = 576 / 5;
   const int32_t kBasicDuration = 5000;
-  const int32_t kBasicBallRadius = 100;
+  const int32_t kBasicBallRadius = 1;
   const int32_t kBasicBallNumber = 3;
 
   const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
@@ -34,7 +36,7 @@ class TestMinigame : public Minigame {
 
   // Determines width of centered rectangle relatively
   // scene width in order not to generate circles at the edges
-  const float kCenterRegionFactor = 0.8f;
+  const qreal kCenterRegionFactor = 0.8;
 
   int32_t balls_count_ = 0;
   int32_t ball_radius_ = 0;
@@ -42,6 +44,8 @@ class TestMinigame : public Minigame {
   ClickableBall* current_ball_ = nullptr;
 
   void SetUp() override;
+  void SetUpLabel() override;
+  void SetUpParameters() override;
 
   void AnimateTutorial() override;
   void StartGame() override;
@@ -52,7 +56,7 @@ class TestMinigame : public Minigame {
   void DeleteBall();
   QPointF GetRandomBallCenter() const;
 
-  void Stop() override;
+  void Stop(Status) override;
   void Win() override;
   void Lose() override;
 };
