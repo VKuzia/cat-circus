@@ -1,5 +1,7 @@
 #include "scorepage.h"
 
+#include <QDir>
+
 #include "ui_scorepage.h"
 
 ScorePage::ScorePage(QWidget* parent)

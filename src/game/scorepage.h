@@ -1,7 +1,6 @@
 #ifndef POINTSPAGE_H
 #define POINTSPAGE_H
 
-#include <QDir>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QMovie>

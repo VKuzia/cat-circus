@@ -23,6 +23,7 @@ void JugglingCat::Update() {
   left_hand_->Update();
   right_hand_->Update();
 }
+
 JugglingHand* JugglingCat::GetLeftHand() { return left_hand_; }
 
 JugglingHand* JugglingCat::GetRightHand() { return right_hand_; }
