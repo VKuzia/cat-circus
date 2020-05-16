@@ -15,6 +15,7 @@ GameView::GameView(QWidget* parent)
 
 void GameView::SetUp(int32_t width, int32_t height) {
   this->setFixedSize(width, height);
+  this->setLineWidth(0);
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
   this->setOptimizationFlags(DontSavePainterState);

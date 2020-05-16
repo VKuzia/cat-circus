@@ -39,12 +39,15 @@
     <widget class="QStackedWidget" name="ui_stacked_widget_">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>102</horstretch>
-       <verstretch>1</verstretch>
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
      </property>
      <widget class="QWidget" name="ui_game_page_">
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -65,8 +68,11 @@
        </property>
        <item>
         <widget class="GameView" name="ui_game_view_">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
          <property name="lineWidth">
-          <number>2</number>
+          <number>0</number>
          </property>
          <property name="verticalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
