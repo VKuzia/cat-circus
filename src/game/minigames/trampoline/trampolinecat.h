@@ -27,7 +27,7 @@ class TrampolineCat : public GameObject {
   bool IsMoving() const;
 
   void SetInAir(bool in_air);
-  bool InAir() const;
+  bool IsInAir() const;
 
   void SetJustFlipped(bool flipped);
   bool IsJustFlipped() const;

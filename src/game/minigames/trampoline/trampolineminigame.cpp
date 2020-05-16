@@ -251,7 +251,7 @@ void TrampolineMinigame::Lose() {
 }
 
 void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
-  if (!is_making_flip_) {
+  if (!is_making_flip_ || !is_running_) {
     return;
   }
   is_mouse_pressed_ = true;
@@ -263,7 +263,7 @@ void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
 
 void TrampolineMinigame::MouseReleaseEvent(QMouseEvent*) {
   is_mouse_pressed_ = false;
-  if (!is_making_flip_) {
+  if (!is_making_flip_ || !is_running_) {
     return;
   }
   current_mouse_path_->FadeAway(kMousePathFadeAwayTime_);
@@ -271,7 +271,7 @@ void TrampolineMinigame::MouseReleaseEvent(QMouseEvent*) {
 }
 
 void TrampolineMinigame::MouseMoveEvent(QMouseEvent* event) {
-  if (!is_mouse_pressed_ || !is_making_flip_) {
+  if (!is_mouse_pressed_ || !is_making_flip_ || !is_running_) {
     return;
   }
   current_mouse_path_->LineTo(event->pos());
