@@ -26,8 +26,8 @@ class TrampolineTile : public GameObject {
   void SetDirection(SwipeDirection direction);
 
  private:
-  const qreal kMinimalSwipeLength_ = 3;
-  const qreal kMinimalPathRectRatio_ = 4.5;
+  const qreal kMinimalSwipeLength_ = 2;
+  const qreal kMinimalPathRectRatio_ = 6;
 
   const qreal kNoFocusOpacity_ = 0.8;
   const qreal kScaleAnimationAmount_ = 0.1;
