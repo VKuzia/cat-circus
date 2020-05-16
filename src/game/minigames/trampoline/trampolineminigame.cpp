@@ -91,6 +91,7 @@ void TrampolineMinigame::AnimateTutorial() {
 }
 
 void TrampolineMinigame::StartGame() {
+  is_running_ = true;
   tutorial_label_->setVisible(false);
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &TrampolineMinigame::Tick);
@@ -108,7 +109,7 @@ void TrampolineMinigame::Tick() {
     StartFlip();
   } else if (cat_->collidesWithItem(trampoline_)) {
     // Jump up if cat reached trampoline from above
-    if (cat_->InAir()) {
+    if (cat_->IsInAir()) {
       trampoline_->SetPushed(true);
       // If cat is sufficiently deep in the trampoline
       if (cat_->Bottom() > trampoline_->Top() + kTrampolineDepth_) {
@@ -128,7 +129,7 @@ void TrampolineMinigame::Tick() {
         }
       }
     }
-  } else if (!cat_->InAir()) {
+  } else if (!cat_->IsInAir()) {
     // If cat has just jumped off
     cat_->SetInAir(true);
     trampoline_->SetPushed(false);

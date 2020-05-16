@@ -49,7 +49,7 @@ bool TrampolineCat::IsMoving() const { return is_moving_; }
 
 void TrampolineCat::SetInAir(bool in_air) { is_in_air_ = in_air; }
 
-bool TrampolineCat::InAir() const { return is_in_air_; }
+bool TrampolineCat::IsInAir() const { return is_in_air_; }
 
 void TrampolineCat::SetJustFlipped(bool flipped) { is_just_flipped_ = flipped; }
 
