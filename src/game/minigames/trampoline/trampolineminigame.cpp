@@ -105,16 +105,15 @@ void TrampolineMinigame::Tick() {
   }
   cat_->Update();
   if (!is_failed_ && cat_->GetY() < kCatFlipHeight_ && !cat_->IsJustFlipped()) {
-    MakeFlip();
+    StartFlip();
   } else if (cat_->collidesWithItem(trampoline_)) {
     // Jump up if cat reached trampoline from above
-    if (cat_->IsFlying()) {
+    if (cat_->InAir()) {
       trampoline_->SetPushed(true);
       // If cat is sufficiently deep in the trampoline
       if (cat_->Bottom() > trampoline_->Top() + kTrampolineDepth_) {
-        cat_->SetFlying(false);
+        cat_->SetInAir(false);
         cat_->SetJustFlipped(false);
-        trampoline_->SetPushed(true);
         // Hide tiles from previous jump
         SetTilesVisible(false);
         PrepareTiles();
@@ -126,9 +125,9 @@ void TrampolineMinigame::Tick() {
         }
       }
     }
-  } else if (!cat_->IsFlying()) {
+  } else if (!cat_->InAir()) {
     // If cat has just jumped off
-    cat_->SetFlying(true);
+    cat_->SetInAir(true);
     trampoline_->SetPushed(false);
   }
 }
@@ -160,14 +159,14 @@ void TrampolineMinigame::SetTilesVisible(bool visible) {
   }
 }
 
-void TrampolineMinigame::MakeFlip() {
+void TrampolineMinigame::StartFlip() {
   if (flip_count_ == 0) {
     Stop(Status::kPass);
     return;
   }
   SetTilesVisible(true);
   tiles_.at(0)->Activate();
-  current_swipe_count_ = swipe_count_;
+  remaining_swipe_count_ = swipe_count_;
   is_making_flip_ = true;
   flip_count_--;
   cat_->SetJustFlipped(true);
@@ -177,8 +176,9 @@ void TrampolineMinigame::MakeFlip() {
   is_successful_flip_ = false;
   QTimer::singleShot(flip_time_, this, [this] {
     if (is_making_flip_) {
-      if (swipe_count_ - current_swipe_count_ < tiles_.size()) {
-        tiles_.at(swipe_count_ - current_swipe_count_)->Deactivate(false);
+      if (swipe_count_ - remaining_swipe_count_ < tiles_.size()) {
+        tiles_.at(swipe_count_ - remaining_swipe_count_)
+            ->Deactivate(TrampolineTile::Status::kIncorrectPath);
       }
       cat_->SetMood(TrampolineCat::Mood::kSad);
       FinishFlip();
@@ -187,25 +187,24 @@ void TrampolineMinigame::MakeFlip() {
 }
 
 void TrampolineMinigame::FinishTile() {
-  current_swipe_count_--;
-  int32_t current_tile_index = swipe_count_ - current_swipe_count_ - 1;
+  remaining_swipe_count_--;
+  int32_t current_tile_index = swipe_count_ - remaining_swipe_count_ - 1;
   TrampolineTile* current_tile = tiles_.at(current_tile_index);
-  // If the path is acceptable
-  if (!current_tile->CheckPath(*current_mouse_path_, first_mouse_pressed_,
-                               last_mouse_pressed_)) {
-    current_tile->Deactivate(false);
-    cat_->SetMood(TrampolineCat::Mood::kSad);
-    FinishFlip();
-  } else {
-    current_tile->Deactivate(true);
+  if (current_tile->CheckPath(*current_mouse_path_, current_mouse_path_begin_,
+                              current_mouse_path_end_)) {
+    current_tile->Deactivate(TrampolineTile::Status::kCorrectPath);
     cat_->SetMood(TrampolineCat::Mood::kHappy);
-    if (current_swipe_count_ == 0) {
+    if (remaining_swipe_count_ == 0) {
       is_successful_flip_ = true;
       FinishFlip();
     }
     if (current_tile_index + 1 < swipe_count_) {
       tiles_.at(current_tile_index + 1)->Activate();
     }
+  } else {
+    current_tile->Deactivate(TrampolineTile::Status::kIncorrectPath);
+    cat_->SetMood(TrampolineCat::Mood::kSad);
+    FinishFlip();
   }
 }
 
@@ -255,11 +254,11 @@ void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
     return;
   }
   is_mouse_pressed_ = true;
-  first_mouse_pressed_ = event->pos();
-  last_mouse_pressed_ = first_mouse_pressed_;
+  current_mouse_path_begin_ = event->pos();
+  current_mouse_path_end_ = current_mouse_path_begin_;
   current_mouse_path_ = new TrampolinePath(game_view_);
   current_mouse_path_->setPen(kMousePathPen_);
-  current_mouse_path_->MoveTo(first_mouse_pressed_);
+  current_mouse_path_->MoveTo(current_mouse_path_begin_);
   game_view_->scene()->addItem(current_mouse_path_);
 }
 
@@ -276,6 +275,6 @@ void TrampolineMinigame::MouseMoveEvent(QMouseEvent* event) {
   if (!is_mouse_pressed_ || !is_making_flip_) {
     return;
   }
-  last_mouse_pressed_ = event->pos();
-  current_mouse_path_->LineTo(last_mouse_pressed_);
+  current_mouse_path_end_ = event->pos();
+  current_mouse_path_->LineTo(current_mouse_path_end_);
 }

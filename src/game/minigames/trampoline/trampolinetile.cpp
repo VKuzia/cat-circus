@@ -19,12 +19,15 @@ void TrampolineTile::Activate() {
   animation_.start();
 }
 
-void TrampolineTile::Deactivate(bool is_path_correct) {
+void TrampolineTile::Deactivate(Status status) {
   QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect();
-  if (is_path_correct) {
-    effect->setColor(kPassColor_);
-  } else {
-    effect->setColor(kFailColor_);
+  switch (status) {
+    case Status::kCorrectPath:
+      effect->setColor(kCorrectPathColor_);
+      break;
+    case Status::kIncorrectPath:
+      effect->setColor(kInorrectPathColor_);
+      break;
   }
   effect->setStrength(kEffectStrength_);
   setGraphicsEffect(effect);
@@ -42,28 +45,26 @@ bool TrampolineTile::CheckPath(const TrampolinePath& path_item_, QPointF start,
   Vector2D shift(finish.x() - start.x(), finish.y() - start.y());
   switch (direction_) {
     case SwipeDirection::kUp:
-      if (path_height / path_width > kMinimalPathRectRatio_ &&
-          shift.y() < -kMinimalSwipeLength_ * game_view_->GetPixelsInMeter()) {
-        result = true;
-      }
+      result =
+          (path_height / path_width > kMinimalPathRectRatio_ &&
+           shift.y() < -kMinimalSwipeLength_ * game_view_->GetPixelsInMeter());
       break;
     case SwipeDirection::kDown:
-      if (path_height / path_width > kMinimalPathRectRatio_ &&
-          shift.y() > kMinimalSwipeLength_ * game_view_->GetPixelsInMeter()) {
-        result = true;
-      }
+      result =
+          (path_height / path_width > kMinimalPathRectRatio_ &&
+           shift.y() > kMinimalSwipeLength_ * game_view_->GetPixelsInMeter());
+
       break;
     case SwipeDirection::kLeft:
-      if (path_width / path_height > kMinimalPathRectRatio_ &&
-          shift.x() < -kMinimalSwipeLength_ * game_view_->GetPixelsInMeter()) {
-        result = true;
-      }
+      result =
+          (path_width / path_height > kMinimalPathRectRatio_ &&
+           shift.x() < -kMinimalSwipeLength_ * game_view_->GetPixelsInMeter());
+
       break;
     case SwipeDirection::kRight:
-      if (path_width / path_height > kMinimalPathRectRatio_ &&
-          shift.x() > kMinimalSwipeLength_ * game_view_->GetPixelsInMeter()) {
-        result = true;
-      }
+      result =
+          (path_width / path_height > kMinimalPathRectRatio_ &&
+           shift.x() > kMinimalSwipeLength_ * game_view_->GetPixelsInMeter());
       break;
   }
   return result;

@@ -47,9 +47,9 @@ void TrampolineCat::SetRotating(bool rotating) { is_rotating_ = rotating; }
 
 bool TrampolineCat::IsRotating() const { return is_rotating_; }
 
-void TrampolineCat::SetFlying(bool flying) { is_flying_ = flying; }
+void TrampolineCat::SetInAir(bool in_air) { is_in_air_ = in_air; }
 
-bool TrampolineCat::IsFlying() const { return is_flying_; }
+bool TrampolineCat::InAir() const { return is_in_air_; }
 
 void TrampolineCat::SetJustFlipped(bool flipped) { is_just_flipped_ = flipped; }
 

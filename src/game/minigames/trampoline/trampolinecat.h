@@ -26,8 +26,8 @@ class TrampolineCat : public GameObject {
   void SetRotating(bool rotating);
   bool IsRotating() const;
 
-  void SetFlying(bool flying);
-  bool IsFlying() const;
+  void SetInAir(bool in_air);
+  bool InAir() const;
 
   void SetJustFlipped(bool flipped);
   bool IsJustFlipped() const;
@@ -39,7 +39,7 @@ class TrampolineCat : public GameObject {
 
   QPropertyAnimation rotation_animation_;
   bool is_rotating_ = true;
-  bool is_flying_ = true;
+  bool is_in_air_ = true;
   bool is_just_flipped_ = true;
 
   void SetRotation(qreal rotation);

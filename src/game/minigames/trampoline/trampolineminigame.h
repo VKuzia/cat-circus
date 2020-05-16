@@ -53,12 +53,12 @@ class TrampolineMinigame : public Minigame {
   Trampoline* trampoline_ = nullptr;
   TrampolinePath* current_mouse_path_ = nullptr;
   QVector<TrampolineTile*> tiles_;
-  QPointF last_mouse_pressed_;
-  QPointF first_mouse_pressed_;
+  QPointF current_mouse_path_end_;
+  QPointF current_mouse_path_begin_;
   int32_t flip_count_ = 0;
   int32_t flip_time_ = 0;
   int32_t swipe_count_ = 0;
-  int32_t current_swipe_count_ = 0;
+  int32_t remaining_swipe_count_ = 0;
   bool is_mouse_pressed_ = false;
   bool is_successful_flip_ = false;
   bool is_making_flip_ = false;
@@ -66,7 +66,7 @@ class TrampolineMinigame : public Minigame {
 
   void PrepareTiles();
   void SetTilesVisible(bool visible);
-  void MakeFlip();
+  void StartFlip();
   void FinishTile();
   void FinishFlip();
 
