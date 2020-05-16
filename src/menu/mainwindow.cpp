@@ -2,6 +2,7 @@
 
 #include <QStackedLayout>
 
+#include "src/game/gameobject.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
@@ -21,6 +22,8 @@ MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
           &MainWindow::ChangeWidget);
   connect(ui_->ui_loading_page_, &LoadingWidget::AnimationFinished, this,
           &MainWindow::SetGamePage);
+
+  GameObject::GetPixmapLoader()->PreloadPixmaps();
 }
 
 void MainWindow::ChangeToMainMenu() {

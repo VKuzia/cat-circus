@@ -10,6 +10,7 @@ class JugglingCat : public GameObject {
  public:
   JugglingCat(GameView* game_view, QSizeF size, QPointF pos);
   ~JugglingCat() override = default;
+
   void SetUp() override;
 
   void Update() override;
