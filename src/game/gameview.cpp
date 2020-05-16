@@ -9,7 +9,6 @@ GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
 }
 
 void GameView::SetUp(QSize resolution) {
-  scale_ = resolution.width() * 1.0 / kBasicWidth_;
   this->setFixedSize(resolution);
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
@@ -66,9 +65,7 @@ void GameView::SetPixelsInMeter(qreal pixels_in_meter) {
   pixels_in_meter_ = pixels_in_meter;
 }
 
-qreal GameView::GetPixelsInMeter() const {
-  return scale_ * pixels_in_meter_;
-}
+qreal GameView::GetPixelsInMeter() const {return pixels_in_meter_;}
 
 QString GameView::GetPathToMinigameImages() const {
   return kPathToMinigameImages_;

@@ -27,8 +27,6 @@ class GameView : public QGraphicsView {
       QDir::currentPath() + "/data/images/minigames/";
   Minigame* current_minigame_ = nullptr;
   qreal pixels_in_meter_ = 0;
-  const int32_t kBasicWidth_ = 1024;
-  qreal scale_ = 1;
 
   void mousePressEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;
