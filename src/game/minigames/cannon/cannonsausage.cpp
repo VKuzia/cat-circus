@@ -11,11 +11,11 @@ void CannonSausage::Update() {
     return;
   }
   if (delta_pos >= 1) {
-    move_down = false;
+    move_down_ = false;
   } else if (delta_pos <= -1) {
-    move_down = true;
+    move_down_ = true;
   }
-  if (move_down) {
+  if (move_down_) {
     delta_pos += 0.01;
     MoveByMeters(0, 0.01);
   } else {
@@ -30,3 +30,7 @@ void CannonSausage::WasCaught() {
   setVisible(false);
   emit CaughtSausage();
 }
+
+bool CannonSausage::GetMoveDown() const { return move_down_; }
+
+void CannonSausage::SetMoveDown(bool direction) { move_down_ = direction; }

@@ -8,10 +8,6 @@ CannonMinigame::CannonMinigame(GameView* game_view, qreal difficulty,
                                qreal pixels_in_meter)
     : Minigame(game_view, difficulty, pixels_in_meter) {
   time_ = 10000;
-  sausage_pixmap = GameObject::LoadPixmap(
-      "cannon/sausage.png", QSize(KSausageRadius, KSausageRadius));
-  yes_pixmap = GameObject::LoadPixmap("cannon/ok.png",
-                                      QSize(KSausageRadius, KSausageRadius));
 }
 
 void CannonMinigame::Start() { AnimateTutorial(); }
@@ -44,19 +40,12 @@ void CannonMinigame::SetUp() {
   }
 
   for (int i = 0; i < number_to_win_; i++) {
-    No* no = new No(game_view_, kStatusHeight, kStatusWidth,
-                    kStatusStartX + KStatusDeltaX * i, kStatusStartY);
-    no->SetUp();
-    not_caught_.insert(no);
-    game_view_->scene()->addItem(no);
-  }
-  for (int i = 0; i < number_to_win_; i++) {
-    Yes* yes = new Yes(game_view_, kStatusHeight, kStatusWidth,
-                       kStatusStartX + KStatusDeltaX * i, kStatusStartY);
-    yes->SetUp();
-    caught_.insert(yes);
-    yes->setVisible(false);
-    game_view_->scene()->addItem(yes);
+    CannonStatus* status_elem =
+        new CannonStatus(game_view_, kStatusHeight, kStatusWidth,
+                         kStatusStartX + KStatusDeltaX * i, kStatusStartY);
+    status_elem->SetUp();
+    status_bar_.insert(status_elem);
+    game_view_->scene()->addItem(status_elem);
   }
 }
 
@@ -231,8 +220,7 @@ void CannonMinigame::Lose() {
 
 void CannonMinigame::SausageWasCaught() {
   if (cat_->GetCaught() <= number_to_win_) {
-    (*(not_caught_.begin() + cat_->GetCaught() - 1))->setPixmap(yes_pixmap);
-    (*(caught_.begin() + cat_->GetCaught() - 1))->setVisible(true);
+    (*(status_bar_.begin() + cat_->GetCaught() - 1))->ChangeStatus();
   }
 }
 
@@ -269,7 +257,7 @@ void CannonMinigame::LaunchSausage() {
   connect(sausage, &CannonSausage::CaughtSausage, this,
           &CannonMinigame::SausageWasCaught);
   if (sausages_.size() % 2 == 0) {
-    sausage->move_down = false;
+    sausage->SetMoveDown(false);
   }
   sausages_.insert(sausage);
   sausage->SetUp();

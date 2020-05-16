@@ -18,10 +18,9 @@ void CannonCat::Update() {
   if (in_flight_) {
     AddVelocity(start_vil_.x(), start_vil_.y());
     start_vil_ += kGravityCannon;
-    qreal x_difference = (velocity_.x()) * kUpdateTime;
-    qreal y_difference = (velocity_.y()) * kUpdateTime;
-    this->MoveByMeters(x_difference, y_difference);
-    setRotation(rotation() + atan(x_difference / y_difference));
+    Vector2D shift = velocity_ * kUpdateTime;
+    this->MoveByMeters(shift);
+    setRotation(rotation() + atan(shift.x() / shift.y()));
   }
   CheckIfCaught();
 }
@@ -38,9 +37,9 @@ int CannonCat::GetCaught() const { return caught_sausages_; }
 
 void CannonCat::CheckIfCaught() {
   // Check if Sausage is caught
-  const QList<QGraphicsItem *> sausages =
-      scene()->items(QPolygonF() << mapToScene(0, 0) << mapToScene(-30, -30)
-                                 << mapToScene(30, -30));
+  const QList<QGraphicsItem *> sausages = this->collidingItems();
+  //      scene()->items(QPolygonF() << mapToScene(0, 0) << mapToScene(-30, -30)
+  //                                 << mapToScene(30, -30));
 
   for (QGraphicsItem *item : sausages) {
     if (item == this) {

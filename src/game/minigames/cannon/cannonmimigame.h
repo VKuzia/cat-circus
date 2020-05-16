@@ -9,10 +9,9 @@
 #include "src/game/minigames/cannon/arrow.h"
 #include "src/game/minigames/cannon/cannon.h"
 #include "src/game/minigames/cannon/cannoncat.h"
+#include "src/game/minigames/cannon/cannonsatus.h"
 #include "src/game/minigames/cannon/cannonsausage.h"
-#include "src/game/minigames/cannon/no.h"
 #include "src/game/minigames/cannon/speedometer.h"
-#include "src/game/minigames/cannon/yes.h"
 
 class CannonMinigame : public Minigame {
   Q_OBJECT
@@ -83,8 +82,7 @@ class CannonMinigame : public Minigame {
 
   QSet<CannonSausage*> sausages_;
 
-  QSet<No*> not_caught_;
-  QSet<Yes*> caught_;
+  QSet<CannonStatus*> status_bar_;
 
   void LaunchSausage();
 
