@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QScreen>
 
 #include "mainwindow.h"
 #include "ui_settingswidget.h"
@@ -91,8 +92,15 @@ void SettingsWidget::Load() {
             QMessageBox::warning(
                 nullptr, "Warning",
                 "Invalid resolution. Default resolution was applied.\n");
-        } else {
-            ui_->ui_resolution_combo_box_->setCurrentIndex(resolution_index);
+        } else {            
+            QScreen *screen = QGuiApplication::primaryScreen();
+            QSize screen_resolution = screen->availableSize();
+            QSize loaded_resolution = kResolutions_[resolution_index];
+            if (loaded_resolution.width() <= screen_resolution.width() &&
+                loaded_resolution.height() <= screen_resolution.height()) {
+                ui_->ui_resolution_combo_box_->
+                        setCurrentIndex(resolution_index);
+            }
         }
     } else {
         QMessageBox::warning(
@@ -126,12 +134,12 @@ QString SettingsWidget::GetLanguage() const {
 
 void SettingsWidget::ChangeSound() {
     if (ui_->ui_sound_check_box_->isChecked()) {
-        ui_->ui_sound_check_box_->setText("Off");
-        volume_on_ = false;
+        ui_->ui_sound_check_box_->setText("On");
+        volume_on_ = true;
         return;
     }
-    ui_->ui_sound_check_box_->setText("On");
-    volume_on_ = true;
+    ui_->ui_sound_check_box_->setText("Off");
+    volume_on_ = false;
 }
 
 void SettingsWidget::ChangeVolume() {
@@ -147,5 +155,12 @@ void SettingsWidget::ChangeUserName() {
 }
 
 void SettingsWidget::ChangeResolution() {
-    emit ResolutionChanged();
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QSize screen_resolution = screen->availableSize();
+    QSize chosen_resolution =
+            kResolutions_[ui_->ui_resolution_combo_box_->currentIndex()];
+    if (chosen_resolution.width() <= screen_resolution.width() &&
+            chosen_resolution.height() <= screen_resolution.height()) {
+        emit ResolutionChanged();
+    }
 }

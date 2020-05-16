@@ -38,8 +38,7 @@ class SettingsWidget : public QWidget {
   const QString kPathToSettings = QDir::currentPath() + "/data/settings/";
   const QVector<QSize> kResolutions_ = {
       {1024, 576}, {1366, 768}, {1600, 900}, {1920, 1080}, {3200, 1800}};
-  const QVector<QString> kLanguages_ = {
-      "english", "русский", "беларуская"};
+  const QVector<QString> kLanguages_ = {"english"};
 
   bool volume_on_ = true;
   int volume_ = 1;
