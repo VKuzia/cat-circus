@@ -52,7 +52,7 @@ void SettingsWidget::Save() const {
          << kResolutions_[current_resolution_index].width() << ' '
          << kResolutions_[current_resolution_index].height() << '\n'
          << kLanguages_[current_language_index] << '\n'
-         << user_name_ << "\n";
+         << user_name_ << '\n';
 
     file.close();
 }
