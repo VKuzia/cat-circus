@@ -63,7 +63,7 @@ void SettingsWidget::Load() {
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::warning(
             nullptr, "Warning",
-            "Settings file was not found. Default settings were applied. \n");
+            "Settings file was not found. Default settings were applied.\n");
         return;
     }
     QTextStream load(&file);
@@ -80,7 +80,7 @@ void SettingsWidget::Load() {
     } else {
         QMessageBox::warning(
             nullptr, "Warning",
-            "Invalid volume. Default volume was applied. \n");
+            "Invalid volume. Default volume was applied.\n");
     }
 
     QStringList size_pair = load.readLine().split(' ');
@@ -90,14 +90,14 @@ void SettingsWidget::Load() {
         if (resolution_index == -1) {
             QMessageBox::warning(
                 nullptr, "Warning",
-                "Invalid resolution. Default resolution was applied. \n");
+                "Invalid resolution. Default resolution was applied.\n");
         } else {
             ui_->ui_resolution_combo_box_->setCurrentIndex(resolution_index);
         }
     } else {
         QMessageBox::warning(
             nullptr, "Warning",
-            "Invalid resolution. Default resolution was applied. \n");
+            "Invalid resolution. Default resolution was applied.\n");
     }
 
     QString loaded_language = load.readLine();
@@ -105,7 +105,7 @@ void SettingsWidget::Load() {
     if (language_index == -1) {
         QMessageBox::warning(
             nullptr, "Warning",
-            "Invalid language. Default language was applied. \n");
+            "Invalid language. Default language was applied.\n");
     } else {
         ui_->ui_language_combo_box_->setCurrentIndex(language_index);
     }
