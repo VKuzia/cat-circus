@@ -249,6 +249,7 @@ void TrampolineMinigame::Lose() {
     emit Failed();
   });
 }
+
 void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
   if (!is_making_flip_) {
     return;
