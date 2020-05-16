@@ -100,7 +100,7 @@ void TrampolineMinigame::StartGame() {
 void TrampolineMinigame::AnimateOutro() {}
 
 void TrampolineMinigame::Tick() {
-  if (!cat_->IsRotating()) {
+  if (!cat_->IsMoving()) {
     return;
   }
   cat_->Update();
@@ -170,7 +170,7 @@ void TrampolineMinigame::StartFlip() {
   is_making_flip_ = true;
   flip_count_--;
   cat_->SetJustFlipped(true);
-  cat_->SetRotating(false);
+  cat_->SetMoving(false);
   time_bar_->setVisible(true);
   time_bar_->Launch(flip_time_);
   is_successful_flip_ = false;
@@ -211,7 +211,7 @@ void TrampolineMinigame::FinishTile() {
 void TrampolineMinigame::FinishFlip() {
   time_bar_->setVisible(false);
   is_making_flip_ = false;
-  cat_->SetRotating(true);
+  cat_->SetMoving(true);
   if (!is_successful_flip_) {
     is_failed_ = true;
     QTimer::singleShot(kFlyAwayTime_, this, [this] { Stop(Status::kFail); });

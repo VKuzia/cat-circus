@@ -23,8 +23,8 @@ class TrampolineCat : public GameObject {
 
   void SetMood(Mood mood);
 
-  void SetRotating(bool rotating);
-  bool IsRotating() const;
+  void SetMoving(bool moving);
+  bool IsMoving() const;
 
   void SetInAir(bool in_air);
   bool InAir() const;
@@ -38,7 +38,7 @@ class TrampolineCat : public GameObject {
   const QPixmap kPixmapSad_;
 
   QPropertyAnimation rotation_animation_;
-  bool is_rotating_ = true;
+  bool is_moving_ = true;
   bool is_in_air_ = true;
   bool is_just_flipped_ = true;
 

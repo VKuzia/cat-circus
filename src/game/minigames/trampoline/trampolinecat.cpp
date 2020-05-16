@@ -16,7 +16,7 @@ void TrampolineCat::SetUp() {
 }
 
 void TrampolineCat::Update() {
-  if (!is_rotating_) {
+  if (!is_moving_) {
     return;
   }
   AddVelocity(physics::kGravity * kUpdateTime);
@@ -43,9 +43,9 @@ void TrampolineCat::SetMood(TrampolineCat::Mood mood) {
   }
 }
 
-void TrampolineCat::SetRotating(bool rotating) { is_rotating_ = rotating; }
+void TrampolineCat::SetMoving(bool moving) { is_moving_ = moving; }
 
-bool TrampolineCat::IsRotating() const { return is_rotating_; }
+bool TrampolineCat::IsMoving() const { return is_moving_; }
 
 void TrampolineCat::SetInAir(bool in_air) { is_in_air_ = in_air; }
 
@@ -56,7 +56,7 @@ void TrampolineCat::SetJustFlipped(bool flipped) { is_just_flipped_ = flipped; }
 bool TrampolineCat::IsJustFlipped() const { return is_just_flipped_; }
 
 void TrampolineCat::SetRotation(qreal rotation) {
-  if (!is_rotating_) {
+  if (!is_moving_) {
     return;
   }
   setRotation(rotation);
