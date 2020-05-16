@@ -343,6 +343,9 @@ BEST SCORE]</string>
        </layout>
       </widget>
       <widget class="QWidget" name="ui_background_page_">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(163, 55, 43);</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <property name="spacing">
          <number>0</number>

@@ -66,6 +66,14 @@ void MainWindow::SetGamePage() {
 }
 
 void MainWindow::ChangeWidget() {
+  if (widget_to_change_to_ == ui_->ui_game_widget_) {
+    ui_->ui_background_label_->movie()->setPaused(true);
+    ui_->ui_background_label_->setVisible(false);
+  }
+  if (widget_to_change_to_ == ui_->ui_main_menu_widget_) {
+    ui_->ui_background_label_->movie()->setPaused(false);
+    ui_->ui_background_label_->setVisible(true);
+  }
   ui_->ui_stacked_widget_->setCurrentWidget(widget_to_change_to_);
 }
 
