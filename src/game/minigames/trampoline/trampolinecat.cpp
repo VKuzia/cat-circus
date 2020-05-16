@@ -51,9 +51,9 @@ void TrampolineCat::SetInAir(bool in_air) { is_in_air_ = in_air; }
 
 bool TrampolineCat::IsInAir() const { return is_in_air_; }
 
-void TrampolineCat::SetJustFlipped(bool flipped) { is_just_flipped_ = flipped; }
+void TrampolineCat::SetJustFlipped(bool flipped) { is_flip_started_ = flipped; }
 
-bool TrampolineCat::IsJustFlipped() const { return is_just_flipped_; }
+bool TrampolineCat::IsJustFlipped() const { return is_flip_started_; }
 
 void TrampolineCat::SetRotation(qreal rotation) {
   if (!is_moving_) {

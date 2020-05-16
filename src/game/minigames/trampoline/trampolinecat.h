@@ -40,7 +40,7 @@ class TrampolineCat : public GameObject {
   QPropertyAnimation rotation_animation_;
   bool is_moving_ = true;
   bool is_in_air_ = true;
-  bool is_just_flipped_ = true;
+  bool is_flip_started_ = true;
 
   void SetRotation(qreal rotation);
 };
