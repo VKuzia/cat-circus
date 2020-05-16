@@ -263,10 +263,10 @@ void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
 }
 
 void TrampolineMinigame::MouseReleaseEvent(QMouseEvent*) {
-  is_mouse_pressed_ = false;
-  if (!is_making_flip_ || !is_running_) {
+  if (!is_making_flip_ || !is_running_ || !is_mouse_pressed_) {
     return;
   }
+  is_mouse_pressed_ = false;
   current_mouse_path_->FadeAway(kMousePathFadeAwayTime_);
   FinishTile();
 }

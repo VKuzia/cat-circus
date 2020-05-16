@@ -1,5 +1,6 @@
 #include "trampolinetile.h"
 
+#include <QDebug>
 #include <QGraphicsColorizeEffect>
 
 TrampolineTile::TrampolineTile(GameView* game_view, QSizeF size, qreal x,
@@ -37,6 +38,9 @@ void TrampolineTile::Deactivate(Status status) {
 }
 
 bool TrampolineTile::CheckPath(const QPainterPath& path) {
+  if (path.isEmpty()) {
+    return false;
+  }
   bool result = false;
   QPointF start(path.elementAt(0).x, path.elementAt(0).y);
   QPointF finish(path.currentPosition());
