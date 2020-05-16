@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 
+#include <QDir>
+#include <QFile>
+#include <QMessageBox>
 #include <QStackedLayout>
 
 #include "src/game/gameobject.h"
@@ -24,6 +27,8 @@ MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
           &MainWindow::SetGamePage);
 
   GameObject::GetPixmapLoader()->PreloadPixmaps();
+
+  SetStyle();
 }
 
 void MainWindow::ChangeToMainMenu() {
@@ -59,6 +64,16 @@ void MainWindow::SetGamePage() {
   if (widget_to_change_to_ == ui_->ui_game_widget_) {
     ui_->ui_game_widget_->Start();
   }
+}
+
+void MainWindow::SetStyle() {
+  QFile style_file(QDir::currentPath() + "/data/styles/style.qss");
+  if (!style_file.open(QFile::ReadOnly)) {
+    QMessageBox::warning(nullptr, "File error",
+                         "Can't load style. Use default");
+    return;
+  }
+  setStyleSheet(style_file.readAll());
 }
 
 void MainWindow::ChangeWidget() {

@@ -28,6 +28,8 @@ class MainWindow : public QMainWindow {
 
   void AnimateLoading();
   void SetGamePage();
+
+  void SetStyle();
 };
 
 #endif  // MAINWINDOW_H
