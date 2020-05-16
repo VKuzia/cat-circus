@@ -7,6 +7,7 @@
 CannonMinigame::CannonMinigame(GameView* game_view, qreal difficulty,
                                qreal pixels_in_meter)
     : Minigame(game_view, difficulty, pixels_in_meter) {
+  time_ = 10000;
   sausage_pixmap = GameObject::LoadPixmap(
       "cannon/sausage.png", QSize(KSausageRadius, KSausageRadius));
   yes_pixmap = GameObject::LoadPixmap("cannon/ok.png",
@@ -70,19 +71,25 @@ void CannonMinigame::SetUpLabel() {
 
 void CannonMinigame::AnimateTutorial() {
   tutorial_label_->setVisible(true);
-  QTimer::singleShot(kTutorialDuration, [this] {
-    tutorial_label_->setVisible(false);
-    StartGame();
-  });
+  QTimer::singleShot(kTutorialDuration, [this] { StartGame(); });
 }
 
 void CannonMinigame::StartGame() {
+  time_bar_->SetUp();
+  time_bar_->Launch(time_);
+  time_bar_->setVisible(true);
+  tutorial_label_->setVisible(false);
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &CannonMinigame::Tick);
 
   is_running_ = true;
 
   tick_timer_.start();
+  QTimer::singleShot(time_, this, [this] {
+    if (is_running_ && (!params_choosen_angle_ || !params_choosen_power_)) {
+      Stop(Status::kFail);
+    }
+  });
 }
 
 void CannonMinigame::AnimateOutro() {}
@@ -235,11 +242,14 @@ void CannonMinigame::KeyPressEvent(QKeyEvent* event) {
   }
   if (event->key() == Qt::Key_A) {
     params_choosen_angle_ = true;
+    if (params_choosen_power_) time_bar_->setVisible(false);
   } else if (event->key() == Qt::Key_D) {
     params_choosen_power_ = true;
+    if (params_choosen_angle_) time_bar_->setVisible(false);
   } else if (event->key() == Qt::Key_Space) {
     params_choosen_angle_ = true;
     params_choosen_power_ = true;
+    time_bar_->setVisible(false);
   }
 }
 

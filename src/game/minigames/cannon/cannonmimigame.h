@@ -37,7 +37,7 @@ class CannonMinigame : public Minigame {
   const qreal KCannonX = -6;
 
   const qreal kStatusStartX = -7;
-  const qreal kStatusStartY = -4.5;
+  const qreal kStatusStartY = -4;
   const qreal kStatusWidth = 1;
   const qreal kStatusHeight = 1;
   const qreal KStatusDeltaX = 1.5;
@@ -73,7 +73,6 @@ class CannonMinigame : public Minigame {
   bool params_choosen_power_ = false;
 
   int32_t sausage_count_ = 0;
-  int32_t ball_air_time_ = 0;
   int32_t number_to_win_ = 0;
   Cannon* cannon_ = nullptr;
   CannonCat* cat_ = nullptr;
