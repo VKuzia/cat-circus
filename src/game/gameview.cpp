@@ -101,11 +101,8 @@ void GameView::SetUpOutroImage(QGraphicsPixmapItem* image,
 }
 
 void GameView::SetUpOutroRect() {
-  // QPainter draws rectangles with strange borders,
-  // so we extend rect by a couple of pixels
-  outro_rect_ =
-      new QGraphicsRectItem(-this->width() / 2 - 1, -this->height() / 2 - 1,
-                            this->width() + 2, this->height() + 2);
+  outro_rect_ = new QGraphicsRectItem(-this->width() / 2, -this->height() / 2,
+                                      this->width(), this->height());
   outro_rect_->setVisible(false);
   outro_rect_->setOpacity(0);
   // Set "almost maximum" to set maximum for images (to be them totaly opaque)
