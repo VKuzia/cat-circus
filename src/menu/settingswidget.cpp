@@ -33,7 +33,7 @@ void SettingsWidget::ReturnToMainMenu() {
 
 void SettingsWidget::Save() const {
     QDir(kPathToSettings).mkpath(".");
-    QFile file(kPathToSettings + "basic_settings.txt");
+    QFile file(kPathToSettings + "default_settings.txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QMessageBox::warning(
             nullptr, "Warning",
@@ -58,7 +58,7 @@ void SettingsWidget::Save() const {
 }
 
 void SettingsWidget::Load() {
-    QFile file(kPathToSettings + "basic_settings.txt");
+    QFile file(kPathToSettings + "default_settings.txt");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::warning(
