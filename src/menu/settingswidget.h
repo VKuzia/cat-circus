@@ -37,7 +37,8 @@ class SettingsWidget : public QWidget {
  private:
   const QString kPathToSettings = QDir::currentPath() + "/data/settings/";
   const QVector<QSize> kResolutions_ = {
-      {1024, 576}, {1366, 768}, {1600, 900}, {1920, 1080}, {3200, 1800}};
+      {1024, 576}, {1366, 768}, {1280, 720},
+      {1600, 900}, {1920, 1030}, {3200, 1800}};
   const QVector<QString> kLanguages_ = {"english"};
 
   bool volume_on_ = true;
