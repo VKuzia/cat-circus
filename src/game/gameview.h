@@ -6,6 +6,8 @@
 #include <QGraphicsView>
 #include <QPropertyAnimation>
 
+#include "src/game/minigamestatus.h"
+
 class Minigame;
 
 class GameView : public QGraphicsView {
@@ -14,8 +16,6 @@ class GameView : public QGraphicsView {
                  SetOutroAnimationProgress)
 
  public:
-  enum class Status { kFailed, kPassed };
-
   explicit GameView(QWidget* parent = nullptr);
   ~GameView() override = default;
 
@@ -23,7 +23,7 @@ class GameView : public QGraphicsView {
 
   // Should be called inside a current_minigame on win|lose
   // Apply effects to the whole scene, trigger OutroFinished
-  void AnimateOutro(Status status);
+  void AnimateOutro(MinigameStatus status);
 
   void SetMinigame(Minigame* current_minigame);
 
@@ -61,7 +61,7 @@ class GameView : public QGraphicsView {
   qreal passed_image_start_y_ = 0;
   qreal current_image_start_y_ = 0;
   qreal outro_animation_progress_ = 0;
-  Status minigame_status_ = Status::kFailed;
+  MinigameStatus minigame_status_ = MinigameStatus::kFailed;
 
   qreal pixels_in_meter_ = 0;
 

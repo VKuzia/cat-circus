@@ -54,7 +54,7 @@ class TestMinigame : public Minigame {
   void DeleteBall();
   QPointF GetRandomBallCenter() const;
 
-  void Stop(Status) override;
+  void Stop(MinigameStatus) override;
 };
 
 #endif  // TESTMINIGAME_H

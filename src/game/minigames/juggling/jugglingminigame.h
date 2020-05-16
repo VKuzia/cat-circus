@@ -53,7 +53,7 @@ class JugglingMinigame : public Minigame {
 
   void Tick() override;
 
-  void Stop(Status) override;
+  void Stop(MinigameStatus) override;
 };
 
 #endif  // JUGGLINGMINIGAME_H

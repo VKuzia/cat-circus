@@ -60,6 +60,7 @@ HEADERS += \
         src/game/minigames/juggling/jugglingminigame.h \
         src/game/minigames/test/clickableball.h \
         src/game/minigames/test/testminigame.h \
+        src/game/minigamestatus.h \
         src/game/pausepage.h \
         src/game/physics/vector2d.h \
         src/game/scorepage.h \

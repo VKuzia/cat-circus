@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #include "src/game/backgroundobject.h"
+#include "src/game/minigamestatus.h"
 #include "src/game/timebar.h"
 
 class GameView;
@@ -30,8 +31,6 @@ class Minigame : public QObject {
   int32_t GetScore() const;
 
  protected:
-  enum class Status { kFail, kPass };
-
   const qreal kTimeBarHeightFactor = 0.08;
   const int32_t kFps = 60;
   const int32_t kTutorialDuration = 2500;
@@ -66,7 +65,7 @@ class Minigame : public QObject {
 
   virtual void Tick() = 0;
 
-  virtual void Stop(Status) = 0;
+  virtual void Stop(MinigameStatus) = 0;
   virtual void Win();
   virtual void Lose();
 };
