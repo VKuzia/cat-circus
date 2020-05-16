@@ -92,7 +92,7 @@ void SettingsWidget::Load() {
             QMessageBox::warning(
                 nullptr, "Warning",
                 "Invalid resolution. Default resolution was applied.\n");
-        } else {            
+        } else {
             QScreen *screen = QGuiApplication::primaryScreen();
             QSize screen_resolution = screen->availableSize();
             QSize loaded_resolution = kResolutions_[resolution_index];
