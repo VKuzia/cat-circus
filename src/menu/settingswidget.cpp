@@ -16,10 +16,16 @@ SettingsWidget::SettingsWidget(QWidget* parent)
     ui_->ui_language_combo_box_->addItem(element);
   }
 
+  QScreen* screen = QGuiApplication::primaryScreen();
+  QSize screen_resolution = screen->availableSize();
   for (auto element : kResolutions_) {
-    ui_->ui_resolution_combo_box_->addItem(QString::number(element.width()) +
-                                         "×" +
-                                         QString::number(element.height()));
+      if (element.width() <= screen_resolution.width() &&
+              element.height() <= screen_resolution.height()) {
+          ui_->ui_resolution_combo_box_->addItem(
+                      QString::number(element.width()) +
+                      "×" +
+                      QString::number(element.height()));
+      }
   }
 
   Load();
@@ -34,7 +40,7 @@ void SettingsWidget::ReturnToMainMenu() {
 
 void SettingsWidget::Save() const {
     QDir(kPathToSettings).mkpath(".");
-    QFile file(kPathToSettings + "default_settings.txt");
+    QFile file(kPathToSettings + "settings.txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QMessageBox::warning(
             nullptr, "Warning",
@@ -59,7 +65,7 @@ void SettingsWidget::Save() const {
 }
 
 void SettingsWidget::Load() {
-    QFile file(kPathToSettings + "default_settings.txt");
+    QFile file(kPathToSettings + "settings.txt");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::warning(
@@ -88,19 +94,13 @@ void SettingsWidget::Load() {
     if (size_pair.size() > 1) {
         QSize loaded_size{size_pair[0].toInt(), size_pair[1].toInt()};
         int resolution_index = kResolutions_.indexOf(loaded_size);
-        if (resolution_index == -1) {
+        if (resolution_index == -1 ||
+                resolution_index >= ui_->ui_resolution_combo_box_->count()) {
             QMessageBox::warning(
                 nullptr, "Warning",
                 "Invalid resolution. Default resolution was applied.\n");
         } else {
-            QScreen *screen = QGuiApplication::primaryScreen();
-            QSize screen_resolution = screen->availableSize();
-            QSize loaded_resolution = kResolutions_[resolution_index];
-            if (loaded_resolution.width() <= screen_resolution.width() &&
-                loaded_resolution.height() <= screen_resolution.height()) {
-                ui_->ui_resolution_combo_box_->
-                        setCurrentIndex(resolution_index);
-            }
+            ui_->ui_resolution_combo_box_->setCurrentIndex(resolution_index);
         }
     } else {
         QMessageBox::warning(
@@ -155,12 +155,5 @@ void SettingsWidget::ChangeUserName() {
 }
 
 void SettingsWidget::ChangeResolution() {
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QSize screen_resolution = screen->availableSize();
-    QSize chosen_resolution =
-            kResolutions_[ui_->ui_resolution_combo_box_->currentIndex()];
-    if (chosen_resolution.width() <= screen_resolution.width() &&
-            chosen_resolution.height() <= screen_resolution.height()) {
-        emit ResolutionChanged();
-    }
+    emit ResolutionChanged();
 }
