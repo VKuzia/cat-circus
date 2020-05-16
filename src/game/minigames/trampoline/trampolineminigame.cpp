@@ -118,7 +118,10 @@ void TrampolineMinigame::Tick() {
         SetTilesVisible(false);
         PrepareTiles();
         if (is_failed_) {
-          cat_->SetVelocity(kWrongVelocity_);
+          QTimer::singleShot(kFailFlyAwayTime_, this,
+                             [this] { Stop(Status::kFail); });
+          cat_->SetVelocity(physics::Throw(cat_->GetPos(), kFailAimPoint_,
+                                           kFailFlyAwayTime_ / 1000.0));
         } else {
           cat_->SetMood(TrampolineCat::Mood::kNormal);
           cat_->SetVelocity(0, -cat_->GetVelocity().y());
@@ -214,7 +217,6 @@ void TrampolineMinigame::FinishFlip() {
   cat_->SetMoving(true);
   if (!is_successful_flip_) {
     is_failed_ = true;
-    QTimer::singleShot(kFlyAwayTime_, this, [this] { Stop(Status::kFail); });
     cat_->RotateFor(kIncorrectFlipTime_);
   } else {
     cat_->RotateFor(kCorrectFlipTime_);

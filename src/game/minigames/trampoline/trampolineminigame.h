@@ -33,8 +33,8 @@ class TrampolineMinigame : public Minigame {
 
   const QSizeF kCatSize_ = {1.5, 1.5};
   const QPointF kCatStartPos_ = QPointF(-3.5, -2.5);
+  const QPointF kFailAimPoint_ = {8, -2};
   const qreal kCatFlipHeight_ = -2;
-  const Vector2D kWrongVelocity_ = {8, -9.5};
 
   const int32_t kCorrectFlipTime_ = 1000;
   const int32_t kIncorrectFlipTime_ = 2500;
@@ -47,7 +47,7 @@ class TrampolineMinigame : public Minigame {
   const QPointF kTrampolineStartPos_ = QPointF(-3.5, 3);
   const qreal kTrampolineDepth_ = 0.5;
 
-  const int32_t kFlyAwayTime_ = 2800;
+  const int32_t kFailFlyAwayTime_ = 1200;
 
   TrampolineCat* cat_ = nullptr;
   Trampoline* trampoline_ = nullptr;
