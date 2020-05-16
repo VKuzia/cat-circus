@@ -2,8 +2,8 @@
 #define TRAMPOLINETILE_H
 
 #include <QPainterPath>
+#include <QPropertyAnimation>
 
-#include "QPropertyAnimation"
 #include "src/game/gameobject.h"
 
 class TrampolineTile : public GameObject {

@@ -1,7 +1,7 @@
 #include "trampolinepath.h"
 
 TrampolinePath::TrampolinePath(GameView* game_view) : game_view_(game_view) {
-  // Path needs to be displayed under the cursor, but scene origin is not in a
+  // Path needs to be displayed under the cursor, but scene origin is not in an
   // upper left corner
   setPos(-game_view_->width() / 2, -game_view_->height() / 2);
 

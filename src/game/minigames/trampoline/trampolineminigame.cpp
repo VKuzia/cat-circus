@@ -138,21 +138,8 @@ void TrampolineMinigame::Tick() {
 
 void TrampolineMinigame::PrepareTiles() {
   for (auto current_tile : tiles_) {
-    int32_t direction_num = QRandomGenerator::global()->bounded(3);
-    switch (direction_num) {
-      case 0:
-        current_tile->SetDirection(TrampolineTile::SwipeDirection::kUp);
-        break;
-      case 1:
-        current_tile->SetDirection(TrampolineTile::SwipeDirection::kDown);
-        break;
-      case 2:
-        current_tile->SetDirection(TrampolineTile::SwipeDirection::kLeft);
-        break;
-      case 3:
-        current_tile->SetDirection(TrampolineTile::SwipeDirection::kRight);
-        break;
-    }
+    current_tile->SetDirection(static_cast<TrampolineTile::SwipeDirection>(
+        QRandomGenerator::global()->bounded(3)));
     current_tile->SetUp();
   }
 }

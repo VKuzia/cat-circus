@@ -1,6 +1,7 @@
 #include "trampolinetile.h"
 
 #include <QGraphicsColorizeEffect>
+#include <stdexcept>
 
 TrampolineTile::TrampolineTile(GameView* game_view, QSizeF size, qreal x,
                                qreal y)
@@ -40,37 +41,28 @@ bool TrampolineTile::CheckPath(const QPainterPath& path) {
   if (path.isEmpty()) {
     return false;
   }
-  bool result = false;
   QPointF start(path.elementAt(0).x, path.elementAt(0).y);
   QPointF finish(path.currentPosition());
   qreal path_width = path.boundingRect().width();
   qreal path_height = path.boundingRect().height();
   Vector2D shift(finish.x() - start.x(), finish.y() - start.y());
+  qreal minimal_swipe_pixels =
+      kMinimalSwipeLength_ * game_view_->GetPixelsInMeter();
   switch (direction_) {
     case SwipeDirection::kUp:
-      result =
-          (path_height / path_width > kMinimalPathRectRatio_ &&
-           shift.y() < -kMinimalSwipeLength_ * game_view_->GetPixelsInMeter());
-      break;
+      return path_height / path_width > kMinimalPathRectRatio_ &&
+             shift.y() < -minimal_swipe_pixels;
     case SwipeDirection::kDown:
-      result =
-          (path_height / path_width > kMinimalPathRectRatio_ &&
-           shift.y() > kMinimalSwipeLength_ * game_view_->GetPixelsInMeter());
-
-      break;
+      return path_height / path_width > kMinimalPathRectRatio_ &&
+             shift.y() > minimal_swipe_pixels;
     case SwipeDirection::kLeft:
-      result =
-          (path_width / path_height > kMinimalPathRectRatio_ &&
-           shift.x() < -kMinimalSwipeLength_ * game_view_->GetPixelsInMeter());
-
-      break;
+      return path_width / path_height > kMinimalPathRectRatio_ &&
+             shift.x() < -minimal_swipe_pixels;
     case SwipeDirection::kRight:
-      result =
-          (path_width / path_height > kMinimalPathRectRatio_ &&
-           shift.x() > kMinimalSwipeLength_ * game_view_->GetPixelsInMeter());
-      break;
+      return path_width / path_height > kMinimalPathRectRatio_ &&
+             shift.x() > minimal_swipe_pixels;
   }
-  return result;
+  throw std::runtime_error("Unknown swipe direction");
 }
 
 void TrampolineTile::SetDirection(TrampolineTile::SwipeDirection direction) {
