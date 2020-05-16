@@ -1,9 +1,10 @@
 #ifndef TRAMPOLINETILE_H
 #define TRAMPOLINETILE_H
 
+#include <QPainterPath>
+
 #include "QPropertyAnimation"
 #include "src/game/gameobject.h"
-#include "src/game/minigames/trampoline/trampolinepath.h"
 
 class TrampolineTile : public GameObject {
   Q_OBJECT
@@ -20,8 +21,7 @@ class TrampolineTile : public GameObject {
   void Activate();
   void Deactivate(Status status);
 
-  bool CheckPath(const TrampolinePath& path_item_, QPointF start,
-                 QPointF finish);
+  bool CheckPath(const QPainterPath& path);
 
   void SetDirection(SwipeDirection direction);
 

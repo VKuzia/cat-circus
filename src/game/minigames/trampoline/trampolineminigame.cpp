@@ -193,8 +193,7 @@ void TrampolineMinigame::FinishTile() {
   remaining_swipe_count_--;
   int32_t current_tile_index = swipe_count_ - remaining_swipe_count_ - 1;
   TrampolineTile* current_tile = tiles_.at(current_tile_index);
-  if (current_tile->CheckPath(*current_mouse_path_, current_mouse_path_begin_,
-                              current_mouse_path_end_)) {
+  if (current_tile->CheckPath(current_mouse_path_->path())) {
     current_tile->Deactivate(TrampolineTile::Status::kCorrectPath);
     cat_->SetMood(TrampolineCat::Mood::kHappy);
     if (remaining_swipe_count_ == 0) {
@@ -256,11 +255,9 @@ void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {
     return;
   }
   is_mouse_pressed_ = true;
-  current_mouse_path_begin_ = event->pos();
-  current_mouse_path_end_ = current_mouse_path_begin_;
   current_mouse_path_ = new TrampolinePath(game_view_);
   current_mouse_path_->setPen(kMousePathPen_);
-  current_mouse_path_->MoveTo(current_mouse_path_begin_);
+  current_mouse_path_->MoveTo(event->pos());
   game_view_->scene()->addItem(current_mouse_path_);
 }
 
@@ -277,6 +274,5 @@ void TrampolineMinigame::MouseMoveEvent(QMouseEvent* event) {
   if (!is_mouse_pressed_ || !is_making_flip_) {
     return;
   }
-  current_mouse_path_end_ = event->pos();
-  current_mouse_path_->LineTo(current_mouse_path_end_);
+  current_mouse_path_->LineTo(event->pos());
 }

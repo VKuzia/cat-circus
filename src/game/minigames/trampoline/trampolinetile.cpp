@@ -36,12 +36,13 @@ void TrampolineTile::Deactivate(Status status) {
   animation_.start();
 }
 
-bool TrampolineTile::CheckPath(const TrampolinePath& path_item_, QPointF start,
-                               QPointF finish) {
+bool TrampolineTile::CheckPath(const QPainterPath& path) {
   bool result = false;
+  QPointF start(path.elementAt(0).x, path.elementAt(0).y);
+  QPointF finish(path.currentPosition());
   qreal path_width =
-      path_item_.path().boundingRect().width() + 1;  // To prevent zero division
-  qreal path_height = path_item_.path().boundingRect().height() + 1;
+      path.boundingRect().width() + 1;  // To prevent zero division
+  qreal path_height = path.boundingRect().height() + 1;
   Vector2D shift(finish.x() - start.x(), finish.y() - start.y());
   switch (direction_) {
     case SwipeDirection::kUp:

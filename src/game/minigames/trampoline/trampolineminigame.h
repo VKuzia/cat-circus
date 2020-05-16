@@ -33,7 +33,7 @@ class TrampolineMinigame : public Minigame {
 
   const QSizeF kCatSize_ = {1.5, 1.5};
   const QPointF kCatStartPos_ = QPointF(-3.5, -2.5);
-  const QPointF kFailAimPoint_ = {8, -2};
+  const QPointF kFailAimPoint_ = {8, -1.5};
   const qreal kCatFlipHeight_ = -2;
 
   const int32_t kCorrectFlipTime_ = 1000;
@@ -53,8 +53,6 @@ class TrampolineMinigame : public Minigame {
   Trampoline* trampoline_ = nullptr;
   TrampolinePath* current_mouse_path_ = nullptr;
   QVector<TrampolineTile*> tiles_;
-  QPointF current_mouse_path_end_;
-  QPointF current_mouse_path_begin_;
   int32_t flip_count_ = 0;
   int32_t flip_time_ = 0;
   int32_t swipe_count_ = 0;
