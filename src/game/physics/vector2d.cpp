@@ -10,6 +10,13 @@ Vector2D& Vector2D::operator=(Vector2D rhs) {
   return *this;
 }
 
+bool Vector2D::IsZero() {
+  if (abs(x()) < 1e-5 && abs(y()) < 1e-5) {
+    return true;
+  }
+  return false;
+}
+
 Vector2D operator+(Vector2D first, Vector2D second) {
   first += second;
   return first;
