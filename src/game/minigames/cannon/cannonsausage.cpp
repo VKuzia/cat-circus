@@ -24,8 +24,6 @@ void CannonSausage::Update() {
   }
 }
 
-void CannonSausage::SetCaught(bool is_caught) { is_caught_ = is_caught; }
-
 void CannonSausage::WasCaught() {
   setVisible(false);
   emit CaughtSausage();
@@ -33,4 +31,4 @@ void CannonSausage::WasCaught() {
 
 bool CannonSausage::GetMoveDown() const { return move_down_; }
 
-void CannonSausage::SetMoveDown(bool direction) { move_down_ = direction; }
+void CannonSausage::SetMoveDown(bool move_down) { move_down_ = move_down; }

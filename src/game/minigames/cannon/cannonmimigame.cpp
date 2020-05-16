@@ -2,13 +2,9 @@
 
 #include <QKeyEvent>
 
-#include "QSize"
-
 CannonMinigame::CannonMinigame(GameView* game_view, qreal difficulty,
                                qreal pixels_in_meter)
-    : Minigame(game_view, difficulty, pixels_in_meter) {
-  time_ = 10000;
-}
+    : Minigame(game_view, difficulty, pixels_in_meter) {}
 
 void CannonMinigame::Start() { AnimateTutorial(); }
 
@@ -20,17 +16,22 @@ void CannonMinigame::SetUp() {
   cat_->SetUp();
   game_view_->scene()->addItem(cat_);
 
-  cannon_ =
-      new Cannon(game_view_, kCannonWidth, kCannonHeight, KCannonX, kCannonY);
-  cannon_->SetUp();
+  cannon_ = new GameObject(game_view_, {kCannonWidth, kCannonHeight},
+                           {KCannonX, kCannonY});
+  cannon_->setPixmap(GameObject::LoadPixmap(
+      "cannon/cannon.png", cannon_->boundingRect().size().toSize()));
   game_view_->scene()->addItem(cannon_);
 
-  arrow_ = new Arrow(game_view_, kCatWidth, kCatHeight, -kCatX, -kCatY);
-  arrow_->SetUp();
+  arrow_ =
+      new GameObject(game_view_, {kCatWidth, kCatHeight}, {-kCatX, -kCatY});
+  arrow_->setPixmap(GameObject::LoadPixmap(
+      "cannon/arrow.png", arrow_->boundingRect().size().toSize()));
   game_view_->scene()->addItem(arrow_);
 
-  speedometer_ = new Speedometer(game_view_, kCatWidth, kCatHeight, 7, -kCatY);
-  speedometer_->SetUp();
+  speedometer_ =
+      new GameObject(game_view_, {kCatWidth, kCatHeight}, {-kCatX, -kCatY});
+  speedometer_->setPixmap(GameObject::LoadPixmap(
+      "cannon/spedometer.png", speedometer_->boundingRect().size().toSize()));
   game_view_->scene()->addItem(speedometer_);
 
   SetUpLabel();
@@ -44,7 +45,7 @@ void CannonMinigame::SetUp() {
         new CannonStatus(game_view_, kStatusHeight, kStatusWidth,
                          kStatusStartX + KStatusDeltaX * i, kStatusStartY);
     status_elem->SetUp();
-    status_bar_.insert(status_elem);
+    status_bar_.push_front(status_elem);
     game_view_->scene()->addItem(status_elem);
   }
 }
@@ -64,7 +65,6 @@ void CannonMinigame::AnimateTutorial() {
 }
 
 void CannonMinigame::StartGame() {
-  time_bar_->SetUp();
   time_bar_->Launch(time_);
   time_bar_->setVisible(true);
   tutorial_label_->setVisible(false);
@@ -93,7 +93,6 @@ void CannonMinigame::Tick() {
     is_cat_flying_ = true;
   }
   if (cat_->GetY() >= kFloorHeight) {
-    cat_->SetFallen(true);
     if (cat_->GetCaught() >= number_to_win_) {
       Stop(Status::kPass);
     } else {
@@ -109,13 +108,13 @@ void CannonMinigame::ChangeParameters() {
   if (!params_choosen_power_) {
     if (power_increases_) {
       power_ += kPowerDelta;
-      arrow_->setRotation(arrow_->rotation() + M_PI * (power_ / 0.12));
-      if (power_ >= 0.12) {
+      arrow_->setRotation(arrow_->rotation() + M_PI * (power_ / kMaxPower));
+      if (power_ >= kMaxPower) {
         power_increases_ = false;
       }
     } else {
       power_ -= kPowerDelta;
-      arrow_->setRotation(arrow_->rotation() - M_PI * (power_ / 0.12));
+      arrow_->setRotation(arrow_->rotation() - M_PI * (power_ / kMaxPower));
       if (power_ <= 0) {
         power_increases_ = true;
       }
@@ -141,9 +140,9 @@ void CannonMinigame::ChangeParameters() {
 }
 
 void CannonMinigame::SetUpParameters() {
-  // Parameters of quadratic equation - (ax^2 + bx + c) generation
-  sausage_a_param = QRandomGenerator().global()->bounded(50) * 1.0 / 100;
-  sausage_b_param = QRandomGenerator().global()->bounded(100) * 1.0 / 100;
+  time_ = 10000;
+  sausage_a_param = QRandomGenerator().global()->bounded(50) / 100.0;
+  sausage_b_param = QRandomGenerator().global()->bounded(100) / 100.0;
   int32_t difficulty_level = qFloor(difficulty_ / 0.1);
   switch (difficulty_level) {
     case 1:
@@ -220,7 +219,7 @@ void CannonMinigame::Lose() {
 
 void CannonMinigame::SausageWasCaught() {
   if (cat_->GetCaught() <= number_to_win_) {
-    (*(status_bar_.begin() + cat_->GetCaught() - 1))->ChangeStatus();
+    status_bar_[cat_->GetCaught() - 1]->ChangeStatus();
   }
 }
 
@@ -230,10 +229,14 @@ void CannonMinigame::KeyPressEvent(QKeyEvent* event) {
   }
   if (event->key() == Qt::Key_A) {
     params_choosen_angle_ = true;
-    if (params_choosen_power_) time_bar_->setVisible(false);
+    if (params_choosen_power_) {
+      time_bar_->setVisible(false);
+    }
   } else if (event->key() == Qt::Key_D) {
     params_choosen_power_ = true;
-    if (params_choosen_angle_) time_bar_->setVisible(false);
+    if (params_choosen_angle_) {
+      time_bar_->setVisible(false);
+    }
   } else if (event->key() == Qt::Key_Space) {
     params_choosen_angle_ = true;
     params_choosen_power_ = true;
@@ -248,7 +251,7 @@ void CannonMinigame::LaunchSausage() {
 
   qreal sausage_x = QRandomGenerator().global()->bounded(kSausageXBoders.x(),
                                                          kSausageXBoders.y()) +
-                    QRandomGenerator().global()->bounded(100) * 1.0 / 100;
+                    QRandomGenerator().global()->bounded(100) / 100.0;
 
   CannonSausage* sausage =
       new CannonSausage(game_view_, KSausageRadius, KSausageRadius, sausage_x,

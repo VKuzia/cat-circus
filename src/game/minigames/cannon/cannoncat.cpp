@@ -11,18 +11,18 @@ CannonCat::CannonCat(GameView *game_view, qreal width, qreal height, qreal x,
 void CannonCat::SetUp() { setPixmap(LoadPixmap("juggling/cat.png")); }
 
 void CannonCat::Update() {
-  if (start_vil_.x() == 0 && start_vil_.y() == 0) {
-    start_vil_.setX(cos(angle_) * power_);
-    start_vil_.setY(-sin(angle_) * power_);
+  if (cat_velocity_.IsZero()) {
+    cat_velocity_.setX(cos(angle_) * power_);
+    cat_velocity_.setY(-sin(angle_) * power_);
   }
-  if (in_flight_) {
-    AddVelocity(start_vil_.x(), start_vil_.y());
-    start_vil_ += kGravityCannon;
+  if (is_in_flight_) {
+    AddVelocity(cat_velocity_.x(), cat_velocity_.y());
+    cat_velocity_ += kGravityCannon;
     Vector2D shift = velocity_ * kUpdateTime;
     this->MoveByMeters(shift);
     setRotation(rotation() + atan(shift.x() / shift.y()));
   }
-  CheckIfCaught();
+  CatchSausage();
 }
 
 qreal CannonCat::GetRadius() const { return radius_; }
@@ -31,11 +31,9 @@ void CannonCat::SetAngle(qreal angle) { angle_ = angle; }
 
 void CannonCat::SetPower(qreal power) { power_ = power; }
 
-void CannonCat::SetFallen(bool is_fallen) { is_fallen_ = is_fallen; }
-
 int CannonCat::GetCaught() const { return caught_sausages_; }
 
-void CannonCat::CheckIfCaught() {
+void CannonCat::CatchSausage() {
   // Check if Sausage is caught
   const QList<QGraphicsItem *> sausages = this->collidingItems();
   //      scene()->items(QPolygonF() << mapToScene(0, 0) << mapToScene(-30, -30)

@@ -1,17 +1,13 @@
 #ifndef CANNONMIMIGAME_H
 #define CANNONMIMIGAME_H
 #include <QGraphicsEllipseItem>
-#include <QProgressBar>
 #include <QRandomGenerator>
 #include <QSet>
 
 #include "src/game/minigame.h"
-#include "src/game/minigames/cannon/arrow.h"
-#include "src/game/minigames/cannon/cannon.h"
 #include "src/game/minigames/cannon/cannoncat.h"
 #include "src/game/minigames/cannon/cannonsatus.h"
 #include "src/game/minigames/cannon/cannonsausage.h"
-#include "src/game/minigames/cannon/speedometer.h"
 
 class CannonMinigame : public Minigame {
   Q_OBJECT
@@ -43,6 +39,7 @@ class CannonMinigame : public Minigame {
 
   const qreal kPowerDelta = 0.001;
   const qreal kAngleDelta = M_PI / 200;
+  const qreal kMaxPower = 0.12;
 
   const QPoint kSausageXBoders = {-6, 6};
 
@@ -56,10 +53,7 @@ class CannonMinigame : public Minigame {
 
   const qreal kFloorHeight = 3.2;
 
-  QPixmap sausage_pixmap;
-  QPixmap yes_pixmap;
-  const QPixmap no_pixmap;
-
+  // Parameters of quadratic equation - (ax^2 + bx + c) generation
   qreal sausage_a_param = 0;
   qreal sausage_b_param = 0;
 
@@ -73,16 +67,16 @@ class CannonMinigame : public Minigame {
 
   int32_t sausage_count_ = 0;
   int32_t number_to_win_ = 0;
-  Cannon* cannon_ = nullptr;
+  GameObject* cannon_ = nullptr;
   CannonCat* cat_ = nullptr;
 
-  Speedometer* speedometer_ = nullptr;
+  GameObject* speedometer_ = nullptr;
 
-  Arrow* arrow_ = nullptr;
+  GameObject* arrow_ = nullptr;
 
   QSet<CannonSausage*> sausages_;
 
-  QSet<CannonStatus*> status_bar_;
+  QVector<CannonStatus*> status_bar_;
 
   void LaunchSausage();
 

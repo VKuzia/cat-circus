@@ -12,7 +12,6 @@ class CannonSausage : public GameObject {
 
   void SetUp() override;
   void Update() override;
-  void SetCaught(bool is_caught);
   void WasCaught();
   bool GetMoveDown() const;
   void SetMoveDown(bool);

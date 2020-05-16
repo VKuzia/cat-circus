@@ -1,5 +1,5 @@
-#ifndef NO_H
-#define NO_H
+#ifndef CANNONSTATUS_H
+#define CANNONSTATUS_H
 
 #include "src/game/gameobject.h"
 
@@ -16,4 +16,4 @@ class CannonStatus : public GameObject {
   QPixmap success_pixmap_;
 };
 
-#endif  // NO_H
+#endif  // CANNONSTATUS_H
