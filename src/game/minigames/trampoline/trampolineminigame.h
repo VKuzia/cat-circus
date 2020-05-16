@@ -34,7 +34,7 @@ class TrampolineMinigame : public Minigame {
   const QSizeF kCatSize_ = {1.5, 1.5};
   const QPointF kCatStartPos_ = QPointF(-3.5, -2.5);
   const QPointF kFailAimPoint_ = {8, -1.5};
-  const qreal kCatFlipHeight_ = -2;
+  const qreal kCatFlipY_ = -2;
 
   const int32_t kCorrectFlipTime_ = 1000;
   const int32_t kIncorrectFlipTime_ = 2500;

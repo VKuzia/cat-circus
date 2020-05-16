@@ -104,7 +104,7 @@ void TrampolineMinigame::Tick() {
     return;
   }
   cat_->Update();
-  if (!is_failed_ && cat_->GetY() < kCatFlipHeight_ && !cat_->IsJustFlipped()) {
+  if (!is_failed_ && cat_->GetY() < kCatFlipY_ && !cat_->IsJustFlipped()) {
     StartFlip();
   } else if (cat_->collidesWithItem(trampoline_)) {
     // Jump up if cat reached trampoline from above
