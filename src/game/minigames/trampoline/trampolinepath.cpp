@@ -7,8 +7,8 @@ TrampolinePath::TrampolinePath(GameView* game_view) : game_view_(game_view) {
 
   opacity_animation_.setTargetObject(this);
   opacity_animation_.setPropertyName("opacity");
-  opacity_animation_.setKeyValueAt(0.0, 1.0);
-  opacity_animation_.setKeyValueAt(1.0, 0.0);
+  opacity_animation_.setStartValue(1);
+  opacity_animation_.setEndValue(0);
 }
 
 void TrampolinePath::MoveTo(QPointF point) { path_.moveTo(point); }
