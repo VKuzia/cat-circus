@@ -43,5 +43,3 @@ void CannonCat::CatchSausage() {
     }
   }
 }
-
-// void CannonCat::CaughtSausage() {}
