@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget* parent)
 
   GameObject::GetPixmapLoader()->PreloadPixmaps();
 
+  QCoreApplication::setAttribute(Qt::AA_UseStyleSheetPropagationInWidgetStyles,
+                                 true);
   SetStyle();
 }
 
@@ -74,7 +76,7 @@ void MainWindow::SetStyle() {
                          "Can't load style. Use default");
     return;
   }
-  setStyleSheet(style_file.readAll());
+  qApp->setStyleSheet(style_file.readAll());
 }
 
 void MainWindow::ChangeWidget() {
@@ -84,7 +86,7 @@ void MainWindow::ChangeWidget() {
 MainWindow::~MainWindow() { delete ui_; }
 
 void MainWindow::SetUp() {
-    this->setFixedSize(ui_->ui_settings_widget_->GetResolution());
-    ui_->ui_game_widget_->SetResolution(
-                ui_->ui_settings_widget_->GetResolution());
+  this->setFixedSize(ui_->ui_settings_widget_->GetResolution());
+  ui_->ui_game_widget_->SetResolution(
+      ui_->ui_settings_widget_->GetResolution());
 }
