@@ -65,6 +65,7 @@ HEADERS += \
         src/game/minigames/juggling/jugglingcat.h \
         src/game/minigames/juggling/jugglinghand.h \
         src/game/minigames/juggling/jugglingminigame.h \
+        src/game/minigamestatus.h \
         src/game/minigames/trampoline/trampoline.h \
         src/game/minigames/trampoline/trampolinecat.h \
         src/game/minigames/trampoline/trampolineminigame.h \

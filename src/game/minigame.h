@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #include "src/game/backgroundobject.h"
+#include "src/game/minigamestatus.h"
 #include "src/game/timebar.h"
 
 class GameView;
@@ -26,11 +27,10 @@ class Minigame : public QObject {
   virtual void MouseMoveEvent(QMouseEvent* event);
   virtual void KeyPressEvent(QKeyEvent* event);
   virtual void KeyReleaseEvent(QKeyEvent* event);
+
   virtual void WheelEvent(QWheelEvent* event);
 
- signals:
-  void Passed(int32_t score);
-  void Failed();
+  int32_t GetScore() const;
 
  protected:
   enum class Status { kFail, kPass };
@@ -66,13 +66,12 @@ class Minigame : public QObject {
 
   virtual void AnimateTutorial() = 0;
   virtual void StartGame() = 0;
-  virtual void AnimateOutro() = 0;
 
   virtual void Tick() = 0;
 
-  virtual void Stop(Status) = 0;
-  virtual void Win() = 0;
-  virtual void Lose() = 0;
+  virtual void Stop(MinigameStatus) = 0;
+  virtual void Win();
+  virtual void Lose();
 };
 
 #endif  // MINIGAME_H
