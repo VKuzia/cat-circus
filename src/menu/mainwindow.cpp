@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+#include <QScreen>
 #include <QStackedLayout>
 
 #include "src/game/gameobject.h"
@@ -69,7 +70,19 @@ void MainWindow::ChangeWidget() {
 MainWindow::~MainWindow() { delete ui_; }
 
 void MainWindow::SetUp() {
-    this->setFixedSize(ui_->ui_settings_widget_->GetResolution());
-    ui_->ui_game_widget_->SetResolution(
-                ui_->ui_settings_widget_->GetResolution());
+  QSize resolution = ui_->ui_settings_widget_->GetResolution();
+  this->setFixedSize(resolution);
+  ui_->ui_game_widget_->SetResolution(resolution);
+
+  QScreen* screen = QGuiApplication::primaryScreen();
+  // If resolution matches screen size, go fullscreen,
+  // return titlebar otherwise
+  if (resolution == screen->geometry().size()) {
+    setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
+    setGeometry(0, 0, size().width(), size().height());
+    show();
+  } else {
+    setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
+    show();
+  }
 }
