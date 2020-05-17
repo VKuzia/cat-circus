@@ -11,7 +11,7 @@ Vector2D& Vector2D::operator=(Vector2D rhs) {
 }
 
 bool Vector2D::IsZero() {
-  if (abs(x()) < 1e-5 && abs(y()) < 1e-5) {
+  if (abs(x()) < 0.00001 && abs(y()) < 0.00001) {
     return true;
   }
   return false;
