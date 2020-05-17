@@ -22,6 +22,8 @@ class AboutWidget : public QWidget {
 
  private:
   Ui::AboutWidget* ui_;
+
+  void resizeEvent(QResizeEvent* event) override;
 };
 
 #endif  // ABOUTWIDGET_H

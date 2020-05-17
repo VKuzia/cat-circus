@@ -11,7 +11,6 @@ GameView::GameView(QWidget* parent)
       failed_image_(new QGraphicsPixmapItem()),
       passed_image_(new QGraphicsPixmapItem()) {
   this->setScene(new QGraphicsScene(this));
-
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
   this->setOptimizationFlags(DontSavePainterState);

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+#include <QResizeEvent>
 #include <QStackedLayout>
 
 #include "src/game/gameobject.h"
@@ -60,6 +61,13 @@ void MainWindow::SetGamePage() {
   if (widget_to_change_to_ == ui_->ui_game_widget_) {
     ui_->ui_game_widget_->Start();
   }
+}
+
+void MainWindow::resizeEvent(QResizeEvent* event) {
+  ui_->ui_exit_button_->Resize(event);
+  ui_->ui_play_button_->Resize(event);
+  ui_->ui_settings_button_->Resize(event);
+  ui_->ui_about_button_->Resize(event);
 }
 
 void MainWindow::ChangeWidget() {

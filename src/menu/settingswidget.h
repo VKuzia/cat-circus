@@ -48,6 +48,8 @@ class SettingsWidget : public QWidget {
   Ui::SettingsWidget* ui_;
 
   void Save() const;
+
+  void resizeEvent(QResizeEvent* event) override;
 };
 
 #endif  // SETTINGSWIDGET_H
