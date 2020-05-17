@@ -18,7 +18,6 @@ class CannonCat : public GameObject {
   qreal GetRadius() const;
   void SetAngle(qreal);
   void SetPower(qreal);
-  int GetCaught() const;
 
  private:
   void CatchSausage();
@@ -29,7 +28,6 @@ class CannonCat : public GameObject {
   qreal power_ = 0;
   Vector2D cat_velocity_ = {0, 0};
   bool is_in_flight_ = true;
-  int caught_sausages_ = 0;
 };
 
 #endif  // CANNONCAT_H

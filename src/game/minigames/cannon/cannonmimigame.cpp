@@ -93,7 +93,7 @@ void CannonMinigame::Tick() {
     is_cat_flying_ = true;
   }
   if (cat_->GetY() >= kFloorHeight) {
-    if (cat_->GetCaught() >= number_to_win_) {
+    if (current_score_ >= number_to_win_) {
       Stop(Status::kPass);
     } else {
       Stop(Status::kFail);
@@ -218,8 +218,9 @@ void CannonMinigame::Lose() {
 }
 
 void CannonMinigame::SausageWasCaught() {
-  if (cat_->GetCaught() <= number_to_win_) {
-    status_bar_[cat_->GetCaught() - 1]->ChangeStatus();
+  current_score_++;
+  if (current_score_ <= number_to_win_) {
+    status_bar_[current_score_ - 1]->ChangeStatus();
   }
 }
 

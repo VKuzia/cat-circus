@@ -26,8 +26,8 @@ class CannonMinigame : public Minigame {
   const qreal kCatY = 3;
   const qreal kCatX = -6;
 
-  const qreal kCannonWidth = 3.75;
-  const qreal kCannonHeight = 3.15;
+  const qreal kCannonWidth = 6;
+  const qreal kCannonHeight = 5;
   const qreal kCannonY = 3;
   const qreal KCannonX = -6;
 
@@ -70,19 +70,17 @@ class CannonMinigame : public Minigame {
 
   int32_t sausage_count_ = 0;
   int32_t number_to_win_ = 0;
+  int32_t current_score_ = 0;
+
   GameObject* cannon_ = nullptr;
-  CannonCat* cat_ = nullptr;
-
   GameObject* speedometer_ = nullptr;
-
   GameObject* arrow_ = nullptr;
-
+  CannonCat* cat_ = nullptr;
   QSet<CannonSausage*> sausages_;
 
   QVector<CannonStatus*> status_bar_;
 
   void LaunchSausage();
-
   void SetUp() override;
   void SetUpLabel() override;
   void SetUpParameters() override;
