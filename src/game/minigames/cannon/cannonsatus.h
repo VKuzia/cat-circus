@@ -11,9 +11,6 @@ class CannonStatus : public GameObject {
 
   void SetUp() override;
   void ChangeStatus();
-
- private:
-  QPixmap success_pixmap_;
 };
 
 #endif  // CANNONSTATUS_H

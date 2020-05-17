@@ -28,8 +28,8 @@ void CannonMinigame::SetUp() {
       "cannon/arrow.png", arrow_->boundingRect().size().toSize()));
   game_view_->scene()->addItem(arrow_);
 
-  speedometer_ =
-      new GameObject(game_view_, {kCatWidth, kCatHeight}, {-kCatX, -kCatY});
+  speedometer_ = new GameObject(game_view_, {kCatWidth, kCatHeight},
+                                {kSpeedometerX, kSpeedometerY});
   speedometer_->setPixmap(GameObject::LoadPixmap(
       "cannon/spedometer.png", speedometer_->boundingRect().size().toSize()));
   game_view_->scene()->addItem(speedometer_);

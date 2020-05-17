@@ -4,9 +4,6 @@ CannonStatus::CannonStatus(GameView *game_view, qreal width, qreal height,
                            qreal x, qreal y)
     : GameObject(game_view, width, height, x, y) {}
 
-void CannonStatus::SetUp() {
-  setPixmap(LoadPixmap("cannon/no.png"));
-  success_pixmap_ = LoadPixmap("cannon/ok.png");
-}
+void CannonStatus::SetUp() { setPixmap(LoadPixmap("cannon/no.png")); }
 
-void CannonStatus::ChangeStatus() { setPixmap(success_pixmap_); }
+void CannonStatus::ChangeStatus() { setPixmap(LoadPixmap("cannon/ok.png")); }

@@ -31,6 +31,9 @@ class CannonMinigame : public Minigame {
   const qreal kCannonY = 3;
   const qreal KCannonX = -6;
 
+  const qreal kSpeedometerX = 7;
+  const qreal kSpeedometerY = -3;
+
   const qreal kStatusStartX = -7;
   const qreal kStatusStartY = -4;
   const qreal kStatusWidth = 1;
