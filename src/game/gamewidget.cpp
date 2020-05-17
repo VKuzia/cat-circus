@@ -105,7 +105,8 @@ void GameWidget::SetUp() {
 }
 
 void GameWidget::SetResolution(QSize resolution) {
-    ui_->ui_game_view_->SetUp(resolution);
+  ui_->ui_game_view_->SetUp(resolution);
+  ui_->ui_score_page_->SetResolution(resolution);
 }
 
 void GameWidget::Start() { ui_->ui_score_page_->Animate(); }
