@@ -11,19 +11,20 @@ GameView::GameView(QWidget* parent)
       failed_image_(new QGraphicsPixmapItem()),
       passed_image_(new QGraphicsPixmapItem()) {
   this->setScene(new QGraphicsScene(this));
-}
 
-void GameView::SetUp(int32_t width, int32_t height) {
-  this->setFixedSize(width, height);
-  this->setLineWidth(0);
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
   this->setOptimizationFlags(DontSavePainterState);
   this->setCacheMode(CacheBackground);
   this->setViewportUpdateMode(ViewportUpdateMode::MinimalViewportUpdate);
   scene()->setItemIndexMethod(QGraphicsScene::NoIndex);
-  this->scene()->setSceneRect(-width / 2, -height / 2, width, height);
+}
 
+void GameView::SetUp(QSize resolution) {
+  scale_ = 1.0 * resolution.width() / kBasicWidth_;
+  this->setFixedSize(resolution);
+  this->scene()->setSceneRect(-resolution.width() / 2, -resolution.height() / 2,
+                              resolution.width(), resolution.height());
   SetUpOutroRect();
   SetUpOutroAnimation();
   SetUpOutroImage(failed_image_, "failed.png");
@@ -143,13 +144,19 @@ void GameView::keyReleaseEvent(QKeyEvent* event) {
   }
 }
 
+void GameView::wheelEvent(QWheelEvent* event) {
+  if (current_minigame_ != nullptr) {
+    current_minigame_->WheelEvent(event);
+  }
+}
+
 void GameView::SetMinigame(Minigame* current_minigame) {
   // GameWidget controls deleting, only assignment required
   current_minigame_ = current_minigame;
 }
 
 void GameView::SetPixelsInMeter(qreal pixels_in_meter) {
-  pixels_in_meter_ = pixels_in_meter;
+  pixels_in_meter_ = pixels_in_meter * scale_;
 }
 
 qreal GameView::GetPixelsInMeter() const { return pixels_in_meter_; }

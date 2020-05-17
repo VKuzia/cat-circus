@@ -41,7 +41,6 @@ void TestMinigame::StartGame() {
   tutorial_label_->setVisible(false);
   time_bar_->Launch(time_);
   QTimer::singleShot(time_, this, [this] { Stop(MinigameStatus::kFailed); });
-
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &TestMinigame::Tick);
 

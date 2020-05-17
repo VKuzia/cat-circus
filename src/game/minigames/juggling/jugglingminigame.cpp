@@ -6,10 +6,10 @@
 JugglingMinigame::JugglingMinigame(GameView* game_view, qreal difficulty,
                                    qreal pixels_in_meter)
     : Minigame(game_view, difficulty, pixels_in_meter) {}
+
 void JugglingMinigame::Start() { AnimateTutorial(); }
 
 void JugglingMinigame::SetUp() {
-  background_->SetUp(game_view_, "juggling/arena.png");
   game_view_->scene()->addItem(background_);
 
   cat_ = new JugglingCat(game_view_, kCatSize, kCatPos);

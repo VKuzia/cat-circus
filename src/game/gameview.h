@@ -19,7 +19,7 @@ class GameView : public QGraphicsView {
   explicit GameView(QWidget* parent = nullptr);
   ~GameView() override = default;
 
-  void SetUp(int32_t width, int32_t height);
+  void SetUp(QSize resolution);
 
   // Should be called inside a current_minigame on win|lose
   // Apply effects to the whole scene, trigger OutroFinished
@@ -39,6 +39,7 @@ class GameView : public QGraphicsView {
  private:
   const QString kPathToMinigameImages_ =
       QDir::currentPath() + "/data/images/minigames/";
+  const int32_t kBasicWidth_ = 1024;
 
   const QColor kShadowColor_ = QColor::fromRgb(20, 20, 20);
   const int32_t kOutroAnimationDuration_ = 2000;
@@ -51,8 +52,11 @@ class GameView : public QGraphicsView {
   const qreal kFailedImageStartYFactor_ = 1;
   const qreal kPassedImageStartYFactor_ = -1;
 
-  QPropertyAnimation outro_animation_;
   Minigame* current_minigame_ = nullptr;
+  qreal scale_ = 1;
+  qreal pixels_in_meter_ = 0;
+
+  QPropertyAnimation outro_animation_;
   QGraphicsRectItem* outro_rect_ = nullptr;
   QGraphicsPixmapItem* failed_image_;
   QGraphicsPixmapItem* passed_image_;
@@ -62,8 +66,6 @@ class GameView : public QGraphicsView {
   qreal current_image_start_y_ = 0;
   qreal outro_animation_progress_ = 0;
   MinigameStatus minigame_status_ = MinigameStatus::kFailed;
-
-  qreal pixels_in_meter_ = 0;
 
   void SetUpOutroRect();
   void SetUpOutroAnimation();
@@ -78,6 +80,7 @@ class GameView : public QGraphicsView {
   void mouseMoveEvent(QMouseEvent* event) override;
   void keyPressEvent(QKeyEvent* event) override;
   void keyReleaseEvent(QKeyEvent* event) override;
+  void wheelEvent(QWheelEvent* event) override;
 };
 
 #endif  // GAMEVIEW_H

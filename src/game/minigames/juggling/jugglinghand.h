@@ -32,6 +32,9 @@ class JugglingHand : public GameObject {
   bool IsThrowing() const;
 
  private:
+  const QPixmap kPixmapFree_;
+  const QPixmap kPixmapClosed_;
+
   // Hand motion durations
   const qreal kThrowTime = 0.15;
   const qreal kComeBackTime = 0.05;
@@ -45,13 +48,11 @@ class JugglingHand : public GameObject {
   const QPointF kBasePos_;
   const QPointF kThrowPos_;
 
-  QPixmap pixmap_free_;
-  QPixmap pixmap_closed_;
-  QPointF aim_point_;
   JugglingBall* current_ball_ = nullptr;
-  qreal ball_air_time_ = 0;
   bool is_throwing_ = false;
   bool is_coming_back_ = false;
+  QPointF aim_point_;
+  qreal ball_air_time_ = 0;
 
   // Used to direct thrown balls
   Vector2D GetThrowVelocity() const;

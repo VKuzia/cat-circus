@@ -28,9 +28,13 @@ class Minigame : public QObject {
   virtual void KeyPressEvent(QKeyEvent* event);
   virtual void KeyReleaseEvent(QKeyEvent* event);
 
+  virtual void WheelEvent(QWheelEvent* event);
+
   int32_t GetScore() const;
 
  protected:
+  enum class Status { kFail, kPass };
+
   const qreal kTimeBarHeightFactor = 0.08;
   const int32_t kFps = 60;
   const int32_t kTutorialDuration = 2500;
@@ -42,8 +46,8 @@ class Minigame : public QObject {
 
   int32_t time_ = 0;
   int32_t score_ = 0;
-  qreal width_;
-  qreal height_;
+  qreal width_ = 0;
+  qreal height_ = 0;
 
   TimeBar* time_bar_ = nullptr;
   QGraphicsTextItem* tutorial_label_;
