@@ -46,6 +46,9 @@
      <property name="styleSheet">
       <string notr="true"/>
      </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
      <widget class="QWidget" name="ui_game_page_">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">

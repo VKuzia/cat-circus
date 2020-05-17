@@ -35,15 +35,22 @@ SOURCES += \
         src/game/minigames/juggling/jugglingcat.cpp \
         src/game/minigames/juggling/jugglinghand.cpp \
         src/game/minigames/juggling/jugglingminigame.cpp \
+        src/game/minigames/trampoline/trampoline.cpp \
+        src/game/minigames/trampoline/trampolinecat.cpp \
+        src/game/minigames/trampoline/trampolineminigame.cpp \
+        src/game/minigames/trampoline/trampolinepath.cpp \
+        src/game/minigames/trampoline/trampolinetile.cpp \
         src/game/minigames/test/clickableball.cpp \
         src/game/minigames/test/testminigame.cpp \
         src/game/pausepage.cpp \
         src/game/physics/vector2d.cpp \
+        src/game/pixmaploader.cpp \
         src/game/scorepage.cpp \
         src/game/physics/physics.cpp \
         src/game/timebar.cpp \
         src/menu/aboutwidget.cpp \
         src/menu/button.cpp \
+        src/menu/loadingwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
         src/menu/settingswidget.cpp \
@@ -59,15 +66,22 @@ HEADERS += \
         src/game/minigames/juggling/jugglingcat.h \
         src/game/minigames/juggling/jugglinghand.h \
         src/game/minigames/juggling/jugglingminigame.h \
+        src/game/minigames/trampoline/trampoline.h \
+        src/game/minigames/trampoline/trampolinecat.h \
+        src/game/minigames/trampoline/trampolineminigame.h \
+        src/game/minigames/trampoline/trampolinepath.h \
+        src/game/minigames/trampoline/trampolinetile.h \
         src/game/minigames/test/clickableball.h \
         src/game/minigames/test/testminigame.h \
         src/game/pausepage.h \
         src/game/physics/vector2d.h \
+        src/game/pixmaploader.h \
         src/game/scorepage.h \
         src/game/physics/physics.h \
         src/game/timebar.h \
         src/menu/aboutwidget.h \
         src/menu/button.h \
+        src/menu/loadingwidget.h \
         src/menu/mainwindow.h \
         src/menu/settingswidget.h
 
@@ -76,6 +90,7 @@ FORMS += \
         src/game/pausepage.ui \
         src/game/scorepage.ui \
         src/menu/aboutwidget.ui \
+        src/menu/loadingwidget.ui \
         src/menu/mainwindow.ui \
         src/menu/settingswidget.ui
 
