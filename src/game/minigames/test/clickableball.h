@@ -11,8 +11,7 @@ class ClickableBall : public GameObject {
  public:
   ClickableBall(GameView* game_view, qreal width, qreal height, qreal x = 0,
                 qreal y = 0);
-  ClickableBall(GameView* game_view, qreal width, qreal height,
-                QPointF pos);
+  ClickableBall(GameView* game_view, qreal width, qreal height, QPointF pos);
   ~ClickableBall() override = default;
 
   void SetUp() override;

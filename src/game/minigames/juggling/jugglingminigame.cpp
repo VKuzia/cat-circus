@@ -10,7 +10,7 @@ JugglingMinigame::JugglingMinigame(GameView* game_view, qreal difficulty,
 void JugglingMinigame::Start() { AnimateTutorial(); }
 
 void JugglingMinigame::SetUp() {
-  background_->SetUp(game_view_, "juggling/arena.png");
+  background_->SetUp(game_view_, "juggling/background.png");
   game_view_->scene()->addItem(background_);
 
   cat_ = new JugglingCat(game_view_, kCatSize, kCatPos);
@@ -53,12 +53,10 @@ void JugglingMinigame::StartGame() {
   ball_timer_.start();
   QTimer::singleShot(time_, this, [this] {
     if (is_running_) {
-      Stop(Status::kPass);
+      Stop(MinigameStatus::kPassed);
     }
   });
 }
-
-void JugglingMinigame::AnimateOutro() {}
 
 void JugglingMinigame::Tick() {
   if (!is_running_) {
@@ -67,7 +65,7 @@ void JugglingMinigame::Tick() {
   for (auto ball : balls_) {
     ball->Update();
     if (ball->IsFallen()) {
-      Stop(Status::kFail);
+      Stop(MinigameStatus::kFailed);
     }
   }
   cat_->Update();
@@ -137,36 +135,20 @@ void JugglingMinigame::SetUpParameters() {
   }
 }
 
-void JugglingMinigame::Stop(Status status) {
+void JugglingMinigame::Stop(MinigameStatus status) {
   is_running_ = false;
   tick_timer_.stop();
   ball_timer_.stop();
   time_bar_->setVisible(false);
   switch (status) {
-    case Status::kPass:
+    case MinigameStatus::kPassed:
       score_ = 100;
       Win();
       break;
-    case Status::kFail:
+    case MinigameStatus::kFailed:
       Lose();
       break;
   }
-}
-
-void JugglingMinigame::Win() {
-  game_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
-  QTimer::singleShot(kOutroDuration, this, [this] {
-    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-    emit Passed(score_);
-  });
-}
-
-void JugglingMinigame::Lose() {
-  game_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
-  QTimer::singleShot(kOutroDuration, this, [this] {
-    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-    emit Failed();
-  });
 }
 
 void JugglingMinigame::KeyPressEvent(QKeyEvent* event) {

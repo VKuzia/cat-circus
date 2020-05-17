@@ -12,8 +12,10 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  explicit MainWindow(int32_t width, int32_t height, QWidget* parent = nullptr);
-  ~MainWindow();
+  explicit MainWindow(QWidget* parent = nullptr);
+  ~MainWindow() override;
+
+  void SetUp();
 
  public slots:
   void ChangeWidget();
@@ -32,6 +34,8 @@ class MainWindow : public QMainWindow {
 
   void AnimateLoading();
   void SetGamePage();
+
+  void resizeEvent(QResizeEvent* event) override;
 };
 
 #endif  // MAINWINDOW_H

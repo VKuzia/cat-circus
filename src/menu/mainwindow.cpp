@@ -1,13 +1,14 @@
 #include "mainwindow.h"
 
+#include <QResizeEvent>
 #include <QStackedLayout>
 
+#include "src/game/gameobject.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui_(new Ui::MainWindow) {
   ui_->setupUi(this);
-  this->setFixedSize(width, height);
   connect(ui_->ui_settings_widget_, &SettingsWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
 
@@ -16,6 +17,9 @@ MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
 
   connect(ui_->ui_game_widget_, &GameWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
+
+  connect(ui_->ui_settings_widget_, &SettingsWidget::ResolutionChanged, this,
+          &MainWindow::SetUp);
 
   dynamic_cast<QStackedLayout*>(ui_->ui_base_stacked_widget_->layout())
       ->setStackingMode(QStackedLayout::StackingMode::StackAll);
@@ -28,6 +32,8 @@ MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
 
   ui_->ui_background_label_->setMovie(new QMovie(kPathToBackground_));
   ui_->ui_background_label_->movie()->start();
+
+  GameObject::GetPixmapLoader()->PreloadPixmaps();
 }
 
 void MainWindow::ChangeToMainMenu() {
@@ -65,6 +71,13 @@ void MainWindow::SetGamePage() {
   }
 }
 
+void MainWindow::resizeEvent(QResizeEvent* event) {
+  ui_->ui_exit_button_->Resize(event);
+  ui_->ui_play_button_->Resize(event);
+  ui_->ui_settings_button_->Resize(event);
+  ui_->ui_about_button_->Resize(event);
+}
+
 void MainWindow::ChangeWidget() {
   if (widget_to_change_to_ == ui_->ui_game_widget_) {
     ui_->ui_background_label_->movie()->setPaused(true);
@@ -78,3 +91,11 @@ void MainWindow::ChangeWidget() {
 }
 
 MainWindow::~MainWindow() { delete ui_; }
+
+void MainWindow::SetUp() {
+  QSize resolution = ui_->ui_settings_widget_->GetResolution();
+  this->setFixedSize(resolution);
+  ui_->ui_game_widget_->SetResolution(resolution);
+
+  ui_->ui_background_label_->movie()->setScaledSize(resolution);
+}
