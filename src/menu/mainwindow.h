@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "audio.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -27,6 +29,7 @@ class MainWindow : public QMainWindow {
  private:
   Ui::MainWindow* ui_;
   QWidget* widget_to_change_to_ = nullptr;
+  Audio* audio_;
 
   void AnimateLoading();
   void SetGamePage();

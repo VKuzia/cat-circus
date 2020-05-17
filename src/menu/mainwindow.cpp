@@ -7,6 +7,7 @@
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui_(new Ui::MainWindow) {
+  audio_ = new Audio;
   ui_->setupUi(this);
   connect(ui_->ui_settings_widget_, &SettingsWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui_->ui_loading_page_, &LoadingWidget::AnimationFinished, this,
           &MainWindow::SetGamePage);
 
+  audio_->PlayMusic();
   GameObject::GetPixmapLoader()->PreloadPixmaps();
 }
 
