@@ -1,6 +1,5 @@
 #include "scorepage.h"
 
-#include <QDebug>
 #include <QDir>
 
 #include "ui_scorepage.h"
