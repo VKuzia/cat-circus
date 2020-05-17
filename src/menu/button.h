@@ -14,13 +14,12 @@ class Button : public QPushButton {
   ~Button() override = default;
 
  private:
-  const int32_t kMouseOverDuration_ = 150;
-  const qreal kMouseOverScaleFactor_ = 1.15;
+  const int32_t kMouseHoverAnimationDuration_ = 150;
+  const qreal kMouseHoverScaleFactor_ = 1.15;
 
   QPropertyAnimation hover_animation_;
   QSize last_size_;
   qreal animation_progress_ = 0;
-  bool is_mouse_over_ = false;
 
   void enterEvent(QEvent*) override;
   void leaveEvent(QEvent*) override;
