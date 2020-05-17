@@ -17,7 +17,10 @@ class GameWidget : public QWidget {
   ~GameWidget() override;
 
   void SetUp();
+
   void Start();
+
+  void SetResolution(QSize resolution);
 
  signals:
   void MainMenu();
@@ -33,8 +36,6 @@ class GameWidget : public QWidget {
   const qreal kStartDifficulty_ = 0.1;
 
   qreal current_difficulty_ = kStartDifficulty_;
-  int32_t width_ = 1024;
-  int32_t height_ = 576;
   Ui::GameWidget* ui_;
   Minigame* current_minigame_ = nullptr;
 

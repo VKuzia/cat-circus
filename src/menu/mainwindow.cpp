@@ -5,16 +5,17 @@
 #include "src/game/gameobject.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(int32_t width, int32_t height, QWidget* parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui_(new Ui::MainWindow) {
   ui_->setupUi(this);
-  this->setFixedSize(width, height);
   connect(ui_->ui_settings_widget_, &SettingsWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
   connect(ui_->ui_about_widget_, &AboutWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
   connect(ui_->ui_game_widget_, &GameWidget::MainMenu, this,
           &MainWindow::ChangeToMainMenu);
+  connect(ui_->ui_settings_widget_, &SettingsWidget::ResolutionChanged, this,
+          &MainWindow::SetUp);
   dynamic_cast<QStackedLayout*>(ui_->ui_base_stacked_widget_->layout())
       ->setStackingMode(QStackedLayout::StackingMode::StackAll);
   ui_->ui_loading_page_->SetUp();
@@ -66,3 +67,9 @@ void MainWindow::ChangeWidget() {
 }
 
 MainWindow::~MainWindow() { delete ui_; }
+
+void MainWindow::SetUp() {
+    this->setFixedSize(ui_->ui_settings_widget_->GetResolution());
+    ui_->ui_game_widget_->SetResolution(
+                ui_->ui_settings_widget_->GetResolution());
+}

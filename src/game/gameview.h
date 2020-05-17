@@ -13,7 +13,7 @@ class GameView : public QGraphicsView {
   explicit GameView(QWidget* parent = nullptr);
   ~GameView() override = default;
 
-  void SetUp(int32_t width, int32_t height);
+  void SetUp(QSize resolution);
 
   void SetMinigame(Minigame* current_minigame);
 

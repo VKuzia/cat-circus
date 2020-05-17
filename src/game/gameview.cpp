@@ -8,13 +8,14 @@ GameView::GameView(QWidget* parent) : QGraphicsView(parent) {
   this->setScene(new QGraphicsScene(this));
 }
 
-void GameView::SetUp(int32_t width, int32_t height) {
-  this->setFixedSize(width, height);
+void GameView::SetUp(QSize resolution) {
+  this->setFixedSize(resolution);
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
   this->setOptimizationFlags(DontSavePainterState);
   this->setCacheMode(CacheBackground);
-  this->scene()->setSceneRect(-width / 2, -height / 2, width, height);
+  this->scene()->setSceneRect(-resolution.width() / 2, -resolution.height() / 2,
+                              resolution.width(), resolution.height());
 }
 
 void GameView::mousePressEvent(QMouseEvent* event) {
@@ -64,7 +65,7 @@ void GameView::SetPixelsInMeter(qreal pixels_in_meter) {
   pixels_in_meter_ = pixels_in_meter;
 }
 
-qreal GameView::GetPixelsInMeter() const { return pixels_in_meter_; }
+qreal GameView::GetPixelsInMeter() const {return pixels_in_meter_;}
 
 QString GameView::GetPathToMinigameImages() const {
   return kPathToMinigameImages_;
