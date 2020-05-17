@@ -205,10 +205,22 @@
        </item>
        <item>
         <widget class="QStackedWidget" name="ui_stacked_button_widget_">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="lineWidth">
           <number>0</number>
          </property>
          <widget class="QWidget" name="ui_pause_button_page_">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <property name="spacing">
             <number>0</number>
@@ -228,7 +240,7 @@
            <item>
             <widget class="Button" name="ui_pause_button_">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -249,6 +261,12 @@
           </layout>
          </widget>
          <widget class="QWidget" name="ui_main_menu_button_page_">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <property name="spacing">
             <number>0</number>
@@ -268,7 +286,7 @@
            <item>
             <widget class="Button" name="ui_main_menu_button_">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
