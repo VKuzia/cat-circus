@@ -6,12 +6,12 @@
 #include "src/game/minigames/cannon/cannonmimigame.h"
 #include "src/game/minigames/juggling/jugglingminigame.h"
 #include "src/game/minigames/test/testminigame.h"
+#include "src/game/minigames/trampoline/trampolineminigame.h"
 #include "ui_gamewidget.h"
 
 GameWidget::GameWidget(QWidget* parent)
     : QWidget(parent), ui_(new Ui::GameWidget) {
   ui_->setupUi(this);
-  ui_->ui_game_view_->SetUp(width_, height_);
 
   connect(ui_->ui_score_page_, &ScorePage::Expired, this,
           &GameWidget::StartMinigame);
@@ -23,6 +23,11 @@ GameWidget::GameWidget(QWidget* parent)
   connect(ui_->ui_pause_page_, &PausePage::MainMenu, this,
           &GameWidget::ReturnToMainMenu);
   connect(ui_->ui_pause_page_, &PausePage::Resume, this, &GameWidget::Resume);
+
+  connect(ui_->ui_game_view_, &GameView::MinigamePassed, this,
+          &GameWidget::MinigamePassed);
+  connect(ui_->ui_game_view_, &GameView::MinigameFailed, this,
+          &GameWidget::MinigameFailed);
 }
 
 void GameWidget::ReturnToMainMenu() {
@@ -54,10 +59,6 @@ void GameWidget::StartMinigame() {
     return;
   }
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_game_page_);
-  connect(current_minigame_, &Minigame::Passed, this,
-          &GameWidget::MinigamePassed);
-  connect(current_minigame_, &Minigame::Failed, this,
-          &GameWidget::MinigameFailed);
   current_minigame_->Start();
 }
 
@@ -103,6 +104,11 @@ void GameWidget::SetUp() {
   ui_->ui_score_page_->SetUp();
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
   InitMinigame();
+}
+
+void GameWidget::SetResolution(QSize resolution) {
+  ui_->ui_game_view_->SetUp(resolution);
+  ui_->ui_score_page_->SetResolution(resolution);
 }
 
 void GameWidget::Start() { ui_->ui_score_page_->Animate(); }

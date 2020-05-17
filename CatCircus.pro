@@ -39,6 +39,11 @@ SOURCES += \
         src/game/minigames/juggling/jugglingcat.cpp \
         src/game/minigames/juggling/jugglinghand.cpp \
         src/game/minigames/juggling/jugglingminigame.cpp \
+        src/game/minigames/trampoline/trampoline.cpp \
+        src/game/minigames/trampoline/trampolinecat.cpp \
+        src/game/minigames/trampoline/trampolineminigame.cpp \
+        src/game/minigames/trampoline/trampolinepath.cpp \
+        src/game/minigames/trampoline/trampolinetile.cpp \
         src/game/minigames/test/clickableball.cpp \
         src/game/minigames/test/testminigame.cpp \
         src/game/pausepage.cpp \
@@ -68,6 +73,12 @@ HEADERS += \
         src/game/minigames/juggling/jugglingcat.h \
         src/game/minigames/juggling/jugglinghand.h \
         src/game/minigames/juggling/jugglingminigame.h \
+        src/game/minigamestatus.h \
+        src/game/minigames/trampoline/trampoline.h \
+        src/game/minigames/trampoline/trampolinecat.h \
+        src/game/minigames/trampoline/trampolineminigame.h \
+        src/game/minigames/trampoline/trampolinepath.h \
+        src/game/minigames/trampoline/trampolinetile.h \
         src/game/minigames/test/clickableball.h \
         src/game/minigames/test/testminigame.h \
         src/game/pausepage.h \

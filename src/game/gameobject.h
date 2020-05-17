@@ -17,12 +17,15 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   GameObject(GameView* game_view, qreal width, qreal height, qreal x = 0,
              qreal y = 0);
   GameObject(GameView* game_view, qreal width, qreal height, QPointF pos);
+  GameObject(GameView* game_view, QSizeF size, qreal x, qreal y);
   GameObject(GameView* game_view, QSizeF size, QPointF pos);
   ~GameObject() override = default;
 
   virtual void SetUp();
 
   virtual void Update();
+
+  QPixmap GetPixmapFrom(const QString& short_path);
 
   void AddVelocity(qreal x, qreal y);
   void AddVelocity(Vector2D rhs);
@@ -41,10 +44,20 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   QPointF GetPos() const;
   void SetPos(QPointF pos);
 
+  qreal GetWidth() const;
+  qreal GetHeight() const;
+
+  qreal Top() const;
+  qreal Bottom() const;
+  qreal Left() const;
+  qreal Right() const;
+
   void MoveByMeters(qreal x, qreal y);
   void MoveByMeters(Vector2D shift);
 
   static QPixmap LoadPixmap(const QString& short_path, QSize size);
+
+  static const PixmapLoader* GetPixmapLoader();
 
  protected:
   // Represents 60 frames a second refresh time
@@ -56,7 +69,6 @@ class GameObject : public QObject, public QGraphicsPixmapItem {
   QSizeF size_;
   QPointF pos_;
   Vector2D velocity_ = {0, 0};
-
   QPixmap LoadPixmap(const QString& short_path) const;
 
  private:

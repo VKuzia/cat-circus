@@ -7,8 +7,9 @@
 class BackgroundObject : public QGraphicsPixmapItem {
  public:
   BackgroundObject() = default;
-  void SetUp(GameView* game_view, const QString& path_to_image);
   ~BackgroundObject() = default;
+
+  void SetUp(GameView* game_view, const QString& short_path);
 };
 
 #endif  // BACKGROUNDOBJECT_H

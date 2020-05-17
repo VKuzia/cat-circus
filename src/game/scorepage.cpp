@@ -1,5 +1,7 @@
 #include "scorepage.h"
 
+#include <QDir>
+
 #include "ui_scorepage.h"
 
 ScorePage::ScorePage(QWidget* parent)
@@ -38,9 +40,8 @@ void ScorePage::SetUp() {
   ui_->ui_stacked_button_widget_->setCurrentWidget(ui_->ui_pause_button_page_);
   ui_->ui_retry_button_->setVisible(false);
 
-  life_size_.setWidth(qRound(ui_->ui_lives_view_->width() * kLiveScaleXFactor));
-  life_size_.setHeight(
-      qRound(ui_->ui_lives_view_->height() * kLiveScaleYFactor));
+  life_size_.setWidth(qRound(resolution_.width() * kLiveSizeScale_.width()));
+  life_size_.setHeight(qRound(resolution_.height() * kLiveSizeScale_.height()));
   life_movie_.setScaledSize(life_size_);
   life_disappear_movie_.setScaledSize(life_size_);
   life_disappear_movie_.setSpeed(kLifeDisappearSpeed);
@@ -112,29 +113,28 @@ void ScorePage::ReturnToMainMenu() { emit MainMenu(); }
 
 void ScorePage::SetUpLives() {
   remaining_lives_ = kLivesCount;
-  // If just started -- create lives, update them with start frame otherwise
+  // If just started -- create lives, update their positions and pixmaps further
   if (lives_.empty()) {
-    for (int32_t i = -remaining_lives_ / 2; i <= (remaining_lives_ - 1) / 2;
-         i++) {
-      QGraphicsPixmapItem* new_life = GetNewLife(i);
+    for (int32_t i = -kLivesCount / 2; i <= (kLivesCount - 1) / 2; i++) {
+      QGraphicsPixmapItem* new_life = new QGraphicsPixmapItem();
       ui_->ui_lives_view_->scene()->addItem(new_life);
       lives_.push_back(new_life);
     }
-  } else {
-    life_movie_.jumpToFrame(0);
-    for (auto life : lives_) {
-      life->setPixmap(life_movie_.currentPixmap());
-    }
+  }
+  life_movie_.jumpToFrame(0);
+  for (int32_t i = 0; i < lives_.size(); i++) {
+    UpdateLife(i);
+    lives_[i]->setPixmap(life_movie_.currentPixmap());
   }
 }
 
-QGraphicsPixmapItem* ScorePage::GetNewLife(int32_t index) const {
-  QGraphicsPixmapItem* new_life = new QGraphicsPixmapItem();
-  qreal x = index * (life_size_.width() * (kLifeIntervalXFactor + 1));
+void ScorePage::UpdateLife(int32_t index) {
+  // Shift lives indices to the left to center them
+  int32_t layout_index = index - kLivesCount / 2;
+  qreal x = layout_index * (life_size_.width() * (kLifeIntervalXFactor + 1));
   qreal y = 0;
-  new_life->setOffset(-life_size_.width() / 2, -life_size_.height() / 2);
-  new_life->setPos(x, y);
-  return new_life;
+  lives_[index]->setOffset(-life_size_.width() / 2, -life_size_.height() / 2);
+  lives_[index]->setPos(x, y);
 }
 
 void ScorePage::RemoveLife() {
@@ -177,3 +177,5 @@ void ScorePage::SetScore(int32_t score) {
 }
 
 int32_t ScorePage::GetScore() const { return score_; }
+
+void ScorePage::SetResolution(QSize resolution) { resolution_ = resolution; }
