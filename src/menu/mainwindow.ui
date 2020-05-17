@@ -65,6 +65,17 @@
       <property name="lineWidth">
        <number>0</number>
       </property>
+      <widget class="LoadingWidget" name="ui_loading_page_">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+      </widget>
       <widget class="QWidget" name="ui_game_page_">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="spacing">
@@ -435,7 +446,35 @@ BEST SCORE]</string>
         </item>
        </layout>
       </widget>
-      <widget class="LoadingWidget" name="ui_loading_page_"/>
+      <widget class="QWidget" name="ui_background_page_">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(163, 55, 43);</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="ui_background_label_">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
