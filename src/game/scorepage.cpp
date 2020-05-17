@@ -115,8 +115,7 @@ void ScorePage::SetUpLives() {
   remaining_lives_ = kLivesCount;
   // If just started -- create lives, update their positions and pixmaps further
   if (lives_.empty()) {
-    for (int32_t i = -remaining_lives_ / 2; i <= (remaining_lives_ - 1) / 2;
-         i++) {
+    for (int32_t i = -kLivesCount / 2; i <= (kLivesCount - 1) / 2; i++) {
       QGraphicsPixmapItem* new_life = new QGraphicsPixmapItem();
       ui_->ui_lives_view_->scene()->addItem(new_life);
       lives_.push_back(new_life);
@@ -130,8 +129,8 @@ void ScorePage::SetUpLives() {
 }
 
 void ScorePage::UpdateLife(int32_t index) {
-  // Shift lives indecies to the left to center them
-  int32_t layout_index = index - remaining_lives_ / 2;
+  // Shift lives indices to the left to center them
+  int32_t layout_index = index - kLivesCount / 2;
   qreal x = layout_index * (life_size_.width() * (kLifeIntervalXFactor + 1));
   qreal y = 0;
   lives_[index]->setOffset(-life_size_.width() / 2, -life_size_.height() / 2);

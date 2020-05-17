@@ -18,8 +18,8 @@ Minigame::~Minigame() {
 
 void Minigame::Init() {
   game_view_->SetPixelsInMeter(pixels_in_meter_);
-  width_ = (game_view_->width() / game_view_->GetPixelsInMeter());
-  height_ = (game_view_->height() / game_view_->GetPixelsInMeter());
+  width_ = game_view_->width() / game_view_->GetPixelsInMeter();
+  height_ = game_view_->height() / game_view_->GetPixelsInMeter();
 
   // Timebar needs game_view_ to know pixels in meter
   time_bar_ = new TimeBar(game_view_, width_, height_ * kTimeBarHeightFactor, 0,
