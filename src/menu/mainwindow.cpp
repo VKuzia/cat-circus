@@ -75,8 +75,8 @@ void MainWindow::SetUp() {
   ui_->ui_game_widget_->SetResolution(resolution);
 
   QScreen* screen = QGuiApplication::primaryScreen();
-  // If resolution matches screen size, go fullscreen,
-  // return titlebar otherwise
+  // If resolution matches screen size go fullscreen,
+  // show titlebar otherwise
   if (resolution == screen->geometry().size()) {
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setGeometry(0, 0, size().width(), size().height());
