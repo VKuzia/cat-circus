@@ -46,8 +46,8 @@ class Minigame : public QObject {
 
   int32_t time_ = 0;
   int32_t score_ = 0;
-  qreal width_;
-  qreal height_;
+  qreal width_ = 0;
+  qreal height_ = 0;
 
   TimeBar* time_bar_ = nullptr;
   QGraphicsTextItem* tutorial_label_;
