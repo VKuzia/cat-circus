@@ -11,7 +11,6 @@
 GameWidget::GameWidget(QWidget* parent)
     : QWidget(parent), ui_(new Ui::GameWidget) {
   ui_->setupUi(this);
-  ui_->ui_game_view_->SetUp(width_, height_);
 
   connect(ui_->ui_score_page_, &ScorePage::Expired, this,
           &GameWidget::StartMinigame);
@@ -103,6 +102,10 @@ void GameWidget::SetUp() {
   ui_->ui_score_page_->SetUp();
   ui_->ui_stacked_widget_->setCurrentWidget(ui_->ui_score_page_);
   InitMinigame();
+}
+
+void GameWidget::SetResolution(QSize resolution) {
+    ui_->ui_game_view_->SetUp(resolution);
 }
 
 void GameWidget::Start() { ui_->ui_score_page_->Animate(); }
