@@ -98,8 +98,6 @@ void TrampolineMinigame::StartGame() {
   tick_timer_.start();
 }
 
-void TrampolineMinigame::AnimateOutro() {}
-
 void TrampolineMinigame::Tick() {
   if (!cat_->IsMoving()) {
     return;
@@ -120,7 +118,8 @@ void TrampolineMinigame::Tick() {
         PrepareTiles();
         if (is_failed_) {
           QTimer::singleShot(kFailFlyAwayTime_, this,
-                             [this] { Stop(Status::kFail); });
+                             [this] { Stop(MinigameStatus::kFailed); });
+
           cat_->SetVelocity(physics::Throw(cat_->GetPos(), kFailAimPoint_,
                                            kFailFlyAwayTime_ / 1000.0));
         } else {
@@ -152,7 +151,7 @@ void TrampolineMinigame::SetTilesVisible(bool visible) {
 
 void TrampolineMinigame::StartFlip() {
   if (flip_count_ == 0) {
-    Stop(Status::kPass);
+    Stop(MinigameStatus::kPassed);
     return;
   }
   SetTilesVisible(true);
@@ -210,32 +209,17 @@ void TrampolineMinigame::FinishFlip() {
   }
 }
 
-void TrampolineMinigame::Stop(Status status) {
+void TrampolineMinigame::Stop(MinigameStatus status) {
   is_running_ = false;
   tick_timer_.stop();
-  if (status == Status::kPass) {
-    score_ = 100;
-    Win();
+  switch (status) {
+    case MinigameStatus::kPassed:
+      score_ = 100;
+      Win();
+      break;
+    case MinigameStatus::kFailed:
+      Lose();
   }
-  if (status == Status::kFail) {
-    Lose();
-  }
-}
-
-void TrampolineMinigame::Win() {
-  game_view_->scene()->setBackgroundBrush(kWinBackgroundBrush_);
-  QTimer::singleShot(kOutroDuration, this, [this] {
-    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush_);
-    emit Passed(score_);
-  });
-}
-
-void TrampolineMinigame::Lose() {
-  game_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush_);
-  QTimer::singleShot(kOutroDuration, this, [this] {
-    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush_);
-    emit Failed();
-  });
 }
 
 void TrampolineMinigame::MousePressEvent(QMouseEvent* event) {

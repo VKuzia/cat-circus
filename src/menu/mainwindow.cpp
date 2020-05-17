@@ -69,7 +69,7 @@ void MainWindow::ChangeWidget() {
 MainWindow::~MainWindow() { delete ui_; }
 
 void MainWindow::SetUp() {
-    this->setFixedSize(ui_->ui_settings_widget_->GetResolution());
-    ui_->ui_game_widget_->SetResolution(
-                ui_->ui_settings_widget_->GetResolution());
+  QSize resolution = ui_->ui_settings_widget_->GetResolution();
+  this->setFixedSize(resolution);
+  ui_->ui_game_widget_->SetResolution(resolution);
 }
