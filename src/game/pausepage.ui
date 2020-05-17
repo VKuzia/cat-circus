@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="8,10,6,9">
    <property name="sizeConstraint">
-    <enum>QLayout::SetNoConstraint</enum>
+    <enum>QLayout::SetDefaultConstraint</enum>
    </property>
    <item>
     <spacer name="verticalSpacer_2">
@@ -70,7 +70,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,2,1">
      <property name="sizeConstraint">
-      <enum>QLayout::SetNoConstraint</enum>
+      <enum>QLayout::SetDefaultConstraint</enum>
      </property>
      <item>
       <spacer name="verticalSpacer">
@@ -91,7 +91,7 @@
         <number>0</number>
        </property>
        <property name="sizeConstraint">
-        <enum>QLayout::SetNoConstraint</enum>
+        <enum>QLayout::SetDefaultConstraint</enum>
        </property>
        <item>
         <spacer name="horizontalSpacer">

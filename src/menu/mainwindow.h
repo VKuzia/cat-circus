@@ -12,7 +12,7 @@ class MainWindow : public QMainWindow {
 
  public:
   explicit MainWindow(QWidget* parent = nullptr);
-  ~MainWindow();
+  ~MainWindow() override;
 
   void SetUp();
 
@@ -30,6 +30,8 @@ class MainWindow : public QMainWindow {
 
   void AnimateLoading();
   void SetGamePage();
+
+  void resizeEvent(QResizeEvent* event) override;
 };
 
 #endif  // MAINWINDOW_H

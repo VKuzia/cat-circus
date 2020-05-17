@@ -81,6 +81,8 @@ class ScorePage : public QWidget {
 
   void SetScore(int32_t score);
   int32_t GetScore() const;
+
+  void resizeEvent(QResizeEvent* event) override;
 };
 
 #endif  // POINTSPAGE_H

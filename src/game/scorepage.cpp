@@ -1,6 +1,7 @@
 #include "scorepage.h"
 
 #include <QDir>
+#include <QResizeEvent>
 
 #include "ui_scorepage.h"
 
@@ -179,3 +180,13 @@ void ScorePage::SetScore(int32_t score) {
 int32_t ScorePage::GetScore() const { return score_; }
 
 void ScorePage::SetResolution(QSize resolution) { resolution_ = resolution; }
+
+void ScorePage::resizeEvent(QResizeEvent* event) {
+  qreal scale = event->size().width() * 1.0 / event->oldSize().width();
+  if (scale < 0.1) {
+    return;
+  }
+  ui_->ui_main_menu_button_->Resize(scale);
+  ui_->ui_pause_button_->Resize(scale);
+  ui_->ui_retry_button_->Resize(scale);
+}

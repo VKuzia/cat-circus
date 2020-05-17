@@ -8,6 +8,8 @@ Button::Button(QWidget* parent) : QPushButton(parent), hover_animation_(this) {
   hover_animation_.setEndValue(1);
 }
 
+void Button::Resize(qreal scale) { setFixedSize(size() * scale); }
+
 void Button::enterEvent(QEvent*) {
   if (hover_animation_.state() == QPropertyAnimation::State::Running) {
     hover_animation_.pause();

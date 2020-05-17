@@ -13,6 +13,8 @@ class Button : public QPushButton {
   explicit Button(QWidget* parent = nullptr);
   ~Button() override = default;
 
+  void Resize(qreal scale);
+
  private:
   const int32_t kMouseHoverAnimationDuration_ = 150;
   const qreal kMouseHoverScaleFactor_ = 1.15;
