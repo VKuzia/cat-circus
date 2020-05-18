@@ -39,7 +39,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>[ABOUT TEXT]</string>
+      <string>ABOUT THE GAME</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -54,6 +54,15 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: transparent;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -62,11 +71,40 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1004</width>
-        <height>268</height>
+        <width>1006</width>
+        <height>270</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+      <property name="styleSheet">
+       <string notr="true">background-color: transparent;</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="ui_about_label_text_">
+         <property name="text">
+          <string>This game was made by a team of BSU students as an educational project.
+ Everybody loves cats and we are not the exception,
+ so we tried to create something funny and relaxing. Thanks for playing it, stranger :)
+
+ Authors:
+
+ Vladimir Kuzmitski
+Artyom Stasukevich
+Anton Suravezhkin
+Maria Burykina </string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::AutoText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::NoTextInteraction</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

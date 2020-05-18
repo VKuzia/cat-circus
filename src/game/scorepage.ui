@@ -47,6 +47,12 @@
    </item>
    <item>
     <widget class="QLabel" name="ui_label_">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="font">
       <font>
        <family>Verdana</family>
@@ -56,7 +62,7 @@
       </font>
      </property>
      <property name="text">
-      <string>[WELCOME PHRASE]</string>
+      <string>Score</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

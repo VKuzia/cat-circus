@@ -155,7 +155,7 @@
                </spacer>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="mainVLayout" stretch="8,3,12">
+               <layout class="QVBoxLayout" name="mainVLayout" stretch="10,3,1,12">
                 <property name="spacing">
                  <number>20</number>
                 </property>
@@ -171,7 +171,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>[GAME NAME]</string>
+                   <string>Cat Circus</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -187,13 +187,25 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>[HELLO [PLAYER]
-BEST SCORE]</string>
+                   <string>Hello, Player!</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item>
                  <layout class="QVBoxLayout" name="button_layout_" stretch="3,3,3,2">
