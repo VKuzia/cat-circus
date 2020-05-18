@@ -2,9 +2,9 @@
 
 TrampolineCat::TrampolineCat(GameView* game_view, QSizeF size, QPointF pos)
     : GameObject(game_view, size, pos),
-      kPixmapNormal_(LoadPixmap("trampoline/cat_normal.png")),
-      kPixmapHappy_(LoadPixmap("trampoline/cat_happy.png")),
-      kPixmapSad_(LoadPixmap("trampoline/cat_sad.png")) {}
+      kPixmapNormal_(LoadPixmap("trampoline/cat_normal.png", true)),
+      kPixmapHappy_(LoadPixmap("trampoline/cat_happy.png", true)),
+      kPixmapSad_(LoadPixmap("trampoline/cat_sad.png", true)) {}
 
 void TrampolineCat::SetUp() {
   setPixmap(kPixmapNormal_);

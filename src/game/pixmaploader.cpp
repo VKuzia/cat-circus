@@ -2,13 +2,21 @@
 
 #include <QBitmap>
 
-QPixmap PixmapLoader::GetPixmap(const QString& short_path, QSize size) const {
+QPixmap PixmapLoader::GetPixmap(const QString& short_path, QSize size,
+                                bool mask) const {
   if (pixmaps_.contains(short_path)) {
-    return pixmaps_[short_path].scaled(size);
+    QPixmap pixmap = pixmaps_[short_path].scaled(size);
+    if (mask) {
+      pixmap.setMask(pixmap.createHeuristicMask());
+    }
+    return pixmap;
   }
   QPixmap new_pixmap = QPixmap(kPathToImages_ + short_path);
-  new_pixmap.setMask(new_pixmap.createHeuristicMask());
   pixmaps_.insert(short_path, new_pixmap);
+
+  if (mask) {
+    new_pixmap.setMask(new_pixmap.createHeuristicMask());
+  }
   return new_pixmap.scaled(size);
 }
 
@@ -20,7 +28,6 @@ void PixmapLoader::PreloadPixmaps() const {
         minigame_dir.entryList(QStringList() << "*.png", QDir::Files);
     for (auto file_name : file_names) {
       QPixmap pixmap(kPathToImages_ + "/" + folder_name + "/" + file_name);
-      pixmap.setMask(pixmap.createHeuristicMask());
       pixmaps_.insert(folder_name + "/" + file_name, pixmap);
     }
   }

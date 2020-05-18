@@ -32,8 +32,6 @@ class GameWidget : public QWidget {
   void Retry();
 
  private:
-  enum class MinigameType { kJuggling, kTrampoline, kPlate, kCannon };
-
   const qreal kDifficultyPower = 0.9;
   const qreal kStartDifficulty_ = 0.1;
 
