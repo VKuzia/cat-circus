@@ -12,28 +12,25 @@ class Audio {
   Audio();
   ~Audio() = default;
 
- signals:
-  void MenuSongFinished();
+  static void Mute(bool value);
+
+  static void PreLoadMenuSongs();
+  static void PreLoadGameSongs();
 
  public slots:
-  static void PlayMusic();
+  static void PlayMenuMusic();
+  static void PlayGameMusic();
   static void PlayMusic(QString content);
   static void PlaySound();
   static void PlaySound(QString content);
 
-  static void SwitchMusic();
   static void SetVolume(int volume);
 
   static void StopMusic();
   static void StopSound();
 
-  static void Mute(bool value);
-
   static void PauseMusic();
   static void PauseSound();
-
-  static void PreLoadMenuSongs();
-  static void PreLoadGameSongs();
 
  private:
   static QString kPathToAudio_;

@@ -7,22 +7,21 @@ bool Audio::unmuted_ = true;
 
 QMediaPlaylist Audio::menu_songs_;
 QMediaPlaylist Audio::game_songs_;
-//QMap<QString, QMediaContent> Audio::sounds_;
-//QMap<QString, QMediaContent> Audio::musics_;
 
 Audio::Audio() {}
 
-void Audio::PlayMusic() {
-//    music_player_.setPlaylist(sounds_);
-
-//    music_player_.setMedia(QUrl::fromLocalFile(
-//                                kPathToAudio + "music/menu_music.wav"));
-//    QMediaContent content = QMediaContent(
-//                QUrl::fromLocalFile(kPathToAudio_ + "music/menu_music.wav"));
-//    music_player_.setMedia(content);
-//    music_player_.play();
+void Audio::PlayMenuMusic() {
     if (unmuted_) {
+        music_player_.stop();
         music_player_.setPlaylist(&menu_songs_);
+        music_player_.play();
+    }
+}
+
+void Audio::PlayGameMusic() {
+    if (unmuted_) {
+        music_player_.stop();
+        music_player_.setPlaylist(&game_songs_);
         music_player_.play();
     }
 }
@@ -39,7 +38,8 @@ void Audio::PlayMusic(QString content) {
 void Audio::PlaySound() {
     if (unmuted_) {
         sound_player_.setMedia(
-                    QUrl::fromLocalFile(kPathToAudio_ + "sound/life_lose.mp3"));
+                    QUrl::fromLocalFile(
+                        kPathToAudio_ + "sound/life_lose.mp3"));
         sound_player_.play();
     }
 }
@@ -50,10 +50,6 @@ void Audio::PlaySound(QString content) {
                    QUrl::fromLocalFile(kPathToAudio_ + "sound/" + content));
         sound_player_.play();
     }
-}
-
-void Audio::SwitchMusic() {
-
 }
 
 void Audio::SetVolume(int volume) {
@@ -85,8 +81,9 @@ void Audio::PreLoadMenuSongs() {
     QStringList content_names = QDir(
                 kPathToAudio_ + "music/menu_songs/").entryList(QDir::Files);
     for (auto content_name : content_names) {
-        menu_songs_.addMedia(QUrl::fromLocalFile(
-                                  kPathToAudio_ + "music/menu_songs/" + content_name));
+        menu_songs_.addMedia(
+                    QUrl::fromLocalFile(
+                        kPathToAudio_ + "music/menu_songs/" + content_name));
     }
     menu_songs_.setPlaybackMode(QMediaPlaylist::Loop);
 }
@@ -95,9 +92,9 @@ void Audio::PreLoadGameSongs() {
     QStringList content_names = QDir(
                 kPathToAudio_ + "music/game_songs/").entryList(QDir::Files);
     for (auto content_name : content_names) {
-        game_songs_.addMedia(QUrl::fromLocalFile(
-                                  kPathToAudio_ + "music/game_songs/" + content_name));
+        game_songs_.addMedia(
+                    QUrl::fromLocalFile(
+                        kPathToAudio_ + "music/game_songs/" + content_name));
     }
-    game_songs_.setCurrentIndex(0);
     game_songs_.setPlaybackMode(QMediaPlaylist::Loop);
 }

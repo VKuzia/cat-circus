@@ -46,6 +46,7 @@ void MainWindow::ChangeToSettings() {
 
 void MainWindow::ChangeToAbout() {
   widget_to_change_to_ = ui_->ui_about_widget_;
+  Audio::PlaySound("life_lose.mp3");
   AnimateLoading();
 }
 
