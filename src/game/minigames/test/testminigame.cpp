@@ -98,7 +98,7 @@ void TestMinigame::Stop(MinigameStatus status) {
   time_bar_->setVisible(false);
   switch (status) {
     case MinigameStatus::kPassed:
-      score_ = 100 + time_left_ * 10 / timer_.interval();
+      score_ = 100 + time_left_ * 10 / (timer_.interval() + 1);
       Win();
       break;
     case MinigameStatus::kFailed:

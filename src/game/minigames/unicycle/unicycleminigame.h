@@ -24,14 +24,14 @@ class UnicycleMinigame : public Minigame {
   const QBrush kWinBackgroundBrush_ = QBrush(QColor::fromRgb(10, 200, 10));
   const QBrush kLoseBackgroundBrush_ = QBrush(QColor::fromRgb(191, 8, 8));
 
-  const QPointF kCatStartPos_ = {-2.5, 1};
+  const QPointF kCatStartPos_ = {-2.8, 1};
   const QSizeF kCatSize_ = {0.6, 1.5};
-  const qreal kCatGoalX_ = 3;
+  const qreal kCatGoalX_ = 3.4;
 
-  const QPointF kGratePos_ = {2.5, 0};
+  const QPointF kGratePos_ = {3, 0.5};
   const QSizeF kGrateSize_ = {0.5, 3};
 
-  const QPointF kTigerStartPos_ = {-4.0, 1};
+  const QPointF kTigerStartPos_ = {-4.5, 1};
   const QSizeF kTigerSize_ = {2, 1.5};
 
   UnicycleCat* cat_ = nullptr;
@@ -47,13 +47,10 @@ class UnicycleMinigame : public Minigame {
 
   void AnimateTutorial() override;
   void StartGame() override;
-  void AnimateOutro() override;
 
   void Tick() override;
 
-  void Stop(Status) override;
-  void Win() override;
-  void Lose() override;
+  void Stop(MinigameStatus) override;
 };
 
 #endif  // UNICYCLEMINIGAME_H
