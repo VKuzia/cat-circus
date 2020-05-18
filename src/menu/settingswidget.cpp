@@ -63,35 +63,34 @@ void SettingsWidget::Save() const {
 }
 
 void SettingsWidget::Load() {
-    bool is_apply_default = false;
-    QFile file(kPathToSettings + "settings.txt");
+  bool is_apply_default = false;
+  QFile file(kPathToSettings + "settings.txt");
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::warning(
-            nullptr, "Warning",
-            "Settings file was not found. Default settings were applied.\n");
-        Save();
-        return;
-    }
-    QTextStream load(&file);
-    load.setCodec("UTF-8");
+  if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    QMessageBox::warning(
+        nullptr, "Warning",
+        "Settings file was not found. Default settings were applied.\n");
+    Save();
+    return;
+  }
+  QTextStream load(&file);
+  load.setCodec("UTF-8");
 
-    volume_on_ = load.readLine().toInt() == 1;
-    ui_->ui_sound_check_box_->setChecked(volume_on_);
-    Audio::Mute(volume_on_);
-    Audio::PlayMenuMusic();
+  volume_on_ = load.readLine().toInt() == 1;
+  ui_->ui_sound_check_box_->setChecked(volume_on_);
+  Audio::Mute(volume_on_);
 
-    int volume = load.readLine().toInt();
-    if (volume >= ui_->ui_volume_->minimum() &&
-        volume <= ui_->ui_volume_->maximum()) {
-        volume_ = volume;
-        ui_->ui_volume_->setValue(volume_);
-        Audio::SetVolume(volume_);
-    } else {
-        QMessageBox::warning(nullptr, "Warning",
-                        "Invalid volume. Default volume was applied.\n");
-        is_apply_default = true;
-    }
+  int volume = load.readLine().toInt();
+  if (volume >= ui_->ui_volume_->minimum() &&
+      volume <= ui_->ui_volume_->maximum()) {
+    volume_ = volume;
+    ui_->ui_volume_->setValue(volume_);
+    Audio::SetVolume(volume_);
+  } else {
+    QMessageBox::warning(nullptr, "Warning",
+                         "Invalid volume. Default volume was applied.\n");
+    is_apply_default = true;
+  }
 
   QStringList size_pair = load.readLine().split(' ');
   if (size_pair.size() > 1) {
@@ -143,23 +142,23 @@ QString SettingsWidget::GetLanguage() const {
 QString SettingsWidget::GetPlayerName() const { return player_name_; }
 
 void SettingsWidget::ChangeSound() {
-    if (ui_->ui_sound_check_box_->isChecked()) {
-        ui_->ui_sound_check_box_->setText("On");
-        volume_on_ = true;
-        Audio::Mute(volume_on_);
-        Audio::PlayMenuMusic();
-        return;
-    }
-    ui_->ui_sound_check_box_->setText("Off");
-    volume_on_ = false;
+  if (ui_->ui_sound_check_box_->isChecked()) {
+    ui_->ui_sound_check_box_->setText("On");
+    volume_on_ = true;
     Audio::Mute(volume_on_);
-    Audio::StopMusic();
-    Audio::StopSound();
+    Audio::PlayMenuMusic();
+    return;
+  }
+  ui_->ui_sound_check_box_->setText("Off");
+  volume_on_ = false;
+  Audio::Mute(volume_on_);
+  Audio::StopMusic();
+  Audio::StopSound();
 }
 
 void SettingsWidget::ChangeVolume() {
-    volume_ = ui_->ui_volume_->value();
-    Audio::SetVolume(volume_);
+  volume_ = ui_->ui_volume_->value();
+  Audio::SetVolume(volume_);
 }
 
 void SettingsWidget::ChangeLanguage() { emit LanguageChanged(); }

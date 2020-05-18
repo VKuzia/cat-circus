@@ -2,12 +2,17 @@
 
 #include <QResizeEvent>
 
+#include "src/menu/audio.h"
+
 Button::Button(QWidget* parent) : QPushButton(parent), hover_animation_(this) {
   hover_animation_.setTargetObject(this);
   hover_animation_.setPropertyName("animationProgress");
   hover_animation_.setDuration(kMouseHoverAnimationDuration_);
   hover_animation_.setStartValue(0);
   hover_animation_.setEndValue(1);
+
+  connect(this, &QPushButton::clicked, this,
+          [] { Audio::PlaySound("button.mp3"); });
 }
 
 void Button::Resize(QResizeEvent* event) {

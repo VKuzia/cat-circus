@@ -44,9 +44,15 @@ void Minigame::KeyPressEvent(QKeyEvent*) {}
 
 void Minigame::KeyReleaseEvent(QKeyEvent*) {}
 
-void Minigame::Win() { game_view_->AnimateOutro(MinigameStatus::kPassed); }
+void Minigame::Win() {
+  Audio::PlaySound("win.wav");
+  game_view_->AnimateOutro(MinigameStatus::kPassed);
+}
 
-void Minigame::Lose() { game_view_->AnimateOutro(MinigameStatus::kFailed); }
+void Minigame::Lose() {
+  Audio::PlaySound("lose1.mp3");
+  game_view_->AnimateOutro(MinigameStatus::kFailed);
+}
 
 int32_t Minigame::GetScore() const { return score_; }
 

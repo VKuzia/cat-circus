@@ -14,6 +14,7 @@ void CannonCat::Update() {
   if (cat_velocity_.IsZero()) {
     cat_velocity_.setX(cos(angle_) * power_);
     cat_velocity_.setY(-sin(angle_) * power_);
+    Audio::PlaySound("cannon.wav");
   }
   if (is_in_flight_) {
     AddVelocity(cat_velocity_.x(), cat_velocity_.y());

@@ -8,6 +8,7 @@
 #include "src/game/gameview.h"
 #include "src/game/physics/physics.h"
 #include "src/game/pixmaploader.h"
+#include "src/menu/audio.h"
 
 class GameObject : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT

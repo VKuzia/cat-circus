@@ -56,6 +56,9 @@ void JugglingHand::Throw() {
   if (is_throwing_) {
     return;
   }
+  if (current_ball_ != nullptr) {
+    Audio::PlaySound("throw.wav");
+  }
   this->setPixmap(kPixmapClosed_);
   is_throwing_ = true;
   is_coming_back_ = false;
