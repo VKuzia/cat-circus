@@ -1,5 +1,7 @@
 #include "minigame.h"
 
+#include <limits>
+
 #include "src/game/gameview.h"
 
 Minigame::Minigame(GameView* game_view, qreal difficulty, qreal pixels_in_meter)
