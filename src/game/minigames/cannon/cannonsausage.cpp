@@ -4,7 +4,9 @@ CannonSausage::CannonSausage(GameView* game_view, qreal width, qreal height,
                              qreal x, qreal y)
     : GameObject(game_view, width, height, x, y) {}
 
-void CannonSausage::SetUp() { setPixmap(LoadPixmap("cannon/sausage.png")); }
+void CannonSausage::SetUp() {
+  setPixmap(LoadPixmap("cannon/sausage.png", true));
+}
 
 void CannonSausage::Update() {
   if (is_caught_) {

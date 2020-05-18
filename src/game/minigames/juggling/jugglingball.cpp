@@ -10,7 +10,7 @@ JugglingBall::JugglingBall(GameView* game_view, qreal radius, qreal x, qreal y,
 
 void JugglingBall::SetUp() {
   setZValue(kZValue);
-  setPixmap(LoadPixmap("juggling/ball.png"));
+  setPixmap(LoadPixmap("juggling/ball.png", true));
 }
 
 void JugglingBall::Update() {

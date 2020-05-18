@@ -50,12 +50,10 @@ void SettingsWidget::Save() const {
   QTextStream save(&file);
   save.setCodec("UTF-8");
 
-  int current_resolution_index = ui_->ui_resolution_combo_box_->currentIndex();
   int current_language_index = ui_->ui_language_combo_box_->currentIndex();
   save << volume_on_ << '\n'
        << volume_ << '\n'
-       << kResolutions_[current_resolution_index].width() << ' '
-       << kResolutions_[current_resolution_index].height() << '\n'
+       << resolution_.width() << ' ' << resolution_.height() << '\n'
        << kLanguages_[current_language_index] << '\n'
        << player_name_ << '\n';
 
@@ -63,7 +61,6 @@ void SettingsWidget::Save() const {
 }
 
 void SettingsWidget::Load() {
-  bool is_apply_default = false;
   QFile file(kPathToSettings + "settings.txt");
 
   if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -71,6 +68,8 @@ void SettingsWidget::Load() {
         nullptr, "Warning",
         "Settings file was not found. Default settings were applied.\n");
     Save();
+    Audio::SetVolume(volume_);
+    Audio::Mute(volume_on_);
     return;
   }
   QTextStream load(&file);
@@ -89,27 +88,24 @@ void SettingsWidget::Load() {
   } else {
     QMessageBox::warning(nullptr, "Warning",
                          "Invalid volume. Default volume was applied.\n");
-    is_apply_default = true;
   }
 
   QStringList size_pair = load.readLine().split(' ');
   if (size_pair.size() > 1) {
     QSize loaded_size{size_pair[0].toInt(), size_pair[1].toInt()};
     int resolution_index = kResolutions_.indexOf(loaded_size);
-    if (resolution_index == -1 ||
-        resolution_index >= ui_->ui_resolution_combo_box_->count()) {
+    if (!kResolutions_.contains(loaded_size)) {
       QMessageBox::warning(
           nullptr, "Warning",
           "Invalid resolution. Default resolution was applied.\n");
-      is_apply_default = true;
     } else {
+      resolution_ = loaded_size;
       ui_->ui_resolution_combo_box_->setCurrentIndex(resolution_index);
     }
   } else {
     QMessageBox::warning(
         nullptr, "Warning",
         "Invalid resolution. Default resolution was applied.\n");
-    is_apply_default = true;
   }
 
   QString loaded_language = load.readLine();
@@ -118,22 +114,16 @@ void SettingsWidget::Load() {
     QMessageBox::warning(nullptr, "Warning",
                          "Invalid language. Default language was applied.\n");
 
-    is_apply_default = true;
   } else {
     ui_->ui_language_combo_box_->setCurrentIndex(language_index);
   }
 
   player_name_ = load.readLine();
   ui_->ui_user_line_edit_->setText(player_name_);
-  if (is_apply_default) {
-    Save();
-  }
   file.close();
 }
 
-QSize SettingsWidget::GetResolution() const {
-  return kResolutions_[ui_->ui_resolution_combo_box_->currentIndex()];
-}
+QSize SettingsWidget::GetResolution() const { return resolution_; }
 
 QString SettingsWidget::GetLanguage() const {
   return kLanguages_[ui_->ui_language_combo_box_->currentIndex()];
@@ -146,6 +136,7 @@ void SettingsWidget::ChangeSound() {
     ui_->ui_sound_check_box_->setText("On");
     volume_on_ = true;
     Audio::Mute(volume_on_);
+    Audio::SetVolume(volume_);
     Audio::PlayMenuMusic();
     return;
   }
@@ -168,7 +159,11 @@ void SettingsWidget::ChangeUserName() {
   emit PlayerNameChanged();
 }
 
-void SettingsWidget::ChangeResolution() { emit ResolutionChanged(); }
+void SettingsWidget::ChangeResolution() {
+  int32_t index = ui_->ui_resolution_combo_box_->currentIndex();
+  resolution_ = kResolutions_[index];
+  emit ResolutionChanged();
+}
 
 void SettingsWidget::resizeEvent(QResizeEvent* event) {
   ui_->ui_return_button_->Resize(event);

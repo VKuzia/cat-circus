@@ -33,7 +33,8 @@ void CannonMinigame::SetUp() {
   speedometer_ = new GameObject(game_view_, {kCatWidth, kCatHeight},
                                 {kSpeedometerX, kSpeedometerY});
   speedometer_->setPixmap(GameObject::LoadPixmap(
-      "cannon/spedometer.png", speedometer_->boundingRect().size().toSize()));
+      "cannon/spedometer.png", speedometer_->boundingRect().size().toSize(),
+      true));
   game_view_->scene()->addItem(speedometer_);
 
   for (int i = 0; i < sausage_count_; i++) {

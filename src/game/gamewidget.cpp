@@ -34,8 +34,8 @@ GameWidget::GameWidget(QWidget* parent)
 
 void GameWidget::ReturnToMainMenu() {
   SetMinigame(nullptr);
-  emit MainMenu();
   Audio::PlayMenuMusic();
+  emit MainMenu();
 }
 
 void GameWidget::Pause() {
@@ -51,21 +51,23 @@ void GameWidget::Retry() { SetUp(); }
 
 void GameWidget::InitMinigame() {
   Minigame* minigame;
-  MinigameType type =
-      static_cast<MinigameType>(QRandomGenerator64::global()->bounded(4));
+  int32_t type = QRandomGenerator64::global()->bounded(4);
   switch (type) {
-    case MinigameType::kJuggling:
+    case 0:
       minigame = new JugglingMinigame(ui_->ui_game_view_, current_difficulty_);
       break;
-    case MinigameType::kTrampoline:
+    case 1:
+      minigame = new CannonMinigame(ui_->ui_game_view_, current_difficulty_);
+      break;
+    case 2:
       minigame =
           new TrampolineMinigame(ui_->ui_game_view_, current_difficulty_);
       break;
-    case MinigameType::kCannon:
-      minigame = new CannonMinigame(ui_->ui_game_view_, current_difficulty_);
-      break;
-    case MinigameType::kPlate:
+    case 3:
       minigame = new PlateMinigame(ui_->ui_game_view_, current_difficulty_);
+      break;
+    default:
+      minigame = new JugglingMinigame(ui_->ui_game_view_, current_difficulty_);
       break;
   }
   SetMinigame(minigame);

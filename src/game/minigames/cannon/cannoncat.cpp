@@ -8,7 +8,7 @@ CannonCat::CannonCat(GameView* game_view, qreal width, qreal height, qreal x,
       radius_(width / 2),
       floor_y_(floor_y) {}
 
-void CannonCat::SetUp() { setPixmap(LoadPixmap("cannon/cat.png")); }
+void CannonCat::SetUp() { setPixmap(LoadPixmap("cannon/cat.png", true)); }
 
 void CannonCat::Update() {
   if (cat_velocity_.IsZero()) {

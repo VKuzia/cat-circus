@@ -10,7 +10,8 @@ class PixmapLoader {
   PixmapLoader() = default;
   ~PixmapLoader() = default;
 
-  QPixmap GetPixmap(const QString& short_path, QSize size) const;
+  QPixmap GetPixmap(const QString& short_path, QSize size,
+                    bool mask = false) const;
 
   void PreloadPixmaps() const;
 
