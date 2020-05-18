@@ -536,7 +536,7 @@
   </connection>
   <connection>
    <sender>ui_volume_</sender>
-   <signal>sliderReleased()</signal>
+   <signal>actionTriggered(int)</signal>
    <receiver>SettingsWidget</receiver>
    <slot>ChangeVolume()</slot>
    <hints>
