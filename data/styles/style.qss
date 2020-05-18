@@ -1,3 +1,10 @@
+QLabel {
+ font-family: Verdana;
+ color: rgba(255, 198, 25, 1.0);
+ font-size: 20px;
+ font-weight: 800;
+}
+
 QLabel#ui_game_name_label_ {
  font-size: 120px;
  font-weight: 900;
@@ -10,9 +17,43 @@ QLabel#ui_hello_label_ {
  font-weight: 900;
 }
 
-QLabel {
- font-family: Verdana;
- color: rgba(255, 198, 25, 1.0);
+QLabel#ui_settings_label_ {
+ font-size: 45px;
+ font-weight: 900;
+}
+
+QLabel#ui_about_label_ {
+ font-size: 45px;
+ font-weight: 900;
+}
+
+
+QLabel#ui_pause_label_ {
+ font-size: 45px;
+ font-weight: 900;
+}
+
+
+QLabel#ui_about_label_ {
+ font-size: 45px;
+ font-weight: 900;
+}
+
+QLabel#ui_tap_label_ {
+  color: rgba(255, 246, 232, 1);
+  font-size: 29px;
+  font-weight: 600;
+  font-style: italic;
+}
+
+QLabel#ui_score_label_ {
+  font-size: 40px;
+  font-weight: 900;
+}
+
+QLabel#ui_label_ {
+font-size: 45px;
+font-weight: 900;
 }
 
 QPushButton {
@@ -40,3 +81,28 @@ QPushButton:pressed {
   background-color: rgba(240, 183, 10,1);
   border-color: rgba(240, 231, 218, 1);
 }
+
+QLineEdit {
+background-color: transparent;
+color:  rgba(255, 198, 25, 1);
+font-family: Verdana;
+font-size: 35px;
+font-weight: 800;
+}
+
+QComboBox {
+background-color: transparent;
+color:  rgba(255, 198, 25, 1);
+font-family: Verdana;
+font-size: 15px;
+font-weight: 600;
+}
+
+QCheckBox {
+
+color:  rgba(255, 198, 25, 1);
+font-family: Verdana;
+font-size: 15px;
+font-weight: 600;
+}
+
