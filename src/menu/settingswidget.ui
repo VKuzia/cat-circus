@@ -103,8 +103,14 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
           <string>Player</string>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

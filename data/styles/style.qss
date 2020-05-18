@@ -11,7 +11,7 @@ QLabel#ui_game_name_label_ {
 }
 
 QLabel#ui_hello_label_ {
-  color: rgba(146, 12, 204, 1.0);
+  color: rgba(255, 246, 232, 1);
  font-style: italic;
  font-size: 45px;
  font-weight: 900;
@@ -88,6 +88,7 @@ color:  rgba(255, 198, 25, 1);
 font-family: Verdana;
 font-size: 35px;
 font-weight: 800;
+border-width: 0px;
 }
 
 QComboBox {
@@ -106,3 +107,11 @@ font-size: 15px;
 font-weight: 600;
 }
 
+
+QLabel#ui_about_label_text_ {
+color:  rgba(255, 198, 25, 1);
+font-family: Verdana;
+font-size: 15px;
+font-weight: 600;
+font-style: italic;
+}
