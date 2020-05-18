@@ -76,12 +76,10 @@ void CannonMinigame::StartGame() {
   tick_timer_.start();
   QTimer::singleShot(time_, this, [this] {
     if (is_running_ && (!params_choosen_angle_ || !params_choosen_power_)) {
-      Stop(Status::kFail);
+      Stop(MinigameStatus::kFailed);
     }
   });
 }
-
-void CannonMinigame::AnimateOutro() {}
 
 void CannonMinigame::Tick() {
   ChangeParameters();
@@ -94,9 +92,9 @@ void CannonMinigame::Tick() {
   }
   if (cat_->GetY() >= kFloorHeight) {
     if (current_score_ >= number_to_win_) {
-      Stop(Status::kPass);
+      Stop(MinigameStatus::kPassed);
     } else {
-      Stop(Status::kFail);
+      Stop(MinigameStatus::kFailed);
     }
   }
   for (auto item : sausages_) {
@@ -188,33 +186,17 @@ void CannonMinigame::SetUpParameters() {
   }
 }
 
-void CannonMinigame::Stop(Status status) {
+void CannonMinigame::Stop(MinigameStatus status) {
   is_running_ = false;
   tick_timer_.stop();
-  time_bar_->setVisible(false);
-  if (status == Status::kPass) {
-    score_ = 100;
-    Win();
+  switch (status) {
+    case MinigameStatus::kPassed:
+      score_ = 100;
+      Win();
+      break;
+    case MinigameStatus::kFailed:
+      Lose();
   }
-  if (status == Status::kFail) {
-    Lose();
-  }
-}
-
-void CannonMinigame::Win() {
-  game_view_->scene()->setBackgroundBrush(kWinBackgroundBrush);
-  QTimer::singleShot(kOutroDuration, this, [this] {
-    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-    emit Passed(score_);
-  });
-}
-
-void CannonMinigame::Lose() {
-  game_view_->scene()->setBackgroundBrush(kLoseBackgroundBrush);
-  QTimer::singleShot(kOutroDuration, this, [this] {
-    game_view_->scene()->setBackgroundBrush(kEmptyBackgroundBrush);
-    emit Failed();
-  });
 }
 
 void CannonMinigame::SausageWasCaught() {

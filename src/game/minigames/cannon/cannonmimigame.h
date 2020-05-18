@@ -87,14 +87,11 @@ class CannonMinigame : public Minigame {
 
   void AnimateTutorial() override;
   void StartGame() override;
-  void AnimateOutro() override;
 
   void Tick() override;
   void ChangeParameters();
 
-  void Stop(Status) override;
-  void Win() override;
-  void Lose() override;
+  void Stop(MinigameStatus) override;
 
  public slots:
   void SausageWasCaught();
