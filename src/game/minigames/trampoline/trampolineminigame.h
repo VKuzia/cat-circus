@@ -75,13 +75,10 @@ class TrampolineMinigame : public Minigame {
 
   void AnimateTutorial() override;
   void StartGame() override;
-  void AnimateOutro() override;
 
   void Tick() override;
 
-  void Stop(Status) override;
-  void Win() override;
-  void Lose() override;
+  void Stop(MinigameStatus) override;
 };
 
 #endif  // TRAMPOLINEMINIGAME_H

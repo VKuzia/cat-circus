@@ -49,16 +49,13 @@ class TestMinigame : public Minigame {
 
   void AnimateTutorial() override;
   void StartGame() override;
-  void AnimateOutro() override;
 
   void Tick() override;
   void AddBall();
   void DeleteBall();
   QPointF GetRandomBallCenter() const;
 
-  void Stop(Status) override;
-  void Win() override;
-  void Lose() override;
+  void Stop(MinigameStatus) override;
 };
 
 #endif  // TESTMINIGAME_H

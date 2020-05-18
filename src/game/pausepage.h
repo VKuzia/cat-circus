@@ -26,6 +26,8 @@ class PausePage : public QWidget {
   Ui::PausePage* ui_;
 
   void mousePressEvent(QMouseEvent* event) override;
+
+  void resizeEvent(QResizeEvent* event) override;
 };
 
 #endif  // PAUSEPAGE_H
