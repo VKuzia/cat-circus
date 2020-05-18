@@ -79,9 +79,8 @@ void SettingsWidget::Load() {
 
     volume_on_ = load.readLine().toInt() == 1;
     ui_->ui_sound_check_box_->setChecked(volume_on_);
-    if (volume_on_) {
-        Audio::PlayMusic();
-    }
+    Audio::Mute(volume_on_);
+    Audio::PlayMusic();
 
     int volume = load.readLine().toInt();
     if (volume >= ui_->ui_volume_->minimum() &&
@@ -141,11 +140,13 @@ void SettingsWidget::ChangeSound() {
     if (ui_->ui_sound_check_box_->isChecked()) {
         ui_->ui_sound_check_box_->setText("On");
         volume_on_ = true;
+        Audio::Mute(volume_on_);
         Audio::PlayMusic();
         return;
     }
     ui_->ui_sound_check_box_->setText("Off");
     volume_on_ = false;
+    Audio::Mute(volume_on_);
     Audio::StopMusic();
     Audio::StopSound();
 }

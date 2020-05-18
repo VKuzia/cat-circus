@@ -27,14 +27,13 @@ class Audio {
   static void StopMusic();
   static void StopSound();
 
+  static void Mute(bool value);
+
   static void PauseMusic();
   static void PauseSound();
 
   static void PreLoadMenuSongs();
   static void PreLoadGameSongs();
-
-//  void PreLoadSounds();
-//  void PreLoadMusics();
 
  private:
   static QString kPathToAudio_;
@@ -43,9 +42,6 @@ class Audio {
   static bool unmuted_;
   static QMediaPlaylist menu_songs_;
   static QMediaPlaylist game_songs_;
-
-//  static QMap<QString, QMediaContent> sounds_;
-//  static QMap<QString, QMediaContent> musics_;
 };
 
 #endif // AUDIO_H
