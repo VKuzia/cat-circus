@@ -42,7 +42,11 @@ void PlateMinigame::StartGame() {
   time_bar_->setVisible(true);
   tutorial_label_->setVisible(false);
   time_bar_->Launch(time_);
-  QTimer::singleShot(time_, this, [this] { Stop(MinigameStatus::kFailed); });
+  QTimer::singleShot(time_, this, [this] {
+    if (is_running_) {
+      Stop(MinigameStatus::kFailed);
+    }
+  });
   tick_timer_.setInterval(1000 / kFps);
   connect(&tick_timer_, &QTimer::timeout, this, &PlateMinigame::Tick);
 
@@ -100,7 +104,7 @@ void PlateMinigame::Stop(MinigameStatus status) {
   time_bar_->setVisible(false);
   switch (status) {
     case MinigameStatus::kPassed:
-      score_ = 100 + time_left_ * 10 / (timer_.interval() + 1);
+      score_ = 100 + time_left_ / 50;
       Win();
       break;
     case MinigameStatus::kFailed:
