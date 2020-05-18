@@ -1,4 +1,42 @@
+QLabel#ui_game_name_label_ {
+ font-size: 120px;
+ font-weight: 900;
+}
+
+QLabel#ui_hello_label_ {
+  color: rgba(146, 12, 204, 1.0);
+ font-style: italic;
+ font-size: 45px;
+ font-weight: 900;
+}
+
+QLabel {
+ font-family: Verdana;
+ color: rgba(255, 198, 25, 1.0);
+}
+
 QPushButton {
-  background-color: red;
-  color: green;
+  background-color: rgba(255, 198, 25, 0.85);
+  color: rgb(146, 12, 204);
+  border-style: outset;
+  border-color: rgba(255, 246, 232, 1);
+  border-width: 6px;
+  border-radius: 25px;
+  padding: 5px;
+  
+  
+  font-family: Verdana;
+  font-size: 29px;
+  font-weight: Bold;
+  font-style: italic
+}
+
+QPushButton:hover {
+  background-color: rgba(255, 198, 25, 1);
+  border-color: rgba(255, 246, 232, 1);
+}
+
+QPushButton:pressed {
+  background-color: rgba(240, 183, 10,1);
+  border-color: rgba(240, 231, 218, 1);
 }
