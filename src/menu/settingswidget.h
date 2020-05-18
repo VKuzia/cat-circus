@@ -45,6 +45,7 @@ class SettingsWidget : public QWidget {
   bool volume_on_ = true;
   int volume_ = 1;
   QString player_name_ = "Player";
+  QSize resolution_ = {1024, 576};
 
   Ui::SettingsWidget* ui_;
 
