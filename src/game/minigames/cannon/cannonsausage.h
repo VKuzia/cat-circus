@@ -13,15 +13,16 @@ class CannonSausage : public GameObject {
   void SetUp() override;
   void Update() override;
   void WasCaught();
-  bool GetMoveDown() const;
-  void SetMoveDown(bool);
+  bool IsMovingDown() const;
+  void SetMovingDown(bool);
 
  signals:
   void CaughtSausage();
 
  private:
-  bool move_down_ = true;
-  qreal delta_pos = 0;
+  bool is_moving_down_ = true;
+  qreal delta_pos_ = 0;
+  qreal one_step_ = 0.01;
   bool is_caught_ = false;
 };
 

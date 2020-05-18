@@ -10,7 +10,7 @@ class CannonStatus : public GameObject {
   ~CannonStatus() override = default;
 
   void SetUp() override;
-  void ChangeStatus();
+  void SetOk();
 };
 
 #endif  // CANNONSTATUS_H

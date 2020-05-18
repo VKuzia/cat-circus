@@ -105,11 +105,3 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-    data/images/minigames/cannon/sauasage.png \
-    data/images/minigames/juggling/arena.png \
-    data/images/minigames/juggling/ball.png \
-    data/images/minigames/juggling/cat.png \
-    data/images/minigames/juggling/hand_closed.png \
-    data/images/minigames/juggling/hand_free.png

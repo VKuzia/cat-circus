@@ -2,7 +2,7 @@
 
 #include "cannonsausage.h"
 
-CannonCat::CannonCat(GameView *game_view, qreal width, qreal height, qreal x,
+CannonCat::CannonCat(GameView* game_view, qreal width, qreal height, qreal x,
                      qreal y, qreal floor_y)
     : GameObject(game_view, width, height, x, y),
       radius_(width / 2),
@@ -32,14 +32,13 @@ void CannonCat::SetAngle(qreal angle) { angle_ = angle; }
 void CannonCat::SetPower(qreal power) { power_ = power; }
 
 void CannonCat::CatchSausage() {
-  const QList<QGraphicsItem *> sausages = this->collidingItems();
-  for (QGraphicsItem *item : sausages) {
+  const QList<QGraphicsItem*> items = this->collidingItems();
+  for (QGraphicsItem* item : items) {
     if (item == this) {
       continue;
-    } else {
-      if (dynamic_cast<CannonSausage *>(item)) {
-        dynamic_cast<CannonSausage *>(item)->WasCaught();
-      }
+    }
+    if (dynamic_cast<CannonSausage*>(item)) {
+      dynamic_cast<CannonSausage*>(item)->WasCaught();
     }
   }
 }

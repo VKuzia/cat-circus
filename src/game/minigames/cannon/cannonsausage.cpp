@@ -10,17 +10,17 @@ void CannonSausage::Update() {
   if (is_caught_) {
     return;
   }
-  if (delta_pos >= 1) {
-    move_down_ = false;
-  } else if (delta_pos <= -1) {
-    move_down_ = true;
+  if (delta_pos_ >= 1) {
+    is_moving_down_ = false;
+  } else if (delta_pos_ <= -1) {
+    is_moving_down_ = true;
   }
-  if (move_down_) {
-    delta_pos += 0.01;
-    MoveByMeters(0, 0.01);
+  if (is_moving_down_) {
+    delta_pos_ += one_step_;
+    MoveByMeters(0, one_step_);
   } else {
-    delta_pos -= 0.01;
-    MoveByMeters(0, -0.01);
+    delta_pos_ -= one_step_;
+    MoveByMeters(0, -one_step_);
   }
 }
 
@@ -29,6 +29,8 @@ void CannonSausage::WasCaught() {
   emit CaughtSausage();
 }
 
-bool CannonSausage::GetMoveDown() const { return move_down_; }
+bool CannonSausage::IsMovingDown() const { return is_moving_down_; }
 
-void CannonSausage::SetMoveDown(bool move_down) { move_down_ = move_down; }
+void CannonSausage::SetMovingDown(bool is_moving_down) {
+  is_moving_down_ = is_moving_down;
+}

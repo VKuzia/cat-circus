@@ -10,12 +10,7 @@ Vector2D& Vector2D::operator=(Vector2D rhs) {
   return *this;
 }
 
-bool Vector2D::IsZero() {
-  if (abs(x()) < 0.00001 && abs(y()) < 0.00001) {
-    return true;
-  }
-  return false;
-}
+bool Vector2D::IsZero() { return qFabs(x()) < 0.00001 && qFabs(y()) < 0.00001; }
 
 Vector2D operator+(Vector2D first, Vector2D second) {
   first += second;

@@ -202,7 +202,7 @@ void CannonMinigame::Stop(MinigameStatus status) {
 void CannonMinigame::SausageWasCaught() {
   current_score_++;
   if (current_score_ <= number_to_win_) {
-    status_bar_[current_score_ - 1]->ChangeStatus();
+    status_bar_[current_score_ - 1]->SetOk();
   }
 }
 
@@ -243,7 +243,7 @@ void CannonMinigame::LaunchSausage() {
   connect(sausage, &CannonSausage::CaughtSausage, this,
           &CannonMinigame::SausageWasCaught);
   if (sausages_.size() % 2 == 0) {
-    sausage->SetMoveDown(false);
+    sausage->SetMovingDown(false);
   }
   sausages_.insert(sausage);
   sausage->SetUp();
