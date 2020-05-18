@@ -31,6 +31,10 @@ SOURCES += \
         src/game/gameview.cpp \
         src/game/gamewidget.cpp \
         src/game/minigame.cpp \
+        src/game/minigames/cannon/cannoncat.cpp \
+        src/game/minigames/cannon/cannonmimigame.cpp \
+        src/game/minigames/cannon/cannonsatus.cpp \
+        src/game/minigames/cannon/cannonsausage.cpp \
         src/game/minigames/juggling/jugglingball.cpp \
         src/game/minigames/juggling/jugglingcat.cpp \
         src/game/minigames/juggling/jugglinghand.cpp \
@@ -62,6 +66,10 @@ HEADERS += \
         src/game/gameview.h \
         src/game/gamewidget.h \
         src/game/minigame.h \
+        src/game/minigames/cannon/cannoncat.h \
+        src/game/minigames/cannon/cannonmimigame.h \
+        src/game/minigames/cannon/cannonsatus.h \
+        src/game/minigames/cannon/cannonsausage.h \
         src/game/minigames/juggling/jugglingball.h \
         src/game/minigames/juggling/jugglingcat.h \
         src/game/minigames/juggling/jugglinghand.h \
