@@ -1,0 +1,185 @@
+#ifndef SHARED_PTR_H_
+#define SHARED_PTR_H_
+
+#include <cstdint>
+#include <utility>
+#include <iostream>
+
+namespace shared_ptr {
+
+// smart pointer class storing number of references to an object
+// providing simple pointers interface
+template<typename T>
+class SharedPtr {
+ public:
+  SharedPtr()
+      : object(nullptr), number_of_refs(new int32_t(1)), is_released(new bool(
+      false)) {}
+
+  explicit SharedPtr(T *ptr)
+      : object(ptr),
+        number_of_refs(new int32_t(1)),
+        is_released(new bool(false)) {}
+
+  // copy constructor
+  SharedPtr(const SharedPtr<T> &value)
+      : object(nullptr),
+        number_of_refs(new int32_t(1)),
+        is_released(new bool(false)) {
+    *this = value;
+  }
+
+  // move constructor
+  explicit SharedPtr(SharedPtr<T> &&ptr)
+      : object(nullptr),
+        number_of_refs(new int32_t(1)),
+        is_released(new bool(false)) {
+    *this = std::move(ptr);
+  }
+
+  ~SharedPtr() {
+    if (number_of_refs != nullptr) {
+      (*number_of_refs)--;
+      if (*number_of_refs <= 0) {
+        if (!*is_released) {
+          delete object;
+          object = nullptr;
+        }
+        delete number_of_refs;
+        number_of_refs = nullptr;
+        delete is_released;
+        is_released = nullptr;
+      }
+    }
+  }
+
+  // copy assignment operator
+  SharedPtr<T> &operator=(const SharedPtr<T> &rhs) {
+    if (*this == rhs) {  // no need for assignment
+      return *this;
+    }
+    if (number_of_refs != nullptr) {  // decrementing refs for previous object
+      (*number_of_refs)--;
+      if ((*number_of_refs) <= 0) {  // deleting unused objects
+        if (object != nullptr && !*is_released) {
+          delete object;
+          object = nullptr;
+        }
+        delete number_of_refs;
+        delete is_released;
+        object = nullptr;
+        number_of_refs = nullptr;
+        is_released = nullptr;
+      }
+    }
+    number_of_refs = rhs.number_of_refs;
+    if (number_of_refs != nullptr) {  // new object has +1 ref
+      (*number_of_refs)++;
+    }
+    object = rhs.object;
+    is_released = rhs.is_released;
+    return *this;
+  }
+
+  // move assignment operator
+  SharedPtr<T> &operator=(SharedPtr<T> &&rhs) {
+    if (this == &rhs) {  // no need for assignment
+      return *this;
+    }
+    if (number_of_refs != nullptr) {  // decrementing refs for previous object
+      (*number_of_refs)--;
+      if ((*number_of_refs) <= 0) {  // deleting unused objects
+        if (object != nullptr && !*is_released) {
+          delete object;
+          object = nullptr;
+        }
+        delete number_of_refs;
+        delete is_released;
+        object = nullptr;
+        number_of_refs = nullptr;
+        is_released = nullptr;
+      }
+    }
+    number_of_refs = rhs.number_of_refs;
+    if (number_of_refs != nullptr) {  // new object has +1 ref
+      (*number_of_refs)++;
+    }
+    object = rhs.object;
+    is_released = rhs.is_released;
+    rhs.object = nullptr;
+    rhs.number_of_refs = nullptr;
+    rhs.is_released = nullptr;
+    return *this;
+  }
+
+  T *Get() {
+    return object;
+  }
+
+  const T *Get() const {
+    return object;
+  }
+
+  T *operator->() {
+    return object;
+  }
+
+  const T *operator->() const {
+    return object;
+  }
+
+  T &operator*() {
+    return *object;
+  }
+
+  const T &operator*() const {
+    return *object;
+  }
+
+  // destroys connection between an object and the pointer leaving object alive
+  void Release() {
+    object = nullptr;
+    *is_released = true;
+  }
+
+  bool operator==(const SharedPtr<T> &rhs) const {
+    return object == rhs.object
+        && number_of_refs == rhs.number_of_refs
+        && is_released == rhs.is_released;
+  }
+
+  bool operator!=(const SharedPtr<T> &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator==(const T *rhs) const {
+    return object == rhs;
+  }
+
+  bool operator!=(const T *rhs) const {
+    return object != rhs;
+  }
+  На ГА сидим в четверг
+  матрички считаем.
+  Переписано в конспект,
+  Ой, не проверяяяю! 
+
+ private:
+  T *object;  // a pointer to an object
+  int32_t *number_of_refs;  // pointer to a counter of alive refs to an object
+  bool *is_released;  // flag shows if a pointer have been already released
+};
+
+template<typename S>
+bool operator==(const S *lhs, const SharedPtr<S> &rhs) {
+  return rhs == lhs;
+}
+
+template<typename S>
+bool operator!=(const S *lhs, const SharedPtr<S> &rhs) {
+  return rhs != lhs;
+}
+
+}  // namespace shared_ptr
+
+#endif  // SHARED_PTR_H_

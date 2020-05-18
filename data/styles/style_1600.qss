@@ -1,0 +1,117 @@
+QLabel {
+ font-family: Verdana;
+ color: rgba(255, 198, 25, 1.0);
+ font-size: 25px;
+ font-weight: 800;
+}
+
+QLabel#ui_game_name_label_ {
+ font-size: 150px;
+ font-weight: 900;
+}
+
+QLabel#ui_hello_label_ {
+  color: rgba(255, 246, 232, 1);
+ font-style: italic;
+ font-size: 55px;
+ font-weight: 900;
+}
+
+QLabel#ui_settings_label_ {
+ font-size: 55px;
+ font-weight: 900;
+}
+
+QLabel#ui_about_label_ {
+ font-size: 55px;
+ font-weight: 900;
+}
+
+
+QLabel#ui_pause_label_ {
+ font-size: 55px;
+ font-weight: 900;
+}
+
+
+QLabel#ui_about_label_ {
+ font-size: 55px;
+ font-weight: 900;
+}
+
+QLabel#ui_tap_label_ {
+  color: rgba(255, 246, 232, 1);
+  font-size: 36px;
+  font-weight: 600;
+  font-style: italic;
+}
+
+QLabel#ui_score_label_ {
+  font-size: 50px;
+  font-weight: 900;
+}
+
+QLabel#ui_label_ {
+font-size: 55px;
+font-weight: 900;
+}
+
+QPushButton {
+  background-color: rgba(255, 198, 25, 0.85);
+  color: rgb(146, 12, 204);
+  border-style: outset;
+  border-color: rgba(255, 246, 232, 1);
+  border-width: 8px;
+  border-radius: 30px;
+  padding: 7px;
+  
+  
+  font-family: Verdana;
+  font-size: 36px;
+  font-weight: Bold;
+  font-style: italic
+}
+
+QPushButton:hover {
+  background-color: rgba(255, 198, 25, 1);
+  border-color: rgba(255, 246, 232, 1);
+}
+
+QPushButton:pressed {
+  background-color: rgba(240, 183, 10,1);
+  border-color: rgba(240, 231, 218, 1);
+}
+
+QLineEdit {
+background-color: transparent;
+color:  rgba(255, 198, 25, 1);
+font-family: Verdana;
+font-size: 43px;
+font-weight: 800;
+border-width: 0px;
+}
+
+QComboBox {
+background-color: transparent;
+color:  rgba(255, 198, 25, 1);
+font-family: Verdana;
+font-size: 18px;
+font-weight: 600;
+}
+
+QCheckBox {
+
+color:  rgba(255, 198, 25, 1);
+font-family: Verdana;
+font-size: 18px;
+font-weight: 600;
+}
+
+
+QLabel#ui_about_label_text_ {
+color:  rgba(255, 198, 25, 1);
+font-family: Verdana;
+font-size: 18px;
+font-weight: 600;
+font-style: italic;
+}

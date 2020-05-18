@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDir>
 #include <QMainWindow>
 
 namespace Ui {
@@ -11,10 +12,13 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  explicit MainWindow(int32_t width, int32_t height, QWidget* parent = nullptr);
-  ~MainWindow();
+  explicit MainWindow(QWidget* parent = nullptr);
+  ~MainWindow() override;
+
+  void SetUp();
 
  public slots:
+  void ChangeWidget();
   void ChangeToMainMenu();
   void ChangeToGame();
   void ChangeToSettings();
@@ -22,7 +26,20 @@ class MainWindow : public QMainWindow {
   void Exit();
 
  private:
+  const QString kPathToBackground_ =
+      QDir::currentPath() + "/data/images/background/main_background.gif";
+
   Ui::MainWindow* ui_;
+  QWidget* widget_to_change_to_ = nullptr;
+
+  void AnimateLoading();
+  void SetGamePage();
+
+  void SetStyle(QSize resolution);
+
+  void resizeEvent(QResizeEvent* event) override;
+
+  void RenamePlayer();
 };
 
 #endif  // MAINWINDOW_H

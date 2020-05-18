@@ -1,7 +1,6 @@
 #ifndef POINTSPAGE_H
 #define POINTSPAGE_H
 
-#include <QDir>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QMovie>
@@ -29,6 +28,8 @@ class ScorePage : public QWidget {
 
   int32_t GetLivesCount() const;
 
+  void SetResolution(QSize resolution);
+
  signals:
   void Expired();
   void Paused();
@@ -47,11 +48,10 @@ class ScorePage : public QWidget {
   const int32_t kResumeTime = 1500;
   const int32_t kLivesCount = 3;
 
-  // Ratio of life height relatively ui_lives_view_ height
-  const qreal kLiveScaleYFactor = 0.9;
-  const qreal kLiveScaleXFactor = 0.2;
+  // Life size width/height ratio relatively this size
+  const QSizeF kLiveSizeScale_ = {0.15, 0.2};
   // Ratio of horizontal space between lives relatively life_width_
-  const qreal kLifeIntervalXFactor = 0.3;
+  const qreal kLifeIntervalXFactor = 0.25;
   // Disappear animation speed in percents
   const int32_t kLifeDisappearSpeed = 150;
 
@@ -67,18 +67,22 @@ class ScorePage : public QWidget {
   QMovie life_movie_;
   QMovie life_disappear_movie_;
 
+  QSize resolution_;
+
   QTimer expire_timer_;
   bool is_minigame_passed_ = false;
   bool is_life_disappearing_ = false;
 
   void SetUpLives();
-  QGraphicsPixmapItem* GetNewLife(int32_t index) const;
+  void UpdateLife(int32_t index);
   void RemoveLife();
 
   void SetUpAnimations();
 
   void SetScore(int32_t score);
   int32_t GetScore() const;
+
+  void resizeEvent(QResizeEvent* event) override;
 };
 
 #endif  // POINTSPAGE_H

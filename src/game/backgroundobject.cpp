@@ -3,12 +3,14 @@
 #include <QDir>
 #include <limits>
 
-void BackgroundObject::SetUp(GameView* game_view,
-                             const QString& path_to_image) {
+#include "src/game/gameobject.h"
+
+void BackgroundObject::SetUp(GameView* game_view, const QString& short_path) {
   setZValue(std::numeric_limits<qreal>::lowest());
-  setOffset(-game_view->width() / 2, -game_view->height() / 2);
+  int32_t width = game_view->width();
+  int32_t height = game_view->height();
+  setOffset(-width / 2, -height / 2);
   setPos(0, 0);
-  setPixmap(
-      QPixmap(QDir::currentPath() + "/data/images/minigames/" + path_to_image)
-          .scaled(game_view->width(), game_view->height()));
+  setPixmap(GameObject::GetPixmapLoader()->GetPixmap(
+      short_path, QSizeF(width, height).toSize()));
 }
