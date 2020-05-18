@@ -41,4 +41,4 @@ class Audio {
   static QMediaPlaylist game_songs_;
 };
 
-#endif // AUDIO_H
+#endif  // AUDIO_H
