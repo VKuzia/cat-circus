@@ -78,12 +78,16 @@ void SettingsWidget::Load() {
 
     volume_on_ = load.readLine().toInt() == 1;
     ui_->ui_sound_check_box_->setChecked(volume_on_);
+    if (volume_on_) {
+        Audio::PlayMusic();
+    }
 
     int volume = load.readLine().toInt();
     if (volume >= ui_->ui_volume_->minimum() &&
             volume <= ui_->ui_volume_->maximum()) {
         volume_ = volume;
         ui_->ui_volume_->setValue(volume_);
+        Audio::SetVolume(volume_);
     } else {
         QMessageBox::warning(
             nullptr, "Warning",
@@ -136,14 +140,17 @@ void SettingsWidget::ChangeSound() {
     if (ui_->ui_sound_check_box_->isChecked()) {
         ui_->ui_sound_check_box_->setText("On");
         volume_on_ = true;
+        Audio::PlayMusic();
         return;
     }
     ui_->ui_sound_check_box_->setText("Off");
     volume_on_ = false;
+    Audio::Stop();
 }
 
 void SettingsWidget::ChangeVolume() {
     volume_ = ui_->ui_volume_->value();
+    Audio::SetVolume(volume_);
 }
 
 void SettingsWidget::ChangeLanguage() {

@@ -3,6 +3,9 @@
 
 #include <QMediaPlayer>
 #include <QDir>
+#include <QMediaPlaylist>
+#include <QMediaContent>
+#include <QMap>
 
 class Audio {
  public:
@@ -10,24 +13,28 @@ class Audio {
   ~Audio() = default;
 
  signals:
-  void AnimeReleased();
+  void MenuSongFinished();
 
  public slots:
-  void PlayMusic();
-  void PlaySound();
+  static void PlayMusic();
+  static void PlaySound();
+  static void PlaySound(QString content);
 
-  void SwitchMusic();
-  void SwitchSound();
-  void SetVolume();
+  static void SwitchMusic();
+  static void SetVolume(int volume);
 
-  void Stop();
-  void Finish();
+  static void Stop();
+
+  void PreLoadSounds();
+  void PreLoadMusics();
 
  private:
-  const QString kPathToAudio = QDir::currentPath() + "/data/audio/";
+  static QString kPathToAudio_;
+  static QMediaPlayer music_player_;
+  static QMediaPlayer sound_player_;
 
-  QMediaPlayer* music_player_;
-  QMediaPlayer* sound_player_;
+  static QMap<QString, QMediaContent> sounds_;
+  static QMap<QString, QMediaContent> musics_;
 };
 
 #endif // AUDIO_H
