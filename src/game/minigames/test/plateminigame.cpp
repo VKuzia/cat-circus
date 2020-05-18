@@ -1,21 +1,23 @@
-#include "testminigame.h"
+#include "plateminigame.h"
 
 #include <QMouseEvent>
 #include <QRandomGenerator64>
 #include <limits>
 
-TestMinigame::TestMinigame(GameView* game_view, qreal difficulty,
-                           qreal pixels_in_meter)
+PlateMinigame::PlateMinigame(GameView* game_view, qreal difficulty,
+                             qreal pixels_in_meter)
     : Minigame(game_view, difficulty, pixels_in_meter) {
   game_view_->SetPixelsInMeter(kPixelsInMeter);
 }
 
-void TestMinigame::SetUp() {
-  game_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
+void PlateMinigame::SetUp() {
+  background_->SetUp(game_view_, "plate/plate.png");
+  game_view_->scene()->addItem(background_);
+
   AddBall();
 }
 
-void TestMinigame::SetUpLabel() {
+void PlateMinigame::SetUpLabel() {
   // Random coefs just for testing the basic game loop
   tutorial_label_->setHtml("[TUTORIAL]");
   tutorial_label_->setDefaultTextColor(Qt::white);
@@ -23,45 +25,49 @@ void TestMinigame::SetUpLabel() {
   tutorial_label_->setZValue(std::numeric_limits<qreal>::max());
 }
 
-void TestMinigame::SetUpParameters() {
+void PlateMinigame::SetUpParameters() {
   // Random coefs just for testing the basic game loop
   time_ = qRound(kBasicDuration / (difficulty_ * 1.5 + 1.0));
   balls_count_ = kBasicBallNumber + qRound(difficulty_ / 0.2);
   ball_radius_ = qRound(kBasicBallRadius * (1 - difficulty_));
 }
-void TestMinigame::Start() { AnimateTutorial(); }
+void PlateMinigame::Start() { AnimateTutorial(); }
 
-void TestMinigame::AnimateTutorial() {
+void PlateMinigame::AnimateTutorial() {
   SetUpLabel();
   QTimer::singleShot(kTutorialDuration, this, [this] { StartGame(); });
 }
 
-void TestMinigame::StartGame() {
+void PlateMinigame::StartGame() {
   time_bar_->setVisible(true);
   tutorial_label_->setVisible(false);
   time_bar_->Launch(time_);
-  QTimer::singleShot(time_, this, [this] { Stop(MinigameStatus::kFailed); });
+  QTimer::singleShot(time_, this, [this] {
+    if (is_running_) {
+      Stop(MinigameStatus::kFailed);
+    }
+  });
   tick_timer_.setInterval(1000 / kFps);
-  connect(&tick_timer_, &QTimer::timeout, this, &TestMinigame::Tick);
+  connect(&tick_timer_, &QTimer::timeout, this, &PlateMinigame::Tick);
 
   is_running_ = true;
 
   tick_timer_.start();
 }
 
-void TestMinigame::Tick() {}
+void PlateMinigame::Tick() {}
 
-void TestMinigame::AddBall() {
+void PlateMinigame::AddBall() {
   QPointF center = GetRandomBallCenter();
   ClickableBall* ball =
       new ClickableBall(game_view_, ball_radius_ * 2, ball_radius_ * 2, center);
   ball->SetUp();
-  connect(ball, &ClickableBall::Clicked, this, &TestMinigame::DeleteBall);
+  connect(ball, &ClickableBall::Clicked, this, &PlateMinigame::DeleteBall);
   current_ball_ = ball;
   game_view_->scene()->addItem(ball);
 }
 
-void TestMinigame::DeleteBall() {
+void PlateMinigame::DeleteBall() {
   if (current_ball_ == nullptr || !is_running_) {
     return;
   }
@@ -77,7 +83,7 @@ void TestMinigame::DeleteBall() {
   }
 }
 
-QPointF TestMinigame::GetRandomBallCenter() const {
+QPointF PlateMinigame::GetRandomBallCenter() const {
   // Scene's (0,0) point is in its centre.
   // That's why we subtract a half of width(height)
   // Then scale for center being inside but the edges
@@ -92,13 +98,13 @@ QPointF TestMinigame::GetRandomBallCenter() const {
   return QPointF(x, y);
 }
 
-void TestMinigame::Stop(MinigameStatus status) {
+void PlateMinigame::Stop(MinigameStatus status) {
   is_running_ = false;
   tick_timer_.stop();
   time_bar_->setVisible(false);
   switch (status) {
     case MinigameStatus::kPassed:
-      score_ = 100 + time_left_ * 10 / timer_.interval();
+      score_ = 100 + time_left_ / 50;
       Win();
       break;
     case MinigameStatus::kFailed:
@@ -107,28 +113,28 @@ void TestMinigame::Stop(MinigameStatus status) {
   }
 }
 
-void TestMinigame::MousePressEvent(QMouseEvent*) {
+void PlateMinigame::MousePressEvent(QMouseEvent*) {
   if (!is_running_) {
     return;
   }
   game_view_->scene()->setBackgroundBrush(kMousePressedBackgroundBrush);
 }
 
-void TestMinigame::MouseReleaseEvent(QMouseEvent*) {
+void PlateMinigame::MouseReleaseEvent(QMouseEvent*) {
   if (!is_running_) {
     return;
   }
   game_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
 }
 
-void TestMinigame::KeyPressEvent(QKeyEvent*) {
+void PlateMinigame::KeyPressEvent(QKeyEvent*) {
   if (!is_running_) {
     return;
   }
   game_view_->scene()->setBackgroundBrush(kKeyPressedBackgroundBrush);
 }
 
-void TestMinigame::KeyReleaseEvent(QKeyEvent*) {
+void PlateMinigame::KeyReleaseEvent(QKeyEvent*) {
   if (!is_running_) {
     return;
   }
