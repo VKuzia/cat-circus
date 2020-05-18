@@ -35,7 +35,7 @@ class MainWindow : public QMainWindow {
   void AnimateLoading();
   void SetGamePage();
 
-  void SetStyle();
+  void SetStyle(QSize resolution);
 
   void resizeEvent(QResizeEvent* event) override;
 

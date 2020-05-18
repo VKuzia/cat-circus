@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget* parent)
 
   QCoreApplication::setAttribute(Qt::AA_UseStyleSheetPropagationInWidgetStyles,
                                  true);
-  SetStyle();
 }
 
 void MainWindow::ChangeToMainMenu() {
@@ -80,8 +79,9 @@ void MainWindow::SetGamePage() {
   }
 }
 
-void MainWindow::SetStyle() {
-  QFile style_file(QDir::currentPath() + "/data/styles/style.qss");
+void MainWindow::SetStyle(QSize resolution) {
+  QString style_name = "style_" + QString::number(resolution.width()) + ".qss";
+  QFile style_file(QDir::currentPath() + "/data/styles/" + style_name);
   if (!style_file.open(QFile::ReadOnly)) {
     QMessageBox::warning(nullptr, "File error",
                          "Can't load style. Use default");
@@ -118,6 +118,7 @@ MainWindow::~MainWindow() { delete ui_; }
 
 void MainWindow::SetUp() {
   QSize resolution = ui_->ui_settings_widget_->GetResolution();
+  SetStyle(resolution);
   this->setFixedSize(resolution);
   ui_->ui_game_widget_->SetResolution(resolution);
 
