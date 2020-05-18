@@ -24,11 +24,11 @@ class TrampolineMinigame : public Minigame {
   void MouseMoveEvent(QMouseEvent*) override;
 
  private:
-  const QBrush kEmptyBackgroundBrush_ = Qt::NoBrush;
-  const QBrush kWinBackgroundBrush_ = QBrush(QColor::fromRgb(10, 200, 10));
-  const QBrush kLoseBackgroundBrush_ = QBrush(QColor::fromRgb(191, 8, 8));
+  const QString kTutorialText_ =
+      "Help the cat to rotate properly!\n Use your mouse to swipe in "
+      "directions shown\n Keep swipes long!";
 
-  const QPen kMousePathPen_ = QPen(QBrush(QColor::fromRgb(200, 0, 0, 150)), 5);
+  const QPen kMousePathPen_ = QPen(QBrush(QColor::fromRgb(236, 45, 250)), 5);
   const int32_t kMousePathFadeAwayTime_ = 2000;
 
   const QSizeF kCatSize_ = {1.5, 1.5};
@@ -69,7 +69,6 @@ class TrampolineMinigame : public Minigame {
   void FinishFlip();
 
   void SetUp() override;
-  void SetUpLabel() override;
   void SetUpParameters() override;
   void SetUpTiles();
 

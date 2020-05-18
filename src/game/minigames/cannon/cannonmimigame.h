@@ -19,7 +19,13 @@ class CannonMinigame : public Minigame {
 
   void Start() override;
 
-  void KeyPressEvent(QKeyEvent* event) override;
+ public slots:
+  void SausageWasCaught();
+
+ private:
+  const QString kTutorialText_ =
+      "Use A and D keys to set power and angle.\nCatch as many sausages as you "
+      "can!";
 
   const qreal kCatWidth = 1.5;
   const qreal kCatHeight = 2.1;
@@ -47,10 +53,6 @@ class CannonMinigame : public Minigame {
   const QPoint kSausageXBoders = {-6, 6};
 
   const qreal KTutorialHeight = -1.5;
-
-  const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
-  const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
-  const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
   const qreal KSausageRadius = 1.2;
 
@@ -82,7 +84,6 @@ class CannonMinigame : public Minigame {
 
   void LaunchSausage();
   void SetUp() override;
-  void SetUpLabel() override;
   void SetUpParameters() override;
 
   void AnimateTutorial() override;
@@ -93,8 +94,7 @@ class CannonMinigame : public Minigame {
 
   void Stop(MinigameStatus) override;
 
- public slots:
-  void SausageWasCaught();
+  void KeyPressEvent(QKeyEvent* event) override;
 };
 
 #endif  // CANNONMIMIGAME_H

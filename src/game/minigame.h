@@ -61,7 +61,7 @@ class Minigame : public QObject {
   // Sets up a certain Minigame child
   // Adds start GameObjects to scene
   virtual void SetUp() = 0;
-  virtual void SetUpLabel() = 0;
+  virtual void SetUpLabel(const QString& text);
   virtual void SetUpParameters() = 0;
 
   virtual void AnimateTutorial() = 0;

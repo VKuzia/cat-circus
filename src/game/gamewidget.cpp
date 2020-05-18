@@ -1,5 +1,6 @@
 #include "src/game/gamewidget.h"
 
+#include <QRandomGenerator64>
 #include <QStackedLayout>
 #include <QtMath>
 
@@ -47,9 +48,24 @@ void GameWidget::Resume() {
 void GameWidget::Retry() { SetUp(); }
 
 void GameWidget::InitMinigame() {
-  // Some game picking logic should be here
-  Minigame* minigame =
-      new CannonMinigame(ui_->ui_game_view_, current_difficulty_);
+  Minigame* minigame;
+  MinigameType type =
+      static_cast<MinigameType>(QRandomGenerator64::global()->bounded(4));
+  switch (type) {
+    case MinigameType::kJuggling:
+      minigame = new JugglingMinigame(ui_->ui_game_view_, current_difficulty_);
+      break;
+    case MinigameType::kTrampoline:
+      minigame =
+          new TrampolineMinigame(ui_->ui_game_view_, current_difficulty_);
+      break;
+    case MinigameType::kCannon:
+      minigame = new CannonMinigame(ui_->ui_game_view_, current_difficulty_);
+      break;
+    case MinigameType::kPlate:
+      minigame = new PlateMinigame(ui_->ui_game_view_, current_difficulty_);
+      break;
+  }
   SetMinigame(minigame);
   current_minigame_->Init();
 }
@@ -73,6 +89,7 @@ void GameWidget::Lose() {
 }
 
 void GameWidget::MinigamePassed(int32_t score) {
+  score += QRandomGenerator64::global()->bounded(kRandomPointsBound_);
   ui_->ui_score_page_->MiniGamePassed(score);
   ShowScore();
   // To increase difficulty staying in (0, 1)

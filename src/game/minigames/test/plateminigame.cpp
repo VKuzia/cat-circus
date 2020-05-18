@@ -6,23 +6,15 @@
 
 PlateMinigame::PlateMinigame(GameView* game_view, qreal difficulty,
                              qreal pixels_in_meter)
-    : Minigame(game_view, difficulty, pixels_in_meter) {
-  game_view_->SetPixelsInMeter(kPixelsInMeter);
-}
+    : Minigame(game_view, difficulty, pixels_in_meter) {}
 
 void PlateMinigame::SetUp() {
   background_->SetUp(game_view_, "plate/plate.png");
   game_view_->scene()->addItem(background_);
 
-  AddBall();
-}
+  SetUpLabel(kTutorialText_);
 
-void PlateMinigame::SetUpLabel() {
-  // Random coefs just for testing the basic game loop
-  tutorial_label_->setHtml("[TUTORIAL]");
-  tutorial_label_->setDefaultTextColor(Qt::white);
-  tutorial_label_->setTextWidth(300);
-  tutorial_label_->setZValue(std::numeric_limits<qreal>::max());
+  AddBall();
 }
 
 void PlateMinigame::SetUpParameters() {
@@ -34,7 +26,6 @@ void PlateMinigame::SetUpParameters() {
 void PlateMinigame::Start() { AnimateTutorial(); }
 
 void PlateMinigame::AnimateTutorial() {
-  SetUpLabel();
   QTimer::singleShot(kTutorialDuration, this, [this] { StartGame(); });
 }
 
@@ -111,32 +102,4 @@ void PlateMinigame::Stop(MinigameStatus status) {
       Lose();
       break;
   }
-}
-
-void PlateMinigame::MousePressEvent(QMouseEvent*) {
-  if (!is_running_) {
-    return;
-  }
-  game_view_->scene()->setBackgroundBrush(kMousePressedBackgroundBrush);
-}
-
-void PlateMinigame::MouseReleaseEvent(QMouseEvent*) {
-  if (!is_running_) {
-    return;
-  }
-  game_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
-}
-
-void PlateMinigame::KeyPressEvent(QKeyEvent*) {
-  if (!is_running_) {
-    return;
-  }
-  game_view_->scene()->setBackgroundBrush(kKeyPressedBackgroundBrush);
-}
-
-void PlateMinigame::KeyReleaseEvent(QKeyEvent*) {
-  if (!is_running_) {
-    return;
-  }
-  game_view_->scene()->setBackgroundBrush(kSimpleBackgroundBrush);
 }

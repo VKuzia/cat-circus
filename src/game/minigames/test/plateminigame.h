@@ -15,24 +15,13 @@ class PlateMinigame : public Minigame {
 
   void Start() override;
 
-  void MousePressEvent(QMouseEvent* event) override;
-  void MouseReleaseEvent(QMouseEvent* event) override;
-  void KeyPressEvent(QKeyEvent* event) override;
-  void KeyReleaseEvent(QKeyEvent* event) override;
-
  private:
-  const qreal kPixelsInMeter = 576 / 5;
+  const QString kTutorialText_ =
+      "Catch all sausages\nby clicking them!\nHurry up!";
+
   const int32_t kBasicDuration = 5000;
   const int32_t kBasicBallRadius = 1;
   const int32_t kBasicBallNumber = 3;
-
-  const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
-  const QBrush kSimpleBackgroundBrush = QBrush(QColor::fromRgb(224, 107, 22));
-  const QBrush kMousePressedBackgroundBrush =
-      QBrush(QColor::fromRgb(200, 0, 0));
-  const QBrush kKeyPressedBackgroundBrush = QBrush(QColor::fromRgb(0, 0, 200));
-  const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
-  const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
   // Determines width of centered rectangle relatively
   // scene width in order not to generate circles at the edges
@@ -44,7 +33,6 @@ class PlateMinigame : public Minigame {
   ClickableBall* current_ball_ = nullptr;
 
   void SetUp() override;
-  void SetUpLabel() override;
   void SetUpParameters() override;
 
   void AnimateTutorial() override;

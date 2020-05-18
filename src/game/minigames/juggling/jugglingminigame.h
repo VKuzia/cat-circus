@@ -19,14 +19,15 @@ class JugglingMinigame : public Minigame {
 
   void KeyPressEvent(QKeyEvent* event) override;
 
+ private:
+  const QString kTutorialText_ =
+      "Use A and D keys to move cats paws.\n You are a performer:\n don't drop "
+      "your balls!";
+
   const QSizeF kCatSize = {1.5, 2.1};
   const QPointF kCatPos = {0, 1};
 
   const qreal KTutorialHeight = -1.5;
-
-  const QBrush kEmptyBackgroundBrush = Qt::NoBrush;
-  const QBrush kWinBackgroundBrush = QBrush(QColor::fromRgb(10, 200, 10));
-  const QBrush kLoseBackgroundBrush = QBrush(QColor::fromRgb(191, 8, 8));
 
   const QPointF kBallStartPos = {4.6, 0};
   const qreal kBallRadius = 0.11;
@@ -45,7 +46,6 @@ class JugglingMinigame : public Minigame {
   void LaunchBall();
 
   void SetUp() override;
-  void SetUpLabel() override;
   void SetUpParameters() override;
 
   void AnimateTutorial() override;

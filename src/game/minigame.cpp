@@ -29,7 +29,6 @@ void Minigame::Init() {
   game_view_->scene()->addItem(time_bar_);
   game_view_->scene()->addItem(tutorial_label_);
   SetUpParameters();
-  SetUpLabel();
   SetUp();
 }
 
@@ -48,5 +47,14 @@ void Minigame::Win() { game_view_->AnimateOutro(MinigameStatus::kPassed); }
 void Minigame::Lose() { game_view_->AnimateOutro(MinigameStatus::kFailed); }
 
 int32_t Minigame::GetScore() const { return score_; }
+
+void Minigame::SetUpLabel(const QString& text) {
+  tutorial_label_->setHtml(text);
+  tutorial_label_->setFont(QFont("Verdana", 25));
+  tutorial_label_->setDefaultTextColor(QColor::fromRgb(10, 201, 16));
+  tutorial_label_->setTextWidth(game_view_->width() / 2);
+  tutorial_label_->setZValue(std::numeric_limits<qreal>::max());
+  tutorial_label_->setPos(-tutorial_label_->boundingRect().center());
+}
 
 void Minigame::WheelEvent(QWheelEvent*) {}
