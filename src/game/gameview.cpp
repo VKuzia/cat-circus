@@ -11,13 +11,13 @@ GameView::GameView(QWidget* parent)
       failed_image_(new QGraphicsPixmapItem()),
       passed_image_(new QGraphicsPixmapItem()) {
   this->setScene(new QGraphicsScene(this));
-
   this->setRenderHints(QPainter::Antialiasing |
                        QPainter::SmoothPixmapTransform);
   this->setOptimizationFlags(DontSavePainterState);
   this->setCacheMode(CacheBackground);
   this->setViewportUpdateMode(ViewportUpdateMode::MinimalViewportUpdate);
   scene()->setItemIndexMethod(QGraphicsScene::NoIndex);
+  SetUpOutroAnimation();
 }
 
 void GameView::SetUp(QSize resolution) {
@@ -26,7 +26,6 @@ void GameView::SetUp(QSize resolution) {
   this->scene()->setSceneRect(-resolution.width() / 2, -resolution.height() / 2,
                               resolution.width(), resolution.height());
   SetUpOutroRect();
-  SetUpOutroAnimation();
   SetUpOutroImage(failed_image_, "failed.png");
   failed_image_start_y_ = this->height() * kFailedImageStartYFactor_;
   SetUpOutroImage(passed_image_, "passed.png");

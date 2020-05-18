@@ -119,6 +119,7 @@ void TrampolineMinigame::Tick() {
         if (is_failed_) {
           QTimer::singleShot(kFailFlyAwayTime_, this,
                              [this] { Stop(MinigameStatus::kFailed); });
+
           cat_->SetVelocity(physics::Throw(cat_->GetPos(), kFailAimPoint_,
                                            kFailFlyAwayTime_ / 1000.0));
         } else {

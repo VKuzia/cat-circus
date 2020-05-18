@@ -49,6 +49,7 @@ SOURCES += \
         src/game/physics/physics.cpp \
         src/game/timebar.cpp \
         src/menu/aboutwidget.cpp \
+        src/menu/button.cpp \
         src/menu/loadingwidget.cpp \
         src/menu/main.cpp \
         src/menu/mainwindow.cpp \
@@ -80,6 +81,7 @@ HEADERS += \
         src/game/physics/physics.h \
         src/game/timebar.h \
         src/menu/aboutwidget.h \
+        src/menu/button.h \
         src/menu/loadingwidget.h \
         src/menu/mainwindow.h \
         src/menu/settingswidget.h
@@ -97,3 +99,5 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=

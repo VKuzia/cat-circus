@@ -10,11 +10,13 @@ JugglingMinigame::JugglingMinigame(GameView* game_view, qreal difficulty,
 void JugglingMinigame::Start() { AnimateTutorial(); }
 
 void JugglingMinigame::SetUp() {
+  background_->SetUp(game_view_, "juggling/background.png");
   game_view_->scene()->addItem(background_);
 
   cat_ = new JugglingCat(game_view_, kCatSize, kCatPos);
   cat_->SetUp();
-  // Need to set this here because ball_air_time_ is defined by SetParamateres
+  // Need to set this here because ball_air_time_ is defined
+  // by SetParamaters
   cat_->GetLeftHand()->SetBallAirTime(ball_air_time_ / 1000.0);
   cat_->GetRightHand()->SetBallAirTime(ball_air_time_ / 1000.0);
   game_view_->scene()->addItem(cat_);
@@ -190,7 +192,7 @@ void JugglingMinigame::LaunchBall() {
                                          : cat_->GetLeftHand()->GetBasePos();
   ball->SetVelocity(
       physics::Throw(ball->GetPos(), target_pos, kBallLaunchFlightTime));
-  balls_.insert(ball);
   ball->SetUp();
+  balls_.insert(ball);
   game_view_->scene()->addItem(ball);
 }
