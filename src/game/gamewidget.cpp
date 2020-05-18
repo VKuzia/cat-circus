@@ -1,5 +1,5 @@
 #include "src/game/gamewidget.h"
-
+#include "src/menu/audio.h"
 #include <QStackedLayout>
 #include <QtMath>
 
@@ -33,6 +33,7 @@ GameWidget::GameWidget(QWidget* parent)
 void GameWidget::ReturnToMainMenu() {
   SetMinigame(nullptr);
   emit MainMenu();
+  Audio::PlayMenuMusic();
 }
 
 void GameWidget::Pause() {
