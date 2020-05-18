@@ -35,18 +35,19 @@ void MainWindow::ChangeToMainMenu() {
 void MainWindow::ChangeToGame() {
   widget_to_change_to_ = ui_->ui_game_widget_;
   ui_->ui_game_widget_->SetUp();
+  Audio::PlayGameMusic();
   AnimateLoading();
 }
 
 void MainWindow::ChangeToSettings() {
   widget_to_change_to_ = ui_->ui_settings_widget_;
-  Audio::PlaySound();
+  Audio::PlaySound("button.mp3");
   AnimateLoading();
 }
 
 void MainWindow::ChangeToAbout() {
   widget_to_change_to_ = ui_->ui_about_widget_;
-  Audio::PlaySound("life_lose.mp3");
+  Audio::PlaySound("button.mp3");
   AnimateLoading();
 }
 
