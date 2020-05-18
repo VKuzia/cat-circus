@@ -12,6 +12,8 @@ class Vector2D : public QPointF {
 
   Vector2D& operator=(Vector2D rhs);
 
+  bool IsZero();
+
   friend Vector2D operator+(Vector2D, Vector2D);
   Vector2D& operator+=(Vector2D);
 
