@@ -12,6 +12,7 @@ void JugglingMinigame::Start() { AnimateTutorial(); }
 void JugglingMinigame::SetUp() {
   background_->SetUp(game_view_, "juggling/background.png");
   game_view_->scene()->addItem(background_);
+  SetUpLabel(kTutorialText_);
 
   cat_ = new JugglingCat(game_view_, kCatSize, kCatPos);
   cat_->SetUp();
@@ -24,15 +25,6 @@ void JugglingMinigame::SetUp() {
   ball_timer_.setInterval(ball_launch_period_);
   connect(&ball_timer_, &QTimer::timeout, this, &JugglingMinigame::LaunchBall);
   LaunchBall();
-}
-
-void JugglingMinigame::SetUpLabel() {
-  tutorial_label_->setHtml("[TUTORIAL]");
-  tutorial_label_->setDefaultTextColor(Qt::black);
-  tutorial_label_->setTextWidth(300);
-  tutorial_label_->setZValue(std::numeric_limits<qreal>::max());
-  tutorial_label_->setPos(0, 0);
-  tutorial_label_->setVisible(false);
 }
 
 void JugglingMinigame::AnimateTutorial() {

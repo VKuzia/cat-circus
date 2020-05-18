@@ -15,6 +15,8 @@ void TrampolineMinigame::SetUp() {
   background_->SetUp(game_view_, "trampoline/background.png");
   game_view_->scene()->addItem(background_);
 
+  SetUpLabel(kTutorialText_);
+
   cat_ = new TrampolineCat(game_view_, kCatSize_, kCatStartPos_);
   cat_->SetUp();
   game_view_->scene()->addItem(cat_);
@@ -25,16 +27,6 @@ void TrampolineMinigame::SetUp() {
   game_view_->scene()->addItem(trampoline_);
 
   SetUpTiles();
-  SetUpLabel();
-}
-
-void TrampolineMinigame::SetUpLabel() {
-  tutorial_label_->setHtml("[TUTORIAL]");
-  tutorial_label_->setDefaultTextColor(Qt::black);
-  tutorial_label_->setTextWidth(300);
-  tutorial_label_->setZValue(100);
-  tutorial_label_->setPos(0, 0);
-  tutorial_label_->setVisible(false);
 }
 
 void TrampolineMinigame::SetUpParameters() {

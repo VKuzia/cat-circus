@@ -12,6 +12,8 @@ void CannonMinigame::SetUp() {
   background_->SetUp(game_view_, "cannon/circus.png");
   game_view_->scene()->addItem(background_);
 
+  SetUpLabel(kTutorialText_);
+
   cat_ = new CannonCat(game_view_, kCatWidth, kCatHeight, kCatX, kCatY);
   cat_->SetUp();
   game_view_->scene()->addItem(cat_);
@@ -34,8 +36,6 @@ void CannonMinigame::SetUp() {
       "cannon/spedometer.png", speedometer_->boundingRect().size().toSize()));
   game_view_->scene()->addItem(speedometer_);
 
-  SetUpLabel();
-
   for (int i = 0; i < sausage_count_; i++) {
     LaunchSausage();
   }
@@ -48,15 +48,6 @@ void CannonMinigame::SetUp() {
     status_bar_.push_front(status_elem);
     game_view_->scene()->addItem(status_elem);
   }
-}
-
-void CannonMinigame::SetUpLabel() {
-  tutorial_label_->setHtml("[TUTORIAL]");
-  tutorial_label_->setDefaultTextColor(Qt::black);
-  tutorial_label_->setTextWidth(300);
-  tutorial_label_->setZValue(100);
-  tutorial_label_->setPos(0, 0);
-  tutorial_label_->setVisible(false);
 }
 
 void CannonMinigame::AnimateTutorial() {
