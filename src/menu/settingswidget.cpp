@@ -56,7 +56,7 @@ void SettingsWidget::Save() const {
        << kResolutions_[current_resolution_index].width() << ' '
        << kResolutions_[current_resolution_index].height() << '\n'
        << kLanguages_[current_language_index] << '\n'
-       << user_name_ << '\n';
+       << player_name_ << '\n';
 
   file.close();
 }
@@ -113,8 +113,8 @@ void SettingsWidget::Load() {
     ui_->ui_language_combo_box_->setCurrentIndex(language_index);
   }
 
-  user_name_ = load.readLine();
-  ui_->ui_user_line_edit_->setText(user_name_);
+  player_name_ = load.readLine();
+  ui_->ui_user_line_edit_->setText(player_name_);
 
   file.close();
 }
@@ -126,6 +126,8 @@ QSize SettingsWidget::GetResolution() const {
 QString SettingsWidget::GetLanguage() const {
   return kLanguages_[ui_->ui_language_combo_box_->currentIndex()];
 }
+
+QString SettingsWidget::GetPlayerName() const { return player_name_; }
 
 void SettingsWidget::ChangeSound() {
   if (ui_->ui_sound_check_box_->isChecked()) {
@@ -142,7 +144,8 @@ void SettingsWidget::ChangeVolume() { volume_ = ui_->ui_volume_->value(); }
 void SettingsWidget::ChangeLanguage() { emit LanguageChanged(); }
 
 void SettingsWidget::ChangeUserName() {
-  user_name_ = ui_->ui_user_line_edit_->text();
+  player_name_ = ui_->ui_user_line_edit_->text();
+  emit PlayerNameChanged();
 }
 
 void SettingsWidget::ChangeResolution() { emit ResolutionChanged(); }

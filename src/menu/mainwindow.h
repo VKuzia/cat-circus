@@ -38,6 +38,8 @@ class MainWindow : public QMainWindow {
   void SetStyle();
 
   void resizeEvent(QResizeEvent* event) override;
+
+  void RenamePlayer();
 };
 
 #endif  // MAINWINDOW_H

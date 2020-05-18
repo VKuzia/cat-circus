@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget* parent)
 
   connect(ui_->ui_settings_widget_, &SettingsWidget::ResolutionChanged, this,
           &MainWindow::SetUp);
+  connect(ui_->ui_settings_widget_, &SettingsWidget::PlayerNameChanged, this,
+          &MainWindow::RenamePlayer);
 
   dynamic_cast<QStackedLayout*>(ui_->ui_base_stacked_widget_->layout())
       ->setStackingMode(QStackedLayout::StackingMode::StackAll);
@@ -95,6 +97,11 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
   ui_->ui_about_button_->Resize(event);
 }
 
+void MainWindow::RenamePlayer() {
+  ui_->ui_hello_label_->setText(
+      "Hello, " + ui_->ui_settings_widget_->GetPlayerName() + "!");
+}
+
 void MainWindow::ChangeWidget() {
   if (widget_to_change_to_ == ui_->ui_game_widget_) {
     ui_->ui_background_label_->movie()->setPaused(true);
@@ -115,4 +122,5 @@ void MainWindow::SetUp() {
   ui_->ui_game_widget_->SetResolution(resolution);
 
   ui_->ui_background_label_->movie()->setScaledSize(resolution);
+  RenamePlayer();
 }

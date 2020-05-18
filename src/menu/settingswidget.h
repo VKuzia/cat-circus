@@ -18,11 +18,13 @@ class SettingsWidget : public QWidget {
   void Load();
   QSize GetResolution() const;
   QString GetLanguage() const;
+  QString GetPlayerName() const;
 
  signals:
   void MainMenu();
   void ResolutionChanged();
   void LanguageChanged();
+  void PlayerNameChanged();
 
  public slots:
   void ReturnToMainMenu();
@@ -42,7 +44,7 @@ class SettingsWidget : public QWidget {
 
   bool volume_on_ = true;
   int volume_ = 1;
-  QString user_name_ = "Player";
+  QString player_name_ = "Player";
 
   Ui::SettingsWidget* ui_;
 
