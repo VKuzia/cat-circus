@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -53,6 +53,7 @@ SOURCES += \
         src/game/physics/physics.cpp \
         src/game/timebar.cpp \
         src/menu/aboutwidget.cpp \
+        src/menu/audio.cpp \
         src/menu/button.cpp \
         src/menu/loadingwidget.cpp \
         src/menu/main.cpp \
@@ -89,6 +90,7 @@ HEADERS += \
         src/game/physics/physics.h \
         src/game/timebar.h \
         src/menu/aboutwidget.h \
+        src/menu/audio.h \
         src/menu/button.h \
         src/menu/loadingwidget.h \
         src/menu/mainwindow.h \

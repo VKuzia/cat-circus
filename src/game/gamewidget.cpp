@@ -8,6 +8,7 @@
 #include "src/game/minigames/juggling/jugglingminigame.h"
 #include "src/game/minigames/test/plateminigame.h"
 #include "src/game/minigames/trampoline/trampolineminigame.h"
+#include "src/menu/audio.h"
 #include "ui_gamewidget.h"
 
 GameWidget::GameWidget(QWidget* parent)
@@ -34,6 +35,7 @@ GameWidget::GameWidget(QWidget* parent)
 void GameWidget::ReturnToMainMenu() {
   SetMinigame(nullptr);
   emit MainMenu();
+  Audio::PlayMenuMusic();
 }
 
 void GameWidget::Pause() {

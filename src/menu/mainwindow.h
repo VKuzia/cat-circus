@@ -4,6 +4,8 @@
 #include <QDir>
 #include <QMainWindow>
 
+#include "audio.h"
+
 namespace Ui {
 class MainWindow;
 }
