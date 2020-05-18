@@ -115,6 +115,7 @@ void TrampolineMinigame::Tick() {
           cat_->SetVelocity(physics::Throw(cat_->GetPos(), kFailAimPoint_,
                                            kFailFlyAwayTime_ / 1000.0));
         } else {
+          Audio::PlaySound("trampoline.mp3");
           cat_->SetMood(TrampolineCat::Mood::kNormal);
           cat_->SetVelocity(0, -cat_->GetVelocity().y());
         }

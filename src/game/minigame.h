@@ -8,6 +8,7 @@
 #include "src/game/backgroundobject.h"
 #include "src/game/minigamestatus.h"
 #include "src/game/timebar.h"
+#include "src/menu/audio.h"
 
 class GameView;
 

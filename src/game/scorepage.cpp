@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QResizeEvent>
 
+#include "src/menu/audio.h"
 #include "ui_scorepage.h"
 
 ScorePage::ScorePage(QWidget* parent)
@@ -69,6 +70,7 @@ void ScorePage::MiniGameFailed() {
   is_minigame_passed_ = false;
   RemoveLife();
   if (remaining_lives_ == 0) {
+    Audio::PlaySound("game_end.wav");
     ui_->ui_label_->setText("You lost...");
     expire_timer_.stop();
     ui_->ui_retry_button_->setVisible(true);
