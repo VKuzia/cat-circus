@@ -27,7 +27,8 @@ SettingsWidget::SettingsWidget(QWidget* parent)
                       QString::number(element.height()));
       }
   }
-
+  Audio::PreLoadMenuSongs();
+  Audio::PreLoadGameSongs();
   Load();
 }
 
@@ -145,7 +146,8 @@ void SettingsWidget::ChangeSound() {
     }
     ui_->ui_sound_check_box_->setText("Off");
     volume_on_ = false;
-    Audio::Stop();
+    Audio::StopMusic();
+    Audio::StopSound();
 }
 
 void SettingsWidget::ChangeVolume() {
