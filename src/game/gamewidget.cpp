@@ -3,6 +3,7 @@
 #include <QStackedLayout>
 #include <QtMath>
 
+#include "src/game/minigames/cannon/cannonmimigame.h"
 #include "src/game/minigames/juggling/jugglingminigame.h"
 #include "src/game/minigames/test/testminigame.h"
 #include "src/game/minigames/trampoline/trampolineminigame.h"
@@ -48,7 +49,7 @@ void GameWidget::Retry() { SetUp(); }
 void GameWidget::InitMinigame() {
   // Some game picking logic should be here
   Minigame* minigame =
-      new TrampolineMinigame(ui_->ui_game_view_, current_difficulty_);
+      new CannonMinigame(ui_->ui_game_view_, current_difficulty_);
   SetMinigame(minigame);
   current_minigame_->Init();
 }

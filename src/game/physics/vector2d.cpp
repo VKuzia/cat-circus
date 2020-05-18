@@ -10,6 +10,8 @@ Vector2D& Vector2D::operator=(Vector2D rhs) {
   return *this;
 }
 
+bool Vector2D::IsZero() { return qFabs(x()) < 0.00001 && qFabs(y()) < 0.00001; }
+
 Vector2D operator+(Vector2D first, Vector2D second) {
   first += second;
   return first;
